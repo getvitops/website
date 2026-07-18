@@ -3,6 +3,8 @@ node_modules/
 
 # Build output
 dist/
+# Adapter-generated at build time (immutable Cache-Control for /_astro/*)
+public/_headers
 
 # Astro
 .astro/
