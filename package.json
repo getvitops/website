@@ -12,6 +12,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "deploy": "astro build && wrangler deploy",
+    "build:dev": "astro build && node scripts/build-dev-wrangler.mjs",
+    "deploy:dev": "npm run build:dev && wrangler deploy --config dist/server/wrangler.dev.json",
     "typecheck": "astro check",
     "prepare": "vp config"
   },

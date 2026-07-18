@@ -35,4 +35,18 @@
   "triggers": {
     "crons": ["* * * * *"],
   },
+  // ── Dev environment ──────────────────────────────────────────────────────
+  // NOTE: wrangler `"env": { "dev": … }` blocks do NOT work here — the
+  // @astrojs/cloudflare adapter regenerates dist/server/wrangler.json at build
+  // and strips the top-level `env` key, so `wrangler deploy --env dev` never
+  // sees it. Instead we post-process the generated config into a flat dev
+  // config and deploy that. See scripts/build-dev-wrangler.mjs and the
+  // `deploy:dev` script in package.json. Dev binds isolated vitops-dev D1 + R2
+  // so Claude's content/schema edits on dev never touch prod.
+  //
+  // One-time prereqs (your Cloudflare account — run via `! wrangler ...`):
+  //   wrangler d1 create vitops-dev        → export VITOPS_DEV_D1_ID=<id>
+  //   wrangler r2 bucket create vitops-dev
+  //   (dev.vitops.ca custom domain is provisioned on first deploy; the
+  //    vitops.ca zone must already exist in the account)
 }

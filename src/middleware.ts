@@ -18,6 +18,10 @@ import { DEFAULT_SPLIT_B, resolveVariant, VARIANT_COOKIE } from "./lib/variant";
 
 const ONE_YEAR = 60 * 60 * 24 * 365;
 
+/** The only host that should be indexed. Everything else (dev.vitops.ca,
+ *  *.workers.dev, previews) gets X-Robots-Tag: noindex. */
+const PROD_HOST = "vitops.ca";
+
 export const onRequest = defineMiddleware(async (context, next) => {
 	const url = new URL(context.request.url);
 
@@ -46,6 +50,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
 	// Attribution for analytics / Logpush.
 	response.headers.set("x-ab-variant", variant);
+
+	// Keep every non-prod host out of search indexes (dev-site auth is a TODO).
+	if (url.hostname !== PROD_HOST) {
+		response.headers.set("x-robots-tag", "noindex, nofollow");
+	}
 
 	// Correctness: variant-dependent HTML must not be served from a cache keyed
 	// only on URL. POC-safe default is `private`; the production move is to add
