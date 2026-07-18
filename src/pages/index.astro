@@ -2,6 +2,9 @@
 import PineLayout from "../layouts/PineLayout.astro";
 import StackAnimation from "../components/StackAnimation.astro";
 import PresenceAnimation from "../components/PresenceAnimation.astro";
+import HeroA from "../components/sections/Hero.astro";
+import HeroB from "../_b/sections/Hero.astro";
+import { pick } from "../lib/variant";
 
 export const prerender = false;
 
@@ -19,28 +22,15 @@ const opsFeatures = [
 	"Managed identity and lifecycle: SCIM and JML",
 	"License tuning, endpoint security, day-to-day software support",
 ];
+
+// A/B: resolve the hero challenger per request. Variant is set in
+// src/middleware.ts from the sticky `ab_variant` cookie.
+const Hero = pick(HeroA, HeroB, Astro.locals.variant);
 ---
 
 <PineLayout description="Vitops runs your digital presence and your IT and HR operations. Managed websites and ad campaigns, plus a fully managed software, identity, and device stack.">
-	<!-- HERO -->
-	<section class="hero hero-glow section centered">
-		<div class="hero-inner spotlight">
-			<span class="font-eyebrow">Digital presence · IT and HR, managed</span>
-			<h1 class="font-display hero-title">
-				The work that keeps your business running, handled by one partner.
-			</h1>
-			<p class="font-lead hero-lead">
-				Vitops builds and runs your digital presence, and manages the IT and
-				HR operations behind it. Two services, one team on file, so the
-				website that wins the customer and the systems that serve them stay in
-				step.
-			</p>
-			<div class="hero-cta cluster">
-				<a class="cta" href="#contact">Talk to us <span class="arrow">→</span></a>
-				<a class="cta-ghost" href="#it-hr">See how it works</a>
-			</div>
-		</div>
-	</section>
+	<!-- HERO (A/B — resolved per request) -->
+	<Hero />
 
 	<!-- PAIN POINT -->
 	<section class="pain section centered">
@@ -94,23 +84,7 @@ const opsFeatures = [
 
 			<div class="services-grid">
 				<article class="card bg-navy-d service-card">
-					<span class="service-tag">01 · Digital presence</span>
-					<h3 class="font-heading">Everywhere your buyers look, handled.</h3>
-					<p class="font-body service-copy">
-						We design, build, and manage a fast, accessible website tuned for
-						both search and AI answers. Around it we run curated ad campaigns,
-						keep your social channels active and on brand, and hold your
-						Google, Bing, and Apple listings accurate and verified. One team
-						keeps the whole presence consistent, so you show up wherever a
-						customer checks.
-					</p>
-					<ul class="feature-list">
-						{digitalFeatures.map((f) => <li>{f}</li>)}
-					</ul>
-				</article>
-
-				<article class="card bg-navy-d service-card">
-					<span class="service-tag">02 · IT and HR</span>
+					<span class="service-tag">01 · IT and HR</span>
 					<h3 class="font-heading">The software stack, selected, wired, and run.</h3>
 					<p class="font-body service-copy">
 						We pick the right software for how your team actually works,
@@ -124,7 +98,37 @@ const opsFeatures = [
 						{opsFeatures.map((f) => <li>{f}</li>)}
 					</ul>
 				</article>
+
+				<article class="card bg-navy-d service-card">
+					<span class="service-tag">02 · Digital presence</span>
+					<h3 class="font-heading">Everywhere your buyers look, handled.</h3>
+					<p class="font-body service-copy">
+						We design, build, and manage a fast, accessible website tuned for
+						both search and AI answers. Around it we run curated ad campaigns,
+						keep your social channels active and on brand, and hold your
+						Google, Bing, and Apple listings accurate and verified. One team
+						keeps the whole presence consistent, so you show up wherever a
+						customer checks.
+					</p>
+					<ul class="feature-list">
+						{digitalFeatures.map((f) => <li>{f}</li>)}
+					</ul>
+				</article>
 			</div>
+		</div>
+	</section>
+
+	<!-- MANAGED STACK ANIMATION -->
+	<section class="stack-section section centered" id="it-hr">
+		<div class="spotlight">
+			<header class="section-intro">
+				<span class="font-eyebrow">IT and HR, managed</span>
+				<h2 class="font-title">Managed Software Operations.</h2>
+				<p class="font-lead section-lead">
+					We help you decide which software licences to onboard, implement them, and setup integrations and AI-enablement where appropriate. If you want continuous optimization to make sure you're getting the most of our your software, we offer this as a managed service, freeing you from the grind of operations.
+				</p>
+			</header>
+			<StackAnimation />
 		</div>
 	</section>
 
@@ -140,20 +144,6 @@ const opsFeatures = [
 				</p>
 			</header>
 			<PresenceAnimation />
-		</div>
-	</section>
-
-	<!-- MANAGED STACK ANIMATION -->
-	<section class="stack-section section centered" id="it-hr">
-		<div class="spotlight">
-			<header class="section-intro">
-				<span class="font-eyebrow">IT and HR, managed</span>
-				<h2 class="font-title">Managed Software Operations.</h2>
-				<p class="font-lead section-lead">
-					We help you decide which software licences to onboard, implement them, and setup integrations and AI-enablement where appropriate. If you want continuous optimization to make sure you're getting the most of our your software, we offer this as a managed service, freeing you from the grind of operations.
-				</p>
-			</header>
-			<StackAnimation />
 		</div>
 	</section>
 
@@ -199,39 +189,6 @@ const opsFeatures = [
 </PineLayout>
 
 <style>
-	/* Hero — the glow rides the fullbleed track behind breakout-width copy. */
-	.hero {
-		overflow: hidden;
-		align-items: start;
-	}
-	.hero-glow {
-		grid-row: 1;
-		align-self: start;
-		background: radial-gradient(
-			ellipse 80% 60% at 30% 0%,
-			rgba(74, 144, 117, 0.1) 0%,
-			transparent 70%
-		);
-	}
-	.hero-inner {
-		grid-row: 1;
-		position: relative;
-		justify-self: start;
-		max-width: 46rem;
-	}
-	.hero-title {
-		margin-block: 1.25rem 1.5rem;
-		font-size: clamp(2.6rem, 6vw, 4.5rem);
-		line-height: 1;
-	}
-	.hero-lead {
-		color: var(--color-mist);
-		max-width: 56ch;
-	}
-	.hero-cta {
-		margin-top: 2.25rem;
-	}
-
 	/* Section intros */
 	.section-intro {
 		max-width: 56ch;
