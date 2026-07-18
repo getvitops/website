@@ -1,4 +1,13 @@
-# EmDash Marketing Template (Cloudflare)
+# Vitops website
+
+Built with [EmDash](https://github.com/emdash-cms/emdash) on Cloudflare Workers (D1 + R2).
+
+> **Operations, deploys, and A/B testing:** see **[`docs/RUNBOOK.md`](docs/RUNBOOK.md)** —
+> dev/prod environments, secret setup, first-deploy order, dev→prod promotion, and how
+> to add/run A/B variants. (Sections below are the original EmDash template notes and are
+> partly out of date.)
+
+---
 
 A conversion-focused landing page template built with [EmDash](https://github.com/emdash-cms/emdash) and deployed on Cloudflare Workers with D1 and R2. Modular content blocks let you assemble pages from reusable sections without touching code.
 
