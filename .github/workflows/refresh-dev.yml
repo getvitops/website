@@ -1,0 +1,39 @@
+# Refresh the dev environment from prod (prod is the source of truth for content).
+# Clones the prod D1 database into vitops-dev so Claude's sandbox has realistic
+# content. This is the ONLY direction a full DB copy ever runs — never dev→prod.
+#
+# NOTE: `d1 execute --file` replays a full dump; run it against a FRESH/empty
+# vitops-dev (recreate it first if it already has tables), otherwise the insert
+# collides with existing rows. R2 media is a separate copy (see the TODO step).
+#
+# Required repo secrets: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
+name: Refresh dev from prod
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Clone prod D1 → dev D1
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          pnpm exec wrangler d1 export vitops --remote --output=./prod.sql
+          pnpm exec wrangler d1 execute vitops-dev --remote --file=./prod.sql --yes
+      # TODO: R2 media sync prod → dev. `wrangler r2` has no bulk copy; use rclone
+      # against the R2 S3 endpoint with a scoped R2 token, e.g.:
+      #   rclone sync :s3:vitops :s3:vitops-dev  (with R2 S3 creds configured)

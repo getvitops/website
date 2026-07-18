@@ -1,0 +1,48 @@
+# Promote a content-model (schema) change to a target environment.
+#
+# Schema lives in the DB, not git — a `wrangler deploy` never changes it. This
+# workflow runs the checked-in schema migration script (scripts/promote-schema.sh)
+# against a chosen env's live REST API via the emdash CLI.
+#
+# Run it against `dev` first to rehearse, then against `prod`. Ordering rule:
+# additive changes (new collection / optional field) BEFORE the code deploy that
+# uses them; removals AFTER the code that stops using them.
+#
+# Required repo secrets:
+#   EMDASH_TOKEN — an EmDash API token (admin scope) for the target site
+name: Promote schema
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Target environment
+        type: choice
+        options: [dev, prod]
+        default: dev
+
+permissions:
+  contents: read
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Run schema migration against ${{ inputs.target }}
+        env:
+          EMDASH_TOKEN: ${{ secrets.EMDASH_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ "${{ inputs.target }}" = "prod" ]; then
+            URL="https://vitops.ca"
+          else
+            URL="https://dev.vitops.ca"
+          fi
+          bash scripts/promote-schema.sh "$URL"
