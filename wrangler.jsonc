@@ -1,0 +1,38 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "vitops",
+  "main": "./src/worker.ts",
+  "compatibility_date": "2026-02-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  // Custom domain — Cloudflare provisions the DNS record + TLS cert on deploy.
+  // Requires the zone (vitops.ca) to already exist in this Cloudflare account.
+  "routes": [
+    {
+      "pattern": "vitops.ca",
+      "custom_domain": true,
+    },
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "vitops",
+      "migrations_dir": "../../../../migrations",
+      "database_id": "2a948eed-4119-4710-9dc0-3147ad0f254c",
+    },
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "vitops",
+    },
+  ],
+  // Cloudflare Email Sending — the contact form (src/pages/api/contact.ts)
+  // calls env.EMAIL.send(). The `from` domain (vitops.ca) must be onboarded
+  // for Email Sending before real delivery works.
+  "send_email": [{ "name": "EMAIL" }],
+  // Drives scheduled publishing, plugin cron, and maintenance (see src/worker.ts)
+  "triggers": {
+    "crons": ["* * * * *"],
+  },
+}

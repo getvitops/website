@@ -1,0 +1,366 @@
+---
+// The digital-presence story, told as three scroll-triggered steps: a site
+// built to perform, found where buyers look, and campaigns that compound.
+// Same chrome and Pine palette as StackAnimation.
+import { Icon } from "astro-iconset/components";
+---
+
+<div class="pres-anim">
+	<section class="anim-step" data-step="0">
+		<div class="anim-step__intro">
+			<span class="anim-step__num">Step 01</span>
+			<h3 class="font-heading">A site built to perform</h3>
+			<p class="anim-blurb">
+				A managed site that loads fast, meets accessibility standards, and is
+				tuned for search and AI answers. No plugins to babysit, no Core Web
+				Vitals to chase.
+			</p>
+			<div class="anim-tech">
+				<span class="anim-tech__icons">
+					<Icon name="simple-icons:wordpress" aria-hidden="true" />
+					<Icon name="simple-icons:astro" aria-hidden="true" />
+				</span>
+				<span class="anim-tech__label">WordPress or Astro, on fast, secure managed hosting</span>
+			</div>
+			<button class="anim-replay" type="button" data-replay="0">
+				<span class="anim-replay__i">↻</span> Replay
+			</button>
+		</div>
+		<div class="anim-step__viz">
+			<div class="pv-browser">
+				<div class="pv-chrome">
+					<span class="pv-dot"></span><span class="pv-dot"></span><span class="pv-dot"></span>
+					<span class="pv-addr">yourbusiness.ca</span>
+				</div>
+				<div class="pv-scores" id="pv-scores"></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="anim-step" data-step="1">
+		<div class="anim-step__intro">
+			<span class="anim-step__num">Step 02</span>
+			<h3 class="font-heading">Found where buyers look</h3>
+			<p class="anim-blurb">
+				SEO and GEO so you show up in Google and get named in AI answers. For a
+				local business, being hard to find is the same as being closed.
+			</p>
+			<button class="anim-replay" type="button" data-replay="1">
+				<span class="anim-replay__i">↻</span> Replay
+			</button>
+		</div>
+		<div class="anim-step__viz">
+			<div class="pv-find">
+				<div class="pv-panel">
+					<div class="pv-panel__label">Traditional search</div>
+					<div class="pv-query">plumber near me</div>
+					<div class="pv-serp" id="pv-serp"></div>
+				</div>
+				<div class="pv-panel">
+					<div class="pv-panel__label">AI search</div>
+					<div class="pv-ai" id="pv-ai"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="anim-step" data-step="2">
+		<div class="anim-step__intro">
+			<span class="anim-step__num">Step 03</span>
+			<h3 class="font-heading">Campaigns that compound</h3>
+			<p class="anim-blurb">
+				Curated campaigns on the platforms your buyers use, steered every month
+				so conversions climb instead of drifting. Someone is finally
+				accountable for the spend.
+			</p>
+			<button class="anim-replay" type="button" data-replay="2">
+				<span class="anim-replay__i">↻</span> Replay
+			</button>
+		</div>
+		<div class="anim-step__viz">
+			<div class="pv-camp">
+				<div class="pv-chips" id="pv-chips"></div>
+				<div class="pv-bars" id="pv-bars"></div>
+				<div class="pv-conv">
+					<span class="pv-conv-num" id="pv-conv">0</span> conversions this quarter
+					<span class="pv-conv-tag" id="pv-tag">▲ up 38%</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="anim-step" data-step="3">
+		<div class="anim-step__intro">
+			<span class="anim-step__num">Step 04</span>
+			<h3 class="font-heading">Social that shows up</h3>
+			<p class="anim-blurb">
+				We keep your social presence active and on brand across the platforms
+				your customers actually use, so you stay top of mind without it becoming
+				your evening job.
+			</p>
+			<button class="anim-replay" type="button" data-replay="3">
+				<span class="anim-replay__i">↻</span> Replay
+			</button>
+		</div>
+		<div class="anim-step__viz">
+			<div class="pv-social">
+				<div class="pv-plats">
+					<span class="pv-plat" id="plat0" role="img" aria-label="Instagram"><Icon name="simple-icons:instagram" aria-hidden="true" /></span>
+					<span class="pv-plat" id="plat1" role="img" aria-label="Facebook"><Icon name="simple-icons:facebook" aria-hidden="true" /></span>
+					<span class="pv-plat" id="plat2" role="img" aria-label="LinkedIn"><Icon name="simple-icons:linkedin" aria-hidden="true" /></span>
+					<span class="pv-plat" id="plat3" role="img" aria-label="X"><Icon name="simple-icons:x" aria-hidden="true" /></span>
+					<span class="pv-plat" id="plat4" role="img" aria-label="TikTok"><Icon name="simple-icons:tiktok" aria-hidden="true" /></span>
+					<span class="pv-plat" id="plat5" role="img" aria-label="YouTube"><Icon name="simple-icons:youtube" aria-hidden="true" /></span>
+				</div>
+				<div class="pv-posts">
+					<div class="pv-post" id="post0"><span class="pv-post__d">Mon</span><span class="pv-post__t">Before and after: kitchen reno</span><span class="pv-post__s">Posted</span></div>
+					<div class="pv-post" id="post1"><span class="pv-post__d">Wed</span><span class="pv-post__t">A five-star customer review</span><span class="pv-post__s">Posted</span></div>
+					<div class="pv-post" id="post2"><span class="pv-post__d">Fri</span><span class="pv-post__t">Meet the crew</span><span class="pv-post__s">Posted</span></div>
+				</div>
+				<div class="pv-reach">
+					<span class="pv-reach-num" id="pv-reach">0</span> people reached this month
+					<span class="pv-reach-tag" id="pv-reach-tag">▲ up 27%</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="anim-step" data-step="4">
+		<div class="anim-step__intro">
+			<span class="anim-step__num">Step 05</span>
+			<h3 class="font-heading">Listed where buyers check</h3>
+			<p class="anim-blurb">
+				Your name, address, hours, and photos kept accurate and verified on
+				Google Business Profile, Bing Places, and Apple Business Connect, so the
+				same trustworthy listing feeds Maps, search, and AI answers.
+			</p>
+			<button class="anim-replay" type="button" data-replay="4">
+				<span class="anim-replay__i">↻</span> Replay
+			</button>
+		</div>
+		<div class="anim-step__viz">
+			<div class="pv-profiles">
+				<div class="pv-profile" id="prof0">
+					<span class="pv-profile__ic"><Icon name="simple-icons:google" aria-hidden="true" /></span>
+					<div class="pv-profile__body">
+						<div class="pv-profile__n">Google Business Profile</div>
+						<div class="pv-profile__m">4.9 ★ · Open now · 128 reviews</div>
+					</div>
+					<span class="pv-profile__badge">✓ Verified</span>
+				</div>
+				<div class="pv-profile" id="prof1">
+					<span class="pv-profile__ic"><Icon name="simple-icons:microsoftbing" aria-hidden="true" /></span>
+					<div class="pv-profile__body">
+						<div class="pv-profile__n">Bing Places for Business</div>
+						<div class="pv-profile__m">Hours, photos, and contact in sync</div>
+					</div>
+					<span class="pv-profile__badge">✓ Verified</span>
+				</div>
+				<div class="pv-profile" id="prof2">
+					<span class="pv-profile__ic"><Icon name="simple-icons:apple" aria-hidden="true" /></span>
+					<div class="pv-profile__body">
+						<div class="pv-profile__n">Apple Business Connect</div>
+						<div class="pv-profile__m">Maps, Siri, and Wallet listing claimed</div>
+					</div>
+					<span class="pv-profile__badge">✓ Verified</span>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+<style is:global>
+	.pres-anim {
+		--s0: var(--color-navy-xxd);
+		--s1: var(--color-navy-d);
+		--s2: var(--color-navy);
+		--tp: var(--color-snow);
+		--ts: var(--color-mist);
+		--tm: var(--color-slate);
+		--bd: var(--line-1);
+		--bds: var(--line-2);
+		--ac: var(--color-pine);
+		--acbg: rgba(74, 144, 117, 0.14);
+		--acbd: var(--color-pine);
+		--pu: var(--color-cobalt);
+		--pubg: rgba(111, 155, 255, 0.16);
+		--okbg: rgba(74, 144, 117, 0.16);
+		--ok: var(--color-pine-l);
+		--r: var(--br-control, 6px);
+		color: var(--tp);
+		font-family: var(--font-sans);
+		line-height: 1.6;
+	}
+
+	/* "Built on" row between blurb and Replay (step 1) */
+	.pres-anim .anim-tech { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
+	.pres-anim .anim-tech__icons { display: inline-flex; align-items: center; gap: 10px; font-size: 20px; color: var(--ts); }
+	.pres-anim .anim-tech__icons svg { display: inline-block; width: 1em; height: 1em; }
+	.pres-anim .anim-tech__label { font-size: 12px; color: var(--tm); line-height: 1.4; }
+
+	/* Step 1 — performance meters in a browser frame */
+	.pres-anim .pv-browser { background: var(--s2); border: 1px solid var(--bd); border-radius: 12px; overflow: hidden; max-width: 540px; }
+	.pres-anim .pv-chrome { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--bd); background: var(--s1); }
+	.pres-anim .pv-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--bds); }
+	.pres-anim .pv-addr { margin-left: 10px; font-size: 12px; color: var(--tm); font-family: var(--font-mono); }
+	.pres-anim .pv-scores { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
+	.pres-anim .pv-score { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: center; }
+	.pres-anim .pv-score__k { font-size: 13px; color: var(--ts); }
+	.pres-anim .pv-score__v { font-size: 15px; font-weight: 600; color: var(--ac); font-variant-numeric: tabular-nums; }
+	.pres-anim .pv-track { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--s0); overflow: hidden; }
+	.pres-anim .pv-fill { height: 100%; width: 0; background: var(--ac); border-radius: 3px; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
+
+	/* Step 2 — search + AI answer */
+	.pres-anim .pv-find { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 640px; }
+	.pres-anim .pv-panel { background: var(--s2); border: 1px solid var(--bd); border-radius: 12px; padding: 14px 16px; }
+	.pres-anim .pv-panel__label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--tm); margin-bottom: 10px; font-family: var(--font-mono); }
+	.pres-anim .pv-query { font-size: 12px; color: var(--ts); background: var(--s0); border: 1px solid var(--bd); border-radius: 20px; padding: 6px 12px; margin-bottom: 12px; display: inline-block; }
+	.pres-anim .pv-serp { display: flex; flex-direction: column; gap: 8px; }
+	/* Rows are always laid out (fixed height); they only fade in, one after
+	   the other, so nothing shifts. */
+	.pres-anim .pv-row { opacity: 0; transition: opacity 0.45s ease; border: 1px solid var(--bd); border-radius: 8px; padding: 9px 10px; }
+	.pres-anim .pv-row.in { opacity: 1; }
+	.pres-anim .pv-row.you { border-color: var(--acbd); background: var(--acbg); }
+	.pres-anim .pv-row__n { font-size: 12.5px; color: var(--tp); font-weight: 500; display: flex; align-items: center; gap: 6px; }
+	.pres-anim .pv-row.you .pv-row__n { color: var(--ac); }
+	.pres-anim .pv-row__m { font-size: 11px; color: var(--tm); margin-top: 2px; }
+	.pres-anim .pv-badge { font-size: 9.5px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; color: #0a0d0c; background: var(--ac); border-radius: 20px; padding: 1px 7px; }
+	.pres-anim .pv-ai { font-size: 13px; line-height: 1.55; color: var(--ts); opacity: 0; transform: translateY(6px); transition: opacity 0.5s ease, transform 0.5s ease; }
+	.pres-anim .pv-ai.in { opacity: 1; transform: none; }
+	.pres-anim .pv-ai b { color: var(--ac); font-weight: 600; }
+	.pres-anim .pv-src { display: inline-flex; align-items: center; gap: 5px; margin-top: 12px; font-size: 10.5px; font-family: var(--font-mono); color: var(--pu); background: var(--pubg); padding: 3px 9px; border-radius: 20px; }
+
+	/* Step 3 — campaigns + conversions */
+	.pres-anim .pv-camp { display: flex; flex-direction: column; gap: 18px; max-width: 560px; }
+	.pres-anim .pv-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+	.pres-anim .pv-chip { font-size: 11.5px; padding: 5px 11px; border-radius: 20px; border: 1px solid var(--bd); color: var(--tm); background: var(--s1); transition: all 0.4s ease; font-family: var(--font-mono); }
+	.pres-anim .pv-chip.on { color: var(--ac); border-color: var(--acbd); background: var(--acbg); }
+	.pres-anim .pv-bars { display: flex; align-items: flex-end; gap: 10px; height: 150px; padding-top: 12px; border-bottom: 1px solid var(--bd); }
+	.pres-anim .pv-bar { flex: 1; height: 0; min-height: 3px; background: var(--ac); border-radius: 4px 4px 0 0; transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+	.pres-anim .pv-bar.hot { background: var(--ok); }
+	.pres-anim .pv-conv { font-size: 13px; color: var(--ts); }
+	.pres-anim .pv-conv-num { font-size: 26px; font-weight: 600; color: var(--tp); font-variant-numeric: tabular-nums; margin-right: 6px; }
+	.pres-anim .pv-conv-tag { margin-left: 8px; font-size: 11px; color: var(--ok); background: var(--okbg); padding: 2px 8px; border-radius: 20px; opacity: 0; transition: opacity 0.5s ease; }
+	.pres-anim .pv-conv-tag.in { opacity: 1; }
+
+	/* Step 4 — social presence */
+	.pres-anim .pv-social { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+	.pres-anim .pv-plats { display: flex; flex-wrap: wrap; gap: 10px; }
+	.pres-anim .pv-plat { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--bd); background: var(--s1); display: flex; align-items: center; justify-content: center; color: var(--tm); transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease; }
+	.pres-anim .pv-plat svg { width: 20px; height: 20px; }
+	.pres-anim .pv-plat.on { color: var(--ac); border-color: var(--acbd); background: var(--acbg); }
+	.pres-anim .pv-posts { display: flex; flex-direction: column; gap: 8px; }
+	.pres-anim .pv-post { display: grid; grid-template-columns: 42px 1fr auto; gap: 12px; align-items: center; padding: 9px 12px; border: 1px solid var(--bd); border-radius: 8px; background: var(--s2); font-size: 12.5px; opacity: 0; transition: opacity 0.45s ease; }
+	.pres-anim .pv-post.in { opacity: 1; }
+	.pres-anim .pv-post__d { font-family: var(--font-mono); font-size: 11px; color: var(--tm); text-transform: uppercase; }
+	.pres-anim .pv-post__t { color: var(--tp); }
+	.pres-anim .pv-post__s { font-size: 10.5px; font-family: var(--font-mono); color: var(--ok); background: var(--okbg); padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+	.pres-anim .pv-reach { font-size: 13px; color: var(--ts); }
+	.pres-anim .pv-reach-num { font-size: 26px; font-weight: 600; color: var(--tp); font-variant-numeric: tabular-nums; margin-right: 6px; }
+	.pres-anim .pv-reach-tag { margin-left: 8px; font-size: 11px; color: var(--ok); background: var(--okbg); padding: 2px 8px; border-radius: 20px; opacity: 0; transition: opacity 0.5s ease; }
+	.pres-anim .pv-reach-tag.in { opacity: 1; }
+
+	/* Step 5 — business profiles */
+	.pres-anim .pv-profiles { display: flex; flex-direction: column; gap: 10px; max-width: 560px; }
+	.pres-anim .pv-profile { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; padding: 14px 16px; border: 1px solid var(--bd); border-radius: 12px; background: var(--s2); opacity: 0; transform: translateY(6px); transition: opacity 0.5s ease, transform 0.5s ease; }
+	.pres-anim .pv-profile.in { opacity: 1; transform: none; }
+	.pres-anim .pv-profile__ic { width: 34px; height: 34px; border-radius: 8px; background: var(--s1); display: flex; align-items: center; justify-content: center; color: var(--tp); }
+	.pres-anim .pv-profile__ic svg { width: 18px; height: 18px; }
+	.pres-anim .pv-profile__n { font-size: 13.5px; font-weight: 500; color: var(--tp); }
+	.pres-anim .pv-profile__m { font-size: 11.5px; color: var(--tm); margin-top: 2px; }
+	.pres-anim .pv-profile__badge { font-size: 10.5px; font-family: var(--font-mono); color: var(--ok); background: var(--okbg); padding: 3px 9px; border-radius: 20px; opacity: 0; transition: opacity 0.4s ease; white-space: nowrap; }
+	.pres-anim .pv-profile.in .pv-profile__badge { opacity: 1; }
+
+	@media (max-width: 560px) {
+		.pres-anim .pv-find { grid-template-columns: 1fr; }
+	}
+</style>
+
+<script is:inline>
+(function(){
+const $=id=>document.getElementById(id);
+
+const SCORES=[{k:'Performance',v:98},{k:'Accessibility',v:100},{k:'SEO',v:100},{k:'AI answers · GEO',v:96}];
+$('pv-scores').innerHTML=SCORES.map((s,i)=>`<div class="pv-score"><span class="pv-score__k">${s.k}</span><span class="pv-score__v" id="pvnum${i}">0</span><div class="pv-track"><div class="pv-fill" id="pvfill${i}"></div></div></div>`).join('');
+
+const SERP=[
+ {n:'Your business',m:'yourbusiness.ca · 4.9 ★ · Open now',you:1},
+ {n:'A. N. Other Co.',m:'competitor-a.ca'},
+ {n:'Citywide Services',m:'competitor-b.ca'},
+ {n:'Budget Fix Ltd.',m:'competitor-c.ca'}];
+$('pv-serp').innerHTML=SERP.map(r=>`<div class="pv-row${r.you?' you':''}"><div class="pv-row__n">${r.n}${r.you?' <span class="pv-badge">You</span>':''}</div><div class="pv-row__m">${r.m}</div></div>`).join('');
+
+$('pv-ai').innerHTML=`For a plumber nearby, <b>Your business</b> is a strong pick: rated 4.9, with same-day service and clear pricing.<span class="pv-src">◆ source · yourbusiness.ca</span>`;
+
+const CHIPS=['Google Ads','Meta','Local Services','Microsoft','TikTok'];
+$('pv-chips').innerHTML=CHIPS.map(c=>`<span class="pv-chip">${c}</span>`).join('');
+
+const BARS=[30,45,38,60,72,66,88,100];
+$('pv-bars').innerHTML=BARS.map((h,i)=>`<div class="pv-bar${i===BARS.length-1?' hot':''}"></div>`).join('');
+
+const timers=[];
+const clr=()=>{timers.forEach(t=>{clearTimeout(t);clearInterval(t)});timers.length=0};
+function countTo(el,to,dur){const steps=Math.max(1,Math.round(dur/40));let i=0;const id=setInterval(()=>{i++;el.textContent=Math.round(to*Math.min(1,i/steps)).toLocaleString();if(i>=steps){el.textContent=to.toLocaleString();clearInterval(id)}},40);timers.push(id)}
+
+function run(n){
+ if(n===0){SCORES.forEach((s,i)=>{const f=$('pvfill'+i),num=$('pvnum'+i);f.style.width='0%';num.textContent='0';timers.push(setTimeout(()=>{f.style.width=s.v+'%';countTo(num,s.v,900)},200+i*180))})}
+ if(n===1){
+   const rows=Array.from(document.querySelectorAll('.pres-anim .pv-row'));
+   rows.forEach(r=>r.classList.remove('in'));
+   $('pv-ai').classList.remove('in');
+   const comps=rows.filter(r=>!r.classList.contains('you'));
+   const you=document.querySelector('.pres-anim .pv-row.you');
+   let d=300;
+   comps.forEach(r=>{timers.push(setTimeout(()=>r.classList.add('in'),d));d+=240});
+   timers.push(setTimeout(()=>you.classList.add('in'),d+300));
+   timers.push(setTimeout(()=>$('pv-ai').classList.add('in'),d+1100));
+ }
+ if(n===2){
+   const chips=document.querySelectorAll('.pres-anim .pv-chip');
+   chips.forEach(c=>c.classList.remove('on'));
+   chips.forEach((c,i)=>timers.push(setTimeout(()=>c.classList.add('on'),200+i*160)));
+   const bars=document.querySelectorAll('.pres-anim .pv-bar');
+   bars.forEach(b=>b.style.height='0');
+   bars.forEach((b,i)=>timers.push(setTimeout(()=>b.style.height=BARS[i]+'%',400+i*110)));
+   const conv=$('pv-conv');conv.textContent='0';
+   timers.push(setTimeout(()=>countTo(conv,342,1300),700));
+   const tag=$('pv-tag');tag.classList.remove('in');
+   timers.push(setTimeout(()=>tag.classList.add('in'),1600));
+ }
+ if(n===3){
+   const plats=document.querySelectorAll('.pres-anim .pv-plat');
+   plats.forEach(p=>p.classList.remove('on'));
+   plats.forEach((p,i)=>timers.push(setTimeout(()=>p.classList.add('on'),200+i*130)));
+   const posts=document.querySelectorAll('.pres-anim .pv-post');
+   posts.forEach(p=>p.classList.remove('in'));
+   posts.forEach((p,i)=>timers.push(setTimeout(()=>p.classList.add('in'),600+i*260)));
+   const reach=$('pv-reach');reach.textContent='0';
+   timers.push(setTimeout(()=>countTo(reach,18600,1300),900));
+   const rtag=$('pv-reach-tag');rtag.classList.remove('in');
+   timers.push(setTimeout(()=>rtag.classList.add('in'),1700));
+ }
+ if(n===4){
+   const profs=document.querySelectorAll('.pres-anim .pv-profile');
+   profs.forEach(p=>p.classList.remove('in'));
+   profs.forEach((p,i)=>timers.push(setTimeout(()=>p.classList.add('in'),300+i*350)));
+ }
+}
+
+const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const steps=Array.from(document.querySelectorAll('.pres-anim .anim-step'));
+const played=new Set();
+if(!reduceMotion&&'IntersectionObserver'in window){
+  const io=new IntersectionObserver((entries)=>{
+    for(const e of entries){
+      if(e.isIntersecting){const i=+e.target.dataset.step;if(!played.has(i)){played.add(i);run(i)}}
+    }
+  },{threshold:0.4});
+  steps.forEach(s=>io.observe(s));
+}else{
+  steps.forEach(s=>run(+s.dataset.step));
+}
+document.querySelectorAll('.pres-anim .anim-replay').forEach(b=>{
+  b.onclick=()=>{const i=+b.dataset.replay;clr();run(i)};
+});
+})();
+</script>

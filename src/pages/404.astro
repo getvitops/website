@@ -1,0 +1,57 @@
+---
+import PineLayout from "../layouts/PineLayout.astro";
+---
+
+<PineLayout title="Page not found">
+	<section class="not-found section centered">
+		<div class="spotlight not-found-inner">
+			<div class="not-found-code font-display" aria-hidden="true">404</div>
+			<h1 class="font-title">Page not found</h1>
+			<p class="font-lead">
+				The page you're looking for doesn't exist or has been moved.
+			</p>
+			<div class="not-found-actions cluster">
+				<a class="cta" href="/">Go home <span class="arrow">→</span></a>
+				<a class="cta-ghost" href="/#contact">Talk to us</a>
+			</div>
+		</div>
+	</section>
+</PineLayout>
+
+<style>
+	.not-found-inner {
+		text-align: center;
+		padding-block: clamp(3rem, 10vw, 7rem);
+	}
+
+	.not-found-code {
+		font-size: clamp(6rem, 18vw, 10rem);
+		line-height: 1;
+		letter-spacing: -0.05em;
+		color: var(--color-slate);
+		opacity: 0.5;
+		margin-bottom: 1rem;
+	}
+
+	.not-found h1 {
+		font-size: clamp(1.75rem, 4vw, 2.5rem);
+		margin-bottom: 0.75rem;
+	}
+
+	.not-found p {
+		color: var(--color-mist);
+		margin: 0 auto 2rem;
+		max-width: 44ch;
+	}
+
+	.not-found-actions {
+		justify-content: center;
+	}
+
+	@media (max-width: 480px) {
+		.not-found-actions {
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+</style>

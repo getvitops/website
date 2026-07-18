@@ -1,0 +1,454 @@
+---
+import PineLayout from "../layouts/PineLayout.astro";
+import StackAnimation from "../components/StackAnimation.astro";
+import PresenceAnimation from "../components/PresenceAnimation.astro";
+
+export const prerender = false;
+
+const digitalFeatures = [
+	"Managed, high-performance websites",
+	"SEO and GEO optimization for search and answer engines",
+	"Curated ad campaigns, tuned for conversions over time",
+	"Social media, kept active and on brand",
+	"Verified business profiles on Google, Bing, and Apple",
+];
+
+const opsFeatures = [
+	"Software selection, implementation, and integration",
+	"AI enablement where it genuinely earns its place",
+	"Managed identity and lifecycle: SCIM and JML",
+	"License tuning, endpoint security, day-to-day software support",
+];
+---
+
+<PineLayout description="Vitops runs your digital presence and your IT and HR operations. Managed websites and ad campaigns, plus a fully managed software, identity, and device stack.">
+	<!-- HERO -->
+	<section class="hero hero-glow section centered">
+		<div class="hero-inner spotlight">
+			<span class="font-eyebrow">Digital presence · IT and HR, managed</span>
+			<h1 class="font-display hero-title">
+				The work that keeps your business running, handled by one partner.
+			</h1>
+			<p class="font-lead hero-lead">
+				Vitops builds and runs your digital presence, and manages the IT and
+				HR operations behind it. Two services, one team on file, so the
+				website that wins the customer and the systems that serve them stay in
+				step.
+			</p>
+			<div class="hero-cta cluster">
+				<a class="cta" href="#contact">Talk to us <span class="arrow">→</span></a>
+				<a class="cta-ghost" href="#it-hr">See how it works</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- PAIN POINT -->
+	<section class="pain section centered">
+		<div class="spotlight">
+			<header class="section-intro">
+				<span class="font-eyebrow pain-eyebrow">The problem</span>
+				<h2 class="font-title">You didn't start your business to run IT and HR.</h2>
+				<p class="font-lead section-lead">
+					Every growing business needs its software, devices, identity, and
+					people operations handled well. Almost none of them need, or can
+					afford, a full-time hire to do it.
+				</p>
+			</header>
+
+			<div class="pain-grid">
+				<article class="card bg-navy-d pain-card">
+					<span class="pain-tag">Hiring it</span>
+					<p class="font-body pain-copy">
+						A dedicated IT or HR person is a six-figure commitment, and a small team rarely keeps one fully busy.
+					</p>
+				</article>
+				<article class="card bg-navy-d pain-card">
+					<span class="pain-tag">Doing it yourself</span>
+					<p class="font-body pain-copy">
+						You or your most capable person trade hours you
+						should spend on customers for operational tasks.
+					</p>
+				</article>
+				<article class="card bg-navy-d pain-card">
+					<span class="pain-tag">Ignoring it</span>
+					<p class="font-body pain-copy">
+						Without expertise and constant monitoring, security gaps widen, money is wasted, and you fall behind.
+					</p>
+				</article>
+			</div>
+		</div>
+
+		<p class="pain-close breakout">
+			There is a third option. Hand it to a partner who handles operations for you, for
+			less than the cost of a single hire.
+		</p>
+	</section>
+
+	<!-- TWO CORE SERVICES -->
+	<section class="services section centered" id="services">
+		<div class="spotlight">
+			<header class="section-intro">
+				<span class="font-eyebrow">What we do</span>
+				<h2 class="font-title">Two services. One partner on file.</h2>
+			</header>
+
+			<div class="services-grid">
+				<article class="card bg-navy-d service-card">
+					<span class="service-tag">01 · Digital presence</span>
+					<h3 class="font-heading">Everywhere your buyers look, handled.</h3>
+					<p class="font-body service-copy">
+						We design, build, and manage a fast, accessible website tuned for
+						both search and AI answers. Around it we run curated ad campaigns,
+						keep your social channels active and on brand, and hold your
+						Google, Bing, and Apple listings accurate and verified. One team
+						keeps the whole presence consistent, so you show up wherever a
+						customer checks.
+					</p>
+					<ul class="feature-list">
+						{digitalFeatures.map((f) => <li>{f}</li>)}
+					</ul>
+				</article>
+
+				<article class="card bg-navy-d service-card">
+					<span class="service-tag">02 · IT and HR</span>
+					<h3 class="font-heading">The software stack, selected, wired, and run.</h3>
+					<p class="font-body service-copy">
+						We pick the right software for how your team actually works,
+						implement it, and integrate the pieces, with AI enablement where it
+						genuinely helps. On the managed tier we become your single
+						operations provider: identity and lifecycle, license tuning,
+						endpoint security on every device, and the software support your
+						team leans on.
+					</p>
+					<ul class="feature-list">
+						{opsFeatures.map((f) => <li>{f}</li>)}
+					</ul>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- DIGITAL PRESENCE ANIMATION -->
+	<section class="presence-section section centered" id="digital-presence">
+		<div class="spotlight">
+			<header class="section-intro">
+				<span class="font-eyebrow">Digital presence</span>
+				<h2 class="font-title">Your presence, working while you work.</h2>
+				<p class="font-lead section-lead">
+					A fast, findable website and campaigns that get steered every month,
+					not set and forgotten. Here is what that looks like.
+				</p>
+			</header>
+			<PresenceAnimation />
+		</div>
+	</section>
+
+	<!-- MANAGED STACK ANIMATION -->
+	<section class="stack-section section centered" id="it-hr">
+		<div class="spotlight">
+			<header class="section-intro">
+				<span class="font-eyebrow">IT and HR, managed</span>
+				<h2 class="font-title">Managed Software Operations.</h2>
+				<p class="font-lead section-lead">
+					We help you decide which software licences to onboard, implement them, and setup integrations and AI-enablement where appropriate. If you want continuous optimization to make sure you're getting the most of our your software, we offer this as a managed service, freeing you from the grind of operations.
+				</p>
+			</header>
+			<StackAnimation />
+		</div>
+	</section>
+
+	<!-- CONTACT -->
+	<section class="contact section centered" id="contact">
+		<div class="spotlight contact-grid">
+			<div class="contact-intro">
+				<span class="font-eyebrow">Talk to a partner</span>
+				<h2 class="font-title">Tell us what you're running.</h2>
+				<p class="font-body contact-copy">
+					Send a note and a partner will get back to you. No forms into a
+					void, no sales script. Tell us where things stand and what you would
+					like off your plate, and we will tell you plainly whether we are the
+					right fit.
+				</p>
+				<p class="font-caption">
+					Or email <a class="link" href="mailto:hi@vitops.ca">hi@vitops.ca</a>.
+				</p>
+			</div>
+
+			<form class="card bg-navy-d contact-form" id="contact-form" novalidate>
+				<div class="field">
+					<label for="cf-name">Name</label>
+					<input id="cf-name" name="name" type="text" autocomplete="name" required />
+				</div>
+				<div class="field">
+					<label for="cf-email">Work email</label>
+					<input id="cf-email" name="email" type="email" autocomplete="email" required />
+				</div>
+				<div class="field">
+					<label for="cf-company">Company <span class="opt">(optional)</span></label>
+					<input id="cf-company" name="company" type="text" autocomplete="organization" />
+				</div>
+				<div class="field">
+					<label for="cf-message">What would you like off your plate?</label>
+					<textarea id="cf-message" name="message" rows="4" required></textarea>
+				</div>
+				<button type="submit">Send it over</button>
+				<p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+			</form>
+		</div>
+	</section>
+</PineLayout>
+
+<style>
+	/* Hero — the glow rides the fullbleed track behind breakout-width copy. */
+	.hero {
+		overflow: hidden;
+		align-items: start;
+	}
+	.hero-glow {
+		grid-row: 1;
+		align-self: start;
+		background: radial-gradient(
+			ellipse 80% 60% at 30% 0%,
+			rgba(74, 144, 117, 0.1) 0%,
+			transparent 70%
+		);
+	}
+	.hero-inner {
+		grid-row: 1;
+		position: relative;
+		justify-self: start;
+		max-width: 46rem;
+	}
+	.hero-title {
+		margin-block: 1.25rem 1.5rem;
+		font-size: clamp(2.6rem, 6vw, 4.5rem);
+		line-height: 1;
+	}
+	.hero-lead {
+		color: var(--color-mist);
+		max-width: 56ch;
+	}
+	.hero-cta {
+		margin-top: 2.25rem;
+	}
+
+	/* Section intros */
+	.section-intro {
+		max-width: 56ch;
+		margin-bottom: 3rem;
+	}
+	.section-intro .font-title {
+		margin-top: 0.75rem;
+		font-size: clamp(2rem, 4vw, 3rem);
+	}
+	.section-lead {
+		margin-top: 1rem;
+		color: var(--color-mist);
+	}
+
+	/* Pain point */
+	.pain-eyebrow {
+		color: var(--color-amber);
+	}
+	.pain-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.5rem;
+	}
+	.pain-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+		padding: 1.75rem;
+	}
+	.pain-tag {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.55rem;
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--color-amber);
+	}
+	.pain-tag::before {
+		content: "✕";
+		font-size: 0.9em;
+	}
+	.pain-copy {
+		color: var(--color-mist);
+	}
+	/* Closing callout — sits in the centered breakout track for a
+	   deliberate, narrower emphasis under the wide pain grid. */
+	.pain-close {
+		margin-top: 3rem;
+		font-size: var(--text-l);
+		color: var(--color-snow);
+		text-align: center;
+		text-wrap: balance;
+	}
+
+	/* Services */
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.5rem;
+	}
+	.service-card {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding: 2.25rem;
+	}
+	.service-tag {
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-pine-l);
+	}
+	.service-copy {
+		color: var(--color-mist);
+	}
+	.feature-list {
+		list-style: none;
+		margin: 0.25rem 0 0;
+		padding: 1rem 0 0;
+		border-top: 1px solid var(--line-1);
+		display: grid;
+		gap: 0.6rem;
+	}
+	.feature-list li {
+		display: flex;
+		align-items: baseline;
+		gap: 0.65rem;
+		font-size: var(--text-s);
+		color: var(--color-mist);
+	}
+	.feature-list li::before {
+		content: "✓";
+		color: var(--color-pine);
+		font-weight: 600;
+		font-size: 0.85em;
+	}
+
+	/* Contact */
+	.contact-grid {
+		display: grid;
+		grid-template-columns: 1fr 1.1fr;
+		gap: clamp(2rem, 5vw, 5rem);
+		align-items: start;
+	}
+	.contact-intro .font-title {
+		margin-top: 0.75rem;
+		font-size: clamp(2rem, 4vw, 3rem);
+	}
+	.contact-copy {
+		margin-block: 1.25rem;
+		color: var(--color-mist);
+		max-width: 46ch;
+	}
+	.contact-form {
+		display: grid;
+		gap: 1.1rem;
+		padding: 2rem;
+	}
+	.field {
+		display: grid;
+		gap: 0.4rem;
+	}
+	.field label {
+		font-size: var(--text-s);
+		font-weight: 500;
+		color: var(--color-snow);
+	}
+	.field .opt {
+		color: var(--color-slate);
+		font-weight: 400;
+	}
+	.contact-form input,
+	.contact-form textarea {
+		inline-size: 100%;
+		background: var(--color-navy-xxd);
+		color: var(--color-snow);
+		border: 1px solid var(--line-2);
+		border-radius: var(--br-control, 0.4rem);
+		padding: 0.65rem 0.8rem;
+		font-family: var(--font-sans);
+		font-size: var(--text-s);
+	}
+	.contact-form input:focus,
+	.contact-form textarea:focus {
+		outline: none;
+		border-color: var(--color-pine);
+		box-shadow: 0 0 0 3px rgba(74, 144, 117, 0.25);
+	}
+	.contact-form textarea {
+		resize: vertical;
+	}
+	.contact-form button {
+		justify-self: start;
+		background: var(--color-pine);
+		color: #0a0d0c;
+	}
+	.contact-form button:hover {
+		background: var(--color-pine-l);
+	}
+	.form-status {
+		margin: 0;
+		font-size: var(--text-s);
+		min-block-size: 1.2em;
+	}
+	.form-status.ok {
+		color: var(--color-pine-l);
+	}
+	.form-status.err {
+		color: var(--color-amber);
+	}
+
+	@media (max-width: 860px) {
+		.services-grid,
+		.contact-grid {
+			grid-template-columns: 1fr;
+		}
+		.pain-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<script>
+	const form = document.getElementById("contact-form") as HTMLFormElement | null;
+	const status = document.getElementById("form-status");
+
+	if (form && status) {
+		form.addEventListener("submit", async (e) => {
+			e.preventDefault();
+			status.className = "form-status";
+			status.textContent = "Sending…";
+
+			const data = Object.fromEntries(new FormData(form).entries());
+
+			try {
+				const res = await fetch("/api/contact", {
+					method: "POST",
+					headers: { "content-type": "application/json" },
+					body: JSON.stringify(data),
+				});
+				const body = (await res.json()) as { ok: boolean; message?: string; error?: string };
+
+				if (res.ok && body.ok) {
+					status.classList.add("ok");
+					status.textContent = body.message || "Thanks. A partner will be in touch shortly.";
+					form.reset();
+				} else {
+					status.classList.add("err");
+					status.textContent = body.error || "Something went wrong. Try again, or email hi@vitops.ca.";
+				}
+			} catch {
+				status.classList.add("err");
+				status.textContent = "Could not reach the server. Try again, or email hi@vitops.ca.";
+			}
+		});
+	}
+</script>

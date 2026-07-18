@@ -1,0 +1,265 @@
+---
+import { Font } from "astro:assets";
+import { getSiteSettings } from "emdash";
+import { EmDashHead } from "emdash/ui";
+import { createPublicPageContext } from "emdash/page";
+import "../styles/styles.docs.css";
+import "../styles/pine-theme.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+}
+
+const { title, description, image } = Astro.props;
+const settings = await getSiteSettings();
+const siteTitle = settings?.title || "Vitops";
+const fullTitle = title ? `${title} — ${siteTitle}` : siteTitle;
+const siteDescription =
+	settings?.tagline ||
+	"Vitops runs the digital presence and the IT and HR operations for businesses that would rather focus on their craft.";
+
+const pageCtx = createPublicPageContext({
+	Astro,
+	kind: "custom",
+	pageType: "website",
+	title: fullTitle,
+	pageTitle: title ?? siteTitle,
+	description: description || siteDescription,
+	canonical: Astro.url.href,
+	image,
+	seo: { ogImage: image },
+	siteName: siteTitle,
+});
+
+const navLinks = [
+	{ label: "Digital presence", href: "#digital-presence" },
+	{ label: "IT & HR", href: "#it-hr" },
+	{ label: "Contact", href: "#contact" },
+];
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en" data-brx-theme="dark">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{fullTitle}</title>
+		<EmDashHead page={pageCtx} />
+		<Font cssVariable="--font-body" preload />
+		<Font cssVariable="--font-geist-mono" />
+	</head>
+	<body>
+		<header class="site-header navbar-sticky centered">
+			<div class="navbar spotlight">
+				<a class="brand" href="/" aria-label="vitops home">
+					<svg
+						class="brand-mark"
+						viewBox="0 0 608 592"
+						fill="none"
+						aria-hidden="true">
+						<g transform="translate(608,0) scale(-1,1)">
+							<path
+								fill="currentColor"
+								d="M427.87 12.739L326.462 335.162C315.334 370.77 305.052 426.195 305.052 426.195H303.461C303.461 426.195 293.187 370.762 282.174 335.162L264.315 277.284H125.491L232.278 579.028H376.374L575.877 12.739H427.87Z"
+							></path>
+							<path
+								fill="currentColor"
+								fill-opacity="0.55"
+								d="M182.373 12.739H31.9139L88.6735 173.159H232.032L182.373 12.739Z"
+							></path>
+						</g>
+					</svg>
+					<span class="brand-word">vitops</span>
+				</a>
+
+				<nav aria-label="Primary">
+					<ul class="nav-items justify-center">
+						{
+							navLinks.map((link) => (
+								<li>
+									<a href={link.href}>{link.label}</a>
+								</li>
+							))
+						}
+					</ul>
+				</nav>
+
+				<div class="nav-actions">
+					<a class="cta" href="#contact"
+						>Talk to us <span class="arrow">→</span></a
+					>
+				</div>
+			</div>
+		</header>
+
+		<main>
+			<slot />
+		</main>
+
+		<footer class="site-footer centered">
+			<div class="footer-inner spotlight">
+				<a class="brand" href="/" aria-label="vitops home">
+					<svg
+						class="brand-mark"
+						viewBox="0 0 608 592"
+						fill="none"
+						aria-hidden="true">
+						<g transform="translate(608,0) scale(-1,1)">
+							<path
+								fill="currentColor"
+								d="M427.87 12.739L326.462 335.162C315.334 370.77 305.052 426.195 305.052 426.195H303.461C303.461 426.195 293.187 370.762 282.174 335.162L264.315 277.284H125.491L232.278 579.028H376.374L575.877 12.739H427.87Z"
+							></path>
+							<path
+								fill="currentColor"
+								fill-opacity="0.55"
+								d="M182.373 12.739H31.9139L88.6735 173.159H232.032L182.373 12.739Z"
+							></path>
+						</g>
+					</svg>
+					<span class="brand-word">vitops</span>
+				</a>
+				<p class="font-caption footer-blurb">
+					Vitops runs the digital presence and the day to day IT and HR
+					operations for businesses that would rather spend their time on
+					the work they are good at.
+				</p>
+				<div class="footer-base">
+					<span class="footer-copy flex flex-col md-flex-row md-items-center">
+						<span>© {year} Vitops</span>
+						<span class="hidden md-inline" aria-hidden="true">·</span>
+						<span>Run the business; we run the rest.</span>
+					</span>
+					<span class="status">All systems steady</span>
+				</div>
+			</div>
+		</footer>
+
+		<style>
+			.site-header {
+				background: color-mix(in srgb, var(--color-navy-xxd) 82%, transparent);
+				backdrop-filter: blur(14px);
+				-webkit-backdrop-filter: blur(14px);
+				border-bottom: 1px solid var(--line-1);
+			}
+
+			.navbar {
+				block-size: 64px;
+			}
+
+			.brand {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.55rem;
+				color: var(--color-pine);
+				text-decoration: none;
+			}
+
+			.brand-mark {
+				inline-size: 18px;
+				block-size: auto;
+			}
+
+			.brand-word {
+				font-family: var(--font-display);
+				font-weight: 600;
+				font-size: var(--text-l);
+				letter-spacing: -0.02em;
+				color: var(--color-snow);
+			}
+
+			/* Centered nav links (the framework's .nav-items is flex:1;
+			   justify-center pulls the links to the middle track). */
+			.nav-items a {
+				font-size: var(--text-s);
+				color: var(--color-mist);
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+
+			.nav-items a:hover {
+				color: var(--color-snow);
+			}
+
+			.nav-actions {
+				flex: 0 0 auto;
+			}
+
+			/* Footer */
+			.site-footer {
+				border-top: 1px solid var(--line-1);
+				background: var(--color-navy-xd);
+				padding-block: 3.5rem 2.5rem;
+			}
+
+			.footer-inner {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+				align-items: flex-start;
+			}
+
+			.footer-blurb {
+				max-width: 46ch;
+				margin: 0;
+			}
+
+			.footer-base {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 1rem;
+				flex-wrap: wrap;
+				inline-size: 100%;
+				margin-top: 1.5rem;
+				padding-top: 1.5rem;
+				border-top: 1px solid var(--line-1);
+				font-family: var(--font-mono);
+				font-size: var(--text-xs);
+				letter-spacing: 0.04em;
+				color: var(--color-slate);
+			}
+
+			/* Row on wider screens, stacked (tagline on its own line) on small. */
+			.footer-copy {
+				gap: 0.1rem 0.4rem;
+			}
+
+			.footer-base .status {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+				color: var(--color-mist);
+			}
+
+			.footer-base .status::before {
+				content: "";
+				inline-size: 6px;
+				block-size: 6px;
+				border-radius: 50%;
+				background: var(--color-pine);
+				box-shadow: 0 0 0 3px rgba(74, 144, 117, 0.16);
+				animation: pine-pulse 1.6s ease-in-out infinite;
+			}
+
+			@keyframes pine-pulse {
+				0%,
+				100% {
+					opacity: 1;
+				}
+				50% {
+					opacity: 0.4;
+				}
+			}
+
+			/* Collapse the centered nav on small screens; brand + CTA stay. */
+			@media (max-width: 720px) {
+				nav[aria-label="Primary"] {
+					display: none;
+				}
+			}
+		</style>
+	</body>
+</html>

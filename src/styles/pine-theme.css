@@ -1,0 +1,207 @@
+/* =============================================================
+   Pine theme layer — the small set of overrides the framework
+   (styles.docs.css) intentionally leaves to the consumer.
+   Imported AFTER styles.docs.css so these declarations win.
+   Only three gaps are covered here: brand fonts, page/body base
+   + dark theme, and anchor-as-button CTAs. Everything else uses
+   framework classes.
+   ============================================================= */
+
+:root {
+  /* Point the framework's type tokens at the brand faces. Geist + Geist Mono
+     are self-hosted via Astro's Fonts API (see astro.config.mjs), exposed as
+     --font-body / --font-geist-mono — no runtime Google Fonts request. */
+  --font-display: var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Eyebrows speak in the "machine-readable" mono voice. */
+  --eyebrow-ff: var(--font-mono);
+  --eyebrow-color: var(--color-pine-l);
+
+  /* Ink aliases from the Pine README (snow / mist / slate). */
+  --color-snow: #eef1f5;
+  --color-mist: #b9c0cb;
+  --color-slate: #6c7689;
+
+  /* Hairlines over shadows — the Pine chrome rule. */
+  --line-1: rgba(255, 255, 255, 0.07);
+  --line-2: rgba(255, 255, 255, 0.14);
+}
+
+/* Base page wiring the utility framework leaves unset. Dark-first. */
+html[data-brx-theme="dark"] {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-navy-xxd);
+  color: var(--color-mist);
+  font-family: var(--font-sans);
+  font-size: var(--text-m);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headlines and titles ride on snow, not mist. */
+.font-display,
+.font-title,
+.font-heading {
+  color: var(--color-snow);
+}
+
+::selection {
+  background: rgba(74, 144, 117, 0.28);
+  color: var(--color-snow);
+}
+
+/* -------------------------------------------------------------
+   Gap: the framework has no anchor-as-button. These mirror the
+   <button> element's shape so link CTAs match form buttons.
+   ------------------------------------------------------------- */
+.cta,
+.cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.7em 1.25em;
+  border-radius: var(--br-button, 0.4rem);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--text-s);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    translate 0.2s ease;
+}
+
+.cta {
+  background: var(--color-pine);
+  color: #0a0d0c;
+}
+
+.cta:hover {
+  background: var(--color-pine-l);
+}
+
+.cta-ghost {
+  background: transparent;
+  color: var(--color-snow);
+  border-color: var(--line-2);
+}
+
+.cta-ghost:hover {
+  border-color: var(--color-snow);
+}
+
+.cta .arrow,
+.cta-ghost .arrow {
+  transition: translate 0.2s ease;
+}
+
+.cta:hover .arrow,
+.cta-ghost:hover .arrow {
+  translate: 2px 0;
+}
+
+/* Section vertical rhythm helper (the framework leaves outer
+   section padding to the consumer). */
+.section {
+  padding-block: clamp(4rem, 9vw, 7.5rem);
+}
+
+/* Layout uses the framework's .centered grid with breakout / spotlight /
+   fullbleed tracks. Widen the spotlight track so marketing grids get the
+   full content width (the framework default is ~120ch). measure and
+   breakout keep their reading-friendly defaults. */
+:root {
+  --width-spotlight: 78rem;
+}
+
+/* -------------------------------------------------------------
+   Shared scroll-triggered "animation step" chrome. Used by both
+   StackAnimation and PresenceAnimation: a narrow intro column
+   (number, title, blurb, Replay) beside the animated visual.
+   ------------------------------------------------------------- */
+.anim-step {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+  padding-block: clamp(2rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--line-1);
+}
+
+.anim-step:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.anim-step__num {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-pine-l);
+}
+
+.anim-step__intro h3 {
+  margin-block: 0.6rem 0.75rem;
+}
+
+.anim-blurb {
+  color: var(--color-mist);
+  font-size: var(--text-s);
+  max-width: 42ch;
+  margin: 0;
+}
+
+/* Replay is a bare <button>, which the framework paints pine; reset
+   it to a small ghost control. */
+.anim-replay {
+  margin-top: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--color-mist);
+  border: 1px solid var(--line-2);
+  border-radius: var(--br-control, 0.4rem);
+  padding: 0.45rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.anim-replay:hover {
+  color: var(--color-snow);
+  border-color: var(--color-snow);
+}
+
+.anim-replay__i {
+  font-size: 1.05em;
+  line-height: 1;
+}
+
+.anim-step__viz {
+  min-width: 0;
+}
+
+@media (max-width: 720px) {
+  .anim-step {
+    grid-template-columns: 1fr;
+  }
+}

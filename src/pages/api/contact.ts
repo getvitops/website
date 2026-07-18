@@ -1,0 +1,138 @@
+import type { APIRoute } from "astro";
+
+export const prerender = false;
+
+/**
+ * Resolve the Worker env at request time. API routes in this Astro v7 setup
+ * can't read `locals.runtime.env` (removed upstream); `cloudflare:workers`
+ * exposes the same bindings and is dynamically imported so it never breaks a
+ * non-workerd build. Mirrors @emdash-cms/cloudflare's cloudflare-email plugin.
+ */
+async function workerEnv(): Promise<Record<string, any>> {
+	try {
+		return (await import("cloudflare:workers")).env as Record<string, any>;
+	} catch {
+		return {};
+	}
+}
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Where enquiries land, and the sender label. `FROM.email` must be on a domain
+// onboarded for Cloudflare Email Sending (vitops.ca); any @vitops.ca works.
+const TO = "hi@vitops.ca";
+const FROM = { email: "forms@vitops.ca", name: "Vitops website" };
+
+function json(body: unknown, status: number): Response {
+	return new Response(JSON.stringify(body), {
+		status,
+		headers: { "content-type": "application/json" },
+	});
+}
+
+function escapeHtml(s: string): string {
+	return s
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;");
+}
+
+/**
+ * Contact-form intake. Accepts JSON or urlencoded/multipart bodies, validates
+ * the required fields, and emails the enquiry to TO via the Cloudflare Email
+ * Sending binding (env.EMAIL), with Reply-To set to the submitter.
+ */
+export const POST: APIRoute = async ({ request }) => {
+	let data: Record<string, unknown> = {};
+
+	try {
+		const ctype = request.headers.get("content-type") || "";
+		if (ctype.includes("application/json")) {
+			data = (await request.json()) as Record<string, unknown>;
+		} else {
+			const form = await request.formData();
+			data = Object.fromEntries(form.entries());
+		}
+	} catch {
+		return json({ ok: false, error: "Could not read the submission." }, 400);
+	}
+
+	const name = String(data.name ?? "").trim();
+	const email = String(data.email ?? "").trim();
+	const company = String(data.company ?? "").trim();
+	const message = String(data.message ?? "").trim();
+
+	if (!name || !email || !message) {
+		return json(
+			{ ok: false, error: "Name, work email, and a short message are required." },
+			400,
+		);
+	}
+	if (!EMAIL_RE.test(email)) {
+		return json({ ok: false, error: "That email address looks off." }, 400);
+	}
+
+	// Cloudflare Email Sending binding (declared as `send_email` in wrangler.jsonc).
+	// Absent under some local/dev runtimes — degrade gracefully rather than 500.
+	const EMAIL = (await workerEnv()).EMAIL;
+	if (!EMAIL || typeof EMAIL.send !== "function") {
+		console.warn("[contact] EMAIL binding unavailable; enquiry not sent", {
+			name,
+			email,
+			company,
+		});
+		return json(
+			{
+				ok: false,
+				error: "Could not send right now. Please email hi@vitops.ca directly.",
+			},
+			502,
+		);
+	}
+
+	const subject = `New enquiry — ${name}${company ? ` (${company})` : ""}`;
+	const lines = [
+		`Name:    ${name}`,
+		`Email:   ${email}`,
+		`Company: ${company || "—"}`,
+		"",
+		message,
+	];
+	const text = lines.join("\n");
+	const html = `<table style="font:14px/1.5 system-ui,sans-serif;color:#141a23">
+  <tr><td style="padding:2px 12px 2px 0;color:#6c7689">Name</td><td>${escapeHtml(name)}</td></tr>
+  <tr><td style="padding:2px 12px 2px 0;color:#6c7689">Email</td><td><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td></tr>
+  <tr><td style="padding:2px 12px 2px 0;color:#6c7689">Company</td><td>${escapeHtml(company || "—")}</td></tr>
+</table>
+<p style="font:14px/1.55 system-ui,sans-serif;color:#141a23;white-space:pre-wrap;margin-top:16px">${escapeHtml(message)}</p>`;
+
+	try {
+		const res = await EMAIL.send({
+			to: TO,
+			from: FROM,
+			replyTo: email,
+			subject,
+			text,
+			html,
+		});
+		console.log("[contact] enquiry emailed", {
+			to: TO,
+			from: email,
+			messageId: res?.messageId,
+		});
+		return json(
+			{ ok: true, message: "Thanks. A partner will be in touch shortly." },
+			200,
+		);
+	} catch (err) {
+		console.error("[contact] send failed", err);
+		return json(
+			{
+				ok: false,
+				error: "Could not send right now. Please email hi@vitops.ca directly.",
+			},
+			502,
+		);
+	}
+};
