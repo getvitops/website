@@ -3,7 +3,11 @@ import { Font } from "astro:assets";
 import { getSiteSettings } from "emdash";
 import { EmDashHead } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
-import "../styles/styles.css";
+// TEMP: framework CSS is mid-migration to the Tailwind v4 output
+// (src/styles/tailwind.css, needs @tailwindcss/vite wired in astro.config).
+// The old generated styles.css was removed; import commented out so the
+// dev pipeline builds. Restore styling by finishing the migration.
+// import "../styles/styles.css";
 import "../styles/pine-theme.css";
 // Single source of truth for the brand mark — the same file the favicon
 // set is generated from. `?raw` inlines it at build time (no extra request).

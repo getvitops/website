@@ -32,7 +32,9 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           set -euo pipefail
-          pnpm exec wrangler d1 export vitops --remote --output=./prod.sql
+          # NOTE: the prod D1 is *named* my-marketing-site (template-era name);
+          # wrangler.jsonc binds it by id. Name-based CLI ops must use the real name.
+          pnpm exec wrangler d1 export my-marketing-site --remote --output=./prod.sql
           pnpm exec wrangler d1 execute vitops-dev --remote --file=./prod.sql --yes
       # TODO: R2 media sync prod → dev. `wrangler r2` has no bulk copy; use rclone
       # against the R2 S3 endpoint with a scoped R2 token, e.g.:
