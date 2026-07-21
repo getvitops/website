@@ -41,3 +41,27 @@ This template ships with `.mcp.json`, `.cursor/mcp.json`, and `.vscode/mcp.json`
 - `entry.id` is the slug (for URLs). `entry.data.id` is the database ULID (for API calls like `getEntryTerms`).
 - Always call `Astro.cache.set(cacheHint)` on pages that query content.
 - Taxonomy names in queries must match the seed's `"name"` field exactly (e.g., `"category"` not `"categories"`).
+
+## A/B testing (3 layers)
+
+Variant is resolved per request in `src/middleware.ts` (`?variant=a|b` override >
+sticky `ab_variant` cookie > 50/50) and exposed as `Astro.locals.variant`.
+`/_emdash/*` is pinned to `a`. Responses carry `x-ab-variant` for analytics.
+
+- **Layer 1 — values.** Copy/numbers/images: `pick(aValue, bValue, Astro.locals.variant)`
+  from `src/lib/variant.ts`, inline where the value is used.
+- **Layer 2 — one component.** The B override mirrors the A path under `src/_b/`
+  (e.g. `src/components/sections/Hero.astro` → `src/_b/sections/Hero.astro`);
+  the page imports both and `pick()`s. Use when the page structure is shared.
+- **Layer 3 — whole page.** Self-contained full page at `src/_b/pages/<route>.astro`
+  (`/` → `index.astro`, `/pricing` → `pricing.astro`). When it exists and the
+  visitor is variant `b`, `src/middleware.ts` internally rewrites — via
+  `next(payload)`, NEVER `context.rewrite()`, which would re-run the EmDash
+  middleware chain — to the `src/pages/b-variant/[...path].astro` dispatcher.
+  The public URL never changes; direct hits to `/b-variant/*` 404.
+
+Rules: never link to `/b-variant/*`; in shared layouts/components use
+`Astro.originPathname`, not `Astro.url.pathname` (`Astro.url` is the internal
+path during a layer-3 render); B pages set their own title/description; home
+sections live in `src/components/sections/` so a structural B home is a
+recomposition, not a fork.
