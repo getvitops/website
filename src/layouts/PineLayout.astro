@@ -27,6 +27,17 @@ const siteDescription =
 	settings?.tagline ||
 	"Vitops runs the digital presence and the IT and HR operations for businesses that would rather focus on their craft.";
 
+// Canonical must be the PUBLIC URL. During an A/B layer-3 render Astro.url is
+// the internal /b-variant/... path; Astro.originPathname is the pre-rewrite
+// pathname (and the plain pathname when no rewrite happened). Astro appends a
+// trailing slash to originPathname on rewrites (trailingSlash "ignore" +
+// directory build format) — normalize so A and B emit identical canonicals.
+// Side effect (intended): query strings no longer leak into the canonical.
+const canonicalPath =
+	Astro.originPathname.length > 1 && Astro.originPathname.endsWith("/")
+		? Astro.originPathname.replace(/\/+$/, "")
+		: Astro.originPathname;
+
 const pageCtx = createPublicPageContext({
 	Astro,
 	kind: "custom",
@@ -34,7 +45,7 @@ const pageCtx = createPublicPageContext({
 	title: fullTitle,
 	pageTitle: title ?? siteTitle,
 	description: description || siteDescription,
-	canonical: Astro.url.href,
+	canonical: new URL(canonicalPath, Astro.url).href,
 	image,
 	seo: { ogImage: image },
 	siteName: siteTitle,
