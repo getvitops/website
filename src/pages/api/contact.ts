@@ -18,10 +18,14 @@ async function workerEnv(): Promise<Record<string, any>> {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Where enquiries land, and the sender label. `FROM.email` must be on a domain
-// onboarded for Cloudflare Email Sending (vitops.ca); any @vitops.ca works.
+// Where enquiries land, and the sender label. `FROM.email` must be on the
+// domain onboarded for Cloudflare Email Sending — send.vitops.ca (the apex
+// vitops.ca is not enabled), so DKIM signs and mail doesn't bounce. Any
+// @send.vitops.ca address works. `TO` is the destination inbox and is
+// unconstrained by the onboarded sender domain. `replyTo` (set per request)
+// carries the submitter's real address so replies reach them, not the domain.
 const TO = "hi@vitops.ca";
-const FROM = { email: "forms@vitops.ca", name: "Vitops website" };
+const FROM = { email: "forms@send.vitops.ca", name: "Vitops website" };
 
 function json(body: unknown, status: number): Response {
 	return new Response(JSON.stringify(body), {

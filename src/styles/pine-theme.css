@@ -1,7 +1,7 @@
 /* =============================================================
    Pine theme layer — the small set of overrides the framework
-   (styles.docs.css) intentionally leaves to the consumer.
-   Imported AFTER styles.docs.css so these declarations win.
+   (styles.css, generated from design-system.json) intentionally
+   leaves to the consumer. Imported AFTER styles.css so these win.
    Only three gaps are covered here: brand fonts, page/body base
    + dark theme, and anchor-as-button CTAs. Everything else uses
    framework classes.

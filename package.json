@@ -15,6 +15,7 @@
     "build:dev": "astro build && node scripts/build-dev-wrangler.mjs",
     "deploy:dev": "astro build && node scripts/build-dev-wrangler.mjs && wrangler deploy --config dist/server/wrangler.dev.json",
     "typecheck": "astro check",
+    "build:css": "vitops generate -i src/design-system.json -f tailwind -o src/styles",
     "prepare": "vp config"
   },
   "dependencies": {
@@ -32,6 +33,10 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.7",
     "@cloudflare/workers-types": "^4.20260305.1",
+    "@getvitops/cli": "0.1.0",
+    "@getvitops/vite": "0.1.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3",
     "vite-plus": "catalog:",
     "wrangler": "^4.111.0"
   },

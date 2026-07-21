@@ -205,13 +205,13 @@ const SIMPLE_ICONS = [
 	.stack-anim .s3-col:nth-child(2) { gap: 10px; }
 	.stack-anim .bt { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--tm); margin-bottom: 10px; }
 
-	/* Website performance mini-dashboard beneath the seat bars in the seats col. */
+	/* Presence metrics mini-dashboard beneath the seat bars in the seats col. */
 	.stack-anim .wperf { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--bd); }
 	.stack-anim .wperf__h { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--tm); margin-bottom: 12px; }
 	.stack-anim .wstat { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; margin-bottom: 9px; }
 	.stack-anim .wstat:last-child { margin-bottom: 0; }
 	.stack-anim .wstat > span:first-child { color: var(--ts); }
-	.stack-anim .wval { color: var(--tp); font-weight: 500; }
+	.stack-anim .wval { color: var(--tp); font-weight: 500; font-variant-numeric: tabular-nums; }
 	.stack-anim .wval .wd { color: var(--ok); font-size: 11px; font-weight: 500; margin-right: 6px; opacity: 0; transition: opacity 0.4s; }
 
 	.stack-anim .gap { height: 26px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 11px; color: var(--tm); opacity: 0; transition: opacity 0.5s; margin-block: 8px; }
@@ -331,10 +331,13 @@ $('vend').innerHTML=SEL.map(p=>`<div class="vd" id="v${p.i}">${mark(p,true)}</di
  +`<div class="vd" id="vwp"><span class="mk">${iconSvg('simple-icons:wordpress')}</span></div>`;
 
 let SQ=[14,8];
-const CONV_BASE=284,CONV_UP=356;
+// This-month dashboard metrics; managed events (tickets) bump them.
+const MBASE={vis:48210,soc:31400,conv:284};
+const MEL={vis:['wVis','wVisD'],soc:['wSoc','wSocD'],conv:['wConv','wConvD']};
+let MCUR=Object.assign({},MBASE);
 const SB=[{n:'Workspace · Starter'},{n:'Workspace · Standard',p:1}];
-$('seats').innerHTML=`<div style="font-size:11px;color:var(--tm);margin-bottom:2px;line-height:1.45">We continuously right-size your licenses so you never overspend.</div>`+SB.map((s,j)=>`<div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px"><span style="color:var(--ts)">${s.n}</span><span style="color:var(--ts)"><span id="sd${j}" style="opacity:0;margin-right:5px"></span><span id="sq${j}">${SQ[j]}</span> seats</span></div><div class="bar"><div class="fill${s.p?' p':''}" id="sf${j}" style="width:${SQ[j]/HEAD*100}%"></div></div></div>`).join('')
- +`<div class="wperf"><div class="wperf__h">Website performance</div><div class="wstat"><span>Uptime</span><span class="wval">99.9%</span></div><div class="wstat"><span>Hits · 30d</span><span class="wval">48,210</span></div><div class="wstat"><span>Conversions</span><span class="wval"><span class="wd" id="wConvD"></span><span id="wConv">${CONV_BASE}</span></span></div></div>`
+$('seats').innerHTML=`<div style="font-size:11px;color:var(--tm);margin-bottom:2px;line-height:1.45">We continuously update your software licenses, website, social media, and ad campaigns to optimize performance and spending.</div>`+SB.map((s,j)=>`<div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px"><span style="color:var(--ts)">${s.n}</span><span style="color:var(--ts)"><span id="sd${j}" style="opacity:0;margin-right:5px"></span><span id="sq${j}">${SQ[j]}</span> seats</span></div><div class="bar"><div class="fill${s.p?' p':''}" id="sf${j}" style="width:${SQ[j]/HEAD*100}%"></div></div></div>`).join('')
+ +`<div class="wperf"><div class="wperf__h">This month</div><div class="wstat"><span>Website visits</span><span class="wval"><span class="wd" id="wVisD"></span><span id="wVis">${MBASE.vis.toLocaleString()}</span></span></div><div class="wstat"><span>Social media views</span><span class="wval"><span class="wd" id="wSocD"></span><span id="wSoc">${MBASE.soc.toLocaleString()}</span></span></div><div class="wstat"><span>Conversions</span><span class="wval"><span class="wd" id="wConvD"></span><span id="wConv">${MBASE.conv.toLocaleString()}</span></span></div></div>`
 ;
 
 const WS=P.findIndex(p=>p.n==='Workspace'),ZD=P.findIndex(p=>p.n==='Zendesk'),RI=P.findIndex(p=>p.n==='Rippling'),QB=P.findIndex(p=>p.n==='QuickBooks');
@@ -343,7 +346,8 @@ const TIX=[
  {t:'Offboarding, Support',src:'Rippling',v:WS,q:[14,8]},
  {t:'Promoted, needs Standard',src:'Rippling',v:WS,q:[13,9]},
  {t:'Payroll run',v:QB},
- {t:'Updated website',v:'wp',web:1},
+ {t:'Updated website',v:'wp',vis:1120,conv:38},
+ {t:'Social media post',soc:2300,conv:62},
  {t:'Zendesk API errors, escalated',v:ZD},
  {t:'Workspace security update applied',v:WS}];
 $('tix').innerHTML=TIX.map((t,i)=>`<div class="tk" id="tk${i}"><span style="flex:1">${t.t}</span>${t.src?`<span class="src">via ${t.src}</span>`:''}<span id="tc${i}" style="opacity:0;font-size:11px">✓</span></div>`).join('');
@@ -353,9 +357,9 @@ $('g4').innerHTML=SEL.map(p=>`<div style="background:var(--s2);border:1px solid 
 let anim=[];
 const clrA=()=>{anim.forEach(clearTimeout);anim=[]};
 function seat(j,v){const d=v-SQ[j];SQ[j]=v;$('sq'+j).textContent=v;$('sf'+j).style.width=v/HEAD*100+'%';if(!d)return;const e=$('sd'+j);e.textContent=(d>0?'+':'')+d;e.style.color=d>0?'var(--ok)':'var(--wn)';e.style.opacity=1;anim.push(setTimeout(()=>e.style.opacity=0,1400))}
-// Ship a site update -> conversions climb. Count up from base to CONV_UP with
-// a fading +delta badge, mirroring the seat() feedback.
-function bumpConv(){const el=$('wConv'),d=$('wConvD');if(!el)return;d.textContent='+'+(CONV_UP-CONV_BASE);d.style.opacity=1;let v=CONV_BASE;const step=Math.max(1,Math.ceil((CONV_UP-CONV_BASE)/16));const t=setInterval(()=>{v+=step;if(v>=CONV_UP){v=CONV_UP;clearInterval(t)}el.textContent=v.toLocaleString()},45);anim.push(setTimeout(()=>d.style.opacity=0,1600))}
+// A managed event -> the matching dashboard metric climbs, with a fading
+// +delta badge, mirroring the seat() feedback.
+function bump(key,add){const[vid,did]=MEL[key],el=$(vid),d=$(did);if(!el)return;const from=MCUR[key],to=from+add;MCUR[key]=to;d.textContent='+'+add.toLocaleString();d.style.opacity=1;let v=from;const step=Math.max(1,Math.ceil(add/16));const t=setInterval(()=>{v+=step;if(v>=to){v=to;clearInterval(t)}el.textContent=v.toLocaleString()},45);anim.push(t);anim.push(setTimeout(()=>d.style.opacity=0,1600))}
 
 function run(n){
  if(n===0)P.forEach((p,i)=>{const c=$('c'+i);c.className='card';anim.push(setTimeout(()=>c.className='card '+(p.pick?'pick':'dim'),300+i*110))});
@@ -363,16 +367,16 @@ function run(n){
  if(n===2)INT.forEach((e,i)=>{const el=$('L'+i);el.style.strokeDashoffset=el.dataset.len;el.style.stroke='var(--bds)';anim.push(setTimeout(()=>{el.style.strokeDashoffset=0;el.style.stroke='var(--ac)'},300+i*200))});
  if(n===3){
    SQ=[14,8];[0,1].forEach(j=>{$('sq'+j).textContent=SQ[j];$('sf'+j).style.width=SQ[j]/HEAD*100+'%';$('sd'+j).style.opacity=0});
-   $('wConv').textContent=CONV_BASE;$('wConvD').style.opacity=0;
+   MCUR=Object.assign({},MBASE);for(const k in MEL){const[vid,did]=MEL[k];$(vid).textContent=MBASE[k].toLocaleString();$(did).style.opacity=0}
    TIX.forEach((t,i)=>{$('tk'+i).className='tk';$('tc'+i).style.opacity=0});
    SEL.forEach(p=>$('v'+p.i).classList.remove('hot'));$('vwp').classList.remove('hot');
    $('gap2').classList.remove('on');
    anim.push(setTimeout(()=>$('gap2').classList.add('on'),450));
    TIX.forEach((t,i)=>{const d=900+i*1600;
      anim.push(setTimeout(()=>$('tk'+i).classList.add('on'),d));
-     anim.push(setTimeout(()=>{if(t.src)$('v'+RI).classList.add('hot');$('v'+t.v).classList.add('hot')},d+450));
-     anim.push(setTimeout(()=>{if(t.q){seat(0,t.q[0]);seat(1,t.q[1])}if(t.web)bumpConv()},d+750));
-     anim.push(setTimeout(()=>{$('tk'+i).classList.add('done');$('tc'+i).style.opacity=1;$('v'+RI).classList.remove('hot');$('v'+t.v).classList.remove('hot')},d+1200))})}
+     anim.push(setTimeout(()=>{if(t.src)$('v'+RI).classList.add('hot');if(t.v!=null){const vt=$('v'+t.v);if(vt)vt.classList.add('hot')}},d+450));
+     anim.push(setTimeout(()=>{if(t.q){seat(0,t.q[0]);seat(1,t.q[1])}if(t.vis)bump('vis',t.vis);if(t.soc)bump('soc',t.soc);if(t.conv)bump('conv',t.conv)},d+750));
+     anim.push(setTimeout(()=>{$('tk'+i).classList.add('done');$('tc'+i).style.opacity=1;$('v'+RI).classList.remove('hot');if(t.v!=null){const vt=$('v'+t.v);if(vt)vt.classList.remove('hot')}},d+1200))})}
  if(n===4){$('dl').textContent=0;$('dc').textContent='$0';const S=SEL.reduce((a,p)=>a+TOT(p),0),C=SEL.reduce((a,p)=>a+p.sk.reduce((b,s)=>b+s.q*s.c,0),0);let v=0;const t=setInterval(()=>{v+=Math.ceil(S/20);if(v>=S){v=S;clearInterval(t)}$('dl').textContent=v;$('dc').textContent='$'+Math.round(v/S*C).toLocaleString()},50)}}
 
 // Each step animates when it scrolls into view, and can be replayed.

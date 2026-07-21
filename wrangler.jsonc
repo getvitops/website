@@ -28,8 +28,9 @@
     },
   ],
   // Cloudflare Email Sending — the contact form (src/pages/api/contact.ts)
-  // calls env.EMAIL.send(). The `from` domain (vitops.ca) must be onboarded
-  // for Email Sending before real delivery works.
+  // calls env.EMAIL.send(). The `from` domain (send.vitops.ca) is onboarded
+  // for Email Sending (the apex vitops.ca is not); sending from any other
+  // domain fails DKIM and bounces.
   "send_email": [{ "name": "EMAIL" }],
   // Drives scheduled publishing, plugin cron, and maintenance (see src/worker.ts)
   "triggers": {
