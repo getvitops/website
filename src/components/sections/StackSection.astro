@@ -1,0 +1,35 @@
+---
+// MANAGED STACK ANIMATION — extracted verbatim from src/pages/index.astro
+// (A/B layer-3 enabler refactor). The `id="it-hr"` anchor is load-bearing.
+import StackAnimation from "../StackAnimation.astro";
+---
+
+<!-- MANAGED STACK ANIMATION -->
+<section class="stack-section section centered" id="it-hr">
+	<div class="spotlight">
+		<header class="section-intro">
+			<span class="font-eyebrow">IT and HR, managed</span>
+			<h2 class="font-title">Managed Software Operations.</h2>
+			<p class="font-lead section-lead">
+				We help you decide which software licences to onboard, implement them, and setup integrations and AI-enablement where appropriate. If you want continuous optimization to make sure you're getting the most of our your software, we offer this as a managed service, freeing you from the grind of operations.
+			</p>
+		</header>
+		<StackAnimation />
+	</div>
+</section>
+
+<style>
+	/* Section intros (shared block, duplicated per section — Astro scoping) */
+	.section-intro {
+		max-width: 56ch;
+		margin-bottom: 3rem;
+	}
+	.section-intro .font-title {
+		margin-top: 0.75rem;
+		font-size: clamp(2rem, 4vw, 3rem);
+	}
+	.section-lead {
+		margin-top: 1rem;
+		color: var(--color-mist);
+	}
+</style>

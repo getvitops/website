@@ -1,0 +1,110 @@
+---
+// PAIN POINT — extracted verbatim from src/pages/index.astro (A/B layer-3
+// enabler refactor). Markup and scoped styles are a pure move.
+---
+
+<!-- PAIN POINT -->
+<section class="pain section centered">
+	<div class="spotlight">
+		<header class="section-intro">
+			<span class="font-eyebrow pain-eyebrow">The problem</span>
+			<h2 class="font-title">You didn't start your business to run IT and HR.</h2>
+			<p class="font-lead section-lead">
+				Every growing business needs its software, devices, identity, and
+				people operations handled well. Almost none of them need, or can
+				afford, a full-time hire to do it.
+			</p>
+		</header>
+
+		<div class="pain-grid">
+			<article class="card bg-navy-d pain-card">
+				<span class="pain-tag">Hiring it</span>
+				<p class="font-body pain-copy">
+					A dedicated IT or HR person is a six-figure commitment, and a small team rarely keeps one fully busy.
+				</p>
+			</article>
+			<article class="card bg-navy-d pain-card">
+				<span class="pain-tag">Doing it yourself</span>
+				<p class="font-body pain-copy">
+					You or your most capable person trade hours you
+					should spend on customers for operational tasks.
+				</p>
+			</article>
+			<article class="card bg-navy-d pain-card">
+				<span class="pain-tag">Ignoring it</span>
+				<p class="font-body pain-copy">
+					Without expertise and constant monitoring, security gaps widen, money is wasted, and you fall behind.
+				</p>
+			</article>
+		</div>
+	</div>
+
+	<p class="pain-close breakout">
+		There is a third option. Hand it to a partner who handles operations for you, for
+		less than the cost of a single hire.
+	</p>
+</section>
+
+<style>
+	/* Section intros (shared block, duplicated per section — Astro scoping) */
+	.section-intro {
+		max-width: 56ch;
+		margin-bottom: 3rem;
+	}
+	.section-intro .font-title {
+		margin-top: 0.75rem;
+		font-size: clamp(2rem, 4vw, 3rem);
+	}
+	.section-lead {
+		margin-top: 1rem;
+		color: var(--color-mist);
+	}
+
+	/* Pain point */
+	.pain-eyebrow {
+		color: var(--color-amber);
+	}
+	.pain-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.5rem;
+	}
+	.pain-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+		padding: 1.75rem;
+	}
+	.pain-tag {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.55rem;
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--color-amber);
+	}
+	.pain-tag::before {
+		content: "✕";
+		font-size: 0.9em;
+	}
+	.pain-copy {
+		color: var(--color-mist);
+	}
+	/* Closing callout — sits in the centered breakout track for a
+	   deliberate, narrower emphasis under the wide pain grid. */
+	.pain-close {
+		margin-top: 3rem;
+		font-size: var(--text-l);
+		color: var(--color-snow);
+		text-align: center;
+		text-wrap: balance;
+	}
+
+	@media (max-width: 860px) {
+		.pain-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
