@@ -24,6 +24,20 @@
   --color-mist: #b9c0cb;
   --color-slate: #6c7689;
 
+  /* Palette bridge — generator 0.2.0 renamed color tokens to Tailwind-style
+     numeric scales (--color-pine-400 etc.). Site styles keep the Pine shade
+     names; these aliases map them to the new tokens, with the original hex
+     as fallback so they resolve even while the framework CSS import is
+     paused mid-migration. navy-xd/xxd and amber-l were dropped by 0.2.0's
+     lightness bucketing (dark tones collided), so those pin the hex only. */
+  --color-pine: var(--color-pine-400, #4a9075);
+  --color-pine-l: var(--color-pine-300, #70aa92);
+  --color-navy: var(--color-navy-700, #1a2230);
+  --color-navy-d: var(--color-navy-800, #141b26);
+  --color-navy-xd: #0f141d;
+  --color-navy-xxd: #090d14;
+  --color-amber: var(--color-amber-200, #f5b94a);
+
   /* Hairlines over shadows — the Pine chrome rule. */
   --line-1: rgba(255, 255, 255, 0.07);
   --line-2: rgba(255, 255, 255, 0.14);
