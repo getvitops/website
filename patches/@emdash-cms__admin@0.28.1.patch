@@ -1,0 +1,21 @@
+diff --git a/dist/index.js b/dist/index.js
+index 0c894e3ab0b53046e98cef93f2825bae43b2bec6..99bb363783060c21d405b571f7dff9103cc4c8bd 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -41820,6 +41820,7 @@ function normalizeAdminHref(href) {
+ 	return href;
+ }
+ function getAnchorHref(destination, routerDestination) {
++	if (routerDestination.startsWith("/_emdash/")) return destination;
+ 	if (routerDestination.startsWith("/") && !routerDestination.startsWith("//")) {
+ 		if (routerDestination === "/" || routerDestination.startsWith("/?") || routerDestination.startsWith("/#")) return `${ADMIN_BASEPATH}${routerDestination.slice(1)}`;
+ 		return `${ADMIN_BASEPATH}${routerDestination}`;
+@@ -41830,7 +41831,7 @@ const KumoRouterLink = React$1.forwardRef(({ href, to, target, download, childre
+ 	const destination = href ?? to ?? "";
+ 	const hasSearchOrHash = destination.includes("?") || destination.includes("#");
+ 	const routerDestination = normalizeAdminHref(destination);
+-	const shouldUseAnchor = !(routerDestination.startsWith("/") && !routerDestination.startsWith("//")) || hasSearchOrHash || target || download != null;
++	const shouldUseAnchor = !(routerDestination.startsWith("/") && !routerDestination.startsWith("//")) || routerDestination.startsWith("/_emdash/") || hasSearchOrHash || target || download != null;
+ 	const linkProps = props;
+ 	const ariaCurrent = linkProps["aria-current"] ?? (linkProps["data-active"] ? "page" : void 0);
+ 	if (shouldUseAnchor) return /* @__PURE__ */ jsx("a", {

@@ -40,4 +40,5 @@ peerDependencyRules:
     vite: "*"
     vitest: "*"
 patchedDependencies:
+  "@emdash-cms/admin@0.28.1": patches/@emdash-cms__admin@0.28.1.patch
   emdash: patches/emdash.patch
