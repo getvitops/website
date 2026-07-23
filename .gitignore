@@ -5,6 +5,16 @@ node_modules/
 dist/
 # Adapter-generated at build time (immutable Cache-Control for /_astro/*)
 public/_headers
+# @getvitops/astro regenerates these on every build (favicons, manifest, WC bundles)
+public/favicon.ico
+public/favicon.svg
+public/apple-touch-icon.png
+public/icon-32.png
+public/icon-192.png
+public/icon-512.png
+public/icon-mask.png
+public/site.webmanifest
+public/vitops/
 
 # Astro
 .astro/

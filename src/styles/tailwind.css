@@ -1074,6 +1074,11 @@ body {
   container-type: inline-size;
 }
 
+/* Class-level structure rules live in `components` so track/spacing utilities
+   (@layer utilities — later in the layer order) can override them; unlayered
+   CSS would beat ALL layered utilities regardless of specificity (e.g.
+   `.centered > *` pinning children to `measure` over `.spotlight`). */
+@layer components {
 .rhythm {
   display: flow-root;
 }
@@ -1131,8 +1136,10 @@ body {
     var(--region-space-max, 8rem)
   );
 }
+}
 
 /* ── Animation engine (animation.css) ── */
+@layer components {
 /**
  * Animation System — three orthogonal layers
  *
@@ -1660,6 +1667,7 @@ body {
   --float-easing: ease-in-out;
 }
 
+}
 /* ── Component patterns ── */
 @layer components {
 /* GENERATED component patterns — do not edit by hand. */

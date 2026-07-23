@@ -5,6 +5,7 @@ import icon from "astro-iconset";
 import { defineConfig, fontProviders } from "astro/config";
 import emdash from "emdash/astro";
 import { github } from "emdash/auth/providers/github";
+import vitops from "@getvitops/astro";
 
 export default defineConfig({
   output: "server",
@@ -56,12 +57,16 @@ export default defineConfig({
           "apple",
           "asana",
           "astro",
+          "claude",
+          "cloudflare",
+          "ionos",
           "facebook",
           "google",
           "hubspot",
           "instagram",
           "linkedin",
           "microsoft",
+          "microsoftazure",
           "microsoftbing",
           "openai",
           "quickbooks",
@@ -70,6 +75,7 @@ export default defineConfig({
           "x",
           "youtube",
           "zendesk",
+          "zoho",
         ],
       },
     }),
@@ -87,6 +93,15 @@ export default defineConfig({
           entrypoint: new URL("./src/plugins/marketing-blocks/index.ts", import.meta.url).href,
         },
       ],
+    }),
+    vitops({
+      favicon: {
+        source: "src/assets/vitops-mark.svg",
+        name: "Vitops",
+        themeColor: "#2f6f5e",
+        backgroundColor: "#0c1116",
+      },
+      css: { format: "tailwind" },
     }),
   ],
   fonts: [
