@@ -1,9 +1,11 @@
 ---
-// PREFERRED VENDORS — logo strip of the platforms we implement and manage.
+// KEY PARTNERS — logo strip of the platforms we implement, manage, and host on.
 // Icons are inlined at build time via astro-iconset (no runtime requests).
+// "whc" is a local icon (src/icons/whc.svg) — Web Hosting Canada isn't in
+// simple-icons.
 import { Icon } from "astro-iconset/components";
 
-const vendors = [
+const partners = [
 	{ name: "Zoho", icon: "simple-icons:zoho" },
 	{ name: "Google", icon: "simple-icons:google" },
 	{ name: "Microsoft", icon: "simple-icons:microsoft" },
@@ -12,25 +14,33 @@ const vendors = [
 	{ name: "Zendesk", icon: "simple-icons:zendesk" },
 	{ name: "Anthropic", icon: "simple-icons:anthropic" },
 	{ name: "Rippling", icon: "rippling" },
+	{ name: "Cloudflare", icon: "simple-icons:cloudflare" },
+	{ name: "Azure", icon: "simple-icons:microsoftazure" },
+	{ name: "IONOS", icon: "simple-icons:ionos" },
+	{ name: "WHC", icon: "whc" },
 ];
 ---
 
-<!-- PREFERRED VENDORS -->
-<section class="vendors-section section centered" id="vendors">
+<!-- KEY PARTNERS -->
+<section class="partners-section section centered" id="partners">
 	<div class="spotlight">
 		<header class="section-intro">
-			<span class="font-eyebrow">Preferred vendors</span>
+			<span class="font-eyebrow">Key partners</span>
 		</header>
-		<ul class="vendor-strip">
+		<ul class="partner-strip">
 			{
-				vendors.map((v) => (
-					<li class="vendor">
-						<Icon name={v.icon} />
-						<span class="vendor-name">{v.name}</span>
+				partners.map((p) => (
+					<li class="partner">
+						<Icon name={p.icon} />
+						<span class="partner-name">{p.name}</span>
 					</li>
 				))
 			}
 		</ul>
+		<p class="footnote">
+			Interested in something else? <a href="#contact">Reach out</a> to see how
+			we can make it work
+		</p>
 	</div>
 </section>
 
@@ -40,7 +50,7 @@ const vendors = [
 		margin-bottom: 2rem;
 	}
 
-	.vendor-strip {
+	.partner-strip {
 		list-style: none;
 		margin: 0;
 		padding: 0;
@@ -49,23 +59,29 @@ const vendors = [
 		align-items: center;
 		gap: 1.5rem 3rem;
 	}
-	.vendor {
+	.partner {
 		display: flex;
 		align-items: center;
 		gap: 0.65rem;
 		color: var(--color-mist);
 	}
-	.vendor :global(svg) {
+	.partner :global(svg) {
 		width: 1.5rem;
 		height: 1.5rem;
 	}
-	.vendor-name {
+	.partner-name {
 		font-size: var(--text-s);
 		letter-spacing: 0.02em;
 	}
 
+	.footnote {
+		margin-top: 2rem;
+		font-size: var(--text-s);
+		color: var(--color-mist);
+	}
+
 	@media (min-width: 768px) {
-		.vendor-strip {
+		.partner-strip {
 			grid-template-columns: repeat(4, 1fr);
 		}
 	}

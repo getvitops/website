@@ -5,8 +5,7 @@ import HeroB from "../_b/sections/Hero.astro";
 import Pain from "../components/sections/Pain.astro";
 import Services from "../components/sections/Services.astro";
 import StackSection from "../components/sections/StackSection.astro";
-import PreferredVendors from "../components/sections/PreferredVendors.astro";
-import PreferredHosting from "../components/sections/PreferredHosting.astro";
+import KeyPartners from "../components/sections/KeyPartners.astro";
 import PresenceSection from "../components/sections/PresenceSection.astro";
 import Contact from "../components/sections/Contact.astro";
 import { pick } from "../lib/variant";
@@ -23,8 +22,7 @@ const Hero = pick(HeroA, HeroB, Astro.locals.variant);
 	<Pain />
 	<Services />
 	<StackSection />
-	<PreferredVendors />
-	<PreferredHosting />
+	<KeyPartners />
 	<PresenceSection />
 	<Contact />
 </PineLayout>
