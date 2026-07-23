@@ -50,6 +50,8 @@ html[data-brx-theme="dark"] {
 
 html {
   scroll-behavior: smooth;
+  /* Anchor targets must clear the 64px sticky header (+ breathing room). */
+  scroll-padding-block-start: 5rem;
 }
 
 body {
