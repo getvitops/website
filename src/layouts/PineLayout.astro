@@ -97,9 +97,76 @@ const year = new Date().getFullYear();
 					<a class="cta" href="/#contact"
 						>Talk to us <span class="arrow">→</span></a
 					>
+					<button
+						class="drawer-open"
+						type="button"
+						popovertarget="site-nav-drawer"
+						aria-label="Open navigation menu"
+					>
+						<svg
+							viewBox="0 0 24 24"
+							width="22"
+							height="22"
+							aria-hidden="true"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							><path d="M4 7h16M4 12h16M4 17h16"></path></svg
+						>
+					</button>
 				</div>
 			</div>
 		</header>
+
+		<!-- Site nav drawer: framework .drawer-menu pattern driven entirely by the
+		     Popover API — popovertarget toggles it, light dismiss (Esc / outside
+		     click) comes free. Only the link-click auto-close needs script. -->
+		<div id="site-nav-drawer" popover class="drawer-menu">
+			<button
+				class="drawer-close"
+				type="button"
+				popovertarget="site-nav-drawer"
+				popovertargetaction="hide"
+				aria-label="Close navigation menu"
+			>
+				<svg
+					viewBox="0 0 24 24"
+					width="22"
+					height="22"
+					aria-hidden="true"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg
+				>
+			</button>
+			<div class="nav-header">
+				<a class="brand" href="/" aria-label="vitops home">
+					<span
+						class="brand-mark"
+						set:html={vitopsMark}
+						aria-hidden="true"></span>
+					<span class="brand-word">vitops</span>
+				</a>
+			</div>
+			<nav class="drawer-nav" aria-label="Menu">
+				<ul class="nav-items">
+					{
+						navLinks.map((link) => (
+							<li>
+								<a href={link.href}>{link.label}</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+			<div class="nav-actions">
+				<a class="cta" href="/#contact"
+					>Talk to us <span class="arrow">→</span></a
+				>
+			</div>
+		</div>
 
 		<main>
 			<slot />
@@ -188,6 +255,40 @@ const year = new Date().getFullYear();
 				flex: 0 0 auto;
 			}
 
+			/* Hamburger: hidden wherever the inline nav is shown. */
+			.drawer-open {
+				display: none;
+				background: none;
+				border: none;
+				cursor: pointer;
+				padding: 0.4rem;
+				color: var(--color-mist);
+				transition: color 0.2s ease;
+			}
+
+			.drawer-open:hover {
+				color: var(--color-snow);
+			}
+
+			/* Skin the framework drawer to the site surface; don't rely on the
+			   theme-attr mapping of --surface-bg. */
+			.drawer-menu {
+				background: var(--color-navy-xxd);
+				color: var(--color-mist);
+				border: none;
+				--nav-border-color: var(--line-1);
+			}
+
+			.drawer-menu .nav-items a {
+				font-size: var(--text-l);
+				color: var(--color-snow);
+				text-decoration: none;
+			}
+
+			.drawer-close {
+				color: var(--color-mist);
+			}
+
 			/* Footer */
 			.site-footer {
 				border-top: 1px solid var(--line-1);
@@ -255,12 +356,29 @@ const year = new Date().getFullYear();
 				}
 			}
 
-			/* Collapse the centered nav on small screens; brand + CTA stay. */
+			/* Collapse the centered nav on small screens; brand + CTA stay and
+			   the hamburger takes over (opens the site-nav drawer). */
 			@media (max-width: 720px) {
 				nav[aria-label="Primary"] {
 					display: none;
 				}
+
+				.drawer-open {
+					display: inline-flex;
+				}
 			}
 		</style>
+
+		<script is:inline>
+			// Popover light-dismiss doesn't cover clicks on links INSIDE the
+			// drawer — same-page anchor jumps would leave it open over the page.
+			(() => {
+				const drawer = document.getElementById("site-nav-drawer");
+				drawer?.addEventListener("click", (e) => {
+					if (e.target instanceof Element && e.target.closest("a"))
+						drawer.hidePopover();
+				});
+			})();
+		</script>
 	</body>
 </html>
