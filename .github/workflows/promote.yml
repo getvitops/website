@@ -35,10 +35,12 @@ jobs:
           if gh pr view dev --base main --json number >/dev/null 2>&1; then
             echo "Promotion PR already open; ensuring auto-merge is enabled."
           else
+            # printf, not a multi-line string: an unindented continuation line
+            # would end this YAML block and break the whole workflow file.
             gh pr create --base main --head dev \
               --title "Promote dev → main" \
-              --body "Automated code promotion from \`dev\`. Merging deploys to production (vitops.ca).
-
-Remember: schema/content promotion is separate (run **Promote schema** against prod if this release changes the content model)."
+              --body "$(printf '%s\n\n%s' \
+                "Automated code promotion from \`dev\`. Merging deploys to production (vitops.ca)." \
+                "Remember: schema/content promotion is separate (run **Promote schema** against prod if this release changes the content model).")"
           fi
           gh pr merge dev --auto --merge
