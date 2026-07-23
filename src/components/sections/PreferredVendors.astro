@@ -1,0 +1,72 @@
+---
+// PREFERRED VENDORS — logo strip of the platforms we implement and manage.
+// Icons are inlined at build time via astro-iconset (no runtime requests).
+import { Icon } from "astro-iconset/components";
+
+const vendors = [
+	{ name: "Zoho", icon: "simple-icons:zoho" },
+	{ name: "Google", icon: "simple-icons:google" },
+	{ name: "Microsoft", icon: "simple-icons:microsoft" },
+	{ name: "QuickBooks", icon: "simple-icons:quickbooks" },
+	{ name: "HubSpot", icon: "simple-icons:hubspot" },
+	{ name: "Zendesk", icon: "simple-icons:zendesk" },
+	{ name: "Anthropic", icon: "simple-icons:anthropic" },
+	{ name: "Rippling", icon: "rippling" },
+];
+---
+
+<!-- PREFERRED VENDORS -->
+<section class="vendors-section section centered" id="vendors">
+	<div class="spotlight">
+		<header class="section-intro">
+			<span class="font-eyebrow">Preferred vendors</span>
+		</header>
+		<ul class="vendor-strip">
+			{
+				vendors.map((v) => (
+					<li class="vendor">
+						<Icon name={v.icon} />
+						<span class="vendor-name">{v.name}</span>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>
+
+<style>
+	.section-intro {
+		max-width: 56ch;
+		margin-bottom: 2rem;
+	}
+
+	.vendor-strip {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		align-items: center;
+		gap: 1.5rem 3rem;
+	}
+	.vendor {
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+		color: var(--color-mist);
+	}
+	.vendor :global(svg) {
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+	.vendor-name {
+		font-size: var(--text-s);
+		letter-spacing: 0.02em;
+	}
+
+	@media (min-width: 768px) {
+		.vendor-strip {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+</style>
