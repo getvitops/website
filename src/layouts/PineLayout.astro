@@ -369,6 +369,12 @@ const year = new Date().getFullYear();
 				.drawer-open {
 					display: inline-flex;
 				}
+
+				/* With the inline nav (the flex:1 spacer) gone, push the
+				   actions to the right edge ourselves. */
+				.nav-actions {
+					margin-inline-start: auto;
+				}
 			}
 		</style>
 
