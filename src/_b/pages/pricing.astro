@@ -69,24 +69,6 @@ const presenceServices = [
 		],
 	},
 	{
-		name: "Basic hosting",
-		price: "$10",
-		period: "/ mo",
-		included: [
-			"Managed hosting with backups, security patching, and basic web analytics",
-			"Content changes and updates scoped and billed hourly",
-		],
-	},
-	{
-		name: "Website care & growth",
-		price: "$40",
-		period: "/ mo",
-		included: [
-			"Everything in Basic hosting, plus minor content edits included",
-			"A/B testing and server-side conversion tracking to learn what actually converts",
-		],
-	},
-	{
 		name: "SEO & GEO optimization",
 		price: "$650",
 		period: "/ mo",
@@ -117,6 +99,29 @@ const presenceServices = [
 		period: "/ mo",
 		included: [
 			"Google Business Profile, Bing Places, Apple Business Connect — claimed, verified, kept in sync",
+		],
+	},
+];
+
+// --- Website hosting: two ongoing-care options, pick one --------------------
+const hostingOptions = [
+	{
+		name: "Basic hosting",
+		price: "$20",
+		period: "/ mo",
+		included: [
+			"Managed hosting with backups, security patching, and basic web analytics",
+			"Additional work available at $50 / hour",
+		],
+	},
+	{
+		name: "Website care & growth",
+		price: "$50",
+		period: "/ mo",
+		included: [
+			"Everything in Basic hosting, plus minor content edits included",
+			"A/B testing and server-side conversion tracking to learn what actually converts",
+			"Additional work available at $50 / hour",
 		],
 	},
 ];
@@ -206,6 +211,37 @@ const finePrint = [
 					their keep.
 				</p>
 			</header>
+
+			<p class="hosting-choice-label">
+				Keep your site running — choose the level that fits:
+			</p>
+			<div class="hosting-choice">
+				{
+					hostingOptions.map((opt, i) => (
+						<>
+							{i > 0 && (
+								<div class="hosting-or" aria-hidden="true">
+									<span>or</span>
+								</div>
+							)}
+							<article class="card bg-navy-d hosting-card">
+								<div class="svc-head">
+									<h3 class="font-heading svc-name">{opt.name}</h3>
+									<p class="svc-price">
+										<span class="svc-price__amount">{opt.price}</span>
+										<span class="svc-price__period">{opt.period}</span>
+									</p>
+								</div>
+								<ul class="svc-included">
+									{opt.included.map((line) => (
+										<li>{line}</li>
+									))}
+								</ul>
+							</article>
+						</>
+					))
+				}
+			</div>
 
 			<div class="svc-table card bg-navy-d">
 				{
@@ -412,6 +448,42 @@ const finePrint = [
 		font-size: 0.85em;
 	}
 
+	/* ---- Website hosting: OR choice ---- */
+	.hosting-choice-label {
+		margin: 0 0 1rem;
+		font-size: var(--text-s);
+		color: var(--color-slate);
+	}
+	.hosting-choice {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		align-items: stretch;
+		gap: 1.25rem;
+		margin-bottom: 1.5rem;
+	}
+	.hosting-card {
+		display: flex;
+		flex-direction: column;
+		gap: 1.1rem;
+		padding: 1.75rem 2rem;
+	}
+	.hosting-or {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.hosting-or span {
+		font-family: var(--font-mono);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: var(--text-xs);
+		color: var(--color-slate);
+		border: 1px solid var(--line-1);
+		border-radius: var(--br-pill, 999px);
+		padding: 0.35rem 0.7rem;
+		background: var(--color-navy-d);
+	}
+
 	/* ---- Digital Presence table ---- */
 	.svc-table {
 		padding: 0;
@@ -547,6 +619,9 @@ const finePrint = [
 		.svc-row {
 			grid-template-columns: 1fr;
 			gap: 1rem;
+		}
+		.hosting-choice {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>
