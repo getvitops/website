@@ -3,10 +3,6 @@
   "version": "0.0.3",
   "private": true,
   "type": "module",
-  "emdash": {
-    "label": "Marketing",
-    "seed": "seed/seed.json"
-  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -21,32 +17,36 @@
   "dependencies": {
     "@astrojs/cloudflare": "^14.0.0",
     "@astrojs/react": "^6.0.0",
-    "@emdash-cms/cloudflare": "^0.28.1",
-    "@getvitops/astro": "^0.1.1",
+    "@emdash-cms/cloudflare": "^0.31.0",
+    "@getvitops/astro": "^0.4.0",
+    "@getvitops/emdash": "^0.1.0",
     "@iconify-json/ph": "^1.2.2",
     "@iconify-json/simple-icons": "^1.2.0",
     "astro": "^7.0.0",
     "astro-iconset": "^0.0.4",
-    "emdash": "^0.28.1",
+    "emdash": "^0.31.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.7",
     "@cloudflare/workers-types": "^4.20260305.1",
-    "@getvitops/cli": "0.2.1",
-    "@getvitops/vite": "0.2.1",
+    "@getvitops/cli": "0.4.0",
     "@tailwindcss/vite": "^4.3.3",
     "tailwindcss": "^4.3.3",
     "vite-plus": "catalog:",
     "wrangler": "^4.111.0"
   },
-  "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b",
   "devEngines": {
     "runtime": {
       "name": "node",
       "version": "24.18.0",
       "onFail": "download"
     }
+  },
+  "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b",
+  "emdash": {
+    "label": "Marketing",
+    "seed": "seed/seed.json"
   }
 }

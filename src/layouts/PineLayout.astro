@@ -1,13 +1,13 @@
 ---
 import { Font } from "astro:assets";
+import VitopsHead from "@getvitops/astro/Head.astro";
 import { getSiteSettings } from "emdash";
 import { EmDashHead } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
-// TEMP: framework CSS is mid-migration to the Tailwind v4 output
-// (src/styles/tailwind.css, needs @tailwindcss/vite wired in astro.config).
-// The old generated styles.css was removed; import commented out so the
-// dev pipeline builds. Restore styling by finishing the migration.
-// import "../styles/styles.css";
+// Design-system CSS, layout-scoped (getvitops css.inject: false): only pages
+// rendered through PineLayout get it — keeps it out of /_emdash/admin, while
+// EmDash previews (rendered through this layout) keep it.
+import "../styles/tailwind.css";
 import "../styles/pine-theme.css";
 // Single source of truth for the brand mark — the same file the favicon
 // set is generated from. `?raw` inlines it at build time (no extra request).
@@ -67,6 +67,10 @@ const year = new Date().getFullYear();
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{fullTitle}</title>
 		<EmDashHead page={pageCtx} />
+		<!-- Favicon/PWA links + the vitops web-component runtime. The runtime
+		     progressively enhances the @getvitops/emdash editor blocks
+		     (wc-carousel, wc-image-compare, ...) wherever Portable Text renders. -->
+		<VitopsHead />
 		<Font cssVariable="--font-body" preload />
 		<Font cssVariable="--font-geist-mono" />
 	</head>

@@ -6,6 +6,7 @@ import { defineConfig, fontProviders } from "astro/config";
 import emdash from "emdash/astro";
 import { github } from "emdash/auth/providers/github";
 import vitops from "@getvitops/astro";
+import { vitopsEmdash } from "@getvitops/emdash";
 
 export default defineConfig({
   output: "server",
@@ -84,6 +85,12 @@ export default defineConfig({
       database: d1({ binding: "DB", session: "auto" }),
       storage: r2({ binding: "MEDIA" }),
       plugins: [
+        // Vitops design-system blocks (image compare, copy snippet, banner,
+        // disclosure, carousel). Default 'integration' script delivery:
+        // PineLayout renders <Head /> from @getvitops/astro, which emits the
+        // web-component runtime tags — so the plugin must not also inject
+        // them via page fragments.
+        vitopsEmdash(),
         {
           id: "marketing-blocks",
           version: "0.1.0",
@@ -101,7 +108,9 @@ export default defineConfig({
         themeColor: "#2f6f5e",
         backgroundColor: "#0c1116",
       },
-      css: { format: "tailwind" },
+      // inject: false — PineLayout imports the stylesheet, so EmDash's
+      // /_emdash/admin routes don't inherit the design system.
+      css: { format: "tailwind", inject: false },
     }),
   ],
   fonts: [
