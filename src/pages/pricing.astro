@@ -47,19 +47,6 @@ const opsTiers = [
 // --- Digital Presence: priced per service -----------------------------------
 const presenceServices = [
 	{
-		name: "Website build",
-		price: "from $500",
-		period: "one-time",
-		featured: true,
-		included: [
-			"Up to 10 pages included — privacy policy and terms & conditions don't count against that total; additional pages are $50 each",
-			"Managed site (WordPress or Astro), mobile-first, accessible",
-			"Tuned for search and AI-answer visibility from launch",
-			"Content generated with AI and quality stock assets — the fastest path to a polished web presence",
-			"First 6 months of Website care & growth, on us",
-		],
-	},
-	{
 		name: "SEO & GEO optimization",
 		price: "$650",
 		period: "/ mo",
@@ -94,26 +81,53 @@ const presenceServices = [
 	},
 ];
 
-// --- Website hosting: two ongoing-care options, pick one --------------------
-const hostingOptions = [
+// --- Website plans: three mutually exclusive tiers, pick one -----------------
+const hostingTiers = [
 	{
-		name: "Basic hosting",
-		price: "$20",
-		period: "/ mo",
-		included: [
-			"Managed hosting with backups, security patching, and basic web analytics",
-			"Additional work available at $50 / hour",
+		name: "Essential",
+		price: "$39",
+		unit: "/ mo",
+		annual: "$34/mo annual",
+		setup: "$750 setup",
+		features: [
+			"AI-built Astro site with security updates, analytics, and transactional email",
+			"2 small edits / mo",
+			"Everything competitors nickel-and-dime, included: uptime monitoring, SSL, backups, staging environment",
+			"Ships SEO- & AI-search (GEO) optimized at build: Core Web Vitals, structured data, sitemaps, llms.txt, FAQ schema",
 		],
+		highlighted: false,
 	},
 	{
-		name: "Website care & growth",
-		price: "$50",
-		period: "/ mo",
-		included: [
-			"Everything in Basic hosting, plus minor content edits included",
-			"A/B testing and server-side conversion tracking to learn what actually converts",
-			"Additional work available at $50 / hour",
+		name: "Signal",
+		price: "$89",
+		unit: "/ mo",
+		annual: "$79/mo annual",
+		setup: "$750 setup",
+		tag: "Most popular",
+		features: [
+			"Everything in Essential, plus:",
+			"Server-side conversion tracking (Meta CAPI, Google enhanced conversions)",
+			"Qualified-lead alerts — a text, email, or call when a lead matches your rules, not every form fire",
+			"Automated monthly SEO & performance report: keyword ranks, Search Console, Core Web Vitals, conversion summary",
+			"4 edits / mo with priority turnaround",
 		],
+		highlighted: true,
+	},
+	{
+		name: "Growth",
+		price: "$229",
+		unit: "/ mo",
+		annual: "$199/mo annual",
+		setup: "$750 setup, +$500 tracking / rules config",
+		features: [
+			"Everything in Signal, plus the managed layer:",
+			"Monthly A/B test cycle with plain-language results",
+			"Quarterly 30-minute strategy call",
+			"One landing page per quarter",
+			"6 edits / mo",
+			"Best above ~500 sessions / mo — below that, heatmap-driven iteration instead. No ads management or e-commerce.",
+		],
+		highlighted: false,
 	},
 ];
 
@@ -126,7 +140,7 @@ const finePrint = [
 
 <PineLayout
 	title="Pricing"
-	description="Two services, priced simply. IT & HR operations priced per employee, digital presence priced per service. Month-to-month, no setup fees, no long-term contracts.">
+	description="Two services, priced simply. IT & HR operations priced per employee; managed website plans from $39/mo. Month-to-month, no long-term contracts.">
 	<!-- PAGE INTRO -->
 	<section class="pricing-hero section centered">
 		<div class="spotlight">
@@ -134,9 +148,10 @@ const finePrint = [
 				<span class="font-eyebrow">Pricing at a glance</span>
 				<h1 class="font-display pricing-title">Two services, priced simply.</h1>
 				<p class="font-lead section-lead">
-					Month-to-month, no setup fees, no long-term contracts — cancel with
-					30 days' notice. These prices are a starting point for planning; your
-					actual quote depends on team size and scope.
+					Month-to-month, no long-term contracts — cancel with 30 days'
+					notice. IT &amp; HR has no setup fee; website plans include a
+					one-time build &amp; setup. These prices are a starting point for
+					planning; your actual quote depends on team size and scope.
 				</p>
 			</header>
 		</div>
@@ -196,48 +211,71 @@ const finePrint = [
 		<div class="spotlight">
 			<header class="section-intro">
 				<span class="font-eyebrow">Digital Presence</span>
-				<h2 class="font-title">Build what you need, add more as you grow.</h2>
+				<h2 class="font-title">One managed website plan. Pick your tier.</h2>
 				<p class="font-lead section-lead">
-					Priced per service — start with a site, layer on the pieces that earn
-					their keep.
+					Build, hosting, and care in a single monthly price — pick one tier,
+					add services as you grow. Annual billing saves roughly two months.
 				</p>
 			</header>
 
-			<p class="hosting-choice-label">
-				Keep your site running — choose the level that fits:
-			</p>
-			<div class="hosting-choice">
+			<div class="tiers subgrid">
 				{
-					hostingOptions.map((opt, i) => (
-						<>
-							{i > 0 && (
-								<div class="hosting-or" aria-hidden="true">
-									<span>or</span>
+					hostingTiers.map((tier) => (
+						<article
+							class:list={[
+								"card",
+								"tier",
+								tier.highlighted ? "tier--featured" : "bg-navy-d",
+							]}>
+							<div class="tier-head">
+								<div class="tier-name-row">
+									<h3 class="font-heading tier-name">{tier.name}</h3>
+									{tier.tag && <span class="tier-tag">{tier.tag}</span>}
 								</div>
-							)}
-							<article class="card bg-navy-d hosting-card">
-								<div class="svc-head">
-									<h3 class="font-heading svc-name">{opt.name}</h3>
-									<p class="svc-price">
-										<span class="svc-price__amount">{opt.price}</span>
-										<span class="svc-price__period">{opt.period}</span>
-									</p>
-								</div>
-								<ul class="svc-included">
-									{opt.included.map((line) => (
-										<li>{line}</li>
-									))}
-								</ul>
-							</article>
-						</>
+								<p class="tier-price">
+									<span class="tier-price__amount">{tier.price}</span>
+									<span class="tier-price__unit">{tier.unit}</span>
+								</p>
+								<p class="tier-sub">
+									{tier.annual} · {tier.setup}
+								</p>
+							</div>
+							<ul class="feature-list">
+								{tier.features.map((f) => (
+									<li>{f}</li>
+								))}
+							</ul>
+							<a
+								class:list={["tier-cta", tier.highlighted ? "cta" : "cta-ghost"]}
+								href="/#contact">
+								Get started <span class="arrow">→</span>
+							</a>
+						</article>
 					))
 				}
 			</div>
 
+			<article class="card sovereign">
+				<div class="sovereign-head">
+					<span class="font-eyebrow callout-eyebrow">Sovereign</span>
+					<span class="sovereign-price">+$39 / mo · any tier</span>
+				</div>
+				<p class="sovereign-copy">
+					Canadian-owned hosting (WHC), no US-controlled layer, Matomo
+					analytics, Canadian-resident backups. A toggle you can add to any
+					plan — not a tier of its own.
+				</p>
+			</article>
+
+			<p class="section-note breakout">
+				Extra work beyond your plan's included edits is billed at $80 / hour.
+			</p>
+
+			<h3 class="font-heading addons-head">Add-on services</h3>
 			<div class="svc-table card bg-navy-d">
 				{
 					presenceServices.map((svc) => (
-						<div class:list={["svc-row", svc.featured && "svc-row--featured"]}>
+						<div class="svc-row">
 							<div class="svc-head">
 								<h3 class="font-heading svc-name">{svc.name}</h3>
 								<p class="svc-price">
@@ -439,40 +477,44 @@ const finePrint = [
 		font-size: 0.85em;
 	}
 
-	/* ---- Website hosting: OR choice ---- */
-	.hosting-choice-label {
-		margin: 0 0 1rem;
-		font-size: var(--text-s);
-		color: var(--color-slate);
-	}
-	.hosting-choice {
-		display: grid;
-		grid-template-columns: 1fr auto 1fr;
-		align-items: stretch;
-		gap: 1.25rem;
-		margin-bottom: 1.5rem;
-	}
-	.hosting-card {
-		display: flex;
-		flex-direction: column;
-		gap: 1.1rem;
-		padding: 1.75rem 2rem;
-	}
-	.hosting-or {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.hosting-or span {
-		font-family: var(--font-mono);
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
+	/* ---- Website plan tiers: sub-line, Sovereign add-on, add-ons head ---- */
+	.tier-sub {
+		margin: 0;
 		font-size: var(--text-xs);
 		color: var(--color-slate);
+	}
+
+	.sovereign {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+		padding: 1.5rem 2rem;
+		margin-top: 1.5rem;
+		background: color-mix(in srgb, var(--color-pine) 8%, var(--color-navy-d));
 		border: 1px solid var(--line-1);
-		border-radius: var(--br-pill, 999px);
-		padding: 0.35rem 0.7rem;
-		background: var(--color-navy-d);
+	}
+	.sovereign-head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+	.sovereign-price {
+		font-family: var(--font-mono);
+		font-size: var(--text-s);
+		color: var(--color-pine-l);
+	}
+	.sovereign-copy {
+		margin: 0;
+		font-size: var(--text-s);
+		color: var(--color-mist);
+	}
+
+	.addons-head {
+		margin: 3rem 0 1rem;
+		font-size: var(--text-m);
+		color: var(--color-snow);
 	}
 
 	/* ---- Digital Presence table ---- */
@@ -489,9 +531,6 @@ const finePrint = [
 	}
 	.svc-row:first-child {
 		border-top: 0;
-	}
-	.svc-row--featured {
-		background: color-mix(in srgb, var(--color-pine) 7%, transparent);
 	}
 	.svc-head {
 		display: flex;
@@ -610,9 +649,6 @@ const finePrint = [
 		.svc-row {
 			grid-template-columns: 1fr;
 			gap: 1rem;
-		}
-		.hosting-choice {
-			grid-template-columns: 1fr;
 		}
 	}
 </style>
