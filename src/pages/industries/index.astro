@@ -12,16 +12,19 @@ export const prerender = false;
 
 // Routing page, and the fit page. Pillars are service-shaped; buyers are
 // industry-shaped. But industry is only a proxy — the real qualifier is the
-// owner-was-the-practitioner profile below. The four verticals are examples of
-// that profile, not the boundary of who we work with.
+// point at which administration stops being absorbed and starts costing real
+// time and money against revenue work. Owner-led businesses are a common client
+// profile, not a target: describe it, don't qualify on it. The four verticals
+// are where we see the threshold crossed most often, not the boundary of who we
+// work with.
 const profile = [
 	{
-		heading: "The owner came up doing the work.",
-		body: "You know the craft cold. Nobody trained you to run payroll, choose an HRIS, or decide whether a licence is worth renewing, and none of it is what you wanted to spend Thursday on.",
+		heading: "Nobody's actual job is the back office.",
+		body: "It's split between people whose real work is something else — the owner, the office manager, whoever had a gap. It gets done, but it gets done last, and it's nobody's specialism.",
 	},
 	{
-		heading: "Admin competes with billable hours.",
-		body: "In a business where the owner still does the work, every hour on the back office is an hour that didn't earn. That maths is different from a company where an operations manager already exists.",
+		heading: "Admin competes directly with revenue work.",
+		body: "Every hour on payroll, licences and paperwork is an hour not spent on what the business is paid for. The maths gets worse as you grow, because the admin grows faster than the number of people absorbing it.",
 	},
 	{
 		heading: "Past spreadsheets, short of a department.",
@@ -74,26 +77,28 @@ const listSchema = {
 ---
 
 <PineLayout
-	title="Who we work with — owner-led Ontario businesses"
-	description="Vitops works with owner-led Ontario businesses where the owner came up doing the work. Trades, brokerages, professional firms and clinics are where that fit shows up most often."
+	title="Who we work with — Ontario small and mid-size businesses"
+	description="Vitops works with Ontario businesses at the size where administration turns into a real cost. Trades, brokerages, professional firms and clinics are where we see it most."
 >
 	<Schema data={listSchema} />
 	<Schema data={breadcrumb(["Industries", "/industries"])} />
 
 	<PageHero
 		eyebrow="Who we work with"
-		title="You were good at the work. Then you inherited a back office."
-		lead="Most of our clients started the same way. Someone who was excellent at the actual job — the wiring, the filings, the treatment, the deal — started a company doing it, and the admin arrived uninvited. The industry varies. The shape rarely does."
+		title="Past a certain size, the back office starts eating the work that pays."
+		lead="Administration never earned anything. For a while that's fine — it gets absorbed into evenings and gaps between jobs. Then headcount, software and obligations grow faster than the people handling them, and it turns into real hours and real money taken off the work you actually get paid for."
 	/>
 
 	<Prose lead>
 		<p>
-			Vitops works with owner-led businesses in Ontario, typically between 5 and
-			150 people, where the person who founded the company is still close to the
-			work it does. The four industries below are where that pattern shows up
-			most often and where we already know the tools, the compliance pressures
-			and the staffing rhythms — but they're examples of the fit, not the limit
-			of it.
+			Vitops works with Ontario businesses, typically between 5 and 150 people,
+			that have reached the size where back-office administration is a
+			measurable cost rather than a rounding error — usually somewhere between
+			half a day and two days a week of someone's time, spent on work that
+			generates no revenue. The four industries below are where we see that
+			threshold crossed most often and where we already know the tools, the
+			compliance pressures and the staffing rhythms, but they're examples of the
+			fit rather than the limit of it.
 		</p>
 	</Prose>
 
@@ -102,7 +107,7 @@ const listSchema = {
 			<SectionIntro
 				eyebrow="The fit"
 				title="What our clients have in common."
-				lead="This matters more than the sector. If these four describe you, the industry name on the door is mostly a detail."
+				lead="This matters more than the sector. Many of our clients are owner-led and the founder is still close to the work — but that's a pattern we notice, not a requirement. If these four describe you, the name on the door is mostly a detail."
 			/>
 			<Cards cards={profile} />
 		</div>
@@ -112,7 +117,7 @@ const listSchema = {
 		<div class="spotlight">
 			<SectionIntro
 				eyebrow="Where it shows up most"
-				title="Four industries built almost entirely of these businesses."
+				title="Four sectors where this happens early."
 				lead="We know these four well enough to be useful in the first week — the tools, the rules, and what urgent means at four in the afternoon. If you're somewhere else, the service is the same; it just takes us a little longer to learn your particulars, and we'll say so rather than pretend otherwise."
 			/>
 			<div class="industry-grid">
