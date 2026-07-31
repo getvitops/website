@@ -280,7 +280,6 @@ const year = new Date().getFullYear();
 						<span class="hidden md-inline" aria-hidden="true">·</span>
 						<span>Run the business; we run the rest.</span>
 					</span>
-					<span class="status">All systems steady</span>
 				</div>
 			</div>
 		</footer>
@@ -541,33 +540,6 @@ const year = new Date().getFullYear();
 			/* Row on wider screens, stacked (tagline on its own line) on small. */
 			.footer-copy {
 				gap: 0.1rem 0.4rem;
-			}
-
-			.footer-base .status {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.5rem;
-				color: var(--color-mist);
-			}
-
-			.footer-base .status::before {
-				content: "";
-				inline-size: 6px;
-				block-size: 6px;
-				border-radius: 50%;
-				background: var(--color-pine);
-				box-shadow: 0 0 0 3px rgba(74, 144, 117, 0.16);
-				animation: pine-pulse 1.6s ease-in-out infinite;
-			}
-
-			@keyframes pine-pulse {
-				0%,
-				100% {
-					opacity: 1;
-				}
-				50% {
-					opacity: 0.4;
-				}
 			}
 
 			/* Collapse the centered nav on small screens; brand + CTA stay and
