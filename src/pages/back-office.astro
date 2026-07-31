@@ -54,11 +54,6 @@ const work = [
 		heading: "The HRIS, configured and maintained.",
 		body: "Employee records, time off, policy acknowledgements, document retention. Set up properly once, then maintained, so the answer to “where is that signed?” takes seconds.",
 	},
-	{
-		tag: "05 · Bookkeeping",
-		heading: "Kept current, not reconstructed.",
-		body: "Day-to-day transaction coding, reconciliations, payables and receivables, kept current so your accountant is doing accounting rather than cleanup at year-end.",
-	},
 ];
 
 const faq = [
@@ -68,7 +63,7 @@ const faq = [
 	},
 	{
 		q: "Do you replace our bookkeeper or office manager?",
-		a: "Usually not — more often we take the pieces they dread and give them their week back. Where a role genuinely overlaps, we'll say so rather than quietly duplicating it. The comparison worth doing is against what it costs to hire the coverage, and that's on the pricing page.",
+		a: "The bookkeeping, often yes — that's a service we run outright, and clients frequently come to us to take it over. An office manager, usually not: more often we take the pieces they dread and give them their week back. Where a role genuinely overlaps we'll say so rather than quietly duplicating it, and the comparison worth doing is against what the coverage costs to hire.",
 	},
 	{
 		q: "Who's the employer of record?",
@@ -77,6 +72,18 @@ const faq = [
 	{
 		q: "How does this connect to the software side?",
 		a: "It's the same workflow seen from two ends. When HR processes a new hire, the accounts, licences and permissions provision automatically. When HR processes a termination, access revokes across every system the same day. Companies that split these between two vendors are the ones with ghost accounts, and they usually don't know it.",
+	},
+	{
+		q: "Do you replace our accountant?",
+		a: "No. We keep the books; your CPA does year-end, tax planning, and anything a lender or buyer needs. The two roles are complementary, and accountants generally prefer working from books that were maintained rather than assembled in a hurry — it makes their half cheaper too.",
+	},
+	{
+		q: "How current do the books stay?",
+		a: "Reconciliations and coding run on a set cadence with a proper month-end close, so at any point in the year you can see where you actually are. The alternative most owners live with is finding out in March what happened last May.",
+	},
+	{
+		q: "What accounting software do you use?",
+		a: "Whatever you're on, if it's working — usually QuickBooks or Xero. Because we also run your software stack, we own the bank feeds, receipt capture and the integrations into payroll and your CRM, rather than working around whatever someone else configured.",
 	},
 	{
 		q: "What payroll software do you use?",
@@ -94,8 +101,8 @@ const faq = [
 ---
 
 <PineLayout
-	title="Payroll, HR operations and back-office support"
-	description="Managed payroll, benefits administration, onboarding and offboarding, and the licence and permission tuning that goes with them. Ontario SMEs, one partner on file."
+	title="Bookkeeping, payroll and back-office operations"
+	description="Bookkeeping kept current, managed payroll, benefits administration, and onboarding and offboarding handled end to end. Ontario SMEs, one partner on file."
 >
 	<Schema
 		data={service(
@@ -113,7 +120,7 @@ const faq = [
 	<PageHero
 		eyebrow="Back office"
 		title="The admin that never stops, taken off your desk."
-		lead="Payroll, benefits changes, onboarding paperwork, the access that goes with it. None of it is hard. It's just relentless, and it lands on whoever is closest — usually you, usually at the wrong time of day."
+		lead="The books, payroll, benefits changes, onboarding paperwork, the access that goes with it. None of it is hard. It's just relentless, and it lands on whoever is closest — usually you, usually at the wrong time of day."
 		secondaryLabel="See pricing"
 		secondaryHref="/pricing"
 		note={FUNDING_NOTE}
@@ -122,9 +129,10 @@ const faq = [
 	<Prose lead>
 		<p>
 			Back-office operations covers the recurring administrative work of
-			employing people: running payroll and remitting to the CRA, administering
-			the group benefits plan, processing joiners, movers and leavers across
-			every system, and keeping the records in a state that survives an audit.
+			employing people and running a company: keeping the books current, running
+			payroll and remitting to the CRA, administering the group benefits plan,
+			processing joiners, movers and leavers across every system, and keeping
+			the records in a state that survives an audit.
 			For most Ontario businesses under 150 people it's between half a day and
 			two days a week of someone's time, and it's almost never that person's
 			actual job.
@@ -144,8 +152,64 @@ const faq = [
 
 	<section class="section centered">
 		<div class="spotlight">
-			<SectionIntro eyebrow="What we do" title="Five running jobs, on a schedule." />
+			<SectionIntro eyebrow="What we do" title="Four running jobs, on a schedule." />
 			<Cards cards={work} />
+		</div>
+	</section>
+
+	<!-- BOOKKEEPING: pulled out of the grid deliberately. It's a lead driver in
+	     its own right, and the differentiator below only lands with room. -->
+	<section class="section centered" id="bookkeeping">
+		<div class="spotlight">
+			<div class="card bg-navy-d bookkeeping-block">
+				<span class="font-eyebrow">Bookkeeping</span>
+				<h2 class="font-title bookkeeping-title">
+					Books that are current, not reconstructed in March.
+				</h2>
+				<p class="font-body bookkeeping-lead">
+					Most owners find out what state their books are in when their
+					accountant does — months later, at a rate that reflects the cleanup.
+					Kept current, the same work costs less and tells you something while
+					it's still worth knowing.
+				</p>
+
+				<div class="bookkeeping-grid">
+					<article>
+						<h3 class="font-heading">What we run</h3>
+						<p class="font-body">
+							Transaction coding, bank and credit card reconciliations,
+							payables and receivables, receipt and expense capture, and the
+							month-end close. On a set cadence, so there is never a quarter
+							nobody has looked at.
+						</p>
+					</article>
+					<article>
+						<h3 class="font-heading">Why ours is different</h3>
+						<p class="font-body">
+							Most bookkeepers work <em>in</em> your accounting software. We
+							also run it — the bank feeds, the receipt capture, and the
+							integrations to payroll and your CRM are ours too. So the payroll
+							journal lands coded properly instead of as a lump someone has to
+							unpick, and nothing waits on a handoff between three vendors who
+							have never spoken.
+						</p>
+					</article>
+					<article>
+						<h3 class="font-heading">Where we stop</h3>
+						<p class="font-body">
+							Your CPA still does year-end, tax planning, and any statements a
+							lender or a buyer needs. We keep the books they work from, in a
+							state that doesn't need a week of repair first — which is usually
+							the cheaper half of that relationship.
+						</p>
+					</article>
+				</div>
+
+				<div class="cluster bookkeeping-actions">
+					<a class="cta" href="/#contact">Talk to us <span class="arrow">→</span></a>
+					<span class="font-caption bookkeeping-note" set:html={FUNDING_NOTE} />
+				</div>
+			</div>
 		</div>
 	</section>
 
@@ -215,5 +279,56 @@ const faq = [
 	.industry-row {
 		margin-top: 2rem;
 		color: var(--color-slate);
+	}
+
+	/* Bookkeeping — deliberately heavier than a card in the grid, because it
+	   pulls its own weight as a lead driver. */
+	.bookkeeping-block {
+		padding: clamp(1.75rem, 4vw, 3rem);
+		border: 1px solid color-mix(in srgb, var(--color-pine) 28%, transparent);
+		background: color-mix(in srgb, var(--color-pine) 7%, var(--color-navy-d));
+		display: grid;
+		gap: 1rem;
+	}
+	.bookkeeping-title {
+		margin: 0.25rem 0 0;
+		font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+		max-width: 22ch;
+	}
+	.bookkeeping-lead {
+		color: var(--color-mist);
+		max-width: 64ch;
+		margin: 0;
+	}
+	.bookkeeping-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+		margin-top: 1.25rem;
+		padding-top: 1.75rem;
+		border-top: 1px solid var(--line-1);
+	}
+	.bookkeeping-grid h3 {
+		margin: 0 0 0.6rem;
+	}
+	.bookkeeping-grid p {
+		margin: 0;
+		color: var(--color-mist);
+		font-size: var(--text-s);
+	}
+	.bookkeeping-actions {
+		margin-top: 1.5rem;
+		align-items: center;
+		gap: 1rem 1.5rem;
+	}
+	.bookkeeping-note {
+		color: var(--color-slate);
+	}
+
+	@media (max-width: 860px) {
+		.bookkeeping-grid {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
 	}
 </style>

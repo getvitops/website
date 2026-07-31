@@ -173,6 +173,10 @@ business ontario`, `HR outsourcing small business`, `benefits administration ser
 - **Note:** the June doc's HR content is the strongest asset in the whole delivery and it
   has **zero keyword support**. Commission a small keyword pass for this pillar
   specifically; do not launch it blind.
+- **Bookkeeping makes that pass more urgent, not less.** It's confirmed as a lead driver,
+  it now has a dedicated block at `#bookkeeping`, and it's the one term in this pillar
+  with obvious commercial search volume (`bookkeeping services ontario`,
+  `small business bookkeeping`, `bookkeeping for contractors`). Research it first.
 
 ### `/industries` + four verticals
 

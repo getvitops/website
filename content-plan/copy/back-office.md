@@ -1,7 +1,7 @@
 # /back-office
 
-**Title:** `Payroll, HR operations and back-office support | Vitops`
-**Description:** `Managed payroll, benefits administration, onboarding and offboarding, and the licence and permission tuning that goes with them. Ontario SMEs, one partner on file.`
+**Title:** `Bookkeeping, payroll and back-office operations | Vitops`
+**Description:** `Bookkeeping kept current, managed payroll, benefits administration, and onboarding and offboarding handled end to end. Ontario SMEs, one partner on file.`
 **Schema:** `Organization`, `Service`, `FAQPage`, `BreadcrumbList`
 
 > ⚠️ **Before launch:** this pillar has **no keyword research behind it** — the delivered
@@ -89,7 +89,7 @@ explain.
 
 **Eyebrow:** What we do
 
-**H2:** Five running jobs, on a schedule.
+**H2:** Four running jobs, on a schedule.
 
 **01 · Joiner, mover, leaver**
 The flagship, and the one that ties this pillar to the software stack. When someone
@@ -113,9 +113,44 @@ The HRIS itself — employee records, time off, policy acknowledgements, documen
 retention. Configured properly once, then maintained, so the answer to "where is that
 signed?" takes seconds.
 
-**05 · Bookkeeping**
-Day-to-day transaction coding, reconciliations, payables and receivables, kept current
-so your accountant is doing accounting rather than cleanup at year-end.
+_Bookkeeping was the fifth card here. It's been promoted to its own section below —
+it's a lead driver in its own right, and leaving it as card five under-sold it._
+
+---
+
+## Section 4.5 — Bookkeeping (dedicated block)
+
+Deliberately not a card. Heavier visual treatment, its own `#bookkeeping` anchor, its own
+CTA. Bookkeeping is a lead driver — people search for it, unlike most of this pillar's
+vocabulary — and it was missing from the page title and description entirely.
+
+**Eyebrow:** Bookkeeping
+
+**H2:** Books that are current, not reconstructed in March.
+
+**Lead:**
+Most owners find out what state their books are in when their accountant does — months
+later, at a rate that reflects the cleanup. Kept current, the same work costs less and
+tells you something while it's still worth knowing.
+
+**What we run.**
+Transaction coding, bank and credit card reconciliations, payables and receivables,
+receipt and expense capture, and the month-end close. On a set cadence, so there is never
+a quarter nobody has looked at.
+
+**Why ours is different.**
+Most bookkeepers work _in_ your accounting software. We also run it — the bank feeds, the
+receipt capture, and the integrations to payroll and your CRM are ours too. So the payroll
+journal lands coded properly instead of as a lump someone has to unpick, and nothing waits
+on a handoff between three vendors who have never spoken.
+
+**Where we stop.**
+Your CPA still does year-end, tax planning, and any statements a lender or a buyer needs.
+We keep the books they work from, in a state that doesn't need a week of repair first —
+which is usually the cheaper half of that relationship.
+
+**Note:** the existing FAQ said we _don't_ replace a bookkeeper. That contradicted selling
+bookkeeping, so it now reads "the bookkeeping, often yes… an office manager, usually not."
 
 ---
 
