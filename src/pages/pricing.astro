@@ -11,6 +11,7 @@ const opsTiers = [
 		name: "Basics",
 		price: "$35",
 		unit: "/ user / mo",
+		blurb: "We choose and maintain the stack. You still run it day to day.",
 		features: [
 			"Software selection, implementation, and integration guidance",
 			"Ongoing license maintenance",
@@ -21,6 +22,7 @@ const opsTiers = [
 		name: "Foundations",
 		price: "$69",
 		unit: "/ user / mo",
+		blurb: "The full software side, run for you — everything except the back office.",
 		features: [
 			"Everything in Basics, plus:",
 			"Joiner / mover / leaver basics — onboarding & offboarding handled",
@@ -36,8 +38,10 @@ const opsTiers = [
 		price: "$119",
 		unit: "/ user / mo",
 		tag: "Fully managed",
+		blurb: "Everything in Foundations, plus the bookkeeping, payroll and benefits run for you.",
 		features: [
 			"Everything in Foundations, plus:",
+			"Managed back office: bookkeeping, payroll and benefits administration",
 			"Full identity & lifecycle management (SCIM / JML automation)",
 			"Continuous endpoint security monitoring",
 			"Day-to-day software support & vendor escalation",
@@ -238,6 +242,7 @@ const finePrint = [
 									<span class="tier-price__amount">{tier.price}</span>
 									<span class="tier-price__unit">{tier.unit}</span>
 								</p>
+								{tier.blurb && <p class="font-body tier-blurb">{tier.blurb}</p>}
 							</div>
 							<ul class="feature-list">
 								{tier.features.map((f) => (
@@ -270,8 +275,9 @@ const finePrint = [
 				<p class="font-lead section-lead">
 					Bookkeeping, payroll and benefits administration scale with
 					transaction volume and entity count, not with how many people you
-					employ. Take one, take all of them, or add them to a software
-					operations plan.
+					employ — so they're priced per service, not per seat. Take one, take
+					all of them, or get the whole back office as part of the
+					<a class="link" href="#it-hr-pricing">Managed</a> plan.
 				</p>
 			</header>
 
@@ -298,8 +304,10 @@ const finePrint = [
 
 			<p class="section-note breakout">
 				Onboarding and offboarding isn't listed here — it spans both halves and
-				is already included in the Foundations and Managed
+				is already in the Foundations and Managed
 				<a class="link" href="#it-hr-pricing">software operations</a> plans.
+				Managed also folds in everything above; these rates are for taking back
+				office on its own, or alongside Basics or Foundations.
 			</p>
 		</div>
 	</section>
@@ -559,6 +567,11 @@ const finePrint = [
 		padding: 0.25rem 0.6rem;
 		border-radius: var(--br-pill, 999px);
 		white-space: nowrap;
+	}
+	.tier-blurb {
+		margin-top: 0.75rem;
+		font-size: var(--text-s);
+		color: var(--color-mist);
 	}
 	.tier-price {
 		margin: 0;
