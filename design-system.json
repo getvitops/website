@@ -69,11 +69,7 @@
         }
       }
     },
-    "utilities": [
-      "bg",
-      "text",
-      "border"
-    ],
+    "utilities": ["bg", "text", "border"],
     "roles": {
       "brand-primary": "pine",
       "surface": "navy",
@@ -98,20 +94,7 @@
   },
   "typeScale": {
     "base": "1rem",
-    "names": [
-      "2xs",
-      "xs",
-      "s",
-      "m",
-      "l",
-      "xl",
-      "2xl",
-      "3xl",
-      "4xl",
-      "5xl",
-      "6xl",
-      "7xl"
-    ],
+    "names": ["2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl"],
     "baseStep": 4,
     "baseline": "m",
     "ratio": 1.2,
@@ -123,20 +106,7 @@
   },
   "spaceScale": {
     "base": "1rem",
-    "names": [
-      "2xs",
-      "xs",
-      "s",
-      "m",
-      "l",
-      "xl",
-      "2xl",
-      "3xl",
-      "4xl",
-      "5xl",
-      "6xl",
-      "7xl"
-    ],
+    "names": ["2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl"],
     "baseStep": 4,
     "baseline": "m",
     "ratio": 1.25,
@@ -157,7 +127,6 @@
     "radii": {
       "pill": "999px",
       "circle": "50%",
-      "chip": "var(--br-tag, 0.25rem)",
       "card": "0.5rem"
     },
     "groups": {
@@ -211,24 +180,78 @@
       "top": 1000
     },
     "items": {
-      "button": {
+      "btn": {
         "group": "control",
         "element": "button",
-        "default_role": "brand-primary",
+        "class": "btn",
+        "fill": false,
+        "overrides": {
+          "b": "1px solid transparent",
+          "fs": "inherit"
+        },
         "base": {
-          "padding": "0.6em 1.2em",
-          "border-radius": "var(--br-control, 0.25rem)",
-          "border": "none",
-          "font-weight": "600",
+          "display": "inline-flex",
+          "align-items": "center",
+          "justify-content": "center",
+          "gap": "0.4em",
+          "padding": "var(--p-btn-group)",
+          "border-radius": "var(--br-btn-group)",
+          "border": "var(--b-btn-group)",
+          "box-shadow": "var(--ds-btn-group)",
+          "background": "transparent",
+          "color": "inherit",
           "font-family": "inherit",
-          "font-size": "inherit",
-          "cursor": "pointer",
-          "color": "#fff",
-          "box-shadow": "var(--shadow-sm)"
+          "font-size": "var(--fs-btn-group)",
+          "font-weight": "inherit",
+          "line-height": "inherit",
+          "text-decoration": "none",
+          "cursor": "pointer"
         },
         "states": {
           "hover": {
-            "step": 1
+            "step": 1,
+            "css": {
+              "background-color": "var(--color-surface-muted)"
+            }
+          },
+          "focus-visible": {
+            "ring": true
+          }
+        },
+        "roles": ["success", "danger", "warning", "info"]
+      },
+      "cta": {
+        "group": "control",
+        "class": "cta",
+        "fill": true,
+        "default_role": "brand-primary",
+        "overrides": {
+          "p": "0.75em 1.5em",
+          "b": "none",
+          "ds": "var(--shadow-sm)",
+          "fs": "inherit"
+        },
+        "base": {
+          "display": "inline-flex",
+          "align-items": "center",
+          "justify-content": "center",
+          "gap": "0.5em",
+          "padding": "var(--p-cta-group)",
+          "border-radius": "var(--br-cta-group)",
+          "border": "var(--b-cta-group)",
+          "font-family": "inherit",
+          "font-size": "var(--fs-cta-group)",
+          "font-weight": "600",
+          "line-height": "inherit",
+          "text-decoration": "none",
+          "cursor": "pointer",
+          "color": "var(--brand-primary-on-solid)",
+          "box-shadow": "var(--ds-cta-group)"
+        },
+        "states": {
+          "hover": {
+            "step": 1,
+            "lift": "1px"
           },
           "active": {
             "scale": 0.97
@@ -237,12 +260,7 @@
             "ring": true
           }
         },
-        "roles": [
-          "success",
-          "danger",
-          "warning",
-          "info"
-        ]
+        "roles": ["success", "danger", "warning", "info"]
       },
       "link": {
         "group": "control",
@@ -276,12 +294,7 @@
           "color": "#fff"
         },
         "states": {},
-        "roles": [
-          "success",
-          "danger",
-          "warning",
-          "info"
-        ]
+        "roles": ["success", "danger", "warning", "info"]
       },
       "card": {
         "group": "panel",
@@ -314,12 +327,7 @@
           "color": "var(--color-neutral-d)"
         },
         "states": {},
-        "roles": [
-          "success",
-          "danger",
-          "warning",
-          "info"
-        ]
+        "roles": ["success", "danger", "warning", "info"]
       },
       "status": {
         "group": "tag",
@@ -332,12 +340,7 @@
           "background-color": "var(--color-neutral-d)"
         },
         "states": {},
-        "roles": [
-          "success",
-          "danger",
-          "warning",
-          "info"
-        ]
+        "roles": ["success", "danger", "warning", "info"]
       },
       "tooltip": {
         "group": "tag"
@@ -657,40 +660,15 @@
         }
       },
       "compose": [
-        [
-          "fade"
-        ],
-        [
-          "slide"
-        ],
-        [
-          "scale"
-        ],
-        [
-          "blur"
-        ],
-        [
-          "fade",
-          "slide"
-        ],
-        [
-          "fade",
-          "scale"
-        ],
-        [
-          "fade",
-          "blur"
-        ],
-        [
-          "fade",
-          "slide",
-          "scale"
-        ],
-        [
-          "fade",
-          "scale",
-          "blur"
-        ]
+        ["fade"],
+        ["slide"],
+        ["scale"],
+        ["blur"],
+        ["fade", "slide"],
+        ["fade", "scale"],
+        ["fade", "blur"],
+        ["fade", "slide", "scale"],
+        ["fade", "scale", "blur"]
       ]
     }
   }
