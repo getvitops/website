@@ -368,6 +368,12 @@ const finePrint = [
 					analytics, Canadian-resident backups. A toggle you can add to any
 					plan — not a tier of its own.
 				</p>
+				<p class="sovereign-copy sovereign-limit">
+					The trade-off is US-hosted tooling: Google Analytics and Microsoft
+					Clarity can't run alongside it, because they'd send visitor data back
+					across the border and undo the point of the add-on. Matomo covers the
+					same reporting.
+				</p>
 			</article>
 
 			<p class="section-note breakout">
@@ -704,6 +710,12 @@ const finePrint = [
 		margin: 0;
 		font-size: var(--text-s);
 		color: var(--color-mist);
+	}
+	.sovereign-limit {
+		margin-top: 0.75rem;
+		padding-top: 0.75rem;
+		border-top: 1px solid var(--line-1);
+		color: var(--color-slate);
 	}
 
 	.addons-head {
