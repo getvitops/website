@@ -1,0 +1,153 @@
+---
+import PineLayout from "../../layouts/PineLayout.astro";
+import PageHero from "./PageHero.astro";
+import FundingCallout from "./FundingCallout.astro";
+import SectionIntro from "./SectionIntro.astro";
+import Cards from "./Cards.astro";
+import Prose from "./Prose.astro";
+import Faq from "./Faq.astro";
+import type { FaqItem } from "./Faq.astro";
+import PageCta from "./PageCta.astro";
+import Schema from "./Schema.astro";
+import { breadcrumb, service } from "../../lib/schema";
+
+// Shared shell for the four industry pages. The structure is identical by
+// design; the substance is not — see content-plan/teardown.md §5 on why the
+// four-industry grid was pulled off the pillar pages and put here instead.
+interface Difference {
+	heading: string;
+	body: string;
+}
+interface Props {
+	slug: string;
+	title: string;
+	description: string;
+	eyebrow: string;
+	h1: string;
+	heroLead: string;
+	fundingText: string;
+	directAnswer: string;
+	differencesTitle: string;
+	differences: Difference[];
+	pillars: { label: string; body: string }[];
+	faq: FaqItem[];
+	ctaTitle: string;
+	ctaLead: string;
+}
+const {
+	slug,
+	title,
+	description,
+	eyebrow,
+	h1,
+	heroLead,
+	fundingText,
+	directAnswer,
+	differencesTitle,
+	differences,
+	pillars,
+	faq,
+	ctaTitle,
+	ctaLead,
+} = Astro.props;
+
+const FUNDING_NOTE =
+	"Ask us whether DMAP fits — approval and amounts are OCI's call, not ours.";
+const path = `/industries/${slug}`;
+---
+
+<PineLayout title={title} description={description}>
+	<Schema data={service(`${eyebrow} operations`, description, path)} />
+	<Schema
+		data={breadcrumb(["Industries", "/industries"], [eyebrow, path])}
+	/>
+
+	<FundingCallout text={fundingText} />
+
+	<PageHero
+		eyebrow={eyebrow}
+		title={h1}
+		lead={heroLead}
+		secondaryLabel="All industries"
+		secondaryHref="/industries"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p set:html={directAnswer} />
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="What's different" title={differencesTitle} />
+			<Cards cards={differences} />
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="What we run"
+				title={`Where the work goes for ${eyebrow.toLowerCase()}.`}
+			/>
+			<div class="pillar-list">
+				{
+					pillars.map((p) => (
+						<article class="pillar">
+							<h3 class="font-heading pillar-head">{p.label}</h3>
+							<p class="font-body pillar-copy">{p.body}</p>
+						</article>
+					))
+				}
+			</div>
+			<nav class="pillar-links" aria-label="Services">
+				<a class="link" href="/business-software">Business software</a>
+				<a class="link" href="/back-office">Back office</a>
+				<a class="link" href="/digital-presence">Digital presence</a>
+				<a class="link" href="/pricing">Pricing</a>
+			</nav>
+		</div>
+	</section>
+
+	<Faq items={faq} title={`Questions ${eyebrow.toLowerCase()} ask us.`} />
+
+	<PageCta
+		title={ctaTitle}
+		lead={ctaLead}
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Business software", href: "/business-software" },
+			{ label: "Back office", href: "/back-office" },
+			{ label: "Digital presence", href: "/digital-presence" },
+			{ label: "Pricing", href: "/pricing" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.pillar-list {
+		display: grid;
+		gap: 2rem;
+		max-width: 72ch;
+	}
+	.pillar {
+		padding-inline-start: 1.25rem;
+		border-inline-start: 2px solid var(--color-pine);
+	}
+	.pillar-head {
+		margin: 0 0 0.5rem;
+	}
+	.pillar-copy {
+		color: var(--color-mist);
+		margin: 0;
+	}
+	.pillar-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.5rem;
+		margin-top: 2.5rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--line-1);
+		font-size: var(--text-s);
+	}
+</style>

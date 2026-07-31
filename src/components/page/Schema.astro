@@ -1,0 +1,11 @@
+---
+// JSON-LD emitter. Deliberately local rather than @getvitops/astro/schemas/*:
+// those components import @getvitops/utils, which is not a dependency of this
+// site. One line of logic is cheaper than adding the package.
+interface Props {
+	data: unknown;
+}
+const { data } = Astro.props;
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(data)} />

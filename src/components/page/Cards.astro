@@ -1,0 +1,93 @@
+---
+// Card grid. `tag` renders the site's monospace `01 ·` marker; `items` is a
+// list of short body paragraphs rendered under the heading.
+interface Card {
+	tag?: string;
+	heading: string;
+	body: string;
+	items?: string[];
+}
+interface Props {
+	cards: Card[];
+	/** 2 (default) or 3 across on wide viewports. */
+	cols?: 2 | 3;
+}
+const { cards, cols = 2 } = Astro.props;
+---
+
+<div class="cards-grid" data-cols={cols}>
+	{
+		cards.map((card) => (
+			<article class="card bg-navy-d page-card">
+				{card.tag && <span class="card-tag">{card.tag}</span>}
+				<h3 class="font-heading">{card.heading}</h3>
+				<p class="font-body card-copy">{card.body}</p>
+				{card.items && (
+					<ul class="feature-list">
+						{card.items.map((i) => (
+							<li>{i}</li>
+						))}
+					</ul>
+				)}
+			</article>
+		))
+	}
+</div>
+
+<style>
+	.cards-grid {
+		display: grid;
+		gap: 1.5rem;
+	}
+	.cards-grid[data-cols="2"] {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.cards-grid[data-cols="3"] {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	.page-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+		padding: 2rem;
+	}
+	.card-tag {
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-pine-l);
+	}
+	.card-copy {
+		color: var(--color-mist);
+		margin: 0;
+	}
+	.feature-list {
+		list-style: none;
+		margin: 0.25rem 0 0;
+		padding: 1rem 0 0;
+		border-top: 1px solid var(--line-1);
+		display: grid;
+		gap: 0.6rem;
+	}
+	.feature-list li {
+		display: flex;
+		align-items: baseline;
+		gap: 0.65rem;
+		font-size: var(--text-s);
+		color: var(--color-mist);
+	}
+	.feature-list li::before {
+		content: "✓";
+		color: var(--color-pine);
+		font-weight: 600;
+		font-size: 0.85em;
+	}
+
+	@media (max-width: 860px) {
+		.cards-grid[data-cols="2"],
+		.cards-grid[data-cols="3"] {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

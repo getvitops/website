@@ -1,0 +1,69 @@
+---
+import IndustryPage from "../../components/page/IndustryPage.astro";
+
+export const prerender = false;
+---
+
+<IndustryPage
+	slug="trades"
+	eyebrow="Trades and contractors"
+	title="IT, HR and marketing for Ontario trades and contractors"
+	description="Field tablets that work without signal, same-day access for new crew, digital safety records that survive an inspection, and campaigns tuned to your season."
+	h1="The office should keep up with the crew, not the other way round."
+	heroLead="HVAC, electrical, plumbing, general and specialty contracting. The pattern is consistent: the field work runs well, and everything behind it — dispatch, timesheets, safety paperwork, getting a new hire onto the job — runs on somebody's evenings."
+	fundingText="Ontario's Digital Competence Centre funds exactly this kind of modernisation — DMAP covers up to $15,000 of the planning."
+	directAnswer="Contractors have an unusual IT problem: the primary work happens away from any office, on devices that get dropped, in places with unreliable signal, done by people who joined recently and may be gone by spring. That combination breaks most standard small-business software setups, and it's why generic advice about cloud tools tends not to survive contact with a job site."
+	differencesTitle="Four things a generic setup gets wrong."
+	differences={[
+		{
+			heading: "Signal is not a given.",
+			body: "Anything that requires a live connection to record a job or complete a form will be filled in later from memory, badly, or not at all. Field apps have to work offline and reconcile when the device comes back into coverage. We select on that basis and test it.",
+		},
+		{
+			heading: "The device will be dropped.",
+			body: "Tablets on a site get broken, left behind, and occasionally stolen. Every one of them needs enrolment, encryption, and remote wipe, and the replacement needs to be productive the same day — not after somebody reconfigures it from scratch.",
+		},
+		{
+			heading: "Seasonal headcount is a security problem.",
+			body: "Crews scale up in spring and down in late autumn. Every one of those people got access to something. If offboarding is manual, the accumulation of live accounts belonging to people who left two seasons ago is invisible until it isn't.",
+		},
+		{
+			heading: "Safety paperwork has to survive an inspection.",
+			body: "Hazard assessments, toolbox talks, incident reports, certification expiries. On paper these get lost, filled in retroactively, or discovered missing during the one week you need them. Digital forms with timestamps, and automatic warnings before a certification lapses, change what an inspection or a COR audit feels like.",
+		},
+	]}
+	pillars={[
+		{
+			label: "Business software",
+			body: "Field service and dispatch software chosen for offline behaviour first, connected to accounting so job costs don't get retyped. Tablets enrolled and locked down. When a crew lead can't get into something at 7am, they call one number and we sort it.",
+		},
+		{
+			label: "Back office",
+			body: "Seasonal hiring done as a repeatable process: accounts, device, safety orientation, and payroll set up before the first shift. Offboarding that actually revokes access when the season ends. Payroll with the overtime and travel-time rules configured properly, and WSIB reporting kept current.",
+		},
+		{
+			label: "Digital presence",
+			body: "Emergency and same-day work is a search problem — Local Services Ads, map visibility, and a site that loads on a phone in a driveway. Campaigns weighted to your season rather than run flat all year, because nobody needs to be spending on furnace work in June.",
+		},
+	]}
+	faq={[
+		{
+			q: "Our guys aren't technical. Will they use any of this?",
+			a: "That's the constraint we design against. If a form takes more than about a minute on a phone with gloves half-off, it won't get filled in, and the software has failed rather than the crew. Anything we roll out gets tested by the people who'll actually use it before it goes live everywhere.",
+		},
+		{
+			q: "Can you help us get COR-ready?",
+			a: "We can put the documentation system in place — digital hazard assessments, training and certification tracking with expiry warnings, incident reporting with a real audit trail — which is usually the part that stalls a certification. The audit itself and the safety program's content are your safety advisor's domain, not ours.",
+		},
+		{
+			q: "What happens when a tablet goes missing on a site?",
+			a: "We wipe it remotely, and the replacement enrols and configures itself when it's switched on. The crew loses part of a day rather than a week, and nothing walks off with the device.",
+		},
+		{
+			q: "We hire twelve people in April and let eight go in November. Can you handle that?",
+			a: "That's the normal shape of a trades account and it's the thing we'd fix first. Both directions get run as a process rather than a scramble — including the part most people skip, which is making sure the eight who left in November can't still get into anything in February.",
+		},
+	]}
+	ctaTitle="Tell us how a job actually flows."
+	ctaLead="From the call coming in to the invoice going out. We'll tell you where it's breaking and what we'd fix first."
+/>

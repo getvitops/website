@@ -1,0 +1,73 @@
+---
+import ProgramPage from "../../components/page/ProgramPage.astro";
+
+export const prerender = false;
+---
+
+<ProgramPage
+	slug="tdp"
+	eyebrow="TDP"
+	title="TDP Ontario — up to $50,000 to implement your digital plan"
+	description="What the Technology Demonstration Program covers, the DMAP prerequisite, the $750K revenue floor, and the August 10 2026 deadline."
+	h1="TDP — up to $50,000 to build what your plan describes."
+	verified="31 July 2026"
+	sourceUrl="https://www.oc-innovation.ca/programs/digital-competence-centre/"
+	sourceLabel="Source: Ontario Centre of Innovation"
+	directAnswer="The Technology Demonstration Program is an Ontario program administered by the Ontario Centre of Innovation through the Digital Competence Centre. <strong>As of July 2026</strong> it provides up to <strong>$50,000</strong> toward purchasing and implementing the technology identified in a completed <a class='link' href='/funding/dmap'>DMAP</a>. Two qualifiers are frequently omitted elsewhere: <strong>a completed DMAP project is required</strong>, and the applicant needs a <strong>minimum $750,000 in annual revenue</strong> in one of the last three tax years. It is listed <strong>open until 10 August 2026</strong>. Approval and amounts are decided by OCI, not Vitops."
+	facts={[
+		["Amount", "Up to $50,000"],
+		["Who", "Ontario for-profit SME, 1–499 employees"],
+		["Revenue test", "<strong>Minimum $750,000</strong> in one of the last three tax years"],
+		[
+			"Prerequisite",
+			"<strong>A completed <a class='link' href='/funding/dmap'>DMAP</a></strong>",
+		],
+		["Funds", "Buying and implementing technology from the DMAP"],
+		["Status", "<strong>Listed open until 10 August 2026</strong>"],
+		["Decided by", "OCI"],
+	]}
+	sections={[
+		{
+			title: "What it actually covers.",
+			body: [
+				"The build. Software, systems, integration and implementation work identified in your DMAP — which in practice means this is the program that pays for a meaningful share of a modernisation project rather than the thinking behind it.",
+			],
+		},
+		{
+			title: "What stops people.",
+			body: [
+				"<strong>You cannot apply for this directly.</strong> Every page advertising “up to $50,000 for Ontario businesses” is describing something with a prerequisite in front of it. DMAP first. Plan for two steps.",
+				"<strong>The $750,000 revenue floor is real, and it excludes a lot of good businesses.</strong> A twelve-person firm can complete a DMAP, produce a sound plan, and be unable to fund it through TDP. Know this before the DMAP, not after.",
+				"<strong>There's a date on it.</strong> Listed open until 10 August 2026. If TDP is part of your plan, the DMAP in front of it has to happen with that in mind. This is the one genuine piece of urgency in Ontario's digital funding landscape right now.",
+			],
+		},
+		{
+			title: "How we fit.",
+			body: [
+				"If TDP is plausible for you, the sequencing matters more than anything else, and that's the conversation to have early. We'll tell you on the first call whether the revenue test and the timing work. If they do, the DMAP we document is written with the implementation it leads to in mind, so the second application isn't starting from scratch.",
+			],
+		},
+	]}
+	faq={[
+		{
+			q: "How long between DMAP and TDP?",
+			a: "Depends on the DMAP's completion and the intake window. With a deadline in front of it, this is the reason to start the DMAP conversation now rather than next quarter.",
+		},
+		{
+			q: "What if we're under $750,000 in revenue?",
+			a: "Then TDP isn't available, and it's better to know that before you build a plan around it. DMAP is still worth doing on its own, and BDC LIFT may be relevant if the project is large enough — though that's financing, not a grant.",
+		},
+		{
+			q: "Is the $50,000 matched?",
+			a: "It's structured to match private investment in the technology. Treat it as a contribution toward the project, not the whole of it.",
+		},
+		{
+			q: "Does the deadline move?",
+			a: "It has in the past, and it may again — but planning on that is not a strategy. We track this monthly; if it changes, this page changes.",
+		},
+	]}
+	relatedLinks={[
+		{ label: "Start with DMAP", href: "/funding/dmap" },
+		{ label: "BDC LIFT", href: "/funding/bdc-lift" },
+	]}
+/>

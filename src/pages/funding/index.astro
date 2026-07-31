@@ -1,0 +1,207 @@
+---
+import PineLayout from "../../layouts/PineLayout.astro";
+import PageHero from "../../components/page/PageHero.astro";
+import SectionIntro from "../../components/page/SectionIntro.astro";
+import Cards from "../../components/page/Cards.astro";
+import Prose from "../../components/page/Prose.astro";
+import Faq from "../../components/page/Faq.astro";
+import PageCta from "../../components/page/PageCta.astro";
+import Schema from "../../components/page/Schema.astro";
+import { breadcrumb } from "../../lib/schema";
+
+export const prerender = false;
+
+// Every figure here is verified against OCI / BDC directly and dated. See
+// content-plan/funding.md for the audit and funding-watch.md for the standing
+// check. A stale grant figure is worse than no funding page.
+const VERIFIED = "31 July 2026";
+
+const programs = [
+	{
+		tag: "01 · DMAP",
+		heading: "Up to $15,000, matched — the plan.",
+		body: "Funds assessing what your technology should be and documenting how to get there. Ontario for-profit SMEs, 1–499 employees. First come, first served, while funds last. This is the entry point and the one most of our clients use.",
+	},
+	{
+		tag: "02 · TDP",
+		heading: "Up to $50,000 — the build.",
+		body: "Funds building what the DMAP described. Requires a completed DMAP first, and a minimum $750,000 in annual revenue in one of the last three tax years. Listed open until 10 August 2026.",
+	},
+	{
+		tag: "03 · RMPG",
+		heading: "Up to $5,000, matched — retail only.",
+		body: "For retailers with a physical location open to the public. Point of sale, online payments, inventory, CRM, cybersecurity, AI tools. You can apply to DMAP or RMPG — not both.",
+	},
+	{
+		tag: "04 · BDC LIFT",
+		heading: "Financing, not a grant.",
+		body: "Federal. Advisory support plus lending for AI, digital transformation and automation projects. Minimum $1M revenue for the AI path. The technology has to come from Canadian suppliers.",
+	},
+];
+
+const disqualifiers = [
+	{
+		heading: "TDP is not directly available.",
+		body: "Every page advertising “up to $50,000 for Ontario businesses” is describing something you cannot apply for directly. You need a completed DMAP first. Plan for two steps and a gap between them.",
+	},
+	{
+		heading: "TDP has a revenue floor of $750,000.",
+		body: "In one of the last three tax years. A genuinely small business can complete a DMAP, produce a sound plan, and still be unable to use the implementation funding it points to.",
+	},
+	{
+		heading: "DMAP and RMPG are mutually exclusive.",
+		body: "A retailer who takes the $5,000 RMPG has spent their DMAP eligibility — and with it, the path to TDP. For most retailers with meaningful modernisation ahead of them, that's the wrong trade. Decide deliberately.",
+	},
+	{
+		heading: "LIFT is a loan.",
+		body: "It's frequently listed alongside grants, and it isn't one. It's advisory plus financing, with a revenue floor and a Canadian-supplier requirement. Useful for the right project; not free money.",
+	},
+];
+
+const faq = [
+	{
+		q: "Is CDAP still available?",
+		a: "No. The Canada Digital Adoption Program has ended, though it's still described as current across a lot of the web. BDC's LIFT program is effectively what replaced it, with the important difference that LIFT is financing rather than a grant.",
+	},
+	{
+		q: "Can you guarantee we'll get funded?",
+		a: "No, and nobody can. Approval and amounts are OCI's decision. What we can do is tell you early and honestly whether you're likely to qualify.",
+	},
+	{
+		q: "How long does DMAP take?",
+		a: "Weeks rather than months in normal conditions, but it's first-come while funds last, and an intake can close without much notice. If it's relevant to you, it's worth starting the conversation rather than waiting for a quieter quarter.",
+	},
+	{
+		q: "Do you charge to help with the application?",
+		a: "No. We'll assess fit and document the plan as part of the engagement. We're paid for the work the funding supports, not for the paperwork around it.",
+	},
+	{
+		q: "What about training grants?",
+		a: "The Canada-Ontario Job Grant covered up to $10,000 per employee for third-party training — a good fit for software and AI adoption. As of May 2026 it's paused while Ontario redesigns it. We're tracking it and will say so here when that changes.",
+	},
+	{
+		q: "Is Ontario's $5 million announcement a new program?",
+		a: "No — it's additional money into the Digital Competence Centre itself, announced May 2026 and expected to support around 450 businesses. It doesn't create a new stream; it means the existing ones have more behind them, which is a reason to apply sooner rather than later.",
+	},
+];
+---
+
+<PineLayout
+	title="Ontario digital adoption funding for small businesses"
+	description="DMAP, TDP, RMPG and BDC LIFT explained plainly — what each covers, who qualifies, and what disqualifies you. Verified July 2026."
+>
+	<Schema data={breadcrumb(["Funding", "/funding"])} />
+
+	<PageHero
+		eyebrow="Funding"
+		title="What Ontario will actually pay for, and what it won't."
+		lead="There is real money available for digital modernisation, and there is a lot of confident writing about it that's out of date. Here's what exists as of July 2026, what each program genuinely covers, and — the part usually left out — who doesn't qualify."
+	/>
+
+	<Prose lead>
+		<p>
+			As of July 2026, the main funding available to Ontario for-profit SMEs for
+			digital adoption comes through the province's Digital Competence Centre,
+			administered by the Ontario Centre of Innovation: DMAP covers up to
+			$15,000 for planning, TDP up to $50,000 for implementation once a DMAP is
+			complete, and RMPG up to $5,000 for retail businesses. Federally, BDC's
+			LIFT program offers advisory support and financing — a loan, not a grant —
+			for AI and automation projects. The Canada Digital Adoption Program has
+			ended.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="What exists"
+				title="Four programs, in the order most businesses meet them."
+			/>
+			<Cards cards={programs} />
+			<nav class="program-links" aria-label="Funding programs">
+				<a class="link" href="/funding/dmap">DMAP in detail</a>
+				<a class="link" href="/funding/tdp">TDP in detail</a>
+				<a class="link" href="/funding/rmpg">RMPG in detail</a>
+				<a class="link" href="/funding/bdc-lift">BDC LIFT in detail</a>
+			</nav>
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="Read this part"
+				title="What usually stops people, and nobody mentions."
+				lead="These are the four facts that most often turn a promising funding conversation into a dead end. Better to know now."
+			/>
+			<Cards cards={disqualifiers} />
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="Where we fit"
+				title="We'll tell you before you apply."
+				lead="We are not grant writers and we don't charge for application support as a product."
+			/>
+			<div class="prose-inline">
+				<p class="font-body">
+					On the first call we'll tell you whether you plausibly qualify, which
+					program fits, and — often — that the timing or the revenue test
+					doesn't work for you. If it does fit, we document the modernisation
+					plan in the form the program expects, and we deliver the scoped work
+					if you hire us for it.
+				</p>
+				<p class="font-body">
+					<strong>Approval and amounts are decided by OCI, not Vitops.</strong>
+					Anyone telling you otherwise is selling something. And we'd rather you
+					spend the call finding out you don't qualify than find out three weeks
+					in.
+				</p>
+				<p class="font-body">
+					One thing worth knowing: LIFT requires Canadian suppliers, and we are
+					one. If you're financing digital work federally, it can be spent here.
+				</p>
+			</div>
+			<p class="font-caption verified">
+				All figures verified {VERIFIED} against the Ontario Centre of Innovation
+				and BDC. We re-check monthly.
+			</p>
+		</div>
+	</section>
+
+	<Faq items={faq} title="Common questions." />
+
+	<PageCta
+		title="Find out in one call whether this applies to you."
+		lead="Tell us your headcount, roughly your revenue, and what you're trying to change. We'll tell you which program fits, or that none of them do."
+		links={[
+			{ label: "Business software", href: "/business-software" },
+			{ label: "Back office", href: "/back-office" },
+			{ label: "Digital presence", href: "/digital-presence" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.program-links,
+	.verified {
+		margin-top: 2rem;
+	}
+	.program-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.5rem;
+		font-size: var(--text-s);
+	}
+	.prose-inline {
+		max-width: 68ch;
+		color: var(--color-mist);
+		display: grid;
+		gap: 1.1rem;
+	}
+	.verified {
+		color: var(--color-slate);
+	}
+</style>

@@ -51,12 +51,31 @@ const pageCtx = createPublicPageContext({
 	siteName: siteTitle,
 });
 
-const navLinks = [
-	{ label: "IT & HR", href: "/#it-hr" },
-	{ label: "Digital presence", href: "/#digital-presence" },
+// Two axes, two nav items. Services is what we do (the three pillars);
+// Industries is who for. Industries is deliberately NOT inside the Services
+// menu — it answers a different question, and nesting it collapses the
+// distinction. Funding takes the slot an FAQ item would have had (FAQs live on
+// each page, at the point of doubt). See content-plan/ia.md.
+const navLinks: { label: string; href: string; children?: { label: string; href: string }[] }[] = [
+	{
+		label: "Services",
+		href: "/business-software",
+		children: [
+			{ label: "Business software", href: "/business-software" },
+			{ label: "Back office", href: "/back-office" },
+			{ label: "Digital presence", href: "/digital-presence" },
+		],
+	},
+	{ label: "Industries", href: "/industries" },
 	{ label: "Pricing", href: "/pricing" },
-	{ label: "Contact", href: "/#contact" },
+	{ label: "Funding", href: "/funding" },
+	{ label: "About", href: "/about" },
 ];
+
+// Flattened for the drawer, where a nested disclosure buys nothing.
+const drawerLinks = navLinks.flatMap((l) =>
+	l.children ? l.children : [l],
+);
 const year = new Date().getFullYear();
 ---
 
@@ -88,11 +107,34 @@ const year = new Date().getFullYear();
 				<nav aria-label="Primary">
 					<ul class="nav-items justify-center">
 						{
-							navLinks.map((link) => (
-								<li>
-									<a href={link.href}>{link.label}</a>
-								</li>
-							))
+							navLinks.map((link) =>
+								link.children ? (
+									<li class="has-menu">
+										<button
+											type="button"
+											class="menu-trigger"
+											aria-expanded="false"
+											aria-haspopup="true"
+										>
+											{link.label}
+											<span class="menu-caret" aria-hidden="true">
+												▾
+											</span>
+										</button>
+										<ul class="submenu">
+											{link.children.map((child) => (
+												<li>
+													<a href={child.href}>{child.label}</a>
+												</li>
+											))}
+										</ul>
+									</li>
+								) : (
+									<li>
+										<a href={link.href}>{link.label}</a>
+									</li>
+								),
+							)
 						}
 					</ul>
 				</nav>
@@ -157,7 +199,7 @@ const year = new Date().getFullYear();
 			<nav class="drawer-nav" aria-label="Menu">
 				<ul class="nav-items">
 					{
-						navLinks.map((link) => (
+						drawerLinks.map((link) => (
 							<li>
 								<a href={link.href}>{link.label}</a>
 							</li>
@@ -190,6 +232,48 @@ const year = new Date().getFullYear();
 					operations for businesses that would rather spend their time on
 					the work they are good at.
 				</p>
+
+				<nav class="footer-nav" aria-label="Footer">
+					<div class="footer-col">
+						<h2 class="font-eyebrow footer-head">Services</h2>
+						<ul>
+							<li><a href="/business-software">Business software</a></li>
+							<li><a href="/back-office">Back office</a></li>
+							<li><a href="/digital-presence">Digital presence</a></li>
+							<li><a href="/pricing">Pricing</a></li>
+						</ul>
+					</div>
+					<div class="footer-col">
+						<h2 class="font-eyebrow footer-head">Industries</h2>
+						<ul>
+							<li><a href="/industries/trades">Trades &amp; contractors</a></li>
+							<li><a href="/industries/real-estate">Real estate</a></li>
+							<li>
+								<a href="/industries/professional-services"
+									>Professional firms</a
+								>
+							</li>
+							<li><a href="/industries/clinics">Clinics</a></li>
+						</ul>
+					</div>
+					<div class="footer-col">
+						<h2 class="font-eyebrow footer-head">Funding</h2>
+						<ul>
+							<li><a href="/funding">All programs</a></li>
+							<li><a href="/funding/dmap">DMAP</a></li>
+							<li><a href="/funding/tdp">TDP</a></li>
+							<li><a href="/funding/bdc-lift">BDC LIFT</a></li>
+						</ul>
+					</div>
+					<div class="footer-col">
+						<h2 class="font-eyebrow footer-head">Company</h2>
+						<ul>
+							<li><a href="/about">About</a></li>
+							<li><a href="/#contact">Contact</a></li>
+							<li><a href="mailto:hi@vitops.ca">hi@vitops.ca</a></li>
+						</ul>
+					</div>
+				</nav>
 				<div class="footer-base">
 					<span class="footer-copy flex flex-col md-flex-row md-items-center">
 						<span>© {year} Vitops</span>
@@ -260,6 +344,91 @@ const year = new Date().getFullYear();
 				align-items: center;
 			}
 
+			/* Services dropdown. Opens on hover and on click/keyboard (the button
+			   carries aria-expanded, so it works without a pointer). */
+			.has-menu {
+				position: relative;
+			}
+
+			.menu-trigger {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.35rem;
+				background: none;
+				border: none;
+				padding: 0;
+				cursor: pointer;
+				font: inherit;
+				font-size: var(--text-s);
+				color: var(--color-mist);
+				transition: color 0.2s ease;
+			}
+
+			.menu-trigger:hover,
+			.menu-trigger[aria-expanded="true"] {
+				color: var(--color-snow);
+			}
+
+			.menu-caret {
+				font-size: 0.7em;
+				transition: transform 0.2s ease;
+			}
+
+			.menu-trigger[aria-expanded="true"] .menu-caret {
+				transform: rotate(180deg);
+			}
+
+			.submenu {
+				position: absolute;
+				inset-block-start: calc(100% + 0.75rem);
+				inset-inline-start: 50%;
+				translate: -50% 0;
+				min-inline-size: 13rem;
+				margin: 0;
+				padding: 0.5rem;
+				list-style: none;
+				background: var(--color-navy-xxd);
+				border: 1px solid var(--line-1);
+				border-radius: 0.5rem;
+				box-shadow: 0 12px 32px rgb(0 0 0 / 0.35);
+				display: grid;
+				gap: 0.15rem;
+				opacity: 0;
+				visibility: hidden;
+				transition:
+					opacity 0.15s ease,
+					visibility 0.15s ease;
+			}
+
+			/* A hover bridge — without it the pointer crosses a dead gap and the
+			   menu closes on the way down. */
+			.submenu::before {
+				content: "";
+				position: absolute;
+				inset-block-end: 100%;
+				inset-inline: 0;
+				block-size: 0.75rem;
+			}
+
+			.has-menu:hover .submenu,
+			.has-menu:focus-within .submenu,
+			.menu-trigger[aria-expanded="true"] + .submenu {
+				opacity: 1;
+				visibility: visible;
+			}
+
+			.submenu a {
+				display: block;
+				padding: 0.5rem 0.75rem;
+				border-radius: 0.35rem;
+				white-space: nowrap;
+				transition: background-color 0.15s ease;
+			}
+
+			.submenu a:hover {
+				background: var(--color-navy-d);
+			}
+
 			/* Hamburger: hidden wherever the inline nav is shown. */
 			.drawer-open {
 				display: none;
@@ -315,6 +484,44 @@ const year = new Date().getFullYear();
 				margin: 0;
 			}
 
+			.footer-nav {
+				display: grid;
+				grid-template-columns: repeat(4, minmax(0, 1fr));
+				gap: 2rem;
+				inline-size: 100%;
+				margin-top: 2rem;
+			}
+
+			.footer-head {
+				margin: 0 0 0.75rem;
+				font-size: var(--text-xs);
+			}
+
+			.footer-nav ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: grid;
+				gap: 0.45rem;
+			}
+
+			.footer-nav a {
+				font-size: var(--text-s);
+				color: var(--color-mist);
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+
+			.footer-nav a:hover {
+				color: var(--color-snow);
+			}
+
+			@media (max-width: 720px) {
+				.footer-nav {
+					grid-template-columns: repeat(2, minmax(0, 1fr));
+				}
+			}
+
 			.footer-base {
 				display: flex;
 				justify-content: space-between;
@@ -364,8 +571,10 @@ const year = new Date().getFullYear();
 			}
 
 			/* Collapse the centered nav on small screens; brand + CTA stay and
-			   the hamburger takes over (opens the site-nav drawer). */
-			@media (max-width: 720px) {
+			   the hamburger takes over (opens the site-nav drawer). Raised from
+			   720px when the nav went to five items — below this the links
+			   crowd the brand and the CTA before the drawer would take over. */
+			@media (max-width: 900px) {
 				nav[aria-label="Primary"] {
 					display: none;
 				}
@@ -390,6 +599,27 @@ const year = new Date().getFullYear();
 				drawer?.addEventListener("click", (e) => {
 					if (e.target instanceof Element && e.target.closest("a"))
 						drawer.hidePopover();
+				});
+
+				// Services dropdown: CSS handles hover and focus-within; this adds
+				// click/touch and Escape, which hover alone never covers.
+				const triggers = document.querySelectorAll(".menu-trigger");
+				const closeAll = (except) => {
+					triggers.forEach((t) => {
+						if (t !== except) t.setAttribute("aria-expanded", "false");
+					});
+				};
+				triggers.forEach((trigger) => {
+					trigger.addEventListener("click", (e) => {
+						e.stopPropagation();
+						const open = trigger.getAttribute("aria-expanded") === "true";
+						closeAll(trigger);
+						trigger.setAttribute("aria-expanded", open ? "false" : "true");
+					});
+				});
+				document.addEventListener("click", () => closeAll());
+				document.addEventListener("keydown", (e) => {
+					if (e.key === "Escape") closeAll();
 				});
 			})();
 		</script>

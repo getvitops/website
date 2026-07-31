@@ -1,0 +1,51 @@
+---
+// Slim funding band, above the fold, one per page. Deliberately NOT a section —
+// funding is a conversion lever, not a theme. See content-plan/funding.md.
+interface Props {
+	text: string;
+	href?: string;
+	linkLabel?: string;
+}
+const {
+	text,
+	href = "/funding",
+	linkLabel = "What's available",
+} = Astro.props;
+---
+
+<div class="funding-band centered">
+	<p class="spotlight funding-inner">
+		<span class="funding-tag">Funding</span>
+		<span class="funding-copy">{text}</span>
+		<a class="link funding-link" href={href}>{linkLabel} →</a>
+	</p>
+</div>
+
+<style>
+	.funding-band {
+		border-block: 1px solid var(--line-1);
+		background: color-mix(in srgb, var(--color-pine) 7%, transparent);
+	}
+	.funding-inner {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.5rem 0.9rem;
+		padding-block: 0.9rem;
+		margin: 0;
+		font-size: var(--text-s);
+	}
+	.funding-tag {
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-pine-l);
+	}
+	.funding-copy {
+		color: var(--color-mist);
+	}
+	.funding-link {
+		white-space: nowrap;
+	}
+</style>

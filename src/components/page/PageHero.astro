@@ -1,0 +1,68 @@
+---
+// Interior-page hero. Same eyebrow → H1 → lead unit as the homepage hero, at a
+// smaller scale so pillar pages don't compete with `/`.
+interface Props {
+	eyebrow: string;
+	title: string;
+	lead: string;
+	ctaLabel?: string;
+	ctaHref?: string;
+	secondaryLabel?: string;
+	secondaryHref?: string;
+	/** One line beside the CTA. Funding nudge at the moment of decision. */
+	note?: string;
+}
+const {
+	eyebrow,
+	title,
+	lead,
+	ctaLabel = "Talk to us",
+	ctaHref = "/#contact",
+	secondaryLabel,
+	secondaryHref,
+	note,
+} = Astro.props;
+---
+
+<section class="page-hero section centered">
+	<div class="spotlight">
+		<span class="font-eyebrow">{eyebrow}</span>
+		<h1 class="font-display page-hero-title">{title}</h1>
+		<p class="font-lead page-hero-lead">{lead}</p>
+		<div class="hero-cta cluster">
+			<a class="cta" href={ctaHref}>{ctaLabel} <span class="arrow">→</span></a>
+			{
+				secondaryLabel && secondaryHref && (
+					<a class="cta-ghost" href={secondaryHref}>
+						{secondaryLabel}
+					</a>
+				)
+			}
+		</div>
+		{note && <p class="font-caption hero-note">{note}</p>}
+	</div>
+</section>
+
+<style>
+	.page-hero {
+		padding-block-start: 4rem;
+	}
+	.page-hero-title {
+		margin-block: 1.25rem 1.5rem;
+		font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+		line-height: 1.05;
+		max-width: 20ch;
+	}
+	.page-hero-lead {
+		color: var(--color-mist);
+		max-width: 60ch;
+	}
+	.hero-cta {
+		margin-top: 2rem;
+	}
+	.hero-note {
+		margin-top: 1rem;
+		color: var(--color-slate);
+		max-width: 60ch;
+	}
+</style>

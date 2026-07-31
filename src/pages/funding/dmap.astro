@@ -1,0 +1,71 @@
+---
+import ProgramPage from "../../components/page/ProgramPage.astro";
+
+export const prerender = false;
+---
+
+<ProgramPage
+	slug="dmap"
+	eyebrow="DMAP"
+	title="DMAP Ontario — up to $15,000 for a digital modernization plan"
+	description="What the Digital Modernization and Adoption Plan covers, who qualifies, what disqualifies you, and how it leads to TDP."
+	h1="DMAP — up to $15,000 toward a digital modernization plan."
+	verified="31 July 2026"
+	sourceUrl="https://www.oc-innovation.ca/programs/digital-competence-centre/"
+	sourceLabel="Source: Ontario Centre of Innovation"
+	directAnswer="The Digital Modernization and Adoption Plan is an Ontario program administered by the Ontario Centre of Innovation through the Digital Competence Centre. <strong>As of July 2026</strong> it provides a matched grant of up to <strong>$15,000</strong> to Ontario-based for-profit SMEs with <strong>1&ndash;499 employees</strong>, to assess their technology needs and produce a modernization plan. It funds the plan, not the implementation &mdash; the implementation program that follows it is <a class='link' href='/funding/tdp'>TDP</a>. Applications run <strong>first come, first served, while funds last</strong>. Approval and amounts are decided by OCI, not Vitops."
+	facts={[
+		["Amount", "Up to $15,000, matched"],
+		["Who", "Ontario for-profit SME, 1–499 employees"],
+		["Funds", "Planning and assessment — not purchases"],
+		["Prerequisite", "None. This is the entry point"],
+		["Status", "Open, first come while funds last"],
+		[
+			"Excludes",
+			"You cannot also take <a class='link' href='/funding/rmpg'>RMPG</a>",
+		],
+		["Decided by", "OCI"],
+	]}
+	sections={[
+		{
+			title: "What it actually covers.",
+			body: [
+				"The deliverable is a plan: where your technology is now, where it should be, what it would cost, and in what order. That is genuinely the work — it's the same audit-and-roadmap exercise we'd run at the start of an engagement anyway, which is why this program fits our clients more neatly than most.",
+				"It does not cover buying software, hardware, or implementation labour. That's <a class='link' href='/funding/tdp'>TDP</a>.",
+			],
+		},
+		{
+			title: "What stops people.",
+			body: [
+				"<strong>It's matched.</strong> You're funding part of it. It reduces the cost of planning; it doesn't eliminate it.",
+				"<strong>It can close without notice.</strong> First come while funds last means exactly that. Ontario added $5 million to the Digital Competence Centre in May 2026, expected to support around 450 businesses, which helps — but it is not an open-ended pool.",
+				"<strong>Taking RMPG instead spends this eligibility.</strong> If you're a retailer weighing the $5,000 RMPG against DMAP, understand that RMPG also closes the door to the $50,000 TDP behind it. For most retailers with real modernisation ahead, that's the wrong trade.",
+			],
+		},
+		{
+			title: "How we fit.",
+			body: [
+				"We'll tell you on the first call whether you're likely to qualify. If you are, we document the modernization plan in the form OCI expects, and deliver the scoped work if you hire us for it. We don't charge separately for application support, and we can't influence the outcome — that's OCI's decision.",
+			],
+		},
+	]}
+	faq={[
+		{
+			q: "Do we have to use the plan?",
+			a: "No. You own it either way, including if you decide not to engage us for the build.",
+		},
+		{
+			q: "How long does it take?",
+			a: "Typically weeks rather than months, though intake timing varies. Worth starting sooner given the first-come structure.",
+		},
+		{
+			q: "Does the $15,000 come to us or to you?",
+			a: "It's your grant. We're paid for the planning work it contributes toward.",
+		},
+		{
+			q: "Can we do DMAP and then not do TDP?",
+			a: "Yes, and plenty do. TDP is a separate application with its own revenue test — DMAP is useful on its own.",
+		},
+	]}
+	relatedLinks={[{ label: "TDP — the build grant", href: "/funding/tdp" }]}
+/>
