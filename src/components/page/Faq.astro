@@ -1,8 +1,11 @@
 ---
-import Schema from "./Schema.astro";
+import FaqSchema from "@getvitops/astro/schemas/FAQ.astro";
 
 // FAQ block + FAQPage JSON-LD. Answers are written to stand alone so an answer
 // engine can lift one without the surrounding page. See content-plan/geo.md.
+//
+// Call sites use { q, a }; the schema component wants { question, answer }.
+// Mapping here keeps the shorthand at the ~60 authoring sites.
 export interface FaqItem {
 	q: string;
 	a: string;
@@ -13,19 +16,9 @@ interface Props {
 	eyebrow?: string;
 }
 const { items, title = "Questions we get about this.", eyebrow } = Astro.props;
-
-const jsonLd = {
-	"@context": "https://schema.org",
-	"@type": "FAQPage",
-	mainEntity: items.map((i) => ({
-		"@type": "Question",
-		name: i.q,
-		acceptedAnswer: { "@type": "Answer", text: i.a },
-	})),
-};
 ---
 
-<Schema data={jsonLd} />
+<FaqSchema items={items.map((i) => ({ question: i.q, answer: i.a }))} />
 
 <section class="faq section centered">
 	<div class="spotlight">

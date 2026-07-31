@@ -9,7 +9,8 @@ interface Props {
 	ctaHref?: string;
 	secondaryLabel?: string;
 	secondaryHref?: string;
-	/** One line beside the CTA. Funding nudge at the moment of decision. */
+	/** One line beside the CTA — the funding nudge at the moment of decision.
+	 *  Rendered as HTML so it can carry a link (see lib/copy.ts). */
 	note?: string;
 }
 const {
@@ -39,7 +40,7 @@ const {
 				)
 			}
 		</div>
-		{note && <p class="font-caption hero-note">{note}</p>}
+		{note && <p class="font-caption hero-note" set:html={note} />}
 	</div>
 </section>
 

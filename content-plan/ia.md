@@ -99,8 +99,14 @@ Five items means the header must collapse to the drawer at **900px**, not 720px
 conversion and better for answer engines than a destination. `/faq` exists, schema-marked,
 linked from the footer.
 
-**Funding takes that slot.** Highest-intent, lowest-competition topic on the site. One
-word in the nav; the restraint lives in the on-page treatment (`funding.md`).
+**Funding is not in the nav either — reversed after review.** It's a price objection
+handler, not a pillar. Search traffic lands on `/funding/*` directly, so the slot never
+served it; on-site readers meet funding via the callout band and the CTA lines, already
+mid-page. A "Funding" item in a services company's primary nav also reads like a grant
+consultancy, which is the wrong first impression. It now lives on `/pricing` — where the
+cost question actually arises — plus the footer.
+
+Nav as built: **`Services ▾ | Industries | Pricing | About`** + CTA.
 
 **Case studies stay out until 2–3 exist.** A nav item that leads to a thin page is worse
 than no nav item.

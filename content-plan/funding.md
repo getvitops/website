@@ -127,14 +127,16 @@ every page is what makes a site read as though it sells grants rather than servi
 One sentence and a link, in the existing eyebrow/badge register. Plants the idea before
 the reader has decided anything.
 
-> **Funding** · Ontario SMEs can often offset this work through the Digital Competence
-> Centre. [What's available →](/funding)
+> **Funding** · Government programs may cover part of this work — federal, and provincial
+> depending on where you operate. [What's available →](/funding)
 
 **2 — One line beside every CTA.**
 The nudge arrives at the moment of decision, not as a section people scroll past.
+Deliberately soft and non-technical: naming DMAP and TDP up front assumes the reader
+already knows what they are, and quietly excludes anyone outside Ontario. The link carries
+the detail. Both strings live in `src/lib/copy.ts` so a wording change is one edit.
 
-> Ask us whether DMAP or TDP fits your situation. Approval and amounts are OCI's call,
-> not ours.
+> Ask us if [funding](/funding) might be available.
 
 **3 — `/funding` and its four program pages.**
 Where the depth lives, for search and for the sales conversation.

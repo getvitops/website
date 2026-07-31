@@ -10,6 +10,7 @@ import type { FaqItem } from "./Faq.astro";
 import PageCta from "./PageCta.astro";
 import Schema from "./Schema.astro";
 import { breadcrumb, service } from "../../lib/schema";
+import { FUNDING_NOTE } from "../../lib/copy";
 
 // Shared shell for the four industry pages. The structure is identical by
 // design; the substance is not — see content-plan/teardown.md §5 on why the
@@ -51,8 +52,6 @@ const {
 	ctaLead,
 } = Astro.props;
 
-const FUNDING_NOTE =
-	"Ask us whether DMAP fits — approval and amounts are OCI's call, not ours.";
 const path = `/industries/${slug}`;
 ---
 

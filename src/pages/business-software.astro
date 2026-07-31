@@ -9,11 +9,10 @@ import Faq from "../components/page/Faq.astro";
 import PageCta from "../components/page/PageCta.astro";
 import Schema from "../components/page/Schema.astro";
 import { breadcrumb, service } from "../lib/schema";
+import { FUNDING_CALLOUT, FUNDING_NOTE } from "../lib/copy";
 
 export const prerender = false;
 
-const FUNDING_NOTE =
-	"Ask us whether DMAP or TDP fits your situation. Approval and amounts are OCI's call, not ours.";
 
 const problems = [
 	{
@@ -30,7 +29,7 @@ const problems = [
 	},
 	{
 		heading: "When something breaks, you triage it.",
-		body: "Four vendors, four support portals, four sets of hold music, and you're the one deciding which of them owns the problem.",
+		body: "Many vendors, many support portals, many sets of hold music, and you're the one deciding which of them owns the problem.",
 	},
 ];
 
@@ -110,7 +109,7 @@ const platforms = [
 	<Schema data={breadcrumb(["Business software", "/business-software"])} />
 
 	<FundingCallout
-		text="Ontario SMEs can often offset this work through the Digital Competence Centre. DMAP covers up to $15,000 of the planning."
+		text={FUNDING_CALLOUT}
 	/>
 
 	<PageHero
@@ -160,7 +159,7 @@ const platforms = [
 			<SectionIntro
 				eyebrow="When something breaks"
 				title="One number, every vendor."
-				lead="This is the part most people underestimate until they've lived without it. You don't call the software vendor, and you don't work out which of your four vendors owns the problem. You call us."
+				lead="This is the part most people underestimate until they've lived without it. You don't call the software vendor, and you don't work out which of your vendors owns the problem. You call us."
 			/>
 			<div class="prose-inline">
 				<p class="font-body">

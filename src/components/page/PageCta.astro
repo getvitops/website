@@ -8,7 +8,8 @@ interface Props {
 	lead?: string;
 	ctaLabel?: string;
 	ctaHref?: string;
-	/** One line beside the CTA — the funding nudge at the point of decision. */
+	/** One line beside the CTA — the funding nudge at the point of decision.
+	 *  Rendered as HTML so it can carry a link (see lib/copy.ts). */
 	note?: string;
 	links?: Link[];
 }
@@ -33,7 +34,7 @@ const {
 				></span
 			>
 		</div>
-		{note && <p class="font-caption cta-note">{note}</p>}
+		{note && <p class="font-caption cta-note" set:html={note} />}
 		{
 			links.length > 0 && (
 				<nav class="cta-links" aria-label="Related pages">

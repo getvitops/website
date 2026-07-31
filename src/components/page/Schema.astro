@@ -1,7 +1,8 @@
 ---
-// JSON-LD emitter. Deliberately local rather than @getvitops/astro/schemas/*:
-// those components import @getvitops/utils, which is not a dependency of this
-// site. One line of logic is cheaper than adding the package.
+// Generic JSON-LD emitter, for graphs this site hand-builds in src/lib/schema.ts
+// (Organization, BreadcrumbList, Service) — those carry site-specific shapes
+// like the shared @id the package builders don't model. Where a package schema
+// component fits, use it instead: see Faq.astro.
 interface Props {
 	data: unknown;
 }

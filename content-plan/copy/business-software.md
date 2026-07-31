@@ -70,7 +70,7 @@ New hires wait on a chain of forwarded emails. Leavers keep their logins for mon
 Both are the same missing process, and only one of them is visible.
 
 **When something breaks, you triage it.**
-Four vendors, four support portals, four sets of hold music, and you're the one deciding
+Many vendors, many support portals, many sets of hold music, and you're the one deciding
 which of them owns the problem.
 
 ---
@@ -116,7 +116,7 @@ than a project.
 
 **Lead:**
 This is the part most people underestimate until they've lived without it. You don't call
-the software vendor, and you don't work out which of your four vendors owns the problem.
+the software vendor, and you don't work out which of your vendors owns the problem.
 You call us.
 
 **Body:**

@@ -9,11 +9,10 @@ import Faq from "../components/page/Faq.astro";
 import PageCta from "../components/page/PageCta.astro";
 import Schema from "../components/page/Schema.astro";
 import { breadcrumb, service } from "../lib/schema";
+import { FUNDING_CALLOUT, FUNDING_NOTE } from "../lib/copy";
 
 export const prerender = false;
 
-const FUNDING_NOTE =
-	"Ask us whether DMAP fits — approval and amounts are OCI's call, not ours.";
 
 const problems = [
 	{
@@ -108,7 +107,7 @@ const faq = [
 	<Schema data={breadcrumb(["Back office", "/back-office"])} />
 
 	<FundingCallout
-		text="HR and payroll system work often qualifies under Ontario's Digital Competence Centre programs."
+		text={FUNDING_CALLOUT}
 	/>
 
 	<PageHero
