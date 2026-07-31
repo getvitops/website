@@ -1,129 +1,89 @@
 ---
-// TWO CORE SERVICES — extracted verbatim from src/pages/index.astro (A/B
-// layer-3 enabler refactor). Markup, feature arrays, and scoped styles are a
-// pure move. The `id="services"` anchor is load-bearing (nav links).
-const digitalFeatures = [
-	"Managed, high-performance websites",
-	"SEO and GEO optimization for search and answer engines",
-	"Curated ad campaigns, tuned for conversions over time",
-	"Social media, kept active and on brand",
-	"Verified business profiles on Google, Bing, and Apple",
-];
-
-const opsFeatures = [
-	"Software selection, implementation, and integration",
-	"AI enablement where it genuinely earns its place",
-	"Managed identity and lifecycle: SCIM and JML",
-	"License tuning, endpoint security, day-to-day software support",
+// THREE PILLARS. Was two ("IT and HR" + "Digital presence") before Back Office
+// was split out of the IT/HR bundle. The `id="services"` anchor is load-bearing.
+//
+// Feature lists double as the homepage's keyword surface — the terms people
+// actually search (bookkeeping, payroll, benefits administration) need to
+// appear here, not only on the pillar pages.
+//
+// Styling is framework classes (`npx vitops docs classes`): `card` pattern,
+// `rhythm` for flow, `list` for the feature lists, functional colour tokens.
+const pillars = [
+	{
+		tag: "01 · Business software",
+		href: "/business-software",
+		heading: "The software stack, selected, wired, and run.",
+		copy: "We pick the right software for how your team actually works, implement it, and integrate the pieces — with AI enablement where it genuinely helps. On the managed tier we become your single operations provider, and the one number you call when any of it breaks.",
+		features: [
+			"Software selection, implementation, and integration",
+			"AI enablement where it genuinely earns its place",
+			"Managed identity and lifecycle: SCIM and JML",
+			"Licence tuning, endpoint security, day-to-day software support",
+			"Tier-1 triage and vendor escalation on your behalf",
+		],
+	},
+	{
+		tag: "02 · Back office",
+		href: "/back-office",
+		heading: "The admin that never stops, off your desk.",
+		copy: "Bookkeeping kept current rather than reconstructed at year-end, payroll run to schedule, benefits administered, and every joiner, mover and leaver processed across both the HR systems and the software they need access to.",
+		features: [
+			"Bookkeeping: coding, reconciliations, payables and receivables",
+			"Managed payroll: pay runs, CRA remittances, T4s and ROEs",
+			"Benefits administration: enrolments, life events, deductions",
+			"HR operations and HRIS: records, time off, policy acknowledgements",
+			"Onboarding and offboarding, with access revoked the same day",
+		],
+	},
+	{
+		tag: "03 · Digital presence",
+		href: "/digital-presence",
+		heading: "Everywhere your buyers look, handled.",
+		copy: "We design, build, and manage a fast, accessible website tuned for both search and AI answers. Around it we run curated ad campaigns, keep your social channels active and on brand, and hold your listings accurate and verified.",
+		features: [
+			"Managed, high-performance websites",
+			"SEO and GEO optimization for search and answer engines",
+			"Curated ad campaigns, tuned for conversions over time",
+			"Social media, kept active and on brand",
+			"Verified business profiles on Google, Bing, and Apple",
+		],
+	},
 ];
 ---
 
-<!-- TWO CORE SERVICES -->
+<!-- THREE PILLARS -->
 <section class="services section centered" id="services">
 	<div class="spotlight">
-		<header class="section-intro">
+		<header class="rhythm max-w-[60ch] mb-12">
 			<span class="font-eyebrow">What we do</span>
-			<h2 class="font-title">Two services. One partner on file.</h2>
+			<h2 class="font-title">Three services. One partner on file.</h2>
+			<p class="font-lead text-neutral-muted">
+				The software your business runs on, the administration behind it, and the
+				presence in front of it. Take one or take all three — they're run by the
+				same people either way.
+			</p>
 		</header>
 
-		<div class="services-grid">
-			<article class="card bg-navy-d service-card">
-				<span class="service-tag">01 · IT and HR</span>
-				<h3 class="font-heading">The software stack, selected, wired, and run.</h3>
-				<p class="font-body service-copy">
-					We pick the right software for how your team actually works,
-					implement it, and integrate the pieces, with AI enablement where it
-					genuinely helps. On the managed tier we become your single
-					operations provider: identity and lifecycle, license tuning,
-					endpoint security on every device, and the software support your
-					team leans on.
-				</p>
-				<ul class="feature-list">
-					{opsFeatures.map((f) => <li>{f}</li>)}
-				</ul>
-			</article>
-
-			<article class="card bg-navy-d service-card">
-				<span class="service-tag">02 · Digital presence</span>
-				<h3 class="font-heading">Everywhere your buyers look, handled.</h3>
-				<p class="font-body service-copy">
-					We design, build, and manage a fast, accessible website tuned for
-					both search and AI answers. Around it we run curated ad campaigns,
-					keep your social channels active and on brand, and hold your
-					Google, Bing, and Apple listings accurate and verified. One team
-					keeps the whole presence consistent, so you show up wherever a
-					customer checks.
-				</p>
-				<ul class="feature-list">
-					{digitalFeatures.map((f) => <li>{f}</li>)}
-				</ul>
-			</article>
+		<div class="grid gap-6 @md:grid-cols-3">
+			{
+				pillars.map((p) => (
+					<article class="card rhythm">
+						<span class="font-eyebrow text-brand-primary">{p.tag}</span>
+						<h3 class="font-heading">{p.heading}</h3>
+						<p class="font-body text-neutral-muted">{p.copy}</p>
+						<ul class="list rhythm pt-4 border-t border-neutral">
+							{p.features.map((f) => (
+								<li class="font-body text-neutral-muted">{f}</li>
+							))}
+						</ul>
+						<p class="font-caption">
+							<a class="link" href={p.href}>
+								More on {p.tag.split("· ")[1]} →
+							</a>
+						</p>
+					</article>
+				))
+			}
 		</div>
 	</div>
 </section>
-
-<style>
-	/* Section intros (shared block, duplicated per section — Astro scoping) */
-	.section-intro {
-		max-width: 56ch;
-		margin-bottom: 3rem;
-	}
-	.section-intro .font-title {
-		margin-top: 0.75rem;
-		font-size: clamp(2rem, 4vw, 3rem);
-	}
-	.section-lead {
-		margin-top: 1rem;
-		color: var(--color-mist);
-	}
-
-	/* Services */
-	.services-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1.5rem;
-	}
-	.service-card {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		padding: 2.25rem;
-	}
-	.service-tag {
-		font-family: var(--font-mono);
-		font-size: var(--text-xs);
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		color: var(--color-pine-l);
-	}
-	.service-copy {
-		color: var(--color-mist);
-	}
-	.feature-list {
-		list-style: none;
-		margin: 0.25rem 0 0;
-		padding: 1rem 0 0;
-		border-top: 1px solid var(--line-1);
-		display: grid;
-		gap: 0.6rem;
-	}
-	.feature-list li {
-		display: flex;
-		align-items: baseline;
-		gap: 0.65rem;
-		font-size: var(--text-s);
-		color: var(--color-mist);
-	}
-	.feature-list li::before {
-		content: "✓";
-		color: var(--color-pine);
-		font-weight: 600;
-		font-size: 0.85em;
-	}
-
-	@media (max-width: 860px) {
-		.services-grid {
-			grid-template-columns: 1fr;
-		}
-	}
-</style>
