@@ -1,6 +1,7 @@
 ---
 import PineLayout from "../layouts/PineLayout.astro";
 import PageHero from "../components/page/PageHero.astro";
+import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 
 export const prerender = false;
 
@@ -28,7 +29,7 @@ const opsTiers = [
 			"Quarterly operations review — one dashboard, one bill",
 			"Email & ticket support, business hours",
 		],
-		highlighted: false,
+		highlighted: true,
 	},
 	{
 		name: "Managed",
@@ -41,7 +42,7 @@ const opsTiers = [
 			"Continuous endpoint security monitoring",
 			"Day-to-day software support & vendor escalation",
 		],
-		highlighted: true,
+		highlighted: false,
 	},
 ];
 
@@ -84,9 +85,9 @@ const presenceServices = [
 
 // --- Back Office: priced per service ----------------------------------------
 //
-// ⚠️ PLACEHOLDER RATES — confirm before this leaves dev. These are plausible
-// Canadian SMB market figures chosen so the structure can be reviewed, not
-// quoted numbers. The structure is the decision being tested here.
+// Bookkeeping's rate is confirmed. Payroll, benefits administration and HR
+// operations are still ⚠️ PLACEHOLDER figures — plausible Canadian SMB numbers
+// chosen so the structure could be reviewed. Confirm them before production.
 //
 // Priced per service, NOT per seat, deliberately: software licences scale with
 // headcount, but bookkeeping scales with transaction volume and entity count.
@@ -98,7 +99,7 @@ const presenceServices = [
 const backOfficeServices = [
 	{
 		name: "Bookkeeping",
-		price: "from $450",
+		price: "from $400",
 		period: "/ mo",
 		included: [
 			"Transaction coding, bank and credit card reconciliations, payables and receivables",
@@ -219,14 +220,14 @@ const finePrint = [
 				</p>
 			</header>
 
-			<div class="tiers subgrid">
+			<Subgrid class="pricing-tiers">
 				{
 					opsTiers.map((tier) => (
 						<article
 							class:list={[
 								"card",
-								"tier",
-								tier.highlighted ? "tier--featured" : "bg-navy-d",
+								"pricing-tier",
+								tier.highlighted ? "pricing-tier--featured" : "bg-navy-d",
 							]}>
 							<div class="tier-head">
 								<div class="tier-name-row">
@@ -251,7 +252,7 @@ const finePrint = [
 						</article>
 					))
 				}
-			</div>
+			</Subgrid>
 
 			<p class="section-note breakout">
 				Running something these plans don't cover? Ask us about our other
@@ -315,14 +316,14 @@ const finePrint = [
 				</p>
 			</header>
 
-			<div class="tiers subgrid">
+			<Subgrid class="pricing-tiers">
 				{
 					hostingTiers.map((tier) => (
 						<article
 							class:list={[
 								"card",
-								"tier",
-								tier.highlighted ? "tier--featured" : "bg-navy-d",
+								"pricing-tier",
+								tier.highlighted ? "pricing-tier--featured" : "bg-navy-d",
 							]}>
 							<div class="tier-head">
 								<div class="tier-name-row">
@@ -350,7 +351,7 @@ const finePrint = [
 						</article>
 					))
 				}
-			</div>
+			</Subgrid>
 
 			<article class="card sovereign">
 				<div class="sovereign-head">
@@ -502,21 +503,30 @@ const finePrint = [
 		font-style: italic;
 	}
 
-	/* ---- IT & HR tiers ----
-	   Drive the framework's `.subgrid` via its public custom properties.
-	   Each card is a direct child spanning 3 row tracks (grid-template-rows:
-	   subgrid), so its three tranches — head, feature list, CTA — snap to the
-	   same shared row lines across all cards regardless of feature count. */
-	.tiers {
-		--items-per-row: 3;
-		--rows-per-item: 3;
-		--subgrid-gap: 1.5rem; /* gap between cards (columns) */
-		row-gap: 1.25rem; /* gap between tranches (rows) */
+	/* ---- Plan tiers ----
+	   Laid out by the framework's <Subgrid>: it renders the <ul>/<li> and puts
+	   `grid-template-rows: subgrid` on each card, so the three tranches — head,
+	   feature list, CTA — snap to shared row lines across all cards regardless
+	   of feature count. `--cols` drives both the columns and the component's
+	   row-index maths; `--row-span` is the number of tranches per card.
+
+	   The <ul> and the card <li> are emitted inside the component, so they sit
+	   outside this page's style scope — hence :global(). Everything nested in
+	   the card is rendered from this file and stays scoped as usual. */
+	:global(.pricing-tiers) {
+		--cols: 3;
+		--row-span: 3;
+		--row-margin: 1.5rem; /* extra separation once cards wrap to a new row */
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		column-gap: 1.5rem; /* gap between cards */
+		row-gap: 1.25rem; /* gap between tranches */
 	}
-	.tier {
+	:global(.pricing-tier) {
 		padding: 2rem;
 	}
-	.tier--featured {
+	:global(.pricing-tier--featured) {
 		background: var(--color-navy-d);
 		border: 1px solid var(--color-pine);
 		box-shadow: 0 0 0 1px rgba(74, 144, 117, 0.25),
@@ -579,6 +589,8 @@ const finePrint = [
 		margin: 0;
 		padding: 0;
 		display: grid;
+		align-content: start; /* the shared row is as tall as the longest list —
+		                         start the rows rather than stretching them apart */
 		gap: 0.7rem;
 	}
 	.feature-list li {
@@ -785,8 +797,8 @@ const finePrint = [
 	}
 
 	@media (max-width: 860px) {
-		.tiers {
-			--items-per-row: 1;
+		:global(.pricing-tiers) {
+			--cols: 1;
 		}
 		.callout-grid,
 		.fineprint-grid {
