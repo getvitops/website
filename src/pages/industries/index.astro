@@ -14,7 +14,7 @@ export const prerender = false;
 // industry-shaped. But industry is only a proxy — the real qualifier is the
 // point at which administration stops being absorbed and starts costing real
 // time and money against revenue work. Owner-led businesses are a common client
-// profile, not a target: describe it, don't qualify on it. The four verticals
+// profile, not a target: describe it, don't qualify on it. The verticals listed
 // are where we see the threshold crossed most often, not the boundary of who we
 // work with.
 const profile = [
@@ -89,33 +89,12 @@ const listSchema = {
 		lead="Administration never earned anything. For a while that's fine — it gets absorbed into evenings and gaps between jobs. Then headcount, software and obligations grow faster than the people handling them, and it turns into real hours and real money taken off the work you actually get paid for."
 	/>
 
-	<Prose lead>
-		<p>
-			Vitops works with Ontario businesses, typically between 5 and 150 people,
-			that have reached the size where back-office administration is a
-			measurable cost rather than a rounding error — usually somewhere between
-			half a day and two days a week of someone's time, spent on work that
-			generates no revenue.
-		</p>
-	</Prose>
-
-	<section class="section centered">
-		<div class="spotlight">
-			<SectionIntro
-				eyebrow="The fit"
-				title="What our clients have in common."
-				lead="This matters more than the sector. Many of our clients are owner-led and the founder is still close to the work — but that's a pattern we notice, not a requirement. If these four describe you, the name on the door is mostly a detail."
-			/>
-			<Cards cards={profile} />
-		</div>
-	</section>
-
 	<section class="section centered">
 		<div class="spotlight">
 			<SectionIntro
 				eyebrow="Where it shows up most"
-				title="Four sectors where this happens early."
-				lead="We know these four well enough to be useful in the first week — the tools, the rules, and what urgent means at four in the afternoon. If you're somewhere else, the service is the same; it just takes us a little longer to learn your particulars, and we'll say so rather than pretend otherwise."
+				title="Industries that benefit most from what we do."
+				lead="We know these sectors well enough to be useful in the first week — the tools, the rules, and what urgent means at four in the afternoon. If you're somewhere else, the service is the same; it just takes us a little longer to learn your particulars, and we'll say so rather than pretend otherwise."
 			/>
 			<div class="industry-grid">
 				{
@@ -134,9 +113,30 @@ const listSchema = {
 		</div>
 	</section>
 
+	<Prose lead>
+		<p>
+			Vitops works with Ontario businesses, typically between 5 and 150 people,
+			that have reached the size where back-office administration is a
+			measurable cost rather than a rounding error — usually somewhere between
+			half a day and two days a week of someone's time, spent on work that
+			generates no revenue.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="The fit"
+				title="What our clients have in common."
+				lead="The sector is really only a proxy — what follows is what actually decides the fit. Many of our clients are owner-led and the founder is still close to the work, but that's a pattern we notice rather than a requirement. If these describe you, the name on the door is mostly a detail."
+			/>
+			<Cards cards={profile} />
+		</div>
+	</section>
+
 	<PageCta
 		title="Tell us what you run."
-		lead="Whether or not it's one of the four. We'll tell you honestly how much of your situation we already understand."
+		lead="Whether or not it's one of the sectors above. We'll tell you honestly how much of your situation we already understand."
 		links={[
 			{ label: "Business software", href: "/business-software" },
 			{ label: "Back office", href: "/back-office" },

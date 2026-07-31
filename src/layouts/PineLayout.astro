@@ -27,12 +27,11 @@ const siteDescription =
 	settings?.tagline ||
 	"Vitops runs the digital presence and the IT and HR operations for businesses that would rather focus on their craft.";
 
-// Canonical must be the PUBLIC URL. During an A/B layer-3 render Astro.url is
-// the internal /b-variant/... path; Astro.originPathname is the pre-rewrite
-// pathname (and the plain pathname when no rewrite happened). Astro appends a
-// trailing slash to originPathname on rewrites (trailingSlash "ignore" +
-// directory build format) — normalize so A and B emit identical canonicals.
-// Side effect (intended): query strings no longer leak into the canonical.
+// Canonical must be the PUBLIC URL. Astro.originPathname is the pre-rewrite
+// pathname, and the plain pathname when no rewrite happened — kept over
+// Astro.url so any future internal rewrite can't leak into the canonical. The
+// trailing-slash normalisation guards the same case (trailingSlash "ignore" +
+// directory build format). Side effect (intended): query strings are dropped.
 const canonicalPath =
 	Astro.originPathname.length > 1 && Astro.originPathname.endsWith("/")
 		? Astro.originPathname.replace(/\/+$/, "")
