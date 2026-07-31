@@ -51,10 +51,7 @@ _Quotable standing alone — see `geo.md`._
 Vitops works with Ontario businesses, typically between 5 and 150 people, that have
 reached the size where back-office administration is a measurable cost rather than a
 rounding error — usually somewhere between half a day and two days a week of someone's
-time, spent on work that generates no revenue. The four industries below are where we see
-that threshold crossed most often and where we already know the tools, the compliance
-pressures and the staffing rhythms, but they're examples of the fit rather than the limit
-of it.
+time, spent on work that generates no revenue.
 
 ---
 
