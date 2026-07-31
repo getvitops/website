@@ -81,6 +81,60 @@ const presenceServices = [
 	},
 ];
 
+// --- Back Office: priced per service ----------------------------------------
+//
+// ⚠️ PLACEHOLDER RATES — confirm before this leaves dev. These are plausible
+// Canadian SMB market figures chosen so the structure can be reviewed, not
+// quoted numbers. The structure is the decision being tested here.
+//
+// Priced per service, NOT per seat, deliberately: software licences scale with
+// headcount, but bookkeeping scales with transaction volume and entity count.
+// A 12-person contractor with three entities and heavy AP is more work than a
+// 40-person firm with clean books, so $/user misprices both ends.
+//
+// Joiner/mover/leaver is intentionally absent — it spans both halves and is
+// already priced inside the IT & HR per-seat tiers. Don't double-charge it.
+const backOfficeServices = [
+	{
+		name: "Bookkeeping",
+		price: "from $450",
+		period: "/ mo",
+		included: [
+			"Transaction coding, bank and credit card reconciliations, payables and receivables",
+			"Monthly close, with the books kept current rather than rebuilt at year-end",
+			"Banded by transaction volume and number of entities — we quote after a look at your last quarter",
+		],
+	},
+	{
+		name: "Managed payroll",
+		price: "$185",
+		period: "/ mo + $9 / employee",
+		included: [
+			"Pay runs, direct deposits, CRA remittances, T4s and ROEs, run to schedule",
+			"Year-end filing and audit-ready documentation",
+		],
+	},
+	{
+		name: "Benefits administration",
+		price: "$145",
+		period: "/ mo",
+		included: [
+			"Enrolments, life events, terminations, and payroll deduction sync",
+			"Employee questions handled directly, so they don't come to you",
+			"Your broker keeps the plan — we run the daily administration of it",
+		],
+	},
+	{
+		name: "HR operations & HRIS",
+		price: "$225",
+		period: "/ mo",
+		included: [
+			"Employee records, time off, policy acknowledgements, document retention",
+			"HRIS configured once and maintained, not left to drift",
+		],
+	},
+];
+
 // --- Website plans: three mutually exclusive tiers, pick one -----------------
 const hostingTiers = [
 	{
@@ -140,13 +194,13 @@ const finePrint = [
 
 <PineLayout
 	title="Pricing"
-	description="Two services, priced simply. IT & HR operations priced per employee; managed website plans from $39/mo. Month-to-month, no long-term contracts.">
+	description="Three services, priced simply. Software operations per employee; bookkeeping, payroll and benefits administration per service; managed website plans from $39/mo. Month-to-month.">
 	<!-- PAGE INTRO -->
 	<section class="pricing-hero section centered">
 		<div class="spotlight">
 			<header class="section-intro">
 				<span class="font-eyebrow">Pricing at a glance</span>
-				<h1 class="font-display pricing-title">Two services, priced simply.</h1>
+				<h1 class="font-display pricing-title">Three services, priced simply.</h1>
 				<p class="font-lead section-lead">
 					Month-to-month, no long-term contracts — cancel with 30 days'
 					notice. IT &amp; HR has no setup fee; website plans include a
@@ -157,12 +211,18 @@ const finePrint = [
 		</div>
 	</section>
 
-	<!-- IT & HR OPERATIONS -->
+	<!-- SOFTWARE OPERATIONS -->
 	<section class="section centered" id="it-hr-pricing">
 		<div class="spotlight">
 			<header class="section-intro">
-				<span class="font-eyebrow">IT &amp; HR Operations</span>
+				<span class="font-eyebrow">Software operations</span>
 				<h2 class="font-title">Priced per employee, right-sized as your team grows.</h2>
+				<p class="font-body section-lead">
+					The software your business runs on: selection, integration, identity and
+					lifecycle, endpoint security and support. Bookkeeping, payroll and
+					benefits are <a class="link" href="#back-office-pricing">priced separately</a>
+					— they scale with volume, not headcount.
+				</p>
 			</header>
 
 			<div class="tiers subgrid">
@@ -202,6 +262,49 @@ const finePrint = [
 			<p class="section-note breakout">
 				Running something these plans don't cover? Ask us about our other
 				managed services.
+			</p>
+		</div>
+	</section>
+
+	<!-- BACK OFFICE -->
+	<section class="section centered" id="back-office-pricing">
+		<div class="spotlight">
+			<header class="section-intro">
+				<span class="font-eyebrow">Back office</span>
+				<h2 class="font-title">Priced per service, because the work isn't per seat.</h2>
+				<p class="font-lead section-lead">
+					Bookkeeping, payroll and benefits administration scale with
+					transaction volume and entity count, not with how many people you
+					employ. Take one, take all of them, or add them to a software
+					operations plan.
+				</p>
+			</header>
+
+			<div class="svc-table card bg-navy-d">
+				{
+					backOfficeServices.map((svc) => (
+						<div class="svc-row">
+							<div class="svc-head">
+								<h3 class="font-heading svc-name">{svc.name}</h3>
+								<p class="svc-price">
+									<span class="svc-price__amount">{svc.price}</span>
+									<span class="svc-price__period">{svc.period}</span>
+								</p>
+							</div>
+							<ul class="svc-included">
+								{svc.included.map((line) => (
+									<li>{line}</li>
+								))}
+							</ul>
+						</div>
+					))
+				}
+			</div>
+
+			<p class="section-note breakout">
+				Onboarding and offboarding isn't listed here — it spans both halves and
+				is already included in the Foundations and Managed
+				<a class="link" href="#it-hr-pricing">software operations</a> plans.
 			</p>
 		</div>
 	</section>
@@ -303,9 +406,9 @@ const finePrint = [
 					<span class="font-eyebrow callout-eyebrow">Vitops Complete</span>
 					<h3 class="font-heading callout-title">Bundle &amp; save.</h3>
 					<p class="font-body callout-copy">
-						Combine any IT &amp; HR plan with two or more Digital Presence
-						services and save <strong>10%</strong> on the combined monthly
-						total. One team, one bill, one number to call.
+						Combine services from two or more of Software operations, Back
+						office and Digital presence and save <strong>10%</strong> on the
+						combined monthly total. One team, one bill, one number to call.
 					</p>
 				</article>
 
