@@ -325,6 +325,38 @@ const finePrint = [
 		</div>
 	</section>
 
+	<!-- FUNDING: the price objection handler. This is where the cost question
+	     actually arises, which is why funding lives here rather than in the nav. -->
+	<section class="section centered" id="pricing-funding">
+		<div class="spotlight">
+			<div class="card bg-navy-d funding-block">
+				<span class="font-eyebrow">Funding</span>
+				<h2 class="font-heading funding-title">
+					Ontario may cover part of this.
+				</h2>
+				<p class="font-body funding-copy">
+					Eligible Ontario for-profit SMEs can offset the setup and project side
+					of this work through the province's Digital Competence Centre. As of
+					July 2026, <strong>DMAP covers up to $15,000</strong> of planning, and
+					<strong>TDP up to $50,000</strong> of implementation for businesses that
+					have completed a DMAP and clear a $750,000 revenue floor. Ongoing
+					monthly service isn't grant-funded.
+				</p>
+				<p class="font-body funding-copy">
+					We'll tell you on the first call whether you plausibly qualify —
+					including when you don't. Approval and amounts are decided by OCI, not
+					by us.
+				</p>
+				<div class="cluster funding-actions">
+					<a class="cta-ghost" href="/funding">See what's available</a>
+					<span class="font-caption funding-note">
+						DMAP · TDP · RMPG · BDC LIFT — what each covers and who it rules out
+					</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<!-- FINE PRINT + CTA -->
 	<section class="section centered pricing-close">
 		<div class="spotlight fineprint-grid">
@@ -612,6 +644,34 @@ const finePrint = [
 	}
 	.callout-copy strong {
 		color: var(--color-snow);
+	}
+
+	/* ---- Funding ---- */
+	.funding-block {
+		padding: clamp(1.75rem, 4vw, 2.75rem);
+		border: 1px solid color-mix(in srgb, var(--color-pine) 28%, transparent);
+		background: color-mix(in srgb, var(--color-pine) 7%, var(--color-navy-d));
+		display: grid;
+		gap: 1rem;
+		max-width: 78ch;
+	}
+	.funding-title {
+		margin: 0.25rem 0 0;
+	}
+	.funding-copy {
+		color: var(--color-mist);
+		margin: 0;
+	}
+	.funding-copy strong {
+		color: var(--color-snow);
+	}
+	.funding-actions {
+		margin-top: 0.5rem;
+		align-items: center;
+		gap: 1rem 1.5rem;
+	}
+	.funding-note {
+		color: var(--color-slate);
 	}
 
 	/* ---- Fine print + close CTA ---- */

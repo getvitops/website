@@ -54,8 +54,14 @@ const pageCtx = createPublicPageContext({
 // Two axes, two nav items. Services is what we do (the three pillars);
 // Industries is who for. Industries is deliberately NOT inside the Services
 // menu — it answers a different question, and nesting it collapses the
-// distinction. Funding takes the slot an FAQ item would have had (FAQs live on
-// each page, at the point of doubt). See content-plan/ia.md.
+// distinction.
+//
+// Funding is deliberately NOT in the nav. It's a price objection handler, not a
+// pillar: search traffic lands on /funding/* directly, and on-site readers meet
+// it via the callout band, the CTA lines and the block on /pricing — all at the
+// moment the cost question actually arises. A "Funding" nav item also reads like
+// we're a grant consultancy, which we aren't. Footer keeps the links.
+// See content-plan/ia.md.
 const navLinks: { label: string; href: string; children?: { label: string; href: string }[] }[] = [
 	{
 		label: "Services",
@@ -68,7 +74,6 @@ const navLinks: { label: string; href: string; children?: { label: string; href:
 	},
 	{ label: "Industries", href: "/industries" },
 	{ label: "Pricing", href: "/pricing" },
-	{ label: "Funding", href: "/funding" },
 	{ label: "About", href: "/about" },
 ];
 
@@ -543,10 +548,9 @@ const year = new Date().getFullYear();
 			}
 
 			/* Collapse the centered nav on small screens; brand + CTA stay and
-			   the hamburger takes over (opens the site-nav drawer). Raised from
-			   720px when the nav went to five items — below this the links
-			   crowd the brand and the CTA before the drawer would take over. */
-			@media (max-width: 900px) {
+			   the hamburger takes over (opens the site-nav drawer). Back to 720px
+			   now that Funding has left the nav — four short items fit. */
+			@media (max-width: 720px) {
 				nav[aria-label="Primary"] {
 					display: none;
 				}
