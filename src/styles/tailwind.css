@@ -1,4 +1,5 @@
-/* GENERATED for Tailwind v4 (Astro) — do not edit by hand. */
+/* GENERATED for Tailwind v4 (Astro) — do not edit by hand.
+   Class reference: npx vitops docs classes  ·  All topics: npx vitops docs */
 @import "tailwindcss";
 
 @theme {
@@ -117,6 +118,20 @@
   --color-brand-primary-muted: var(--color-pine-300);
   --color-brand-primary-bold: var(--color-pine-700);
   --color-brand-primary-x-bold: var(--color-pine-950);
+  --ui-primary-bg: var(--color-pine-50);
+  --ui-primary-bg-muted: var(--color-pine-100);
+  --ui-primary-border: var(--color-pine-200);
+  --ui-primary-border-bold: var(--color-pine-300);
+  --ui-primary-text: var(--color-pine-950);
+  --ui-primary-text-muted: var(--color-pine-800);
+  --ui-primary-text-x-muted: var(--color-pine-500);
+  --ui-primary-solid: var(--color-pine-500);
+  --ui-primary-solid-bold: var(--color-pine-500);
+  --ui-primary-on-solid: #f3fbf7;
+  --color-ui-primary-x-muted: var(--color-pine-100);
+  --color-ui-primary-muted: var(--color-pine-300);
+  --color-ui-primary-bold: var(--color-pine-700);
+  --color-ui-primary-x-bold: var(--color-pine-950);
   --surface-bg: var(--color-navy-50);
   --surface-bg-muted: var(--color-navy-200);
   --surface-border: var(--color-navy-200);
@@ -241,7 +256,7 @@
 /* GENERATED pattern token cascade — do not edit by hand. */
 :root {
   --ds-default: none;
-  --b-default: 1px solid var(--color-surface-xl);
+  --b-default: 1px solid var(--surface-border);
   --br-default: 0.375rem;
   --p-default: 1rem;
   --fs-default: 1rem;
@@ -430,6 +445,17 @@
   --color-brand-primary-muted: var(--color-pine-700);
   --color-brand-primary-bold: var(--color-pine-300);
   --color-brand-primary-x-bold: var(--color-pine-100);
+  --ui-primary-bg: var(--color-pine-950);
+  --ui-primary-bg-muted: var(--color-pine-950);
+  --ui-primary-border: var(--color-pine-800);
+  --ui-primary-border-bold: var(--color-pine-700);
+  --ui-primary-text: var(--color-pine-50);
+  --ui-primary-text-muted: var(--color-pine-200);
+  --ui-primary-text-x-muted: var(--color-pine-400);
+  --color-ui-primary-x-muted: var(--color-pine-950);
+  --color-ui-primary-muted: var(--color-pine-700);
+  --color-ui-primary-bold: var(--color-pine-300);
+  --color-ui-primary-x-bold: var(--color-pine-100);
   --surface-bg: var(--color-navy-950);
   --surface-bg-muted: var(--color-navy-950);
   --surface-border: var(--color-navy-800);
@@ -503,7 +529,196 @@
 /* State variant for the active flip (hover/focus-visible are built in). */
 @custom-variant is-active (&.is-active, &[data-active]);
 
-/* Functional colour utilities (the public API) */
+/* Role colour utilities (the public API) */
+@utility bg-brand-primary-x-muted {
+  background-color: var(--color-brand-primary-x-muted);
+}
+@utility border-brand-primary-x-muted {
+  border-color: var(--color-brand-primary-x-muted);
+}
+@utility border-brand-primary-muted {
+  border-color: var(--color-brand-primary-muted);
+}
+@utility bg-brand-primary-bold {
+  background-color: var(--color-brand-primary-bold);
+}
+@utility text-brand-primary-bold {
+  color: var(--color-brand-primary-bold);
+}
+@utility bg-brand-primary-x-bold {
+  background-color: var(--color-brand-primary-x-bold);
+}
+@utility text-brand-primary-x-bold {
+  color: var(--color-brand-primary-x-bold);
+}
+@utility border-brand-primary-x-bold {
+  border-color: var(--color-brand-primary-x-bold);
+}
+@utility bg-ui-primary-x-muted {
+  background-color: var(--color-ui-primary-x-muted);
+}
+@utility border-ui-primary-x-muted {
+  border-color: var(--color-ui-primary-x-muted);
+}
+@utility border-ui-primary-muted {
+  border-color: var(--color-ui-primary-muted);
+}
+@utility bg-ui-primary-bold {
+  background-color: var(--color-ui-primary-bold);
+}
+@utility text-ui-primary-bold {
+  color: var(--color-ui-primary-bold);
+}
+@utility bg-ui-primary-x-bold {
+  background-color: var(--color-ui-primary-x-bold);
+}
+@utility text-ui-primary-x-bold {
+  color: var(--color-ui-primary-x-bold);
+}
+@utility border-ui-primary-x-bold {
+  border-color: var(--color-ui-primary-x-bold);
+}
+@utility bg-surface-x-muted {
+  background-color: var(--color-surface-x-muted);
+}
+@utility border-surface-x-muted {
+  border-color: var(--color-surface-x-muted);
+}
+@utility border-surface-muted {
+  border-color: var(--color-surface-muted);
+}
+@utility text-surface-bold {
+  color: var(--color-surface-bold);
+}
+@utility bg-surface-x-bold {
+  background-color: var(--color-surface-x-bold);
+}
+@utility text-surface-x-bold {
+  color: var(--color-surface-x-bold);
+}
+@utility border-surface-x-bold {
+  border-color: var(--color-surface-x-bold);
+}
+@utility bg-success-x-muted {
+  background-color: var(--color-success-x-muted);
+}
+@utility border-success-x-muted {
+  border-color: var(--color-success-x-muted);
+}
+@utility border-success-muted {
+  border-color: var(--color-success-muted);
+}
+@utility bg-success-bold {
+  background-color: var(--color-success-bold);
+}
+@utility text-success-bold {
+  color: var(--color-success-bold);
+}
+@utility bg-success-x-bold {
+  background-color: var(--color-success-x-bold);
+}
+@utility text-success-x-bold {
+  color: var(--color-success-x-bold);
+}
+@utility border-success-x-bold {
+  border-color: var(--color-success-x-bold);
+}
+@utility bg-info-x-muted {
+  background-color: var(--color-info-x-muted);
+}
+@utility border-info-x-muted {
+  border-color: var(--color-info-x-muted);
+}
+@utility border-info-muted {
+  border-color: var(--color-info-muted);
+}
+@utility bg-info-bold {
+  background-color: var(--color-info-bold);
+}
+@utility text-info-bold {
+  color: var(--color-info-bold);
+}
+@utility bg-info-x-bold {
+  background-color: var(--color-info-x-bold);
+}
+@utility text-info-x-bold {
+  color: var(--color-info-x-bold);
+}
+@utility border-info-x-bold {
+  border-color: var(--color-info-x-bold);
+}
+@utility bg-danger-x-muted {
+  background-color: var(--color-danger-x-muted);
+}
+@utility border-danger-x-muted {
+  border-color: var(--color-danger-x-muted);
+}
+@utility border-danger-muted {
+  border-color: var(--color-danger-muted);
+}
+@utility bg-danger-bold {
+  background-color: var(--color-danger-bold);
+}
+@utility text-danger-bold {
+  color: var(--color-danger-bold);
+}
+@utility bg-danger-x-bold {
+  background-color: var(--color-danger-x-bold);
+}
+@utility text-danger-x-bold {
+  color: var(--color-danger-x-bold);
+}
+@utility border-danger-x-bold {
+  border-color: var(--color-danger-x-bold);
+}
+@utility bg-warning-x-muted {
+  background-color: var(--color-warning-x-muted);
+}
+@utility border-warning-x-muted {
+  border-color: var(--color-warning-x-muted);
+}
+@utility border-warning-muted {
+  border-color: var(--color-warning-muted);
+}
+@utility bg-warning-bold {
+  background-color: var(--color-warning-bold);
+}
+@utility text-warning-bold {
+  color: var(--color-warning-bold);
+}
+@utility bg-warning-x-bold {
+  background-color: var(--color-warning-x-bold);
+}
+@utility text-warning-x-bold {
+  color: var(--color-warning-x-bold);
+}
+@utility border-warning-x-bold {
+  border-color: var(--color-warning-x-bold);
+}
+@utility bg-neutral-x-muted {
+  background-color: var(--color-neutral-x-muted);
+}
+@utility border-neutral-x-muted {
+  border-color: var(--color-neutral-x-muted);
+}
+@utility border-neutral-muted {
+  border-color: var(--color-neutral-muted);
+}
+@utility bg-neutral-bold {
+  background-color: var(--color-neutral-bold);
+}
+@utility text-neutral-bold {
+  color: var(--color-neutral-bold);
+}
+@utility bg-neutral-x-bold {
+  background-color: var(--color-neutral-x-bold);
+}
+@utility text-neutral-x-bold {
+  color: var(--color-neutral-x-bold);
+}
+@utility border-neutral-x-bold {
+  border-color: var(--color-neutral-x-bold);
+}
 @utility bg-brand-primary {
   background-color: var(--brand-primary-bg);
 }
@@ -533,6 +748,36 @@
 }
 @utility border-brand-primary-bold {
   border-color: var(--brand-primary-border-bold);
+}
+@utility bg-ui-primary {
+  background-color: var(--ui-primary-bg);
+}
+@utility bg-ui-primary-muted {
+  background-color: var(--ui-primary-bg-muted);
+}
+@utility bg-ui-primary-solid {
+  background-color: var(--ui-primary-solid);
+}
+@utility bg-ui-primary-solid-bold {
+  background-color: var(--ui-primary-solid-bold);
+}
+@utility text-ui-primary {
+  color: var(--ui-primary-text);
+}
+@utility text-ui-primary-muted {
+  color: var(--ui-primary-text-muted);
+}
+@utility text-ui-primary-x-muted {
+  color: var(--ui-primary-text-x-muted);
+}
+@utility text-on-ui-primary {
+  color: var(--ui-primary-on-solid);
+}
+@utility border-ui-primary {
+  border-color: var(--ui-primary-border);
+}
+@utility border-ui-primary-bold {
+  border-color: var(--ui-primary-border-bold);
 }
 @utility bg-surface {
   background-color: var(--surface-bg);
@@ -1456,6 +1701,16 @@ body {
    failure leaves readable text rather than blank space. Scroll-timeline is also
    guarded — without it the text simply shows the final (to) color, still legible. */
   .text-reveal {
+    /* Both tones MUST default, and NOT to currentColor. They are consumed by the
+     gradient below, where a var() substitution failure makes `background`
+     invalid at computed-value time — which, with the `color: transparent` in
+     that same block, renders the text completely invisible rather than
+     degrading. currentColor is unusable there for the same reason: inside the
+     @supports block it resolves to that transparent value. So default to the
+     functional text tokens (they flip with the appearance) with a literal
+     backstop, since this is precisely the declaration that must never fail. */
+    --_reveal-from: var(--text-reveal-color-from, var(--neutral-text-x-muted, #9099a8));
+    --_reveal-to: var(--text-reveal-color-to, var(--neutral-text, #05070d));
     /* Fallback baseline: ordinary visible text in the start color. */
     color: var(--text-reveal-color-from, currentColor);
   }
@@ -1466,8 +1721,8 @@ body {
         --text-reveal-background,
         linear-gradient(
           var(--text-reveal-slant, 90deg),
-          var(--text-reveal-color-to) 50%,
-          var(--text-reveal-color-from) 50%
+          var(--_reveal-to) 50%,
+          var(--_reveal-from) 50%
         )
       );
       background-size: 200% 100%;
@@ -1937,7 +2192,7 @@ body {
   .card {
     border-radius: var(--br-card, var(--br-card-group));
     padding: var(--p-card, 1.75rem);
-    background: var(--color-surface-xxl);
+    background: var(--surface-bg-bold);
     border: var(--b-card, var(--b-card-group));
     box-shadow: var(--ds-card, var(--ds-card-group));
   }
@@ -1993,6 +2248,9 @@ body {
   }
 }
 /* ── Component + structural partials (Tailwind-clashing utilities dropped) ── */
+/* Dropped 8 pre-expanded breakpoint block(s) — write @sm:/@md:/@lg:/@xl: instead.
+   Dropped 8 clashing utilit(ies) Tailwind provides itself:
+   block grid hidden inline inline-block not-sr-only sr-only sticky */
 @layer components {
   /* ── patterns/cluster.css ── */
   /**
@@ -2084,7 +2342,7 @@ body {
     --_bs: var(--bs, solid);
     border-width: var(--_bw);
     border-style: var(--_bs);
-    border-color: var(--bc, var(--color-surface-xl, currentColor));
+    border-color: var(--bc, var(--surface-border, currentColor));
   }
 
   /* ── Group — collapse border-radius (+ shared borders) across direct children ─
@@ -2172,51 +2430,97 @@ body {
  * Consumes the generated token cascade (src/css/generated/tokens.css).
  */
 
-  /* ── Subgrid — content-aligned cards/tables via CSS subgrid ────────────────── */
+  /* ── Subgrid — content-aligned cards/tables via CSS subgrid ────────────────────
+ *
+ * Each item spans `--subgrid-row-span` row tracks of the parent and re-declares
+ * them with `grid-template-rows: subgrid`, so the tranches inside every item —
+ * head, body, footer — land on the same row lines no matter how much content
+ * each one holds.
+ *
+ *   <ul class="subgrid" style="--subgrid-cols: 3; --subgrid-row-span: 3">
+ *
+ * Public custom properties:
+ *   --subgrid-cols      columns (default 3)
+ *   --subgrid-row-span  row tracks each item spans, i.e. tranches per item (2)
+ *   --subgrid-gap       the grid gap — between columns, and between tranches (1.5rem)
+ *   --subgrid-row-gap   EXTRA space between wrapped rows of items (0); see below
+ */
   .subgrid {
-    --_items-per-row: var(--items-per-row, 3);
-    --_rows-per-item: var(--rows-per-item, 2);
-    --_subgrid-gap: var(--subgrid-gap, 1.5rem);
+    --_cols: var(--subgrid-cols, 3);
+    --_row-span: var(--subgrid-row-span, 2);
+    --_gap: var(--subgrid-gap, 1.5rem);
+    --_row-gap: var(--subgrid-row-gap, 0px);
 
     display: grid;
-    grid-template-columns: repeat(var(--_items-per-row), 1fr);
-    gap: var(--_subgrid-gap);
+    grid-template-columns: repeat(var(--_cols), 1fr);
+    gap: var(--_gap);
 
     > * {
-      grid-row: span var(--_rows-per-item);
+      grid-row: span var(--_row-span);
       display: grid;
       grid-template-rows: subgrid;
     }
 
+    /* Spacing between items is the grid's job, not the flow's — neutralise the
+     `.rhythm :where(ul, ol) > li + li` margin, which reaches into any list
+     inside a prose container and outweighs `> *` on specificity. */
+    &:is(ul, ol) > li + li {
+      margin-block-start: 0;
+    }
+
+    /* The grid's own row gap is the gap between an item's *tranches*, so it can't
+     also be the gap between *rows of items* — items past the first row take an
+     extra margin instead. Computed in CSS rather than from a server-rendered
+     index because --_cols can change in a media query. Guarded the same way as
+     .stagger (animation.css): sibling-index() lacks only Firefox as of 2026,
+     and where it's missing the margin stays 0 and rows fall back to the grid
+     gap, rather than producing an invalid margin. The second selector repeats
+     the rule at the specificity rhythm forces above. */
+    @supports (--x: sibling-index()) {
+      > *,
+      &:is(ul, ol) > li + li {
+        --_row-index: round(down, calc((sibling-index() - 1) / var(--_cols)), 1);
+        margin-block-start: calc(clamp(0, var(--_row-index), 1) * var(--_row-gap));
+      }
+    }
+
+    /* Markerless when it's a list — a subgrid of cards is a list of things, and
+     the markers would sit in the gutter. */
+    &:is(ul, ol) {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
     &.subgrid-cols-1 {
-      --_items-per-row: 1;
+      --_cols: 1;
     }
     &.subgrid-cols-2 {
-      --_items-per-row: 2;
+      --_cols: 2;
     }
     &.subgrid-cols-3 {
-      --_items-per-row: 3;
+      --_cols: 3;
     }
     &.subgrid-cols-4 {
-      --_items-per-row: 4;
+      --_cols: 4;
     }
 
     &.subgrid-rows-2 {
-      --_rows-per-item: 2;
+      --_row-span: 2;
     }
     &.subgrid-rows-3 {
-      --_rows-per-item: 3;
+      --_row-span: 3;
     }
     &.subgrid-rows-4 {
-      --_rows-per-item: 4;
+      --_row-span: 4;
     }
 
     &.subgrid-responsive {
       @media (width < 60rem) {
-        --_items-per-row: min(var(--items-per-row, 3), 2);
+        --_cols: min(var(--subgrid-cols, 3), 2);
       }
       @media (width < 40rem) {
-        --_items-per-row: 1;
+        --_cols: 1;
       }
     }
   }
@@ -3041,13 +3345,15 @@ body {
    Animate the UA-generated content box directly; interpolate-size (Layer 2)
    lets block-size reach `auto`. Guarded — engines without ::details-content just
    snap open (fully accessible). */
+  /* NOTE: the transition that used to live here is gone, for the same reason as in
+   patterns/details.css — in Chrome 149 *any* transition on ::details-content
+   deadlocks (content-visibility stays hidden → `auto` resolves to 0 → nothing
+   runs) and the disclosure never opens. Collapsing still works; only the motion
+   is dropped. Don't reinstate it without checking that a first click expands. */
   @supports selector(::details-content) {
     details::details-content {
       overflow: clip;
       block-size: 0;
-      transition:
-        block-size var(--reveal-duration) var(--interact-easing, ease),
-        content-visibility var(--reveal-duration) allow-discrete;
     }
     details[open]::details-content {
       block-size: auto;
@@ -3208,6 +3514,21 @@ body {
 
     &::backdrop {
       backdrop-filter: blur(4px);
+    }
+
+    /**
+   * Modeless — a panel you work *alongside* rather than through. Drops the
+   * scrim so the page behind stays legible, which is the whole point for a
+   * live editor or an inspector: you're watching what your edits do.
+   *
+   * Pair with `popover="manual"`. An `auto` popover light-dismisses on the
+   * first click outside — i.e. exactly the interaction a modeless panel exists
+   * to allow — and `manual` also drops Esc, so give it an explicit close
+   * control (and wire Esc yourself if the panel warrants it).
+   */
+    &.drawer--modeless::backdrop {
+      background: none;
+      backdrop-filter: none;
     }
 
     &,
@@ -3846,6 +4167,360 @@ body {
   .sitenav__item--desktop-branch > .sitenav__disclosure,
   .sitenav__item--desktop-branch > .sitenav__submenu {
     display: none;
+  }
+
+  /* ── Desktop promotion — one block per framework breakpoint ─────────────────
+   Only the min-width threshold + `.sitenav--bp-*` scope differ; the nested ruleset
+   is identical. CSS has no mixins, so the four blocks are intentionally parallel —
+   edit them together. Each: hide the mobile chrome, force the [popover] panel back
+   inline as a navbar, turn the list horizontal, and promote submenus to dropdowns. */
+  @container (min-width: 30rem) {
+    .sitenav--bp-sm {
+      & > .sitenav__toggle,
+      & .sitenav__close {
+        display: none;
+      }
+      /* [popover] is UA/polyfill display:none while closed; !important forces the
+       navbar body back inline (the hamburger is gone, so it never re-hides). */
+      & .sitenav__panel {
+        display: flex !important;
+        flex-direction: row;
+        align-items: center;
+        position: static;
+        inset: auto;
+        inline-size: auto;
+        max-inline-size: none;
+        block-size: auto;
+        padding: 0;
+        translate: none;
+        opacity: 1;
+        overflow: visible;
+        background: none;
+        color: inherit;
+        box-shadow: none;
+        z-index: auto;
+      }
+      & .sitenav__panel::backdrop {
+        display: none;
+      }
+      & .sitenav__list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      & .sitenav__item--branch {
+        position: relative;
+        display: flex;
+        align-items: center;
+        grid-template-columns: none;
+        grid-template-rows: none;
+      }
+      & .sitenav__submenu {
+        position: absolute;
+        inset-block-start: 100%;
+        inset-inline-start: 0;
+        min-inline-size: 13rem;
+        padding: 0.5rem;
+        overflow: visible;
+        background: var(--surface-bg);
+        color: var(--surface-text);
+        border: var(--b-panel);
+        border-radius: var(--br-panel);
+        box-shadow: var(--ds-panel);
+        z-index: var(--z-tier-overlay);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        translate: 0 0.25rem;
+        transition:
+          opacity 0.15s ease,
+          translate 0.15s ease,
+          visibility 0.15s allow-discrete;
+      }
+      /* deeper submenus (inside a panel) fly out to the side, not downward */
+      & .sitenav__submenu .sitenav__item--branch > .sitenav__disclosure > .sitenav__submenu {
+        inset-block-start: 0;
+        inset-inline-start: 100%;
+        translate: 0.25rem 0;
+      }
+      & .sitenav__item--branch:hover > .sitenav__disclosure > .sitenav__submenu,
+      & .sitenav__item--branch:focus-within > .sitenav__disclosure > .sitenav__submenu,
+      & .sitenav__item--branch > .sitenav__disclosure[open] > .sitenav__submenu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        translate: 0 0;
+      }
+      /* depth caps flip at the breakpoint */
+      & .sitenav__item--desktop-branch > .sitenav__disclosure > .sitenav__subtoggle {
+        display: inline-flex;
+      }
+      & .sitenav__item--mobile-branch > .sitenav__disclosure > .sitenav__subtoggle,
+      & .sitenav__item--mobile-branch > .sitenav__disclosure > .sitenav__submenu {
+        display: none;
+      }
+    }
+  }
+
+  @container (min-width: 48rem) {
+    .sitenav--bp-md {
+      & > .sitenav__toggle,
+      & .sitenav__close {
+        display: none;
+      }
+      & .sitenav__panel {
+        display: flex !important;
+        flex-direction: row;
+        align-items: center;
+        position: static;
+        inset: auto;
+        inline-size: auto;
+        max-inline-size: none;
+        block-size: auto;
+        padding: 0;
+        translate: none;
+        opacity: 1;
+        overflow: visible;
+        background: none;
+        color: inherit;
+        box-shadow: none;
+        z-index: auto;
+      }
+      & .sitenav__panel::backdrop {
+        display: none;
+      }
+      & .sitenav__list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      & .sitenav__item--branch {
+        position: relative;
+        display: flex;
+        align-items: center;
+        grid-template-columns: none;
+        grid-template-rows: none;
+      }
+      & .sitenav__submenu {
+        position: absolute;
+        inset-block-start: 100%;
+        inset-inline-start: 0;
+        min-inline-size: 13rem;
+        padding: 0.5rem;
+        overflow: visible;
+        background: var(--surface-bg);
+        color: var(--surface-text);
+        border: var(--b-panel);
+        border-radius: var(--br-panel);
+        box-shadow: var(--ds-panel);
+        z-index: var(--z-tier-overlay);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        translate: 0 0.25rem;
+        transition:
+          opacity 0.15s ease,
+          translate 0.15s ease,
+          visibility 0.15s allow-discrete;
+      }
+      & .sitenav__submenu .sitenav__item--branch > .sitenav__submenu {
+        inset-block-start: 0;
+        inset-inline-start: 100%;
+        translate: 0.25rem 0;
+      }
+      & .sitenav__item--branch:hover > .sitenav__submenu,
+      & .sitenav__item--branch:focus-within > .sitenav__submenu,
+      & .sitenav__item--branch:has(> .sitenav__disclosure[open]) > .sitenav__submenu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        translate: 0 0;
+      }
+      /* depth caps flip at the breakpoint: desktop-only branches reveal their caret +
+       dropdown; mobile-only branches collapse to a plain link. */
+      & .sitenav__item--desktop-branch > .sitenav__disclosure,
+      & .sitenav__item--desktop-branch > .sitenav__submenu {
+        display: block;
+      }
+      & .sitenav__item--mobile-branch > .sitenav__disclosure,
+      & .sitenav__item--mobile-branch > .sitenav__submenu {
+        display: none;
+      }
+    }
+  }
+
+  @container (min-width: 64rem) {
+    .sitenav--bp-lg {
+      & > .sitenav__toggle,
+      & .sitenav__close {
+        display: none;
+      }
+      & .sitenav__panel {
+        display: flex !important;
+        flex-direction: row;
+        align-items: center;
+        position: static;
+        inset: auto;
+        inline-size: auto;
+        max-inline-size: none;
+        block-size: auto;
+        padding: 0;
+        translate: none;
+        opacity: 1;
+        overflow: visible;
+        background: none;
+        color: inherit;
+        box-shadow: none;
+        z-index: auto;
+      }
+      & .sitenav__panel::backdrop {
+        display: none;
+      }
+      & .sitenav__list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      & .sitenav__item--branch {
+        position: relative;
+        display: flex;
+        align-items: center;
+        grid-template-columns: none;
+        grid-template-rows: none;
+      }
+      & .sitenav__submenu {
+        position: absolute;
+        inset-block-start: 100%;
+        inset-inline-start: 0;
+        min-inline-size: 13rem;
+        padding: 0.5rem;
+        overflow: visible;
+        background: var(--surface-bg);
+        color: var(--surface-text);
+        border: var(--b-panel);
+        border-radius: var(--br-panel);
+        box-shadow: var(--ds-panel);
+        z-index: var(--z-tier-overlay);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        translate: 0 0.25rem;
+        transition:
+          opacity 0.15s ease,
+          translate 0.15s ease,
+          visibility 0.15s allow-discrete;
+      }
+      & .sitenav__submenu .sitenav__item--branch > .sitenav__submenu {
+        inset-block-start: 0;
+        inset-inline-start: 100%;
+        translate: 0.25rem 0;
+      }
+      & .sitenav__item--branch:hover > .sitenav__submenu,
+      & .sitenav__item--branch:focus-within > .sitenav__submenu,
+      & .sitenav__item--branch:has(> .sitenav__disclosure[open]) > .sitenav__submenu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        translate: 0 0;
+      }
+      /* depth caps flip at the breakpoint: desktop-only branches reveal their caret +
+       dropdown; mobile-only branches collapse to a plain link. */
+      & .sitenav__item--desktop-branch > .sitenav__disclosure,
+      & .sitenav__item--desktop-branch > .sitenav__submenu {
+        display: block;
+      }
+      & .sitenav__item--mobile-branch > .sitenav__disclosure,
+      & .sitenav__item--mobile-branch > .sitenav__submenu {
+        display: none;
+      }
+    }
+  }
+
+  @container (min-width: 80rem) {
+    .sitenav--bp-xl {
+      & > .sitenav__toggle,
+      & .sitenav__close {
+        display: none;
+      }
+      & .sitenav__panel {
+        display: flex !important;
+        flex-direction: row;
+        align-items: center;
+        position: static;
+        inset: auto;
+        inline-size: auto;
+        max-inline-size: none;
+        block-size: auto;
+        padding: 0;
+        translate: none;
+        opacity: 1;
+        overflow: visible;
+        background: none;
+        color: inherit;
+        box-shadow: none;
+        z-index: auto;
+      }
+      & .sitenav__panel::backdrop {
+        display: none;
+      }
+      & .sitenav__list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      & .sitenav__item--branch {
+        position: relative;
+        display: flex;
+        align-items: center;
+        grid-template-columns: none;
+        grid-template-rows: none;
+      }
+      & .sitenav__submenu {
+        position: absolute;
+        inset-block-start: 100%;
+        inset-inline-start: 0;
+        min-inline-size: 13rem;
+        padding: 0.5rem;
+        overflow: visible;
+        background: var(--surface-bg);
+        color: var(--surface-text);
+        border: var(--b-panel);
+        border-radius: var(--br-panel);
+        box-shadow: var(--ds-panel);
+        z-index: var(--z-tier-overlay);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        translate: 0 0.25rem;
+        transition:
+          opacity 0.15s ease,
+          translate 0.15s ease,
+          visibility 0.15s allow-discrete;
+      }
+      & .sitenav__submenu .sitenav__item--branch > .sitenav__submenu {
+        inset-block-start: 0;
+        inset-inline-start: 100%;
+        translate: 0.25rem 0;
+      }
+      & .sitenav__item--branch:hover > .sitenav__submenu,
+      & .sitenav__item--branch:focus-within > .sitenav__submenu,
+      & .sitenav__item--branch:has(> .sitenav__disclosure[open]) > .sitenav__submenu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        translate: 0 0;
+      }
+      /* depth caps flip at the breakpoint: desktop-only branches reveal their caret +
+       dropdown; mobile-only branches collapse to a plain link. */
+      & .sitenav__item--desktop-branch > .sitenav__disclosure,
+      & .sitenav__item--desktop-branch > .sitenav__submenu {
+        display: block;
+      }
+      & .sitenav__item--mobile-branch > .sitenav__disclosure,
+      & .sitenav__item--mobile-branch > .sitenav__submenu {
+        display: none;
+      }
+    }
   }
 
   /* ── patterns/notification.css ── */
@@ -4769,15 +5444,31 @@ body {
       rotate: var(--_details-icon-rotate, 90deg);
     }
 
+    /**
+   * Collapse without a transition — deliberately.
+   *
+   * This carried the canonical open/close animation (`block-size: 0 → auto` with
+   * `content-visibility` under `allow-discrete`, backed by the
+   * `interpolate-size: allow-keywords` in utilities.css). In Chrome 149 that
+   * deadlocks: `content-visibility` stays `hidden`, so the content has no layout,
+   * so `auto` resolves to `0`, so the transition has nothing to run — and the
+   * disclosure never opens *at all*. Not "opens without animating": every
+   * `<details>` on the page becomes inert, which is a total content-loss bug.
+   *
+   * Verified against a bare `<details>` with only this stylesheet, and bisected:
+   * `transition: none` is the only thing that restores it. Transitioning only
+   * `block-size`, only `content-visibility`, `calc-size(auto, size)`, and the
+   * `grid-template-rows: 0fr → 1fr` technique all fail the same way.
+   *
+   * So: correctness over motion. Re-add the transition only with a live
+   * cross-browser check that a first click actually expands — a passing
+   * `@supports` query is not evidence, since the syntax is valid and supported;
+   * it's the interaction that breaks.
+   */
     &::details-content {
       display: block;
       overflow: hidden;
       block-size: 0;
-      opacity: 0;
-      transition:
-        block-size 0.3s ease,
-        opacity 0.3s ease,
-        content-visibility 0.3s allow-discrete;
     }
 
     > summary + * {
@@ -4794,13 +5485,16 @@ body {
 
     &[open]::details-content {
       block-size: auto;
-      opacity: 1;
     }
 
+    /* Leading marker. The default (trailing) icon uses `margin-inline-start: auto`
+     to push itself to the end; the mirrored `margin-inline-end: auto` here did
+     the same thing to everything *after* it, so the label got shoved to the
+     opposite edge and the variant read as right-aligned text. A leading marker
+     just wants both auto margins gone — `gap` on the summary does the spacing. */
     &.details--marker-start > summary > .details-icon {
       order: -1;
-      margin-inline-start: 0;
-      margin-inline-end: auto;
+      margin-inline: 0;
     }
 
     /* Plus/minus variant — toggle two sibling icon elements */
@@ -7269,6 +7963,14 @@ body {
     }
     .ed-section > summary {
       padding-block: 0.35rem;
+      gap: 0.4rem;
+    }
+    /* The pattern's icon slot is sized for body text; at panel density it needs to
+     be small enough not to outweigh the label it sits next to. */
+    .details-icon {
+      font-size: 0.75em;
+      line-height: 1;
+      opacity: 0.7;
     }
     .ed-sub {
       border: var(--b-default);

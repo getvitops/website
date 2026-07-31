@@ -72,6 +72,7 @@
     "utilities": ["bg", "text", "border"],
     "roles": {
       "brand-primary": "pine",
+      "ui-primary": "pine",
       "surface": "navy",
       "success": "pine",
       "info": "cobalt",
@@ -119,7 +120,7 @@
   "patterns": {
     "defaults": {
       "ds": "none",
-      "b": "1px solid var(--color-surface-xl)",
+      "b": "1px solid var(--surface-border)",
       "br": "0.375rem",
       "p": "1rem",
       "fs": "1rem"
@@ -302,7 +303,7 @@
         "base": {
           "border-radius": "var(--br-card-group)",
           "padding": "1.75rem",
-          "background": "var(--color-surface-xxl)",
+          "background": "var(--surface-bg-bold)",
           "border": "var(--b-card-group)",
           "box-shadow": "var(--ds-card-group)"
         },

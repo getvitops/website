@@ -1,0 +1,13 @@
+/* =============================================================
+   Tailwind entry. Wraps the generated framework stylesheet so we
+   can add scan sources without touching a generated file
+   (styles/tailwind.css is rewritten by `vitops` on every build).
+   ============================================================= */
+
+@import "./tailwind.css";
+
+/* Tailwind only scans this project's own source by default, so the utility
+   classes baked into @getvitops/astro's components — Subgrid's `grid`,
+   `grid-rows-subgrid`, `row-span-(--row-span)` — would never be generated
+   and those components would render as plain, unstyled lists. */
+@source "../../node_modules/@getvitops/astro/src/components";

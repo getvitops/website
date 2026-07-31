@@ -230,7 +230,7 @@ const finePrint = [
 							class:list={[
 								"card",
 								"pricing-tier",
-								tier.highlighted ? "pricing-tier--featured" : "bg-navy-d",
+								tier.highlighted ? "pricing-tier--featured" : "",
 							]}>
 							<div class="tier-head">
 								<div class="tier-name-row">
@@ -275,12 +275,12 @@ const finePrint = [
 					Bookkeeping, payroll and benefits administration scale with
 					transaction volume and entity count, not with how many people you
 					employ — so they're priced per service, not per seat. Take one, take
-					all of them, or combine them with the other two services for a
-					<a class="link" href="#pricing-bundles">bundle discount</a>.
+					all of them, or combine them with the other two services for{" "}
+					<a class="link" href="#pricing-bundles">a bundle discount</a>.
 				</p>
 			</header>
 
-			<div class="svc-table card bg-navy-d">
+			<div class="svc-table card">
 				{
 					backOfficeServices.map((svc) => (
 						<div class="svc-row">
@@ -303,7 +303,7 @@ const finePrint = [
 
 			<p class="section-note breakout">
 				Onboarding and offboarding isn't listed here — it spans both halves and
-				is already in the Foundations and Managed
+				is already in the Foundations and Managed{" "}
 				<a class="link" href="#it-hr-pricing">business software</a> plans.
 			</p>
 		</div>
@@ -328,7 +328,7 @@ const finePrint = [
 							class:list={[
 								"card",
 								"pricing-tier",
-								tier.highlighted ? "pricing-tier--featured" : "bg-navy-d",
+								tier.highlighted ? "pricing-tier--featured" : "",
 							]}>
 							<div class="tier-head">
 								<div class="tier-name-row">
@@ -375,7 +375,7 @@ const finePrint = [
 			</p>
 
 			<h3 class="font-heading addons-head">Add-on services</h3>
-			<div class="svc-table card bg-navy-d">
+			<div class="svc-table card">
 				{
 					presenceServices.map((svc) => (
 						<div class="svc-row">
@@ -460,7 +460,7 @@ const finePrint = [
 	<section class="section centered" id="pricing-callouts">
 		<div class="spotlight">
 			<div class="callout-solo">
-				<article class="card bg-navy-d callout">
+				<article class="card callout">
 					<span class="font-eyebrow callout-eyebrow callout-eyebrow--muted">
 						Something more one-off?
 					</span>
@@ -480,7 +480,7 @@ const finePrint = [
 	     actually arises, which is why funding lives here rather than in the nav. -->
 	<section class="section centered" id="pricing-funding">
 		<div class="spotlight">
-			<div class="card bg-navy-d funding-block">
+			<div class="card funding-block">
 				<span class="font-eyebrow">Funding</span>
 				<h2 class="font-heading funding-title">
 					Ontario may cover part of this.
@@ -560,21 +560,28 @@ const finePrint = [
 	   Laid out by the framework's <Subgrid>: it renders the <ul>/<li> and puts
 	   `grid-template-rows: subgrid` on each card, so the three tranches — head,
 	   feature list, CTA — snap to shared row lines across all cards regardless
-	   of feature count. `--cols` drives both the columns and the component's
-	   row-index maths; `--row-span` is the number of tranches per card.
+	   of feature count.
+
+	   The variable names are the framework's public contract (@getvitops 0.9):
+	   --subgrid-cols / --subgrid-row-span / --subgrid-gap / --subgrid-row-gap.
+	   They must match exactly — an unrecognised name silently falls back to the
+	   pattern's default, and the default row-span is 2 against our 3 tranches,
+	   which drops the CTA out of the subgrid and onto its own auto row.
+
+	   --subgrid-gap is BOTH the column gap and the gap between tranches, so it
+	   can't be split here; --subgrid-row-gap is extra space once cards wrap.
 
 	   The <ul> and the card <li> are emitted inside the component, so they sit
 	   outside this page's style scope — hence :global(). Everything nested in
 	   the card is rendered from this file and stays scoped as usual. */
 	:global(.pricing-tiers) {
-		--cols: 3;
-		--row-span: 3;
-		--row-margin: 1.5rem; /* extra separation once cards wrap to a new row */
+		--subgrid-cols: 3;
+		--subgrid-row-span: 3; /* head · feature list · CTA */
+		--subgrid-gap: 1.5rem;
+		--subgrid-row-gap: 1.5rem; /* extra separation once cards wrap */
 		list-style: none;
 		margin: 0;
 		padding: 0;
-		column-gap: 1.5rem; /* gap between cards */
-		row-gap: 1.25rem; /* gap between tranches */
 	}
 	:global(.pricing-tier) {
 		padding: 2rem;
@@ -851,7 +858,7 @@ const finePrint = [
 
 	@media (max-width: 860px) {
 		:global(.pricing-tiers) {
-			--cols: 1;
+			--subgrid-cols: 1;
 		}
 		.fineprint-grid {
 			grid-template-columns: 1fr;
