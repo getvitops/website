@@ -1,6 +1,8 @@
 ---
-// Homepage hero. Was the "A" champion of an A/B pair; the challenger and the
-// variant machinery were removed while traffic is too low to resolve a test.
+// Homepage hero (variant A). The B challenger was deleted — no B content exists
+// right now — but the variant system is intact (src/lib/variant.ts +
+// src/middleware.ts). To test a new hero: add src/_b/sections/Hero.astro and
+// pick() between them in src/pages/index.astro.
 ---
 
 <section class="hero hero-glow section centered">

@@ -38,25 +38,21 @@ const profile = [
 
 const industries = [
 	{
-		tag: "01 · Industry",
 		name: "Trades and contractors",
 		href: "/industries/trades",
 		body: "Crews on sites, tablets that need to work without signal, a dispatch process that can't wait for head office. Plus safety documentation that has to survive an inspection.",
 	},
 	{
-		tag: "02 · Industry",
 		name: "Real estate brokerages",
 		href: "/industries/real-estate",
 		body: "A roster that turns over faster than anything else we work with, board-connected tools that don't integrate cleanly, and commission administration that has to be exactly right.",
 	},
 	{
-		tag: "03 · Industry",
 		name: "Legal, accounting and professional firms",
 		href: "/industries/professional-services",
 		body: "Matter-based permissions, conflict checks, and retention rules where the consequence of getting access wrong is professional rather than merely awkward.",
 	},
 	{
-		tag: "04 · Industry",
 		name: "Medical and dental clinics",
 		href: "/industries/clinics",
 		body: "PHIPA obligations, an EMR that dictates a lot of the environment, and front-desk staff who cannot be waiting on IT while patients are in the room.",
@@ -100,7 +96,6 @@ const listSchema = {
 				{
 					industries.map((i) => (
 						<a class="card bg-navy-d industry-card" href={i.href}>
-							<span class="card-tag">{i.tag}</span>
 							<h3 class="font-heading">{i.name}</h3>
 							<p class="font-body card-copy">{i.body}</p>
 							<span class="industry-go">
@@ -168,13 +163,6 @@ const listSchema = {
 	.industry-card:hover {
 		border-color: var(--line-2);
 		transform: translateY(-2px);
-	}
-	.card-tag {
-		font-family: var(--font-mono);
-		font-size: var(--text-xs);
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		color: var(--color-pine-l);
 	}
 	.card-copy {
 		color: var(--color-mist);
