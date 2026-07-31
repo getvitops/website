@@ -78,32 +78,18 @@ body {
 }
 
 /* -------------------------------------------------------------
-   Gap: the framework has no anchor-as-button. These mirror the
-   <button> element's shape so link CTAs match form buttons.
+   CTA tiers. The framework's `.cta` pattern (design-system.json)
+   now owns the button shape — fill, geometry, hover lift, focus
+   ring — so this file keeps only the pine-brand deviations. The
+   ghost tier stays hand-rolled (no framework equivalent yet).
    ------------------------------------------------------------- */
-.cta,
-.cta-ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
+.cta {
+  /* Brand deviations from the pattern's brand-primary role fill; the
+     pattern's own transition (incl. lift/scale) is kept. */
   padding: 0.7em 1.25em;
-  border-radius: var(--br-button, 0.4rem);
-  font-family: var(--font-sans);
-  font-weight: 600;
   font-size: var(--text-s);
   letter-spacing: -0.005em;
   white-space: nowrap;
-  cursor: pointer;
-  text-decoration: none;
-  border: 1px solid transparent;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease,
-    translate 0.2s ease;
-}
-
-.cta {
   background: var(--color-pine);
   color: #0a0d0c;
 }
@@ -113,9 +99,26 @@ body {
 }
 
 .cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.7em 1.25em;
+  border-radius: var(--br-control, 0.4rem);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--text-s);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid var(--line-2);
   background: transparent;
   color: var(--color-snow);
-  border-color: var(--line-2);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    translate 0.2s ease;
 }
 
 .cta-ghost:hover {

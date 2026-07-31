@@ -22,7 +22,7 @@
 			</p>
 		</div>
 
-		<form class="card bg-navy-d contact-form" id="contact-form" novalidate>
+		<form class="card contact-form" id="contact-form" novalidate>
 			<div class="field">
 				<label for="cf-name">Name</label>
 				<input id="cf-name" name="name" type="text" autocomplete="name" required />
@@ -39,7 +39,7 @@
 				<label for="cf-message">What would you like off your plate?</label>
 				<textarea id="cf-message" name="message" rows="4" required></textarea>
 			</div>
-			<button type="submit">Send it over</button>
+			<button type="submit" class="cta">Send it over</button>
 			<p class="form-status" id="form-status" role="status" aria-live="polite"></p>
 		</form>
 	</div>
@@ -100,13 +100,9 @@
 	.contact-form textarea {
 		resize: vertical;
 	}
+	/* Fill/hover come from the .cta pattern (+ pine-theme deviations). */
 	.contact-form button {
 		justify-self: start;
-		background: var(--color-pine);
-		color: #0a0d0c;
-	}
-	.contact-form button:hover {
-		background: var(--color-pine-l);
 	}
 	.form-status {
 		margin: 0;

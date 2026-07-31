@@ -1,0 +1,155 @@
+---
+import PineLayout from "../../layouts/PineLayout.astro";
+import PageHero from "./PageHero.astro";
+import Prose from "./Prose.astro";
+import SectionIntro from "./SectionIntro.astro";
+import Faq from "./Faq.astro";
+import type { FaqItem } from "./Faq.astro";
+import PageCta from "./PageCta.astro";
+import Schema from "./Schema.astro";
+import { breadcrumb } from "../../lib/schema";
+
+// Shared shell for the four funding program pages.
+//
+// EVERY figure on these pages carries an as-of date and a source link. They go
+// stale without warning and a wrong grant figure costs more than a missing one.
+// content-plan/funding-watch.md is the standing check.
+interface Props {
+	slug: string;
+	title: string;
+	description: string;
+	eyebrow: string;
+	h1: string;
+	/** The quotable opening paragraph. Allows inline markup. */
+	directAnswer: string;
+	verified: string;
+	sourceUrl: string;
+	sourceLabel: string;
+	facts: [string, string][];
+	sections: { title: string; body: string[] }[];
+	faq: FaqItem[];
+	relatedLinks?: { label: string; href: string }[];
+}
+const {
+	slug,
+	title,
+	description,
+	eyebrow,
+	h1,
+	directAnswer,
+	verified,
+	sourceUrl,
+	sourceLabel,
+	facts,
+	sections,
+	faq,
+	relatedLinks = [],
+} = Astro.props;
+
+const path = `/funding/${slug}`;
+---
+
+<PineLayout title={title} description={description}>
+	<Schema data={breadcrumb(["Funding", "/funding"], [eyebrow, path])} />
+
+	<PageHero
+		eyebrow="Funding"
+		title={h1}
+		lead={description}
+		secondaryLabel="Compare all four"
+		secondaryHref="/funding"
+	/>
+
+	<Prose lead>
+		<p set:html={directAnswer} />
+		<p class="source-line">
+			<a class="link" href={sourceUrl} rel="noopener">{sourceLabel}</a> · verified
+			{verified}
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro title="At a glance." />
+			<dl class="facts">
+				{
+					facts.map(([term, def]) => (
+						<div class="fact">
+							<dt class="font-caption">{term}</dt>
+							<dd class="font-body" set:html={def} />
+						</div>
+					))
+				}
+			</dl>
+		</div>
+	</section>
+
+	{
+		sections.map((s) => (
+			<section class="section centered">
+				<div class="spotlight">
+					<SectionIntro title={s.title} />
+					<div class="prose-inline">
+						{s.body.map((p) => (
+							<p class="font-body" set:html={p} />
+						))}
+					</div>
+				</div>
+			</section>
+		))
+	}
+
+	<Faq items={faq} title="Common questions." />
+
+	<PageCta
+		title="Find out in one call whether this applies to you."
+		lead="Tell us your headcount, roughly your revenue, and what you're trying to change. We'll tell you which program fits, or that none of them do."
+		note="Approval and amounts are decided by OCI, not Vitops."
+		links={[
+			{ label: "All funding programs", href: "/funding" },
+			...relatedLinks,
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.source-line {
+		font-size: var(--text-s);
+		color: var(--color-slate);
+	}
+	.facts {
+		display: grid;
+		gap: 0;
+		max-width: 72ch;
+		margin: 0;
+		border-top: 1px solid var(--line-1);
+	}
+	.fact {
+		display: grid;
+		grid-template-columns: minmax(10rem, 16rem) 1fr;
+		gap: 1rem 2rem;
+		padding-block: 1rem;
+		border-bottom: 1px solid var(--line-1);
+	}
+	.fact dt {
+		color: var(--color-slate);
+		margin: 0;
+	}
+	.fact dd {
+		margin: 0;
+		color: var(--color-mist);
+	}
+	.prose-inline {
+		max-width: 68ch;
+		color: var(--color-mist);
+		display: grid;
+		gap: 1.1rem;
+	}
+
+	@media (max-width: 720px) {
+		.fact {
+			grid-template-columns: 1fr;
+			gap: 0.25rem;
+		}
+	}
+</style>

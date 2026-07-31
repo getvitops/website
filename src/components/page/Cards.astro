@@ -1,0 +1,41 @@
+---
+// Card grid. `tag` renders the site's monospace `01 ·` marker.
+//
+// Framework classes only (`npx vitops docs classes`): `card` is the pattern,
+// `rhythm` handles flow inside it, colour comes from the functional tokens.
+// `bg-navy-d` is deliberately NOT used — it resolves to nothing (see below).
+interface Card {
+	tag?: string;
+	heading: string;
+	body: string;
+	items?: string[];
+}
+interface Props {
+	cards: Card[];
+	/** 2 (default) or 3 across once the container is wide enough. */
+	cols?: 2 | 3;
+}
+const { cards, cols = 2 } = Astro.props;
+const colClass = cols === 3 ? "@md:grid-cols-3" : "@md:grid-cols-2";
+---
+
+<div class:list={["grid", "gap-6", colClass]}>
+	{
+		cards.map((card) => (
+			<article class="card rhythm">
+				{card.tag && (
+					<span class="font-eyebrow text-brand-primary">{card.tag}</span>
+				)}
+				<h3 class="font-heading">{card.heading}</h3>
+				<p class="font-body text-neutral-muted">{card.body}</p>
+				{card.items && (
+					<ul class="list rhythm pt-4 border-t border-neutral">
+						{card.items.map((i) => (
+							<li class="font-body text-neutral-muted">{i}</li>
+						))}
+					</ul>
+				)}
+			</article>
+		))
+	}
+</div>

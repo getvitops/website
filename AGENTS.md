@@ -42,14 +42,18 @@ This template ships with `.mcp.json`, `.cursor/mcp.json`, and `.vscode/mcp.json`
 - Always call `Astro.cache.set(cacheHint)` on pages that query content.
 - Taxonomy names in queries must match the seed's `"name"` field exactly (e.g., `"category"` not `"categories"`).
 
-## A/B testing (3 layers)
+## A/B testing (3 layers) — retained, currently dormant
+
+The system is intact; there is **no B content** right now. `DEFAULT_SPLIT_B` is `0`
+(`src/lib/variant.ts`), so every visitor gets A. `?variant=b` still forces B for
+review at any time, independent of the split.
 
 Variant is resolved per request in `src/middleware.ts` (`?variant=a|b` override >
-sticky `ab_variant` cookie > 50/50) and exposed as `Astro.locals.variant`.
+sticky `ab_variant` cookie > split) and exposed as `Astro.locals.variant`.
 `/_emdash/*` is pinned to `a`. Responses carry `x-ab-variant` for analytics.
 
 - **Layer 1 — values.** Copy/numbers/images: `pick(aValue, bValue, Astro.locals.variant)`
-  from `src/lib/variant.ts`, inline where the value is used.
+  from `src/lib/variant.ts`, inline where the value is used. **Cheapest layer — prefer it.**
 - **Layer 2 — one component.** The B override mirrors the A path under `src/_b/`
   (e.g. `src/components/sections/Hero.astro` → `src/_b/sections/Hero.astro`);
   the page imports both and `pick()`s. Use when the page structure is shared.
@@ -60,8 +64,17 @@ sticky `ab_variant` cookie > 50/50) and exposed as `Astro.locals.variant`.
   middleware chain — to the `src/pages/b-variant/[...path].astro` dispatcher.
   The public URL never changes; direct hits to `/b-variant/*` 404.
 
+**To launch a test:** add the B content under `src/_b/`, then set `DEFAULT_SPLIT_B`
+above 0. Nothing else needs wiring.
+
 Rules: never link to `/b-variant/*`; in shared layouts/components use
 `Astro.originPathname`, not `Astro.url.pathname` (`Astro.url` is the internal
 path during a layer-3 render); B pages set their own title/description; home
 sections live in `src/components/sections/` so a structural B home is a
 recomposition, not a fork.
+
+**Layer 3 costs more than it looks.** A whole-page fork means every copy edit has
+to be made twice, and the miss is silent. Both previous B pages drifted from A
+that way — a pricing block existed in one and not the other, and a CTA still said
+"See both services" after A moved to three. Prefer layer 1, and diff both paths
+before calling a change live.

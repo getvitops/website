@@ -1,0 +1,213 @@
+---
+import PineLayout from "../layouts/PineLayout.astro";
+import PageHero from "../components/page/PageHero.astro";
+import FundingCallout from "../components/page/FundingCallout.astro";
+import SectionIntro from "../components/page/SectionIntro.astro";
+import Cards from "../components/page/Cards.astro";
+import Prose from "../components/page/Prose.astro";
+import Faq from "../components/page/Faq.astro";
+import PageCta from "../components/page/PageCta.astro";
+import Schema from "../components/page/Schema.astro";
+import { breadcrumb, service } from "../lib/schema";
+import { FUNDING_CALLOUT, FUNDING_NOTE } from "../lib/copy";
+
+export const prerender = false;
+
+
+const problems = [
+	{
+		heading: "The destination is slower than the campaign.",
+		body: "A site built on a heavy theme takes four seconds on a phone, which is where most local searches happen. You paid for the click either way.",
+	},
+	{
+		heading: "The form goes to an inbox nobody owns.",
+		body: "Leads arrive, sit, and go cold. This is the most common and least visible failure we find, and it is not a marketing problem.",
+	},
+	{
+		heading: "The listings disagree with each other.",
+		body: "Different hours on Google than on Apple Maps, an old address on Bing, a phone number that rings a line you stopped using. Each one quietly costs you.",
+	},
+	{
+		heading: "Nobody's steered it since launch.",
+		body: "Campaigns get built well and then left. Twelve months later the budget is going to keywords that stopped converting in month three.",
+	},
+];
+
+const work = [
+	{
+		tag: "01 · The website",
+		heading: "Built for speed and clarity.",
+		body: "Semantic markup, real accessibility, and forms that go somewhere specific — into your CRM, to a named person, with a follow-up that fires whether or not anyone's at a desk. Managed on our infrastructure, or handed over on open standards if you'd rather own it.",
+	},
+	{
+		tag: "02 · Search, and answer engines",
+		heading: "Foundations first, then the answers.",
+		body: "Structure, schema, crawlability, Core Web Vitals. Then the content that answers what people actually ask. Increasingly the query happens in a chat window rather than a search box, and being the source it quotes is different work from ranking — we do both, and we're explicit about which one a given change serves.",
+	},
+	{
+		tag: "03 · Paid campaigns",
+		heading: "Steered monthly, against booked work.",
+		body: "Google Search, Local Services Ads, and paid social where the audience is genuinely there. Measured against booked work, not impressions. Small budgets are fine and often better — a tight local campaign beats a broad one at the same spend.",
+	},
+	{
+		tag: "04 · Social and listings",
+		heading: "Active where someone checks.",
+		body: "Enough social presence that you look active when someone looks, without pretending it's a content operation. Google, Bing and Apple listings verified and consistent, because that's what a buyer looks at last, right before deciding.",
+	},
+];
+
+const faq = [
+	{
+		q: "Do we have to buy the website to get the campaigns?",
+		a: "No. If your site is sound we'll say so and spend the budget on demand instead. We'll audit it either way before we recommend anything — that part's free and you keep the findings.",
+	},
+	{
+		q: "How is this different from hiring a marketing agency?",
+		a: "An agency is measured on what it can control, which is usually clicks. We also run the systems the lead lands in, so we can follow it all the way to a booked job and tell you which campaigns produced revenue rather than traffic. It also means when the form breaks, it's ours to fix.",
+	},
+	{
+		q: "What is GEO, and does it matter yet?",
+		a: "It's optimising to be the source an AI assistant quotes when someone asks it a question, rather than a blue link they click. It matters now for research-heavy and comparison queries — the ones where a buyer asks who they should use for something in Ottawa — and the work is different: structured facts, dated claims, direct answers, clean schema. We build it in rather than selling it separately.",
+	},
+	{
+		q: "Do you lock us into a contract?",
+		a: "Month to month with 30 days' notice, on every service. Website plans carry a one-time setup cost; there's no minimum term after it. Numbers are on the pricing page.",
+	},
+	{
+		q: "Can you work with the site we already have?",
+		a: "Usually. We'll tell you honestly when a rebuild is cheaper than the accumulated fixes — that's normally true of older page-builder sites where performance can't be recovered without pulling the theme out.",
+	},
+	{
+		q: "Will you handle our Google Business Profile?",
+		a: "Yes, along with Bing and Apple. It's unglamorous and it's frequently the highest-return thing we do in the first month, particularly for anyone with a service area rather than a storefront.",
+	},
+];
+---
+
+<PineLayout
+	title="Websites, ads, SEO and social for Ontario businesses"
+	description="A fast, findable website plus the ad campaigns, social and listings around it — built and steered monthly by the same partner that runs your systems."
+>
+	<Schema
+		data={service(
+			"Digital presence",
+			"Websites, search and answer-engine optimization, paid campaigns, social and business listings for Ontario small businesses.",
+			"/digital-presence",
+		)}
+	/>
+	<Schema data={breadcrumb(["Digital presence", "/digital-presence"])} />
+
+	<FundingCallout
+		text={FUNDING_CALLOUT}
+	/>
+
+	<PageHero
+		eyebrow="Digital presence"
+		title="Everywhere your buyers look, handled."
+		lead="A website, the campaigns pointed at it, the social accounts beside it, and the listings people check before any of that. One team keeps the whole thing consistent, which is mostly what presence means in practice."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			Managing a digital presence means keeping four things in step: a website
+			that loads fast and answers the question, search and answer-engine
+			visibility for the terms buyers actually use, paid campaigns steered
+			against results rather than set and left, and accurate business listings
+			wherever people check. Most small businesses have all four, owned by
+			nobody, drifting apart at different speeds.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="What goes wrong"
+				title="Ads are the easy part."
+				lead="The hard part is everything after the click — whether the site loads, whether the form goes anywhere, whether anyone answers. Spending more at the top of that doesn't fix any of it."
+			/>
+			<Cards cards={problems} />
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="What we do"
+				title="Four surfaces, kept in step."
+			/>
+			<Cards cards={work} />
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="The order we'd do it in"
+				title="We'd rather fix the destination first."
+				lead="This is where we differ from an agency, and it costs us revenue in the first month, so it's worth explaining."
+			/>
+			<div class="prose-inline">
+				<p class="font-body">
+					More traffic into a business that can't handle the leads it already
+					has makes things worse, not better. If the site is slow, or the
+					enquiry lands in an inbox nobody watches, or the person who'd follow
+					up is the same person on a roof, then the campaign is converting your
+					money into frustration efficiently.
+				</p>
+				<p class="font-body">
+					So we look at the destination and the follow-up first. Often that's a
+					small piece of work and we turn campaigns on the same month.
+					Sometimes it means we tell you not to spend on ads yet, which is a
+					strange thing for the party being paid to run them to say, and is
+					exactly why we say it.
+				</p>
+				<p class="font-body limit">
+					We're not built for enterprise budgets or brand campaigns. If you need
+					a national creative strategy, we're the wrong shop. If you need to be
+					the obvious choice within an hour's drive, we're well set up for that.
+				</p>
+			</div>
+			<p class="font-caption industry-row">
+				How this lands in <a class="link" href="/industries/trades">trades</a>,
+				<a class="link" href="/industries/real-estate">real estate</a>,
+				<a class="link" href="/industries/professional-services"
+					>professional firms</a
+				> and <a class="link" href="/industries/clinics">clinics</a>.
+			</p>
+		</div>
+	</section>
+
+	<Faq items={faq} />
+
+	<PageCta
+		title="Send us your site."
+		lead="We'll come back with what's slow, what's missing, and what we'd change first — whether or not you hire us."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Business software", href: "/business-software" },
+			{ label: "Back office", href: "/back-office" },
+			{ label: "Pricing", href: "/pricing" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.prose-inline {
+		max-width: 68ch;
+		color: var(--color-mist);
+		display: grid;
+		gap: 1.1rem;
+	}
+	.prose-inline .limit {
+		padding-top: 1.1rem;
+		border-top: 1px solid var(--line-1);
+		color: var(--color-slate);
+	}
+	.industry-row {
+		margin-top: 2rem;
+		color: var(--color-slate);
+	}
+</style>

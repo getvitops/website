@@ -1,0 +1,223 @@
+---
+import PineLayout from "../layouts/PineLayout.astro";
+import PageHero from "../components/page/PageHero.astro";
+import SectionIntro from "../components/page/SectionIntro.astro";
+import Cards from "../components/page/Cards.astro";
+import Prose from "../components/page/Prose.astro";
+import PageCta from "../components/page/PageCta.astro";
+import Schema from "../components/page/Schema.astro";
+import { breadcrumb, organizationGraph } from "../lib/schema";
+
+export const prerender = false;
+
+// The entity page. `organizationGraph` is the canonical Organization node —
+// founders, credentials and sameAs live in src/lib/schema.ts so every mention
+// of "Vitops" resolves to the same entity. See content-plan/geo.md.
+//
+// Bios are written without pronouns: neither founder's are on record.
+// Prior companies are deliberately unnamed — the experience is the point.
+//
+// Styling is framework classes only, no scoped CSS (`npx vitops docs classes`):
+//   · `centered` children WITHOUT `spotlight` sit in the reading `measure`
+//     track, so prose needs no max-width of its own.
+//   · `rhythm` supplies vertical flow between elements — no per-element margins.
+//   · `text-neutral-muted` / `-x-muted` are the functional colour tokens and
+//     remap themselves in dark mode; `var(--color-mist)` does not.
+//   · `split` gives equal flex columns; `flex-col @md:flex-row` stacks them.
+
+const decisions = [
+	{
+		heading: "We publish our prices.",
+		body: "Per seat, on the pricing page. Not “contact us for a quote”, which usually means the number depends on what you look like you can pay.",
+	},
+	{
+		heading: "Month to month, 30 days' notice.",
+		body: "No annual lock-in on either service. We'd rather earn it monthly than hold it contractually.",
+	},
+	{
+		heading: "You own what we build.",
+		body: "Websites on open standards, systems in your tenants, records in accounts with your name on them. If you leave, you leave with everything.",
+	},
+	{
+		heading: "We'll tell you not to buy things.",
+		body: "The first pass on a new account usually finds duplicate tools and licences nobody has opened in months. Saying so is a better first month than selling you something else.",
+	},
+];
+---
+
+<PineLayout
+	title="About Vitops — two halves of the same job"
+	description="Vitops is an Ottawa operations partner run by two founders — one from back-office and HR operations, one from software and digital presence. Who we are, how we work, and who we suit."
+>
+	<Schema data={organizationGraph} />
+	<Schema data={breadcrumb(["About", "/about"])} />
+
+	<PageHero
+		eyebrow="About"
+		title="Two halves of the same job."
+		lead="Vitops was started by two people who had each spent years fixing one half of the same problem, from opposite ends, for the same kind of business. The company is what happens when you stop handing the work between them."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+	/>
+
+	<Prose lead>
+		<p>
+			Vitops is an Ottawa-based operations partner for Ontario small businesses,
+			founded by Justin Lang and Alex Gagnon. Justin holds a PhD in Population
+			Health and has spent years running HR, payroll and benefits operations for
+			small employers. Alex holds a Master of Computer Science focused on
+			artificial intelligence and has spent them building websites, search
+			presence and the software systems underneath. Vitops runs both halves —
+			the digital presence a business is seen through, and the software and
+			back-office operations behind it — under one partner rather than two
+			vendors.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="Who you'd work with"
+				title="One of us is on your account."
+			/>
+
+			<div class="split flex-col @md:flex-row gap-10">
+				<article class="rhythm border-l-2 border-brand-primary pl-5">
+					<h3 class="font-heading">Justin Lang — back office</h3>
+					<p class="font-body text-neutral-muted">
+						A PhD in Population Health and more than a decade studying how
+						absence, disability and injury move through a business — and how
+						much of that cost is process rather than circumstance. Since then,
+						running HR, payroll and benefits operations for small employers,
+						where the recurring finding was that most of what's sold to them is
+						an enterprise system with the price cut and the fit left alone.
+					</p>
+					<p class="font-body text-neutral-muted">
+						At Vitops, Justin owns the back office: bookkeeping, payroll,
+						benefits, HR operations, and the employee lifecycle end of
+						joiner-mover-leaver.
+					</p>
+					<p class="font-caption">
+						<a
+							class="link"
+							href="https://www.linkedin.com/in/justinl-viabilityhr"
+							rel="noopener">LinkedIn</a
+						>
+					</p>
+				</article>
+
+				<article class="rhythm border-l-2 border-brand-primary pl-5">
+					<h3 class="font-heading">Alex Gagnon — software and presence</h3>
+					<p class="font-body text-neutral-muted">
+						A Master of Computer Science focused on artificial intelligence, and
+						years building websites, search presence and the systems underneath
+						them for small businesses — on the view that performance and
+						technical search health aren't upsells to be sold separately;
+						they're either in the build or the build is deficient. Microsoft
+						Certified: Azure Solutions Architect Expert, and certified in
+						Security, Compliance and Identity.
+					</p>
+					<p class="font-body text-neutral-muted">
+						At Vitops, Alex owns the software stack and the digital presence:
+						selection, implementation and integration, AI enablement where it
+						earns its place, and the website, search and campaign work in front
+						of it.
+					</p>
+					<p class="font-caption">
+						<a
+							class="link"
+							href="https://www.linkedin.com/in/alex-gagnon-658108189/"
+							rel="noopener">LinkedIn</a
+						>
+					</p>
+				</article>
+			</div>
+		</div>
+
+		<div class="rhythm mt-12 pt-8 border-t border-neutral">
+			<p class="font-body text-neutral-muted">
+				Working the same market from opposite ends, we kept hitting the same
+				wall from different sides. One of us would fix an onboarding process and
+				then wait days on whoever handled IT to create the accounts. The other
+				would build a site that generated leads for a business with no process
+				to answer them. Neither problem sat inside either discipline — both sat
+				in the seam between them, which is exactly where nobody was accountable.
+			</p>
+			<p class="font-body text-neutral-muted">
+				So each account has one of us on it as the owner: the person who makes
+				the decisions, does the work, and picks up when something breaks. What
+				the second founder gives you is that the other half never becomes
+				somebody else's vendor.
+			</p>
+			<p class="font-body text-neutral-x-muted">
+				This doesn't scale indefinitely, so we take on a limited number of
+				accounts. If we're at capacity we'll say so rather than stretching and
+				doing it badly.
+			</p>
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="How we work"
+				title="Four things we've decided, so you don't have to ask."
+			/>
+			<Cards cards={decisions} />
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="Fit" title="Who this works for, and who it doesn't." />
+			<div class="split flex-col @md:flex-row gap-8">
+				<article class="rhythm">
+					<h3 class="font-heading">Works well for</h3>
+					<p class="font-body text-neutral-muted">
+						Ontario businesses roughly between 5 and 150 people, at the size
+						where back-office admin has become a real cost but a dedicated hire
+						still can't be justified. <a class="link" href="/industries"
+							>Trades, brokerages, professional firms and clinics</a
+						> are where we see that most.
+					</p>
+				</article>
+				<article class="rhythm">
+					<h3 class="font-heading">Not a good fit</h3>
+					<p class="font-body text-neutral-muted">
+						Under about five people, where the admin isn't heavy enough yet.
+						Enterprise brand campaigns — a different discipline. Desk-side
+						hardware repair; we manage warranties and enrol replacements, but
+						somebody local handles the device. And anyone wanting a vendor rather
+						than a partner.
+					</p>
+				</article>
+			</div>
+			<p class="font-caption text-neutral-x-muted mt-8">
+				Based in Ottawa, working throughout Ontario, and supporting businesses
+				elsewhere in Canada remotely.
+			</p>
+		</div>
+	</section>
+
+	<section class="section centered">
+		<SectionIntro eyebrow="Scope" title="The boundaries, stated plainly." />
+		<p class="font-body text-neutral-muted">
+			We administer systems and operations. We're not your accountant, lawyer,
+			benefits broker or clinician — tax positions, legal opinions, plan design
+			and clinical decisions stay with the people qualified to make them. On
+			funding, approval and amounts are decided by OCI, not by us. And you remain
+			the employer of record for your staff: this is not a PEO arrangement and we
+			don't take on employment liability.
+		</p>
+	</section>
+
+	<PageCta
+		title="Tell us what you're running."
+		links={[
+			{ label: "Business software", href: "/business-software" },
+			{ label: "Digital presence", href: "/digital-presence" },
+			{ label: "Back office", href: "/back-office" },
+			{ label: "Pricing", href: "/pricing" },
+		]}
+	/>
+</PineLayout>

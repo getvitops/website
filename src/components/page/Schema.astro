@@ -1,0 +1,12 @@
+---
+// Generic JSON-LD emitter, for graphs this site hand-builds in src/lib/schema.ts
+// (Organization, BreadcrumbList, Service) — those carry site-specific shapes
+// like the shared @id the package builders don't model. Where a package schema
+// component fits, use it instead: see Faq.astro.
+interface Props {
+	data: unknown;
+}
+const { data } = Astro.props;
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(data)} />

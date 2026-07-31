@@ -1,0 +1,69 @@
+---
+import ProgramPage from "../../components/page/ProgramPage.astro";
+
+export const prerender = false;
+---
+
+<ProgramPage
+	slug="rmpg"
+	eyebrow="RMPG"
+	title="RMPG Ontario — up to $5,000 for retail technology"
+	description="What the Retail Modernization Project Grant covers, who qualifies, and why taking it spends your DMAP eligibility."
+	h1="RMPG — up to $5,000 for retail technology, with one important catch."
+	verified="31 July 2026"
+	sourceUrl="https://www.oc-innovation.ca/programs/digital-competence-centre/"
+	sourceLabel="Source: Ontario Centre of Innovation"
+	directAnswer="The Retail Modernization Project Grant is an Ontario program administered by the Ontario Centre of Innovation through the Digital Competence Centre. <strong>As of July 2026</strong> it provides a matched grant of up to <strong>$5,000</strong> to Ontario retailers with a physical location open to the public, for technology such as point-of-sale systems, online payments, inventory management, CRM, cybersecurity tools and AI tools. Eligibility requires <strong>1&ndash;50 full-time employees</strong>, incorporation and operation for <strong>at least one year</strong>, and <strong>at least $100,000</strong> in annual revenue before taxes. The catch: <strong>you can apply to RMPG or <a class='link' href='/funding/dmap'>DMAP</a> &mdash; not both.</strong> Approval and amounts are decided by OCI, not Vitops."
+	facts={[
+		["Amount", "Up to $5,000, matched"],
+		[
+			"Who",
+			"Ontario retailer, open to the public, <strong>physical location</strong> (not home-based)",
+		],
+		["Size", "1–50 full-time employees"],
+		["Trading history", "Incorporated and operating ≥ 1 year"],
+		["Revenue", "≥ $100,000 before taxes"],
+		["Funds", "POS, online payments, inventory, CRM, cybersecurity, AI tools"],
+		[
+			"Excludes",
+			"<strong>You cannot also take <a class='link' href='/funding/dmap'>DMAP</a></strong> — and therefore not <a class='link' href='/funding/tdp'>TDP</a>",
+		],
+		["Decided by", "OCI"],
+	]}
+	sections={[
+		{
+			title: "The trade nobody explains.",
+			body: [
+				"This is the most consequential thing on the page, so it goes near the top rather than the bottom.",
+				"RMPG and DMAP are mutually exclusive. Taking the $5,000 closes the door on the $15,000 planning grant — and, because <a class='link' href='/funding/tdp'>TDP</a> requires a completed DMAP, on the $50,000 implementation grant behind it as well.",
+				"<strong>So the real comparison isn't $5,000 versus $15,000. It's $5,000 versus a path worth up to $65,000.</strong>",
+				"That doesn't make RMPG the wrong choice. If what you need is a point-of-sale system and online payments, the money is straightforward, the scope is small, and the DMAP path would be overkill for the project. But if there's a larger modernisation ahead of you in the next couple of years, spending your eligibility on the small grant is a decision worth making deliberately rather than by accident.",
+			],
+		},
+		{
+			title: "Where this fits for us.",
+			body: [
+				"Retail sits a little outside our usual shape — most of our clients are service businesses that have reached the size where back-office administration has become a real cost. Where a client is retail or retail-adjacent, the honest advice is usually the sequencing question above rather than a proposal.",
+			],
+		},
+	]}
+	faq={[
+		{
+			q: "Can we do RMPG now and DMAP later?",
+			a: "No. They're alternatives, not stages.",
+		},
+		{
+			q: "Does an online-only store qualify?",
+			a: "No. A physical commercial location open to the public is required, and home-based businesses are excluded.",
+		},
+		{
+			q: "Do restaurants and salons count?",
+			a: "Yes — the program covers direct-to-consumer businesses with a physical location, which includes food service and personal services, not only shops.",
+		},
+		{
+			q: "Is $5,000 worth the paperwork?",
+			a: "For a defined project like a POS replacement, generally yes. As a reason to skip DMAP, generally no.",
+		},
+	]}
+	relatedLinks={[{ label: "DMAP — the alternative", href: "/funding/dmap" }]}
+/>

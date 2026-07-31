@@ -1,0 +1,69 @@
+---
+import IndustryPage from "../../components/page/IndustryPage.astro";
+
+export const prerender = false;
+---
+
+<IndustryPage
+	slug="clinics"
+	eyebrow="Clinics"
+	title="IT, HR and digital presence for Ontario medical and dental clinics"
+	description="PHIPA-aware access, endpoints that stay out of the way at the front desk, staff onboarding that's ready for the first shift, and recall campaigns that fill the schedule."
+	h1="Nothing at the front desk can wait for IT."
+	heroLead="Dental and orthodontic practices, family medicine, specialty clinics, physio, chiro and allied health. The constraint that shapes everything: there is a patient in the chair, and whatever isn't working has to not be the reason they're waiting."
+	fundingText="Clinic systems and security work often qualifies for government funding — federal, and provincial depending on where you operate."
+	directAnswer="Clinic IT is unusual in two ways. The EMR dictates a large share of the environment — what the workstations must run, how they're configured, sometimes what they're allowed to connect to — leaving less freedom than most businesses have. And every device in the building sits within reach of personal health information, which makes access control a statutory matter under PHIPA rather than an internal preference."
+	differencesTitle="Three realities that set the rules."
+	differences={[
+		{
+			heading: "The EMR is the immovable object.",
+			body: "It came with its own requirements, its own vendor, and its own opinions about the environment. Everything else is built around it. Sensible clinic IT works with that rather than fighting it, and knows which battles the EMR vendor will simply refuse.",
+		},
+		{
+			heading: "PHIPA turns access into a record-keeping duty.",
+			body: "It's not enough that only authorised staff can see patient information — you have to be able to show it. Shared logins at the front desk, which are extremely common and always adopted for good practical reasons, make that impossible. Fixing it without slowing reception down is the actual problem, and it's solvable.",
+		},
+		{
+			heading: "Turnover is constant and the roles overlap.",
+			body: "Hygienists, assistants, reception, locums, students. People change roles, cover shifts, and leave, and each of those is a permission change. Where it's handled informally, permissions only ever accumulate — the person who covered reception for two weeks in 2023 generally still has reception access.",
+		},
+	]}
+	pillars={[
+		{
+			label: "Business software",
+			body: "The environment around the EMR: workstations, imaging, scheduling, payments, and the identity layer underneath. Individual logins that are fast enough that reception doesn't resent them. Backups that are actually verified — a backup nobody has restored from is a hope, not a backup.",
+		},
+		{
+			label: "Back office",
+			body: "Staff onboarding ready before the first shift, including the privacy training acknowledgement, so it's recorded rather than assumed. Permission changes that follow role changes. Payroll and benefits for a mixed roster of full-time, part-time and casual staff, which is more complicated than it looks and where most clinic payroll errors originate.",
+		},
+		{
+			label: "Digital presence",
+			body: "A site that answers what a prospective patient actually asks — are you taking patients, where do I park, what does the first visit cost — with online booking that writes into your schedule. Recall campaigns that fill gaps without saying anything about anyone's treatment.",
+		},
+	]}
+	faq={[
+		{
+			q: "Will you touch our EMR?",
+			a: "We work around it and coordinate with its vendor on anything environmental. We don't administer clinical systems or make clinical configuration decisions — that stays with the EMR vendor and your clinical lead. What we own is everything the EMR sits on top of.",
+		},
+		{
+			q: "Everyone shares the front desk login. Is that a problem?",
+			a: "Under PHIPA, yes — an access log that can't identify a person doesn't demonstrate much. It's also very fixable. Individual accounts with fast switching mean reception doesn't lose time between patients, and you get an audit trail that means something. It's one of the first things we'd change.",
+		},
+		{
+			q: "Are you telling us we're PHIPA compliant?",
+			a: "No, and be wary of anyone who does. We build and run systems that support your obligations — access control, audit trails, encryption, verified backups, recorded training — and we'll tell you where you're exposed. Compliance is your privacy officer's determination.",
+		},
+		{
+			q: "Can we use AI in the clinic?",
+			a: "For administrative work, sometimes usefully — scheduling, recall drafting, documentation of non-clinical processes. Anything touching patient information needs the access and retention questions answered first, and some of it we'd advise against outright. We'll be specific about which is which rather than selling the category.",
+		},
+		{
+			q: "Can you help us get more patients?",
+			a: "Yes, and the unglamorous part usually matters most: an accurate Google listing, a site that loads on a phone, and booking that works. Recall campaigns to existing patients are typically the highest return and the easiest to do respectfully.",
+		},
+	]}
+	ctaTitle="Tell us what breaks at the front desk."
+	ctaLead="The recurring one — the thing that goes wrong often enough that staff have a workaround for it. That's usually where we'd start."
+/>

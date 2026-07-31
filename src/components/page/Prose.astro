@@ -1,0 +1,23 @@
+---
+// A measured text block — the "direct answer" opener and longer argument
+// sections. Answer engines lift whole paragraphs, so the measure matters.
+//
+// No scoped CSS: `centered` puts a child WITHOUT `spotlight`/`breakout` in the
+// reading `measure` track automatically, and `rhythm` spaces the paragraphs.
+interface Props {
+	/** Renders the block as the section's quotable opening paragraph. */
+	lead?: boolean;
+}
+const { lead = false } = Astro.props;
+---
+
+<section class="section centered">
+	<div
+		class:list={[
+			"rhythm",
+			lead ? "font-lead text-neutral" : "font-body text-neutral-muted",
+		]}
+	>
+		<slot />
+	</div>
+</section>

@@ -1,0 +1,18 @@
+---
+// The site's section unit: eyebrow → H2 → lead.
+// Framework classes only (`npx vitops docs classes`): `rhythm` supplies the
+// vertical flow, `text-neutral-muted` is the functional colour token.
+interface Props {
+	eyebrow?: string;
+	title: string;
+	lead?: string;
+}
+const { eyebrow, title, lead } = Astro.props;
+---
+
+<header class="rhythm max-w-[60ch] mb-12">
+	{eyebrow && <span class="font-eyebrow">{eyebrow}</span>}
+	<h2 class="font-title">{title}</h2>
+	{lead && <p class="font-lead text-neutral-muted">{lead}</p>}
+	<slot />
+</header>

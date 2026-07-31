@@ -1,20 +1,21 @@
 ---
-// Variant A hero (champion). The B challenger lives at
-// src/_b/sections/Hero.astro and is selected per request in the page via the
-// variant resolver (src/lib/variant.ts + src/middleware.ts).
+// Homepage hero (variant A). The B challenger was deleted — no B content exists
+// right now — but the variant system is intact (src/lib/variant.ts +
+// src/middleware.ts). To test a new hero: add src/_b/sections/Hero.astro and
+// pick() between them in src/pages/index.astro.
 ---
 
 <section class="hero hero-glow section centered">
 	<div class="hero-inner spotlight fullbleed">
-		<span class="font-eyebrow">Digital presence · IT and HR, managed</span>
+		<span class="font-eyebrow">Business software · Back office · Digital presence</span>
 		<h1 class="font-display hero-title">
 			The work that keeps your business running, handled by one partner.
 		</h1>
 		<p class="font-lead hero-lead">
-			Vitops builds and runs your digital presence, and manages the IT and
-			HR operations behind it. Two services, one team on file, so the
-			website that wins the customer and the systems that serve them stay in
-			step.
+			Vitops runs the software your business operates on, the bookkeeping,
+			payroll and HR administration behind it, and the digital presence in
+			front of it. Three services, one team on file, so the website that wins
+			the customer and the systems that serve them stay in step.
 		</p>
 		<div class="hero-cta cluster">
 			<a class="cta" href="#contact">Talk to us <span class="arrow">→</span></a>

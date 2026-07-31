@@ -1,0 +1,183 @@
+---
+import PineLayout from "../../layouts/PineLayout.astro";
+import PageHero from "../../components/page/PageHero.astro";
+import SectionIntro from "../../components/page/SectionIntro.astro";
+import Cards from "../../components/page/Cards.astro";
+import Prose from "../../components/page/Prose.astro";
+import PageCta from "../../components/page/PageCta.astro";
+import Schema from "../../components/page/Schema.astro";
+import { breadcrumb, SITE_URL } from "../../lib/schema";
+
+export const prerender = false;
+
+// Routing page, and the fit page. Pillars are service-shaped; buyers are
+// industry-shaped. But industry is only a proxy — the real qualifier is the
+// point at which administration stops being absorbed and starts costing real
+// time and money against revenue work. Owner-led businesses are a common client
+// profile, not a target: describe it, don't qualify on it. The verticals listed
+// are where we see the threshold crossed most often, not the boundary of who we
+// work with.
+const profile = [
+	{
+		heading: "Nobody's actual job is the back office.",
+		body: "It's split between people whose real work is something else — the owner, the office manager, whoever had a gap. It gets done, but it gets done last, and it's nobody's specialism.",
+	},
+	{
+		heading: "Admin competes directly with revenue work.",
+		body: "Every hour on payroll, licences and paperwork is an hour not spent on what the business is paid for. The maths gets worse as you grow, because the admin grows faster than the number of people absorbing it.",
+	},
+	{
+		heading: "Past spreadsheets, short of a department.",
+		body: "Usually somewhere between 5 and 150 people. Too big to keep running on memory and a shared drive; too small to justify hiring for IT, HR and marketing separately.",
+	},
+	{
+		heading: "Something is regulated or confidential.",
+		body: "Client files, patient records, safety documentation, licensing. Not always onerous, but enough that getting access control wrong has consequences beyond inconvenience.",
+	},
+];
+
+const industries = [
+	{
+		name: "Trades and contractors",
+		href: "/industries/trades",
+		body: "Crews on sites, tablets that need to work without signal, a dispatch process that can't wait for head office. Plus safety documentation that has to survive an inspection.",
+	},
+	{
+		name: "Real estate brokerages",
+		href: "/industries/real-estate",
+		body: "A roster that turns over faster than anything else we work with, board-connected tools that don't integrate cleanly, and commission administration that has to be exactly right.",
+	},
+	{
+		name: "Legal, accounting and professional firms",
+		href: "/industries/professional-services",
+		body: "Matter-based permissions, conflict checks, and retention rules where the consequence of getting access wrong is professional rather than merely awkward.",
+	},
+	{
+		name: "Medical and dental clinics",
+		href: "/industries/clinics",
+		body: "PHIPA obligations, an EMR that dictates a lot of the environment, and front-desk staff who cannot be waiting on IT while patients are in the room.",
+	},
+];
+
+const listSchema = {
+	"@context": "https://schema.org",
+	"@type": "ItemList",
+	name: "Industries Vitops works with",
+	itemListElement: industries.map((i, n) => ({
+		"@type": "ListItem",
+		position: n + 1,
+		name: i.name,
+		url: `${SITE_URL}${i.href}`,
+	})),
+};
+---
+
+<PineLayout
+	title="Who we work with — Ontario small and mid-size businesses"
+	description="Vitops works with Ontario businesses at the size where administration turns into a real cost. Trades, brokerages, professional firms and clinics are where we see it most."
+>
+	<Schema data={listSchema} />
+	<Schema data={breadcrumb(["Industries", "/industries"])} />
+
+	<PageHero
+		eyebrow="Who we work with"
+		title="Past a certain size, the back office starts eating the work that pays."
+		lead="Administration never earned anything. For a while that's fine — it gets absorbed into evenings and gaps between jobs. Then headcount, software and obligations grow faster than the people handling them, and it turns into real hours and real money taken off the work you actually get paid for."
+	/>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="Where it shows up most"
+				title="Industries that benefit most from what we do."
+				lead="We know these sectors well enough to be useful in the first week — the tools, the rules, and what urgent means at four in the afternoon. If you're somewhere else, the service is the same; it just takes us a little longer to learn your particulars, and we'll say so rather than pretend otherwise."
+			/>
+			<div class="industry-grid">
+				{
+					industries.map((i) => (
+						<a class="card industry-card" href={i.href}>
+							<h3 class="font-heading">{i.name}</h3>
+							<p class="font-body card-copy">{i.body}</p>
+							<span class="industry-go">
+								Read more <span aria-hidden="true">→</span>
+							</span>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<Prose lead>
+		<p>
+			Vitops works with Ontario businesses, typically between 5 and 150 people,
+			that have reached the size where back-office administration is a
+			measurable cost rather than a rounding error — usually somewhere between
+			half a day and two days a week of someone's time, spent on work that
+			generates no revenue.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="The fit"
+				title="What our clients have in common."
+				lead="The sector is really only a proxy — what follows is what actually decides the fit. Many of our clients are owner-led and the founder is still close to the work, but that's a pattern we notice rather than a requirement. If these describe you, the name on the door is mostly a detail."
+			/>
+			<Cards cards={profile} />
+		</div>
+	</section>
+
+	<PageCta
+		title="Tell us what you run."
+		lead="Whether or not it's one of the sectors above. We'll tell you honestly how much of your situation we already understand."
+		links={[
+			{ label: "Business software", href: "/business-software" },
+			{ label: "Back office", href: "/back-office" },
+			{ label: "Digital presence", href: "/digital-presence" },
+			{ label: "Pricing", href: "/pricing" },
+			{ label: "Funding", href: "/funding" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.industry-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.5rem;
+	}
+	.industry-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+		padding: 2rem;
+		text-decoration: none;
+		color: inherit;
+		border: 1px solid transparent;
+		transition:
+			border-color 0.2s ease,
+			transform 0.2s ease;
+	}
+	.industry-card:hover {
+		border-color: var(--line-2);
+		transform: translateY(-2px);
+	}
+	.card-copy {
+		color: var(--color-mist);
+		margin: 0;
+	}
+	.industry-go {
+		margin-top: auto;
+		padding-top: 0.5rem;
+		font-size: var(--text-s);
+		color: var(--color-pine);
+	}
+
+	@media (max-width: 860px) {
+		.industry-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

@@ -1,5 +1,7 @@
 ---
 import PineLayout from "../layouts/PineLayout.astro";
+import PageHero from "../components/page/PageHero.astro";
+import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 
 export const prerender = false;
 
@@ -9,6 +11,7 @@ const opsTiers = [
 		name: "Basics",
 		price: "$35",
 		unit: "/ user / mo",
+		blurb: "We choose and maintain the stack. You still run it day to day.",
 		features: [
 			"Software selection, implementation, and integration guidance",
 			"Ongoing license maintenance",
@@ -19,6 +22,7 @@ const opsTiers = [
 		name: "Foundations",
 		price: "$69",
 		unit: "/ user / mo",
+		blurb: "The software side run for you, on a set cadence.",
 		features: [
 			"Everything in Basics, plus:",
 			"Joiner / mover / leaver basics — onboarding & offboarding handled",
@@ -27,20 +31,21 @@ const opsTiers = [
 			"Quarterly operations review — one dashboard, one bill",
 			"Email & ticket support, business hours",
 		],
-		highlighted: false,
+		highlighted: true,
 	},
 	{
 		name: "Managed",
 		price: "$119",
 		unit: "/ user / mo",
 		tag: "Fully managed",
+		blurb: "Foundations, but continuous — monitored, automated, and we take the vendor calls.",
 		features: [
 			"Everything in Foundations, plus:",
 			"Full identity & lifecycle management (SCIM / JML automation)",
 			"Continuous endpoint security monitoring",
 			"Day-to-day software support & vendor escalation",
 		],
-		highlighted: true,
+		highlighted: false,
 	},
 ];
 
@@ -77,6 +82,60 @@ const presenceServices = [
 		period: "/ mo",
 		included: [
 			"Google Business Profile, Bing Places, Apple Business Connect — claimed, verified, kept in sync",
+		],
+	},
+];
+
+// --- Back Office: priced per service ----------------------------------------
+//
+// Bookkeeping's rate is confirmed. Payroll, benefits administration and HR
+// operations are still ⚠️ PLACEHOLDER figures — plausible Canadian SMB numbers
+// chosen so the structure could be reviewed. Confirm them before production.
+//
+// Priced per service, NOT per seat, deliberately: software licences scale with
+// headcount, but bookkeeping scales with transaction volume and entity count.
+// A 12-person contractor with three entities and heavy AP is more work than a
+// 40-person firm with clean books, so $/user misprices both ends.
+//
+// Joiner/mover/leaver is intentionally absent — it spans both halves and is
+// already priced inside the IT & HR per-seat tiers. Don't double-charge it.
+const backOfficeServices = [
+	{
+		name: "Bookkeeping",
+		price: "from $400",
+		period: "/ mo",
+		included: [
+			"Transaction coding, bank and credit card reconciliations, payables and receivables",
+			"Monthly close, with the books kept current rather than rebuilt at year-end",
+			"Banded by transaction volume and number of entities — we quote after a look at your last quarter",
+		],
+	},
+	{
+		name: "Managed payroll",
+		price: "$185",
+		period: "/ mo + $9 / employee",
+		included: [
+			"Pay runs, direct deposits, CRA remittances, T4s and ROEs, run to schedule",
+			"Year-end filing and audit-ready documentation",
+		],
+	},
+	{
+		name: "Benefits administration",
+		price: "$145",
+		period: "/ mo",
+		included: [
+			"Enrolments, life events, terminations, and payroll deduction sync",
+			"Employee questions handled directly, so they don't come to you",
+			"Your broker keeps the plan — we run the daily administration of it",
+		],
+	},
+	{
+		name: "HR operations & HRIS",
+		price: "$225",
+		period: "/ mo",
+		included: [
+			"Employee records, time off, policy acknowledgements, document retention",
+			"HRIS configured once and maintained, not left to drift",
 		],
 	},
 ];
@@ -140,39 +199,38 @@ const finePrint = [
 
 <PineLayout
 	title="Pricing"
-	description="Two services, priced simply. IT & HR operations priced per employee; managed website plans from $39/mo. Month-to-month, no long-term contracts.">
+	description="Three services, priced simply. Software operations per employee; bookkeeping, payroll and benefits administration per service; managed website plans from $39/mo. Month-to-month.">
 	<!-- PAGE INTRO -->
-	<section class="pricing-hero section centered">
-		<div class="spotlight">
-			<header class="section-intro">
-				<span class="font-eyebrow">Pricing at a glance</span>
-				<h1 class="font-display pricing-title">Two services, priced simply.</h1>
-				<p class="font-lead section-lead">
-					Month-to-month, no long-term contracts — cancel with 30 days'
-					notice. IT &amp; HR has no setup fee; website plans include a
-					one-time build &amp; setup. These prices are a starting point for
-					planning; your actual quote depends on team size and scope.
-				</p>
-			</header>
-		</div>
-	</section>
+	<PageHero
+		eyebrow="Pricing"
+		title="Three services, priced simply."
+		lead="Month-to-month, no long-term contracts — cancel with 30 days' notice. IT & HR has no setup fee; website plans include a one-time build & setup. These prices are a starting point for planning; your actual quote depends on team size and scope."
+		secondaryLabel="See what funding covers"
+		secondaryHref="#pricing-funding"
+	/>
 
-	<!-- IT & HR OPERATIONS -->
+	<!-- BUSINESS SOFTWARE -->
 	<section class="section centered" id="it-hr-pricing">
 		<div class="spotlight">
 			<header class="section-intro">
-				<span class="font-eyebrow">IT &amp; HR Operations</span>
+				<span class="font-eyebrow">Business software</span>
 				<h2 class="font-title">Priced per employee, right-sized as your team grows.</h2>
+				<p class="font-body section-lead">
+					The software your business runs on: selection, integration, identity and
+					lifecycle, endpoint security and support. Bookkeeping, payroll and
+					benefits are <a class="link" href="#back-office-pricing">priced separately</a>
+					— they scale with volume, not headcount.
+				</p>
 			</header>
 
-			<div class="tiers subgrid">
+			<Subgrid class="pricing-tiers">
 				{
 					opsTiers.map((tier) => (
 						<article
 							class:list={[
 								"card",
-								"tier",
-								tier.highlighted ? "tier--featured" : "bg-navy-d",
+								"pricing-tier",
+								tier.highlighted ? "pricing-tier--featured" : "",
 							]}>
 							<div class="tier-head">
 								<div class="tier-name-row">
@@ -183,6 +241,7 @@ const finePrint = [
 									<span class="tier-price__amount">{tier.price}</span>
 									<span class="tier-price__unit">{tier.unit}</span>
 								</p>
+								{tier.blurb && <p class="font-body tier-blurb">{tier.blurb}</p>}
 							</div>
 							<ul class="feature-list">
 								{tier.features.map((f) => (
@@ -197,11 +256,55 @@ const finePrint = [
 						</article>
 					))
 				}
-			</div>
+			</Subgrid>
 
 			<p class="section-note breakout">
 				Running something these plans don't cover? Ask us about our other
 				managed services.
+			</p>
+		</div>
+	</section>
+
+	<!-- BACK OFFICE -->
+	<section class="section centered" id="back-office-pricing">
+		<div class="spotlight">
+			<header class="section-intro">
+				<span class="font-eyebrow">Back office</span>
+				<h2 class="font-title">Priced per service, because the work isn't per seat.</h2>
+				<p class="font-lead section-lead">
+					Bookkeeping, payroll and benefits administration scale with
+					transaction volume and entity count, not with how many people you
+					employ — so they're priced per service, not per seat. Take one, take
+					all of them, or combine them with the other two services for{" "}
+					<a class="link" href="#pricing-bundles">a bundle discount</a>.
+				</p>
+			</header>
+
+			<div class="svc-table card">
+				{
+					backOfficeServices.map((svc) => (
+						<div class="svc-row">
+							<div class="svc-head">
+								<h3 class="font-heading svc-name">{svc.name}</h3>
+								<p class="svc-price">
+									<span class="svc-price__amount">{svc.price}</span>
+									<span class="svc-price__period">{svc.period}</span>
+								</p>
+							</div>
+							<ul class="svc-included">
+								{svc.included.map((line) => (
+									<li>{line}</li>
+								))}
+							</ul>
+						</div>
+					))
+				}
+			</div>
+
+			<p class="section-note breakout">
+				Onboarding and offboarding isn't listed here — it spans both halves and
+				is already in the Foundations and Managed{" "}
+				<a class="link" href="#it-hr-pricing">business software</a> plans.
 			</p>
 		</div>
 	</section>
@@ -218,14 +321,14 @@ const finePrint = [
 				</p>
 			</header>
 
-			<div class="tiers subgrid">
+			<Subgrid class="pricing-tiers">
 				{
 					hostingTiers.map((tier) => (
 						<article
 							class:list={[
 								"card",
-								"tier",
-								tier.highlighted ? "tier--featured" : "bg-navy-d",
+								"pricing-tier",
+								tier.highlighted ? "pricing-tier--featured" : "",
 							]}>
 							<div class="tier-head">
 								<div class="tier-name-row">
@@ -253,7 +356,7 @@ const finePrint = [
 						</article>
 					))
 				}
-			</div>
+			</Subgrid>
 
 			<article class="card sovereign">
 				<div class="sovereign-head">
@@ -261,9 +364,9 @@ const finePrint = [
 					<span class="sovereign-price">+$39 / mo · any tier</span>
 				</div>
 				<p class="sovereign-copy">
-					Canadian-owned hosting (WHC), no US-controlled layer, Matomo
-					analytics, Canadian-resident backups. A toggle you can add to any
-					plan — not a tier of its own.
+					Canadian-owned hosting (WHC), no US-controlled services (e.g. Matomo
+					instead of Google Analytics/Microsoft Clarity), Canadian-resident
+					backups. A toggle you can add to any plan — not a tier of its own.
 				</p>
 			</article>
 
@@ -272,7 +375,7 @@ const finePrint = [
 			</p>
 
 			<h3 class="font-heading addons-head">Add-on services</h3>
-			<div class="svc-table card bg-navy-d">
+			<div class="svc-table card">
 				{
 					presenceServices.map((svc) => (
 						<div class="svc-row">
@@ -295,21 +398,69 @@ const finePrint = [
 		</div>
 	</section>
 
-	<!-- CALLOUTS: BUNDLE + ONE-OFF -->
-	<section class="section centered" id="pricing-callouts">
+	<!-- BUNDLES -->
+	<!--
+		Each pricing block above sells one thing at one price — no service is
+		quoted twice, so there is no per-seat vs per-service crossover to reason
+		about. What combining actually buys lives here instead, and the argument
+		is deliberately about capability before discount: the integrations only
+		exist when the same partner runs both halves. That is the company's whole
+		thesis, so this section is where it gets made concretely.
+	-->
+	<section class="section centered" id="pricing-bundles">
 		<div class="spotlight">
-			<div class="callout-grid">
-				<article class="card callout callout--bundle">
-					<span class="font-eyebrow callout-eyebrow">Vitops Complete</span>
-					<h3 class="font-heading callout-title">Bundle &amp; save.</h3>
-					<p class="font-body callout-copy">
-						Combine any IT &amp; HR plan with two or more Digital Presence
-						services and save <strong>10%</strong> on the combined monthly
-						total. One team, one bill, one number to call.
+			<header class="rhythm max-w-[60ch] mb-12">
+				<span class="font-eyebrow">Vitops Complete</span>
+				<h2 class="font-title">What you get by combining them.</h2>
+				<p class="font-lead text-neutral-muted">
+					Each service stands on its own. Together they close loops that stay
+					open when two vendors own the halves — and the combined monthly total
+					drops <strong>15%</strong> from the second service on.
+				</p>
+			</header>
+
+			<div class="grid gap-6 @md:grid-cols-3">
+				<article class="card rhythm">
+					<span class="font-eyebrow text-brand-primary">Software + Back office</span>
+					<h3 class="font-heading">Onboarding stops being a handoff.</h3>
+					<p class="font-body text-neutral-muted">
+						The same partner runs the HRIS and the identity system, so a new
+						hire's accounts, licences and permissions exist before their first
+						shift — and a leaver's are gone the same day, everywhere. Split
+						across two vendors, that's an email and a wait.
 					</p>
 				</article>
 
-				<article class="card bg-navy-d callout">
+				<article class="card rhythm">
+					<span class="font-eyebrow text-brand-primary">Software + Digital presence</span>
+					<h3 class="font-heading">The lead lands somewhere that works.</h3>
+					<p class="font-body text-neutral-muted">
+						Enquiries go into a CRM we configured, route to a named person, and
+						trigger a follow-up whether or not anyone's at a desk. When the site
+						and the systems behind it belong to different vendors, this is
+						exactly where leads go quiet.
+					</p>
+				</article>
+
+				<article class="card rhythm">
+					<span class="font-eyebrow text-brand-primary">All three</span>
+					<h3 class="font-heading">One operator, one bill, one number.</h3>
+					<p class="font-body text-neutral-muted">
+						Nobody establishes whose fault something is. One quarterly review
+						covers the software, the books and the campaigns together, so the
+						spend and the results are read side by side rather than in three
+						separate reports.
+					</p>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- CALLOUT: ONE-OFF -->
+	<section class="section centered" id="pricing-callouts">
+		<div class="spotlight">
+			<div class="callout-solo">
+				<article class="card callout">
 					<span class="font-eyebrow callout-eyebrow callout-eyebrow--muted">
 						Something more one-off?
 					</span>
@@ -321,6 +472,38 @@ const finePrint = [
 						size the work plainly before anything begins.
 					</p>
 				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- FUNDING: the price objection handler. This is where the cost question
+	     actually arises, which is why funding lives here rather than in the nav. -->
+	<section class="section centered" id="pricing-funding">
+		<div class="spotlight">
+			<div class="card funding-block">
+				<span class="font-eyebrow">Funding</span>
+				<h2 class="font-heading funding-title">
+					Ontario may cover part of this.
+				</h2>
+				<p class="font-body funding-copy">
+					Eligible Ontario for-profit SMEs can offset the setup and project side
+					of this work through the province's Digital Competence Centre. As of
+					July 2026, <strong>DMAP covers up to $15,000</strong> of planning, and
+					<strong>TDP up to $50,000</strong> of implementation for businesses that
+					have completed a DMAP and clear a $750,000 revenue floor. Ongoing
+					monthly service isn't grant-funded.
+				</p>
+				<p class="font-body funding-copy">
+					We'll tell you on the first call whether you plausibly qualify —
+					including when you don't. Approval and amounts are decided by OCI, not
+					by us.
+				</p>
+				<div class="cluster funding-actions">
+					<a class="cta-ghost" href="/funding">See what's available</a>
+					<span class="font-caption funding-note">
+						DMAP · TDP · RMPG · BDC LIFT — what each covers and who it rules out
+					</span>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -365,17 +548,6 @@ const finePrint = [
 		color: var(--color-mist);
 	}
 
-	/* Page hero */
-	.pricing-hero {
-		padding-block: clamp(4.5rem, 10vw, 8rem) clamp(2rem, 4vw, 3rem);
-	}
-	.pricing-title {
-		margin-top: 0.85rem;
-		font-size: clamp(2.4rem, 6vw, 4rem);
-		letter-spacing: -0.02em;
-		line-height: 1.05;
-	}
-
 	.section-note {
 		margin-top: 2.5rem;
 		text-align: center;
@@ -384,21 +556,37 @@ const finePrint = [
 		font-style: italic;
 	}
 
-	/* ---- IT & HR tiers ----
-	   Drive the framework's `.subgrid` via its public custom properties.
-	   Each card is a direct child spanning 3 row tracks (grid-template-rows:
-	   subgrid), so its three tranches — head, feature list, CTA — snap to the
-	   same shared row lines across all cards regardless of feature count. */
-	.tiers {
-		--items-per-row: 3;
-		--rows-per-item: 3;
-		--subgrid-gap: 1.5rem; /* gap between cards (columns) */
-		row-gap: 1.25rem; /* gap between tranches (rows) */
+	/* ---- Plan tiers ----
+	   Laid out by the framework's <Subgrid>: it renders the <ul>/<li> and puts
+	   `grid-template-rows: subgrid` on each card, so the three tranches — head,
+	   feature list, CTA — snap to shared row lines across all cards regardless
+	   of feature count.
+
+	   The variable names are the framework's public contract (@getvitops 0.9):
+	   --subgrid-cols / --subgrid-row-span / --subgrid-gap / --subgrid-row-gap.
+	   They must match exactly — an unrecognised name silently falls back to the
+	   pattern's default, and the default row-span is 2 against our 3 tranches,
+	   which drops the CTA out of the subgrid and onto its own auto row.
+
+	   --subgrid-gap is BOTH the column gap and the gap between tranches, so it
+	   can't be split here; --subgrid-row-gap is extra space once cards wrap.
+
+	   The <ul> and the card <li> are emitted inside the component, so they sit
+	   outside this page's style scope — hence :global(). Everything nested in
+	   the card is rendered from this file and stays scoped as usual. */
+	:global(.pricing-tiers) {
+		--subgrid-cols: 3;
+		--subgrid-row-span: 3; /* head · feature list · CTA */
+		--subgrid-gap: 1.5rem;
+		--subgrid-row-gap: 1.5rem; /* extra separation once cards wrap */
+		list-style: none;
+		margin: 0;
+		padding: 0;
 	}
-	.tier {
+	:global(.pricing-tier) {
 		padding: 2rem;
 	}
-	.tier--featured {
+	:global(.pricing-tier--featured) {
 		background: var(--color-navy-d);
 		border: 1px solid var(--color-pine);
 		box-shadow: 0 0 0 1px rgba(74, 144, 117, 0.25),
@@ -432,6 +620,11 @@ const finePrint = [
 		border-radius: var(--br-pill, 999px);
 		white-space: nowrap;
 	}
+	.tier-blurb {
+		margin-top: 0.75rem;
+		font-size: var(--text-s);
+		color: var(--color-mist);
+	}
 	.tier-price {
 		margin: 0;
 		display: flex;
@@ -461,6 +654,8 @@ const finePrint = [
 		margin: 0;
 		padding: 0;
 		display: grid;
+		align-content: start; /* the shared row is as tall as the longest list —
+		                         start the rows rather than stretching them apart */
 		gap: 0.7rem;
 	}
 	.feature-list li {
@@ -581,11 +776,6 @@ const finePrint = [
 	}
 
 	/* ---- Callouts ---- */
-	.callout-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1.5rem;
-	}
 	.callout {
 		display: flex;
 		flex-direction: column;
@@ -614,6 +804,34 @@ const finePrint = [
 		color: var(--color-snow);
 	}
 
+	/* ---- Funding ---- */
+	.funding-block {
+		padding: clamp(1.75rem, 4vw, 2.75rem);
+		border: 1px solid color-mix(in srgb, var(--color-pine) 28%, transparent);
+		background: color-mix(in srgb, var(--color-pine) 7%, var(--color-navy-d));
+		display: grid;
+		gap: 1rem;
+		max-width: 78ch;
+	}
+	.funding-title {
+		margin: 0.25rem 0 0;
+	}
+	.funding-copy {
+		color: var(--color-mist);
+		margin: 0;
+	}
+	.funding-copy strong {
+		color: var(--color-snow);
+	}
+	.funding-actions {
+		margin-top: 0.5rem;
+		align-items: center;
+		gap: 1rem 1.5rem;
+	}
+	.funding-note {
+		color: var(--color-slate);
+	}
+
 	/* ---- Fine print + close CTA ---- */
 	.fineprint-grid {
 		display: grid;
@@ -639,10 +857,9 @@ const finePrint = [
 	}
 
 	@media (max-width: 860px) {
-		.tiers {
-			--items-per-row: 1;
+		:global(.pricing-tiers) {
+			--subgrid-cols: 1;
 		}
-		.callout-grid,
 		.fineprint-grid {
 			grid-template-columns: 1fr;
 		}

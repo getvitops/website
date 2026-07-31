@@ -1,0 +1,87 @@
+---
+interface Link {
+	label: string;
+	href: string;
+}
+interface Props {
+	title: string;
+	lead?: string;
+	ctaLabel?: string;
+	ctaHref?: string;
+	/** One line beside the CTA — the funding nudge at the point of decision.
+	 *  Rendered as HTML so it can carry a link (see lib/copy.ts). */
+	note?: string;
+	links?: Link[];
+}
+const {
+	title,
+	lead,
+	ctaLabel = "Talk to us",
+	ctaHref = "/#contact",
+	note,
+	links = [],
+} = Astro.props;
+---
+
+<section class="page-cta section centered">
+	<div class="spotlight">
+		<h2 class="font-title cta-title">{title}</h2>
+		{lead && <p class="font-lead cta-lead">{lead}</p>}
+		<div class="cluster cta-actions">
+			<a class="cta" href={ctaHref}>{ctaLabel} <span class="arrow">→</span></a>
+			<span class="font-caption cta-email"
+				>Or email <a class="link" href="mailto:hi@vitops.ca">hi@vitops.ca</a
+				></span
+			>
+		</div>
+		{note && <p class="font-caption cta-note" set:html={note} />}
+		{
+			links.length > 0 && (
+				<nav class="cta-links" aria-label="Related pages">
+					{links.map((l) => (
+						<a class="link" href={l.href}>
+							{l.label}
+						</a>
+					))}
+				</nav>
+			)
+		}
+	</div>
+</section>
+
+<style>
+	.page-cta {
+		border-top: 1px solid var(--line-1);
+	}
+	.cta-title {
+		font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+		max-width: 22ch;
+	}
+	.cta-lead {
+		margin-top: 1rem;
+		color: var(--color-mist);
+		max-width: 60ch;
+	}
+	.cta-actions {
+		margin-top: 2rem;
+		align-items: center;
+		gap: 1rem 1.5rem;
+	}
+	.cta-email {
+		color: var(--color-slate);
+	}
+	.cta-note {
+		margin-top: 1rem;
+		color: var(--color-slate);
+		max-width: 60ch;
+	}
+	.cta-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.5rem;
+		margin-top: 2.5rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--line-1);
+		font-size: var(--text-s);
+	}
+</style>

@@ -25,39 +25,46 @@ import { readFileSync, writeFileSync } from "node:fs";
 const GENERATED = "dist/server/wrangler.json";
 const OUT = "dist/server/wrangler.dev.json";
 
+// Fall back to .env so the id can live beside the other local secrets rather
+// than only in the shell. process.loadEnvFile does not overwrite variables that
+// are already set, so an explicit export still wins.
+if (!process.env.VITOPS_DEV_D1_ID) {
+  try {
+    process.loadEnvFile(".env");
+  } catch {
+    // No .env (CI, fresh clone) — the guard below reports it properly.
+  }
+}
+
 const DEV_D1_ID = process.env.VITOPS_DEV_D1_ID;
 if (!DEV_D1_ID) {
-	console.error(
-		"ERROR: VITOPS_DEV_D1_ID is not set.\n" +
-			"Create the isolated dev database and export its id first:\n" +
-			"  wrangler d1 create vitops-dev\n" +
-			"  export VITOPS_DEV_D1_ID=<the id it prints>\n" +
-			"Refusing to continue — without it the dev worker could bind the prod DB.",
-	);
-	process.exit(1);
+  console.error(
+    "ERROR: VITOPS_DEV_D1_ID is not set (checked the environment and .env).\n" +
+      "Create the isolated dev database and record its id first:\n" +
+      "  wrangler d1 create vitops-dev\n" +
+      "  echo 'VITOPS_DEV_D1_ID=<the id it prints>' >> .env\n" +
+      "Refusing to continue — without it the dev worker could bind the prod DB.",
+  );
+  process.exit(1);
 }
 
 let cfg;
 try {
-	cfg = JSON.parse(readFileSync(GENERATED, "utf8"));
+  cfg = JSON.parse(readFileSync(GENERATED, "utf8"));
 } catch (err) {
-	console.error(
-		`ERROR: could not read ${GENERATED}. Run \`astro build\` first.\n${err}`,
-	);
-	process.exit(1);
+  console.error(`ERROR: could not read ${GENERATED}. Run \`astro build\` first.\n${err}`);
+  process.exit(1);
 }
 
 cfg.name = "vitops-dev";
 cfg.routes = [{ pattern: "dev.vitops.ca", custom_domain: true }];
 
 cfg.d1_databases = (cfg.d1_databases ?? []).map((d) =>
-	d.binding === "DB"
-		? { ...d, database_name: "vitops-dev", database_id: DEV_D1_ID }
-		: d,
+  d.binding === "DB" ? { ...d, database_name: "vitops-dev", database_id: DEV_D1_ID } : d,
 );
 
 cfg.r2_buckets = (cfg.r2_buckets ?? []).map((r) =>
-	r.binding === "MEDIA" ? { ...r, bucket_name: "vitops-dev" } : r,
+  r.binding === "MEDIA" ? { ...r, bucket_name: "vitops-dev" } : r,
 );
 
 // Flat config — no nested environments.
@@ -65,5 +72,5 @@ delete cfg.env;
 
 writeFileSync(OUT, `${JSON.stringify(cfg, null, 2)}\n`);
 console.log(
-	`Wrote ${OUT}\n  name:  ${cfg.name}\n  route: dev.vitops.ca\n  D1:    vitops-dev (${DEV_D1_ID})\n  R2:    vitops-dev`,
+  `Wrote ${OUT}\n  name:  ${cfg.name}\n  route: dev.vitops.ca\n  D1:    vitops-dev (${DEV_D1_ID})\n  R2:    vitops-dev`,
 );

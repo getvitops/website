@@ -1,0 +1,246 @@
+---
+import PineLayout from "../layouts/PineLayout.astro";
+import PageHero from "../components/page/PageHero.astro";
+import FundingCallout from "../components/page/FundingCallout.astro";
+import SectionIntro from "../components/page/SectionIntro.astro";
+import Cards from "../components/page/Cards.astro";
+import Prose from "../components/page/Prose.astro";
+import Faq from "../components/page/Faq.astro";
+import PageCta from "../components/page/PageCta.astro";
+import Schema from "../components/page/Schema.astro";
+import { breadcrumb, service } from "../lib/schema";
+import { FUNDING_CALLOUT, FUNDING_NOTE } from "../lib/copy";
+
+export const prerender = false;
+
+
+const problems = [
+	{
+		heading: "Nobody owns the list.",
+		body: "Licences for people who left. Tools that lost their champion. A handful of apps someone expensed and never mentioned. The invoice keeps clearing, so nothing prompts a review.",
+	},
+	{
+		heading: "The pieces don't talk.",
+		body: "Your CRM doesn't know what your accounting software knows. Someone bridges the gap by retyping it, every week, forever.",
+	},
+	{
+		heading: "Access is a favour, not a process.",
+		body: "New hires wait on a chain of forwarded emails. Leavers keep their logins for months. Both are the same missing process, and only one of them is visible.",
+	},
+	{
+		heading: "When something breaks, you triage it.",
+		body: "Many vendors, many support portals, many sets of hold music, and you're the one deciding which of them owns the problem.",
+	},
+];
+
+const work = [
+	{
+		tag: "01 · Choose",
+		heading: "The right software for how you actually work.",
+		body: "We look at how your team works before we look at what's available. Often the recommendation is to keep what you have and use more of it — a licence you already pay for usually beats a new subscription. Where something genuinely needs replacing, we say so and explain what it costs to move.",
+	},
+	{
+		tag: "02 · Implement and integrate",
+		heading: "The migration, the configuration, the connections.",
+		body: "We do the rollout and wire the systems together. The measure of success is that nobody is retyping data from one screen into another.",
+	},
+	{
+		tag: "03 · AI where it earns its place",
+		heading: "A narrow set of tasks, done properly.",
+		body: "We put AI where there's a repeated task with a clear input and a checkable output, and we get the permissions right first — a tool that can summarise your files can also surface the ones the wrong person shouldn't see. Where AI wouldn't help, we'll tell you.",
+	},
+	{
+		tag: "04 · Run it",
+		heading: "Identity, licences, endpoints, support.",
+		body: "Identity and lifecycle, licence tuning, endpoint security on every device, and the day-to-day support your team leans on. On the managed tier this is continuous rather than a project.",
+	},
+];
+
+const faq = [
+	{
+		q: "Is this the same as hiring an MSP?",
+		a: "No, and the difference is what we're accountable for. An MSP keeps infrastructure running and bills against tickets. We choose and run the software your business operates on, integrate it, and act as the single point of contact across every vendor in the stack — including the ones an MSP wouldn't touch, like your HR system or your accounting software.",
+	},
+	{
+		q: "What happens when we already have an IT provider?",
+		a: "That's common and it works fine. We handle software operations, identity, licensing and vendor coordination; they keep doing whatever they do well. We'd rather coordinate with them than replace them, and we'll say so honestly if we think the overlap isn't worth paying for twice.",
+	},
+	{
+		q: "How quickly do you answer when something breaks?",
+		a: "Business hours on the Foundations tier, with continuous monitoring and vendor escalation on Managed. Response targets are on the pricing page — we publish them rather than negotiate them per client.",
+	},
+	{
+		q: "Will you actually recommend we buy less software?",
+		a: "Frequently. The first pass on a new account usually finds duplicate tools and licences nobody's opened in months, and cutting those often covers a meaningful share of what we cost. That's a better first month than selling you something.",
+	},
+	{
+		q: "Is AI enablement just Copilot licences?",
+		a: "Copilot is often part of it, but buying the licence is the easy step and not the one that makes it work. The work is fixing file permissions so it doesn't surface things it shouldn't, connecting it to the systems where your actual data lives, and showing people the handful of tasks it genuinely does better. Where none of that adds up, we'll say the licence isn't worth buying.",
+	},
+	{
+		q: "Can government funding cover this?",
+		a: "Often, for eligible Ontario for-profit SMEs. DMAP covers up to $15,000 of planning work, and TDP up to $50,000 of implementation for businesses that have completed a DMAP and clear a $750,000 revenue floor. We'll tell you before you apply whether you're likely to qualify. Approval and amounts are decided by OCI, not us.",
+	},
+];
+
+const platforms = [
+	"Microsoft 365",
+	"Google Workspace",
+	"Zoho One",
+	"QuickBooks",
+	"Rippling",
+	"Intune",
+	"CrowdStrike",
+	"NinjaOne",
+];
+---
+
+<PineLayout
+	title="Business software selection, integration and support"
+	description="We choose your software, wire it together, add AI where it earns its place, and become the one number you call when any of it breaks. Ontario SMEs, one partner on file."
+>
+	<Schema
+		data={service(
+			"Business software operations",
+			"Software selection, implementation, integration, AI enablement and day-to-day support for Ontario small businesses.",
+			"/business-software",
+		)}
+	/>
+	<Schema data={breadcrumb(["Business software", "/business-software"])} />
+
+	<FundingCallout
+		text={FUNDING_CALLOUT}
+	/>
+
+	<PageHero
+		eyebrow="Business software"
+		title="The software stack, selected, wired, and run."
+		lead="Most companies don't have a software problem so much as a software sprawl problem. Tools bought for one reason, kept for another, half-integrated, and nobody quite sure who owns which login. We pick what you actually need, connect the pieces, and take responsibility for the whole thing working."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			Business software management means keeping an accurate picture of every
+			application a company pays for, who actually uses it, how the pieces
+			connect, and what happens when one of them stops working. For a
+			fifty-person company it usually means reclaiming somewhere between a tenth
+			and a third of the software budget in the first year, and cutting the time
+			a new hire waits for access from days to under an hour.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="What goes wrong"
+				title="Software decisions get made once, then never revisited."
+				lead="Every tool in your stack was a reasonable choice on the day it was chosen. The trouble is that nobody's job is to look at all of them together, and the cost of that shows up slowly."
+			/>
+			<Cards cards={problems} />
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="What we do"
+				title="Four things, in the order they matter."
+				lead="This is deliberately sequential. Integrating tools you shouldn't be paying for, or putting AI on top of data nobody has organised, is work that has to be undone later."
+			/>
+			<Cards cards={work} />
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="When something breaks"
+				title="One number, every vendor."
+				lead="This is the part most people underestimate until they've lived without it. You don't call the software vendor, and you don't work out which of your vendors owns the problem. You call us."
+			/>
+			<div class="prose-inline">
+				<p class="font-body">
+					We're your first line. Most things get resolved without going any
+					further — access, configuration, the thing that worked yesterday.
+					What doesn't, we escalate on your behalf, to the vendor, in their
+					language, with the diagnostics they need, and we chase it. You find
+					out when it's fixed.
+				</p>
+				<p class="font-body">
+					What that's worth is not really the fixing. It's that nobody on your
+					team spends an afternoon establishing whose fault something is.
+				</p>
+				<p class="font-body limit">
+					We're not a break-fix shop and we don't do desk-side hardware repair.
+					If a laptop's screen is broken we'll manage the warranty claim and
+					get a replacement enrolled, but somebody local is physically handling
+					it.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="Platforms" title="The tools we're in every day." />
+			<ul class="platform-list">
+				{platforms.map((p) => <li>{p}</li>)}
+			</ul>
+			<p class="font-caption industry-row">
+				This lands differently depending on what you run — <a
+					class="link"
+					href="/industries">see who we work with</a
+				>.
+			</p>
+		</div>
+	</section>
+
+	<Faq items={faq} />
+
+	<PageCta
+		title="Tell us what you're running."
+		lead="Send us the list — or the invoices, if there isn't a list. We'll come back with what's duplicated, what's unused, and what we'd change first."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Digital presence", href: "/digital-presence" },
+			{ label: "Back office", href: "/back-office" },
+			{ label: "Pricing", href: "/pricing" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.prose-inline {
+		max-width: 68ch;
+		color: var(--color-mist);
+		display: grid;
+		gap: 1.1rem;
+	}
+	.prose-inline .limit {
+		padding-top: 1.1rem;
+		border-top: 1px solid var(--line-1);
+		color: var(--color-slate);
+	}
+	.platform-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+	}
+	.platform-list li {
+		border: 1px solid var(--line-1);
+		border-radius: 999px;
+		padding: 0.4rem 0.9rem;
+		font-size: var(--text-s);
+		color: var(--color-mist);
+	}
+	.industry-row {
+		margin-top: 2rem;
+		color: var(--color-slate);
+	}
+</style>
