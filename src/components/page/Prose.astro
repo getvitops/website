@@ -1,46 +1,23 @@
 ---
-// A plain measured text block — the "direct answer" opener and the longer
-// argument sections. Kept narrow; answer engines lift whole paragraphs.
+// A measured text block — the "direct answer" opener and longer argument
+// sections. Answer engines lift whole paragraphs, so the measure matters.
+//
+// No scoped CSS: `centered` puts a child WITHOUT `spotlight`/`breakout` in the
+// reading `measure` track automatically, and `rhythm` spaces the paragraphs.
 interface Props {
-	/** Renders as the section's quotable opening paragraph. */
+	/** Renders the block as the section's quotable opening paragraph. */
 	lead?: boolean;
 }
 const { lead = false } = Astro.props;
 ---
 
-<section class="prose-block section centered">
-	<div class:list={["spotlight", "prose", lead && "prose-lead"]}>
+<section class="section centered">
+	<div
+		class:list={[
+			"rhythm",
+			lead ? "font-lead text-neutral" : "font-body text-neutral-muted",
+		]}
+	>
 		<slot />
 	</div>
 </section>
-
-<style>
-	.prose-block {
-		padding-block: 2.5rem;
-	}
-	.prose {
-		max-width: 72ch;
-		color: var(--color-mist);
-	}
-	.prose :global(p) {
-		margin-block: 0 1.1em;
-	}
-	.prose :global(p:last-child) {
-		margin-block-end: 0;
-	}
-	.prose-lead :global(p) {
-		font-size: var(--text-l);
-		color: var(--color-snow);
-	}
-	.prose :global(strong) {
-		color: var(--color-snow);
-	}
-	.prose :global(.pull-quote) {
-		margin-block: 2rem;
-		padding-inline-start: 1.5rem;
-		border-inline-start: 2px solid var(--color-pine);
-		font-family: var(--font-display);
-		font-size: var(--text-l);
-		color: var(--color-snow);
-	}
-</style>

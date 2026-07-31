@@ -1,7 +1,7 @@
 ---
-// The site's section unit: eyebrow → H2 → lead. Previously duplicated (with its
-// styles) in every homepage section because Astro scopes styles per component;
-// interior pages share this one instead.
+// The site's section unit: eyebrow → H2 → lead.
+// Framework classes only (`npx vitops docs classes`): `rhythm` supplies the
+// vertical flow, `text-neutral-muted` is the functional colour token.
 interface Props {
 	eyebrow?: string;
 	title: string;
@@ -10,24 +10,9 @@ interface Props {
 const { eyebrow, title, lead } = Astro.props;
 ---
 
-<header class="section-intro">
+<header class="rhythm max-w-[60ch] mb-12">
 	{eyebrow && <span class="font-eyebrow">{eyebrow}</span>}
 	<h2 class="font-title">{title}</h2>
-	{lead && <p class="font-lead section-lead">{lead}</p>}
+	{lead && <p class="font-lead text-neutral-muted">{lead}</p>}
 	<slot />
 </header>
-
-<style>
-	.section-intro {
-		max-width: 60ch;
-		margin-bottom: 3rem;
-	}
-	.section-intro .font-title {
-		margin-top: 0.75rem;
-		font-size: clamp(1.8rem, 3.6vw, 2.6rem);
-	}
-	.section-lead {
-		margin-top: 1rem;
-		color: var(--color-mist);
-	}
-</style>
