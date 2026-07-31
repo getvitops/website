@@ -22,7 +22,7 @@ const opsTiers = [
 		name: "Foundations",
 		price: "$69",
 		unit: "/ user / mo",
-		blurb: "The full software side, run for you — everything except the back office.",
+		blurb: "The software side run for you, on a set cadence.",
 		features: [
 			"Everything in Basics, plus:",
 			"Joiner / mover / leaver basics — onboarding & offboarding handled",
@@ -38,10 +38,9 @@ const opsTiers = [
 		price: "$119",
 		unit: "/ user / mo",
 		tag: "Fully managed",
-		blurb: "Everything in Foundations, plus the bookkeeping, payroll and benefits run for you.",
+		blurb: "Foundations, but continuous — monitored, automated, and we take the vendor calls.",
 		features: [
 			"Everything in Foundations, plus:",
-			"Managed back office: bookkeeping, payroll and benefits administration",
 			"Full identity & lifecycle management (SCIM / JML automation)",
 			"Continuous endpoint security monitoring",
 			"Day-to-day software support & vendor escalation",
@@ -210,11 +209,11 @@ const finePrint = [
 		secondaryHref="#pricing-funding"
 	/>
 
-	<!-- SOFTWARE OPERATIONS -->
+	<!-- BUSINESS SOFTWARE -->
 	<section class="section centered" id="it-hr-pricing">
 		<div class="spotlight">
 			<header class="section-intro">
-				<span class="font-eyebrow">Software operations</span>
+				<span class="font-eyebrow">Business software</span>
 				<h2 class="font-title">Priced per employee, right-sized as your team grows.</h2>
 				<p class="font-body section-lead">
 					The software your business runs on: selection, integration, identity and
@@ -276,8 +275,8 @@ const finePrint = [
 					Bookkeeping, payroll and benefits administration scale with
 					transaction volume and entity count, not with how many people you
 					employ — so they're priced per service, not per seat. Take one, take
-					all of them, or get the whole back office as part of the
-					<a class="link" href="#it-hr-pricing">Managed</a> plan.
+					all of them, or combine them with the other two services for a
+					<a class="link" href="#pricing-bundles">bundle discount</a>.
 				</p>
 			</header>
 
@@ -305,9 +304,7 @@ const finePrint = [
 			<p class="section-note breakout">
 				Onboarding and offboarding isn't listed here — it spans both halves and
 				is already in the Foundations and Managed
-				<a class="link" href="#it-hr-pricing">software operations</a> plans.
-				Managed also folds in everything above; these rates are for taking back
-				office on its own, or alongside Basics or Foundations.
+				<a class="link" href="#it-hr-pricing">business software</a> plans.
 			</p>
 		</div>
 	</section>
@@ -401,20 +398,68 @@ const finePrint = [
 		</div>
 	</section>
 
-	<!-- CALLOUTS: BUNDLE + ONE-OFF -->
-	<section class="section centered" id="pricing-callouts">
+	<!-- BUNDLES -->
+	<!--
+		Each pricing block above sells one thing at one price — no service is
+		quoted twice, so there is no per-seat vs per-service crossover to reason
+		about. What combining actually buys lives here instead, and the argument
+		is deliberately about capability before discount: the integrations only
+		exist when the same partner runs both halves. That is the company's whole
+		thesis, so this section is where it gets made concretely.
+	-->
+	<section class="section centered" id="pricing-bundles">
 		<div class="spotlight">
-			<div class="callout-grid">
-				<article class="card callout callout--bundle">
-					<span class="font-eyebrow callout-eyebrow">Vitops Complete</span>
-					<h3 class="font-heading callout-title">Bundle &amp; save.</h3>
-					<p class="font-body callout-copy">
-						Combine services from two or more of Software operations, Back
-						office and Digital presence and save <strong>10%</strong> on the
-						combined monthly total. One team, one bill, one number to call.
+			<header class="rhythm max-w-[60ch] mb-12">
+				<span class="font-eyebrow">Vitops Complete</span>
+				<h2 class="font-title">What you get by combining them.</h2>
+				<p class="font-lead text-neutral-muted">
+					Each service stands on its own. Together they close loops that stay
+					open when two vendors own the halves — and the combined monthly total
+					drops <strong>10%</strong> from the second service on.
+				</p>
+			</header>
+
+			<div class="grid gap-6 @md:grid-cols-3">
+				<article class="card rhythm">
+					<span class="font-eyebrow text-brand-primary">Software + Back office</span>
+					<h3 class="font-heading">Onboarding stops being a handoff.</h3>
+					<p class="font-body text-neutral-muted">
+						The same partner runs the HRIS and the identity system, so a new
+						hire's accounts, licences and permissions exist before their first
+						shift — and a leaver's are gone the same day, everywhere. Split
+						across two vendors, that's an email and a wait.
 					</p>
 				</article>
 
+				<article class="card rhythm">
+					<span class="font-eyebrow text-brand-primary">Software + Digital presence</span>
+					<h3 class="font-heading">The lead lands somewhere that works.</h3>
+					<p class="font-body text-neutral-muted">
+						Enquiries go into a CRM we configured, route to a named person, and
+						trigger a follow-up whether or not anyone's at a desk. When the site
+						and the systems behind it belong to different vendors, this is
+						exactly where leads go quiet.
+					</p>
+				</article>
+
+				<article class="card rhythm">
+					<span class="font-eyebrow text-brand-primary">All three</span>
+					<h3 class="font-heading">One operator, one bill, one number.</h3>
+					<p class="font-body text-neutral-muted">
+						Nobody establishes whose fault something is. One quarterly review
+						covers the software, the books and the campaigns together, so the
+						spend and the results are read side by side rather than in three
+						separate reports.
+					</p>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- CALLOUT: ONE-OFF -->
+	<section class="section centered" id="pricing-callouts">
+		<div class="spotlight">
+			<div class="callout-solo">
 				<article class="card bg-navy-d callout">
 					<span class="font-eyebrow callout-eyebrow callout-eyebrow--muted">
 						Something more one-off?
@@ -724,11 +769,6 @@ const finePrint = [
 	}
 
 	/* ---- Callouts ---- */
-	.callout-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1.5rem;
-	}
 	.callout {
 		display: flex;
 		flex-direction: column;
@@ -813,7 +853,6 @@ const finePrint = [
 		:global(.pricing-tiers) {
 			--cols: 1;
 		}
-		.callout-grid,
 		.fineprint-grid {
 			grid-template-columns: 1fr;
 		}
