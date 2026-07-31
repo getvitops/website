@@ -25,7 +25,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="page-hero section centered">
+<section class="page-hero page-hero-glow section centered">
 	<div class="spotlight">
 		<span class="font-eyebrow">{eyebrow}</span>
 		<h1 class="font-display page-hero-title">{title}</h1>
@@ -47,16 +47,30 @@ const {
 <style>
 	.page-hero {
 		padding-block-start: 4rem;
+		overflow: hidden;
 	}
+	/* Same pine glow as the homepage hero. Redeclared rather than reusing
+	   `.hero-glow` from sections/Hero.astro — that rule is Astro-scoped to
+	   that component, so the class alone would carry no styles here. */
+	.page-hero-glow {
+		background: radial-gradient(
+			ellipse 80% 60% at 30% 0%,
+			rgba(74, 144, 117, 0.1) 0%,
+			transparent 70%
+		);
+	}
+	/* Widths track the .spotlight marketing column (78rem) rather than the
+	   reading measure, so the hero fills the grid it sits on. The type scale
+	   stays below the homepage's so pillar pages don't compete with `/`. */
 	.page-hero-title {
 		margin-block: 1.25rem 1.5rem;
 		font-size: clamp(2.2rem, 4.6vw, 3.4rem);
 		line-height: 1.05;
-		max-width: 20ch;
+		max-width: 28ch;
 	}
 	.page-hero-lead {
 		color: var(--color-mist);
-		max-width: 60ch;
+		max-width: 72ch;
 	}
 	.hero-cta {
 		margin-top: 2rem;
