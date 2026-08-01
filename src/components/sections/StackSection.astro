@@ -1,20 +1,30 @@
 ---
-// MANAGED STACK ANIMATION — extracted verbatim from src/pages/index.astro
-// (A/B layer-3 enabler refactor). The `id="it-hr"` anchor is load-bearing.
+// VITOPS COMPLETE — the home page's one deep section. Everything else on the
+// home page is brief; this is where the bundle argument gets made, and step 04
+// of the stack animation ("Run the day to day") carries it. Only that step
+// renders here — the full five-step sequence is on /business-software and the
+// presence animation is on /digital-presence, so the home page stays a summary.
+//
+// The `id="complete"` anchor is load-bearing — Hero's "See how it works" CTA
+// points at it.
 import StackAnimation from "../StackAnimation.astro";
 ---
 
-<!-- MANAGED STACK ANIMATION -->
-<section class="stack-section section centered" id="it-hr">
+<!-- VITOPS COMPLETE — bundle section + stack animation -->
+<section class="stack-section section centered" id="complete">
 	<div class="spotlight">
 		<header class="section-intro">
-			<span class="font-eyebrow">Business software, managed</span>
-			<h2 class="font-title">Managed Software Operations.</h2>
+			<span class="font-eyebrow">Vitops Complete</span>
+			<h2 class="font-title">All three, run by one team.</h2>
 			<p class="font-lead section-lead">
-				We help you decide which software licences to onboard, implement them, and setup integrations and AI-enablement where appropriate. If you want continuous optimization to make sure you're getting the most of our your software, we offer this as a managed service, freeing you from the grind of operations.
+				Take one service or take all three. Taken together they stop being three
+				vendors and become one operation: one team helping to choose and running
+				the software, one workflow behind every joiner and leaver, one dashboard,
+				one bill, and one number to call. Here is what that looks like day to
+				day.
 			</p>
 		</header>
-		<StackAnimation />
+		<StackAnimation steps={[3]} />
 	</div>
 </section>
 

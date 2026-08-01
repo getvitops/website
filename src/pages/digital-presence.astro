@@ -8,6 +8,7 @@ import Prose from "../components/page/Prose.astro";
 import Faq from "../components/page/Faq.astro";
 import PageCta from "../components/page/PageCta.astro";
 import Schema from "../components/page/Schema.astro";
+import PresenceAnimation from "../components/PresenceAnimation.astro";
 import { breadcrumb, service } from "../lib/schema";
 import { FUNDING_CALLOUT, FUNDING_NOTE } from "../lib/copy";
 
@@ -30,29 +31,6 @@ const problems = [
 	{
 		heading: "Nobody's steered it since launch.",
 		body: "Campaigns get built well and then left. Twelve months later the budget is going to keywords that stopped converting in month three.",
-	},
-];
-
-const work = [
-	{
-		tag: "01 · The website",
-		heading: "Built for speed and clarity.",
-		body: "Semantic markup, real accessibility, and forms that go somewhere specific — into your CRM, to a named person, with a follow-up that fires whether or not anyone's at a desk. Managed on our infrastructure, or handed over on open standards if you'd rather own it.",
-	},
-	{
-		tag: "02 · Search, and answer engines",
-		heading: "Foundations first, then the answers.",
-		body: "Structure, schema, crawlability, Core Web Vitals. Then the content that answers what people actually ask. Increasingly the query happens in a chat window rather than a search box, and being the source it quotes is different work from ranking — we do both, and we're explicit about which one a given change serves.",
-	},
-	{
-		tag: "03 · Paid campaigns",
-		heading: "Steered monthly, against booked work.",
-		body: "Google Search, Local Services Ads, and paid social where the audience is genuinely there. Measured against booked work, not impressions. Small budgets are fine and often better — a tight local campaign beats a broad one at the same spend.",
-	},
-	{
-		tag: "04 · Social and listings",
-		heading: "Active where someone checks.",
-		body: "Enough social presence that you look active when someone looks, without pretending it's a content operation. Google, Bing and Apple listings verified and consistent, because that's what a buyer looks at last, right before deciding.",
 	},
 ];
 
@@ -125,20 +103,26 @@ const faq = [
 		<div class="spotlight">
 			<SectionIntro
 				eyebrow="What goes wrong"
-				title="Ads are the easy part."
+				title="Ads are just the beginning."
 				lead="The hard part is everything after the click — whether the site loads, whether the form goes anywhere, whether anyone answers. Spending more at the top of that doesn't fix any of it."
 			/>
 			<Cards cards={problems} />
 		</div>
 	</section>
 
-	<section class="section centered">
+	<!--
+		This replaces the "What we do" card grid that used to sit above it — the
+		animation covers the same four surfaces with more in each. Moved here from
+		the home page, which now carries only the bundle section.
+	-->
+	<section class="section centered" id="how-it-works">
 		<div class="spotlight">
 			<SectionIntro
 				eyebrow="What we do"
 				title="Four surfaces, kept in step."
+				lead="A site built to perform, found where buyers look, campaigns that compound, and social that shows up — in the order a buyer meets them."
 			/>
-			<Cards cards={work} />
+			<PresenceAnimation />
 		</div>
 	</section>
 
@@ -171,11 +155,10 @@ const faq = [
 				</p>
 			</div>
 			<p class="font-caption industry-row">
-				How this lands in <a class="link" href="/industries/trades">trades</a>,
-				<a class="link" href="/industries/real-estate">real estate</a>,
-				<a class="link" href="/industries/professional-services"
-					>professional firms</a
-				> and <a class="link" href="/industries/clinics">clinics</a>.
+				This lands differently depending on what you run — <a
+					class="link"
+					href="/industries">see who we work with</a
+				>.
 			</p>
 		</div>
 	</section>

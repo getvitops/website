@@ -37,7 +37,7 @@ const work = [
 	{
 		tag: "01 · Joiner, mover, leaver",
 		heading: "One workflow, both ends.",
-		body: "When someone starts, their accounts, licences and permissions are provisioned before day one. When they change roles, permissions change with them rather than accumulating. When they leave, access is revoked everywhere the same day, the device comes back, the licence is reclaimed, and the ROE goes out on time.",
+		body: "When someone starts, the record, the paperwork, the payroll and the benefits enrolment are ready before day one; when they leave, the final pay and the ROE go out on time. Paired with any business-software plan, the same trigger provisions their accounts, licences and permissions before day one and revokes access everywhere the same day they leave — one workflow instead of two teams emailing each other.",
 	},
 	{
 		tag: "02 · Payroll",
@@ -50,40 +50,58 @@ const work = [
 		body: "Your broker designs and sells the plan; we run the daily administration of it, keep payroll deductions synchronised with what the plan actually says, and answer the employee questions so they don't come to you.",
 	},
 	{
-		tag: "04 · HR operations",
-		heading: "The HRIS, configured and maintained.",
-		body: "Employee records, time off, policy acknowledgements, document retention. Set up properly once, then maintained, so the answer to “where is that signed?” takes seconds.",
+		tag: "04 · Bookkeeping",
+		heading: "The books, current rather than reconstructed.",
+		body: "Transaction coding, bank and credit card reconciliations, and a monthly close on a set cadence, so at any point in the year you can see where you actually are rather than finding out in March what happened last May.",
 	},
 ];
 
+// Ordered deliberately: what this is → what it isn't (the three "do you replace
+// X" boundary questions together) → how it runs → what it runs on → compliance
+// → funding. Flat list, but a reader going top to bottom gets a coherent
+// argument rather than a shuffle.
+//
+// Anything promising account provisioning or same-day revocation MUST say it
+// needs the business-software side. Joiner/mover/leaver is in that plan, run
+// as a worked process — we don't sell SCIM automation. Neither is priced in these
+// back-office services — an answer implying it comes with bookkeeping is
+// selling something we don't price here. See the JML note in pricing.astro.
 const faq = [
 	{
 		q: "Is this fractional HR?",
-		a: "No. A fractional HR consultant gives you advice and a plan, and you implement it. We do the running: the pay runs go out, the enrolments get processed, the accounts get provisioned. If you need someone to design a compensation philosophy, that's a different kind of help and we'll point you at it.",
-	},
-	{
-		q: "Do you replace our bookkeeper or office manager?",
-		a: "The bookkeeping, often yes — that's a service we run outright, and clients frequently come to us to take it over. An office manager, usually not: more often we take the pieces they dread and give them their week back. Where a role genuinely overlaps we'll say so rather than quietly duplicating it, and the comparison worth doing is against what the coverage costs to hire.",
+		a: "No. A fractional HR consultant gives you advice and a plan, and you implement it. We do the running: the pay runs go out, the enrolments get processed, the records stay current. If you need someone to design a compensation philosophy, that's a different kind of help and we'll point you at it.",
 	},
 	{
 		q: "Who's the employer of record?",
 		a: "You are. We administer; we don't take on employment liability or become a co-employer. That's a deliberate choice — the arrangements that do take it on cost considerably more and constrain how you hire.",
 	},
 	{
-		q: "How does this connect to the software side?",
-		a: "It's the same workflow seen from two ends. When HR processes a new hire, the accounts, licences and permissions provision automatically. When HR processes a termination, access revokes across every system the same day. Companies that split these between two vendors are the ones with ghost accounts, and they usually don't know it.",
-	},
-	{
 		q: "Do you replace our accountant?",
 		a: "No. We keep the books; your CPA does year-end, tax planning, and anything a lender or buyer needs. The two roles are complementary, and accountants generally prefer working from books that were maintained rather than assembled in a hurry — it makes their half cheaper too.",
+	},
+	{
+		q: "Do you replace our bookkeeper or office manager?",
+		a: "The bookkeeping, often yes — that's a service we run outright, and clients frequently come to us to take it over. An office manager, usually not: more often we take the pieces they dread and give them their week back. Where a role genuinely overlaps we'll say so rather than quietly duplicating it, and the comparison worth doing is against what the coverage costs to hire.",
+	},
+	{
+		q: "Can I take just one of these services?",
+		a: "Yes. Bookkeeping, managed payroll and benefits administration are priced and sold separately, and plenty of clients start with one. Combining them lowers the total from the second service on, but nothing here requires you to take the rest. The HRIS itself isn't on this list — it sits in the business software plans, because the joiner/mover/leaver workflow runs against it.",
 	},
 	{
 		q: "How current do the books stay?",
 		a: "Reconciliations and coding run on a set cadence with a proper month-end close, so at any point in the year you can see where you actually are. The alternative most owners live with is finding out in March what happened last May.",
 	},
 	{
+		q: "Does onboarding and offboarding come with this?",
+		a: "The HR half does — the record, the paperwork, the payroll and benefits setup, the ROE on the way out. The part people usually mean, where accounts, licences and permissions are provisioned before day one and revoked everywhere the same day someone leaves, is identity work: it comes with the business-software plan rather than with these services. Take back office alone and we run the HR side of a joiner or leaver; take both and the two ends become one workflow with nothing handed between them.",
+	},
+	{
+		q: "How does this connect to the software side?",
+		a: "When you take both, it's the same workflow seen from two ends: HR processes a new hire and the accounts, licences and permissions follow; HR processes a termination and access revokes across every system that day. That half of it is the business-software side, which covers it as standard. It's a worked process rather than an automated pipeline — the thing that makes it reliable is that one team holds both ends, not that a script runs it. Companies that split these between two vendors are the ones with ghost accounts, and they usually don't know it.",
+	},
+	{
 		q: "What accounting software do you use?",
-		a: "Whatever you're on, if it's working — usually QuickBooks or Xero. Because we also run your software stack, we own the bank feeds, receipt capture and the integrations into payroll and your CRM, rather than working around whatever someone else configured.",
+		a: "Whatever you're on, if it's working — usually QuickBooks or Xero. If we also run your software stack, we own the bank feeds, receipt capture and the integrations into payroll and your CRM rather than working around whatever someone else configured; if we don't, we work with what's there.",
 	},
 	{
 		q: "What payroll software do you use?",
@@ -107,7 +125,7 @@ const faq = [
 	<Schema
 		data={service(
 			"Back-office operations",
-			"Managed payroll, benefits administration, HR operations, employee lifecycle and bookkeeping for Ontario small businesses.",
+			"Managed payroll, benefits administration, employee lifecycle and bookkeeping for Ontario small businesses.",
 			"/back-office",
 		)}
 	/>
@@ -241,11 +259,10 @@ const faq = [
 				</p>
 			</div>
 			<p class="font-caption industry-row">
-				How this lands in <a class="link" href="/industries/trades">trades</a>,
-				<a class="link" href="/industries/real-estate">real estate</a>,
-				<a class="link" href="/industries/professional-services"
-					>professional firms</a
-				> and <a class="link" href="/industries/clinics">clinics</a>.
+				This lands differently depending on what you run — <a
+					class="link"
+					href="/industries">see who we work with</a
+				>.
 			</p>
 		</div>
 	</section>

@@ -5,47 +5,87 @@ import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 
 export const prerender = false;
 
-// --- IT & HR Operations: priced per employee, per month ---------------------
-const opsTiers = [
+// --- IT & HR Operations: priced per user, per month -------------------------
+//
+// "User", not "employee", everywhere on this page. It's the wider word — a
+// contractor isn't an employee but still has accounts and still runs through
+// payroll — and it's the unit we actually bill on, so it stays consistent with
+// the back-office lines below.
+// ONE plan, plus two add-ons. Three attempts at a tier ladder collapsed here
+// (Basics/Foundations/Managed, then Foundations/Framework/Keystone), and the
+// reason is structural rather than a naming problem: tiers work when
+// capabilities cluster into bundles that map to buyer segments, and these
+// don't. There is one operational service, plus two discrete things that scale
+// differently from it — backup is a licence pass-through with a real per-user
+// cost, response time is a labour commitment. Add-ons price both honestly;
+// every tier draft had to explain the bundling away in an FAQ. If you find
+// yourself drawing a ladder again, check whether the new tier is a capability
+// cluster or just an add-on wearing a tier's clothes.
+//
+// MFA is in the BASE and stays there. Charging extra for multi-factor in 2026
+// is charging for the lock on the door, and every competitor who tiers it looks
+// worse the moment a buyer notices. It's also the only part of the old "access
+// security" line we can actually deliver.
+//
+// SSO is deliberately NOT sold. Most SaaS vendors gate SAML behind their own
+// enterprise plan (the "SSO tax"), so the client pays per-app upgrades to enable
+// the very thing we'd charge to configure — billing for access to a cost we just
+// imposed on them. Revisit only if we standardise on an IDaaS (JumpCloud is the
+// SMB-priced one; Okta's SKUs stack past what this segment absorbs), and even
+// then it's a pass-through, not margin.
+//
+// Managed EDR/MDM, device management and SCIM lifecycle automation are NOT
+// offered — see the honest-gap callout below the plan, which stands in for the
+// pulled "Keystone" tier. Restore from git history when MDR exists.
+//
+// $49 prices this as the whole software product rather than the bottom rung of
+// a ladder: stack selection and integration, AI enablement, the HRIS, full JML
+// with licence and access management, MFA, and first-line support across every
+// vendor. The HRIS sits here rather than in back office because JML runs
+// against it; a system of record priced in a different pillar from the workflow
+// that depends on it was a dependency sold away from its dependant.
+const softwarePlan = {
+	name: "Business software operations",
+	price: "$49",
+	unit: "/ user / mo",
+	blurb:
+		"The whole software side of the business, run by one team — chosen, wired, kept current, and answered for.",
+	features: [
+		"Software selection, implementation and integration",
+		"Onboarding, offboarding, and moving (JML), with automatic licence and access management",
+		"HRIS configured and maintained",
+		"Multi-factor authentication on every account, enforced and checked",
+		"Email & ticket support in business hours",
+	],
+};
+
+// Add-ons state ABSOLUTE commitments, never relative ones. "Priority support —
+// ahead of the queue" was drafted and cut: priority over whom? It means less
+// with every client who buys it, and the ones who bought first are the ones who
+// notice. A stated response time stays true at any volume.
+//
+// ⚠️ Managed backup is not confirmed as deliverable — the tooling has to exist
+// before this ships. Wholesale runs ~$3–5.50 CAD/user/mo (Veeam, Dropsuite,
+// Datto, Keepit), so $12 carries the licence and the labour with room left.
+const softwareAddons = [
 	{
-		name: "Basics",
-		price: "$35",
-		unit: "/ user / mo",
-		blurb: "We choose and maintain the stack. You still run it day to day.",
-		features: [
-			"Software selection, implementation, and integration guidance",
-			"Ongoing license maintenance",
+		name: "Managed backup",
+		price: "$12",
+		period: "/ user / mo",
+		included: [
+			"Microsoft 365 or Google Workspace — mail, files and chat, backed up independently of the vendor",
+			"A retention window you control, rather than the vendor's default",
+			"Replication isn't recovery: this is what restores a mailbox someone emptied in March",
 		],
-		highlighted: false,
 	},
 	{
-		name: "Foundations",
-		price: "$69",
-		unit: "/ user / mo",
-		blurb: "The software side run for you, on a set cadence.",
-		features: [
-			"Everything in Basics, plus:",
-			"Joiner / mover / leaver basics — onboarding & offboarding handled",
-			"Baseline endpoint security on every device",
-			"License tuning & right-sizing across your stack",
-			"Quarterly operations review — one dashboard, one bill",
-			"Email & ticket support, business hours",
+		name: "Priority response",
+		price: "$18",
+		period: "/ user / mo",
+		included: [
+			"First response within one business hour, against next business day on the base plan",
+			"An escalation path agreed up front, with a named person at the end of it",
 		],
-		highlighted: true,
-	},
-	{
-		name: "Managed",
-		price: "$119",
-		unit: "/ user / mo",
-		tag: "Fully managed",
-		blurb: "Foundations, but continuous — monitored, automated, and we take the vendor calls.",
-		features: [
-			"Everything in Foundations, plus:",
-			"Full identity & lifecycle management (SCIM / JML automation)",
-			"Continuous endpoint security monitoring",
-			"Day-to-day software support & vendor escalation",
-		],
-		highlighted: false,
 	},
 ];
 
@@ -86,34 +126,53 @@ const presenceServices = [
 	},
 ];
 
-// --- Back Office: priced per service ----------------------------------------
+// --- Back Office ------------------------------------------------------------
 //
 // Bookkeeping's rate is confirmed. Payroll, benefits administration and HR
 // operations are still ⚠️ PLACEHOLDER figures — plausible Canadian SMB numbers
 // chosen so the structure could be reviewed. Confirm them before production.
 //
-// Priced per service, NOT per seat, deliberately: software licences scale with
-// headcount, but bookkeeping scales with transaction volume and entity count.
-// A 12-person contractor with three entities and heavy AP is more work than a
-// 40-person firm with clean books, so $/user misprices both ends.
+// Payroll $30 and benefits $20 PEPM are decided, not derived — both sit at the
+// service-level comparables in the market benchmark (payroll's bureau row, not
+// its software row), so the per-user line is the all-in price of serving one
+// person. No base fee sits on top of any of the three: at an all-in rate a base
+// double-counts the same work. A monthly minimum carries the small end instead,
+// which is how these are actually sold — the benchmark notes minimums bind.
+//
+// The HRIS is no longer a back-office line. It sits in the business software
+// plan instead — it's the system of record joiner/mover/leaver runs against,
+// and JML is in that plan too, so splitting the two across pillars priced a
+// dependency away from the thing that depends on it. Nothing on this page
+// charges separately for it now; it's inside the per-user plan price. Don't
+// reintroduce an "HR operations" line without deciding what it contains beyond
+// the HRIS.
+//
+// ⚠️ Both $150 minimums are PROPOSED, not benchmarked — the source table has
+// no minimum or base column. Confirm before production.
+//
+// Bookkeeping is the one genuine exception and stays banded: it scales with
+// transaction volume and entity count, so a 12-person contractor with three
+// entities and heavy AP is more work than a 40-person firm with clean books,
+// and $/user misprices both ends. Do NOT reintroduce a blanket "priced per
+// service, not per seat" claim — three of the four lines now disprove it.
 //
 // Joiner/mover/leaver is intentionally absent — it spans both halves and is
-// already priced inside the IT & HR per-seat tiers. Don't double-charge it.
+// already priced inside the business software plan. Don't double-charge it.
 const backOfficeServices = [
 	{
 		name: "Bookkeeping",
-		price: "from $400",
+		price: "$300–800",
 		period: "/ mo",
 		included: [
-			"Transaction coding, bank and credit card reconciliations, payables and receivables",
-			"Monthly close, with the books kept current rather than rebuilt at year-end",
+			"Transaction coding, bank and credit card reconciliations, and a monthly close — the books kept current rather than rebuilt at year-end",
 			"Banded by transaction volume and number of entities — we quote after a look at your last quarter",
+			"Accounts payable and receivable, job costing and inventory tracking are priced on top of the band",
 		],
 	},
 	{
 		name: "Managed payroll",
-		price: "$185",
-		period: "/ mo + $9 / employee",
+		price: "$30",
+		period: "/ user / mo · $150 minimum",
 		included: [
 			"Pay runs, direct deposits, CRA remittances, T4s and ROEs, run to schedule",
 			"Year-end filing and audit-ready documentation",
@@ -121,21 +180,12 @@ const backOfficeServices = [
 	},
 	{
 		name: "Benefits administration",
-		price: "$145",
-		period: "/ mo",
+		price: "$20",
+		period: "/ user / mo · $150 minimum",
 		included: [
 			"Enrolments, life events, terminations, and payroll deduction sync",
 			"Employee questions handled directly, so they don't come to you",
 			"Your broker keeps the plan — we run the daily administration of it",
-		],
-	},
-	{
-		name: "HR operations & HRIS",
-		price: "$225",
-		period: "/ mo",
-		included: [
-			"Employee records, time off, policy acknowledgements, document retention",
-			"HRIS configured once and maintained, not left to drift",
 		],
 	},
 ];
@@ -192,6 +242,7 @@ const hostingTiers = [
 
 const finePrint = [
 	"No long-term contracts — month-to-month, always",
+	"Our fees are for the work, not the software — you keep your own vendor licences at your own price, and we'll tell you when a feature needs a licence tier you don't have yet",
 	"No hidden fees — ad spend and one-time project costs are always itemized separately",
 	"Every plan starts with a conversation, not a form into a void",
 ];
@@ -199,7 +250,7 @@ const finePrint = [
 
 <PineLayout
 	title="Pricing"
-	description="Three services, priced simply. Software operations per employee; bookkeeping, payroll and benefits administration per service; managed website plans from $39/mo. Month-to-month.">
+	description="Three services, priced simply. Software operations per user, HRIS included; bookkeeping banded by volume, payroll and benefits administration per user; managed website plans from $39/mo. Month-to-month.">
 	<!-- PAGE INTRO -->
 	<PageHero
 		eyebrow="Pricing"
@@ -214,54 +265,111 @@ const finePrint = [
 		<div class="spotlight">
 			<header class="section-intro">
 				<span class="font-eyebrow">Business software</span>
-				<h2 class="font-title">Priced per employee, right-sized as your team grows.</h2>
+				<h2 class="font-title">Priced per user, right-sized as your team grows.</h2>
 				<p class="font-body section-lead">
-					The software your business runs on: selection, integration, identity and
-					lifecycle, endpoint security and support. Bookkeeping, payroll and
-					benefits are <a class="link" href="#back-office-pricing">priced separately</a>
-					— they scale with volume, not headcount.
+					The software your business runs on: selection, integration, the HRIS,
+					joiners and leavers, multi-factor authentication, and support. One plan
+					rather than a ladder — we'd rather sell one thing that means something
+					than three that need a chart. A user is anyone who needs accounts and
+					access — employees and contractors alike — so you're billed for the
+					people you actually set up, not your headcount. Bookkeeping, payroll and
+					benefits administration are
+					<a class="link" href="#back-office-pricing">priced separately</a>.
 				</p>
 			</header>
 
-			<Subgrid class="pricing-tiers">
+			<!--
+				One plan, so no Subgrid here — a subgrid exists to align tranches
+				across sibling cards, and there are no siblings. The website block
+				below still uses it for its three tiers.
+			-->
+			<article class="card plan-solo pricing-tier--featured">
+				<div class="plan-head">
+					<div class="plan-identity">
+						<h3 class="font-heading tier-name">{softwarePlan.name}</h3>
+						<p class="font-body tier-blurb">{softwarePlan.blurb}</p>
+					</div>
+					<p class="tier-price">
+						<span class="tier-price__amount">{softwarePlan.price}</span>
+						<span class="tier-price__unit">{softwarePlan.unit}</span>
+					</p>
+				</div>
+				<ul class="feature-list plan-features">
+					{softwarePlan.features.map((f) => <li>{f}</li>)}
+				</ul>
+				<a class="cta plan-cta" href="/#contact">
+					Get started <span class="arrow">→</span>
+				</a>
+			</article>
+
+			<h3 class="font-heading addons-head">Add-ons</h3>
+			<div class="svc-table card">
 				{
-					opsTiers.map((tier) => (
-						<article
-							class:list={[
-								"card",
-								"pricing-tier",
-								tier.highlighted ? "pricing-tier--featured" : "",
-							]}>
-							<div class="tier-head">
-								<div class="tier-name-row">
-									<h3 class="font-heading tier-name">{tier.name}</h3>
-									{tier.tag && <span class="tier-tag">{tier.tag}</span>}
-								</div>
-								<p class="tier-price">
-									<span class="tier-price__amount">{tier.price}</span>
-									<span class="tier-price__unit">{tier.unit}</span>
+					softwareAddons.map((svc) => (
+						<div class="svc-row">
+							<div class="svc-head">
+								<h4 class="font-heading svc-name">{svc.name}</h4>
+								<p class="svc-price">
+									<span class="svc-price__amount">{svc.price}</span>
+									<span class="svc-price__period">{svc.period}</span>
 								</p>
-								{tier.blurb && <p class="font-body tier-blurb">{tier.blurb}</p>}
 							</div>
-							<ul class="feature-list">
-								{tier.features.map((f) => (
-									<li>{f}</li>
+							<ul class="svc-included">
+								{svc.included.map((line) => (
+									<li>{line}</li>
 								))}
 							</ul>
-							<a
-								class:list={["tier-cta", tier.highlighted ? "cta" : "cta-ghost"]}
-								href="/#contact">
-								Get started <span class="arrow">→</span>
-							</a>
-						</article>
+						</div>
 					))
 				}
-			</Subgrid>
+			</div>
 
+			<!--
+				The reseller line is deliberately conditional. We can't promise a
+				margin we don't control — distributor pricing moves, and not every
+				vendor in a given stack is available to us at all — so it says "where
+				we can" and tells the reader to assume list until we've checked. Don't
+				harden it into a stated discount without a rate we can actually hold.
+			-->
 			<p class="section-note breakout">
-				Running something these plans don't cover? Ask us about our other
-				managed services.
+				These are our fees, on top of the software licences themselves — you buy
+				those from the vendor at the vendor's price. Where we can supply a
+				licence through our distribution partners for less than list, we pass
+				that price through; assume list until we've checked your particular
+				stack. Some features need a particular licence tier before we can switch
+				them on, and we'll tell you which on the first call rather than after
+				you've signed. Running something this plan doesn't cover? Ask us about
+				our other managed services.
 			</p>
+
+			<!--
+				The honest-gap note, in place of the pulled top tier. Managed detection and
+				response isn't something we run yet, so it isn't on the page — not
+				greyed out, not "coming soon". A disabled price card still occupies
+				the comparison row and still sets an expectation, and the reader who
+				wants MDR is the strongest lead here; the first thing they'd learn
+				would be that it isn't real. Saying it plainly is the same move the
+				rest of the site makes ("we're the wrong shop", "we'll point you at
+				it"), and it costs less credibility than a tier we can't sell.
+			-->
+			<div class="callout-solo">
+				<article class="card callout">
+					<span class="font-eyebrow callout-eyebrow callout-eyebrow--muted">
+						What we don't run yet
+					</span>
+					<h3 class="font-heading callout-title">
+						Managed detection and response isn't ours to promise.
+					</h3>
+					<p class="font-body callout-copy">
+						Endpoint detection and response, device management, and fully
+						automated identity provisioning aren't things we operate today. If
+						that's what your insurer, your client or your own risk appetite
+						calls for right now, we'll tell you on the first call and point you
+						at someone who does it properly — rather than sell you a plan and
+						work it out afterwards.
+					</p>
+				</article>
+			</div>
 		</div>
 	</section>
 
@@ -270,12 +378,16 @@ const finePrint = [
 		<div class="spotlight">
 			<header class="section-intro">
 				<span class="font-eyebrow">Back office</span>
-				<h2 class="font-title">Priced per service, because the work isn't per seat.</h2>
+				<h2 class="font-title">Take some or take all of them.</h2>
 				<p class="font-lead section-lead">
-					Bookkeeping, payroll and benefits administration scale with
-					transaction volume and entity count, not with how many people you
-					employ — so they're priced per service, not per seat. Take one, take
-					all of them, or combine them with the other two services for{" "}
+					The books, the pay runs, the benefits changes and the employee records
+					— run to schedule by the same partner that runs your systems.
+					Payroll and benefits administration are priced per user, because every
+					pay slip and every enrolment genuinely is one more person. Bookkeeping
+					is the exception — it's banded by transaction volume and entity count,
+					since that's what actually drives the work.
+					Take one, take all of them, or combine them with the other two
+					services for{" "}
 					<a class="link" href="#pricing-bundles">a bundle discount</a>.
 				</p>
 			</header>
@@ -303,8 +415,8 @@ const finePrint = [
 
 			<p class="section-note breakout">
 				Onboarding and offboarding isn't listed here — it spans both halves and
-				is already in the Foundations and Managed{" "}
-				<a class="link" href="#it-hr-pricing">business software</a> plans.
+				is already in every{" "}
+				<a class="link" href="#it-hr-pricing">business software</a> plan.
 			</p>
 		</div>
 	</section>
@@ -366,7 +478,7 @@ const finePrint = [
 				<p class="sovereign-copy">
 					Canadian-owned hosting (WHC), no US-controlled services (e.g. Matomo
 					instead of Google Analytics/Microsoft Clarity), Canadian-resident
-					backups. A toggle you can add to any plan — not a tier of its own.
+					backups.
 				</p>
 			</article>
 
@@ -401,8 +513,8 @@ const finePrint = [
 	<!-- BUNDLES -->
 	<!--
 		Each pricing block above sells one thing at one price — no service is
-		quoted twice, so there is no per-seat vs per-service crossover to reason
-		about. What combining actually buys lives here instead, and the argument
+		quoted twice, so there is nothing to reconcile between the blocks.
+		What combining actually buys lives here instead, and the argument
 		is deliberately about capability before discount: the integrations only
 		exist when the same partner runs both halves. That is the company's whole
 		thesis, so this section is where it gets made concretely.
@@ -424,10 +536,11 @@ const finePrint = [
 					<span class="font-eyebrow text-brand-primary">Software + Back office</span>
 					<h3 class="font-heading">Onboarding stops being a handoff.</h3>
 					<p class="font-body text-neutral-muted">
-						The same partner runs the HRIS and the identity system, so a new
-						hire's accounts, licences and permissions exist before their first
-						shift — and a leaver's are gone the same day, everywhere. Split
-						across two vendors, that's an email and a wait.
+						The employee record that provisions a new hire's accounts is the
+						same one that sets up their pay and their benefits enrolment, so a
+						start date gets entered once and everything downstream follows. Split
+						across two vendors, the HRIS and the payroll system drift apart, and
+						somebody reconciles them by hand every time a detail changes.
 					</p>
 				</article>
 
@@ -585,6 +698,51 @@ const finePrint = [
 	}
 	:global(.pricing-tier) {
 		padding: 2rem;
+	}
+
+	/* ---- The single software plan ----
+	   Not a tier card: with no siblings to compare against, a narrow column
+	   would just be a tall list. Laid out wide instead — name and price on one
+	   row, features in two columns once there's room — so the plan reads as one
+	   complete thing rather than as the survivor of a ladder. It borrows
+	   .pricing-tier--featured for the accent border, since it is by definition
+	   the highlighted option. */
+	.plan-solo {
+		padding: clamp(1.75rem, 4vw, 2.5rem);
+		display: grid;
+		gap: 1.75rem;
+	}
+	.plan-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: start;
+		justify-content: space-between;
+		gap: 1rem 2rem;
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid var(--line-1);
+	}
+	.plan-identity {
+		max-width: 46ch;
+	}
+	.plan-identity .tier-blurb {
+		margin-top: 0.5rem;
+	}
+	.plan-features {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.7rem 2.5rem;
+	}
+	.plan-cta {
+		justify-self: start;
+	}
+
+	@media (max-width: 720px) {
+		.plan-features {
+			grid-template-columns: 1fr;
+		}
+		.plan-cta {
+			justify-self: stretch;
+			justify-content: center;
+		}
 	}
 	:global(.pricing-tier--featured) {
 		background: var(--color-navy-d);
@@ -776,6 +934,11 @@ const finePrint = [
 	}
 
 	/* ---- Callouts ---- */
+	/* The note is set tight to what precedes it; the callout below needs its own
+	   air or the two read as one block. */
+	.section-note + .callout-solo {
+		margin-top: 2.5rem;
+	}
 	.callout {
 		display: flex;
 		flex-direction: column;
