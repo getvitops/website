@@ -6,6 +6,10 @@
 // actually search (bookkeeping, payroll, benefits administration) need to
 // appear here, not only on the pillar pages.
 //
+// Each card is heading + feature list, deliberately. The lead paragraph that
+// used to sit between them restated the list in prose; the pillar pages carry
+// that narrative instead. Don't reintroduce it.
+//
 // Styling is framework classes (`npx vitops docs classes`): `card` pattern,
 // `rhythm` for flow, `list` for the feature lists, functional colour tokens.
 const pillars = [
@@ -13,7 +17,6 @@ const pillars = [
 		tag: "01 · Business software",
 		href: "/business-software",
 		heading: "The software stack, selected, wired, and run.",
-		copy: "We pick the right software for how your team actually works, implement it, and integrate the pieces — with AI enablement where it genuinely helps. We become your single operations provider and the one number you call when any of it breaks.",
 		features: [
 			"Software selection, implementation, and integration",
 			"AI enablement where it genuinely earns its place",
@@ -27,7 +30,6 @@ const pillars = [
 		tag: "02 · Back office",
 		href: "/back-office",
 		heading: "The admin that never stops, off your desk.",
-		copy: "Bookkeeping kept current rather than reconstructed at year-end, payroll run to schedule, benefits administered, and every joiner, mover and leaver processed across both the HR systems and the software they need access to.",
 		features: [
 			"Bookkeeping: coding, reconciliations, monthly close",
 			"Managed payroll: pay runs, CRA remittances, T4s and ROEs",
@@ -39,7 +41,6 @@ const pillars = [
 		tag: "03 · Digital presence",
 		href: "/digital-presence",
 		heading: "Everywhere your buyers look, handled.",
-		copy: "We design, build, and manage a fast, accessible website tuned for both search and AI answers. Around it we run curated ad campaigns, keep your social channels active and on brand, and hold your listings accurate and verified.",
 		features: [
 			"Managed, high-performance websites",
 			"SEO and GEO optimization for search and answer engines",
@@ -70,7 +71,6 @@ const pillars = [
 					<article class="card rhythm">
 						<span class="font-eyebrow text-brand-primary">{p.tag}</span>
 						<h3 class="font-heading">{p.heading}</h3>
-						<p class="font-body text-neutral-muted">{p.copy}</p>
 						<ul class="list rhythm pt-4 border-t border-neutral">
 							{p.features.map((f) => (
 								<li class="font-body text-neutral-muted">{f}</li>
