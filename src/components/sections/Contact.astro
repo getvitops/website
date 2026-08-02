@@ -22,7 +22,17 @@
 			</p>
 		</div>
 
-		<form class="card contact-form" id="contact-form" novalidate>
+		<!-- data-clarity-mask: Clarity's default masking already covers input
+		     values, but this makes the whole form opt out explicitly rather than
+		     depending on a project-level setting someone can flip in the Clarity
+		     dashboard. Names, emails and a free-text brief are not worth
+		     recording. -->
+		<form
+			class="card contact-form"
+			id="contact-form"
+			data-clarity-mask="true"
+			novalidate
+		>
 			<div class="field">
 				<label for="cf-name">Name</label>
 				<input id="cf-name" name="name" type="text" autocomplete="name" required />

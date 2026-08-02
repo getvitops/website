@@ -182,7 +182,9 @@ import { Icon } from "astro-iconset/components";
 		--ac: var(--color-pine);
 		--acbg: rgba(74, 144, 117, 0.14);
 		--acbd: var(--color-pine);
-		--pu: var(--color-cobalt);
+		/* No bare --color-cobalt alias exists in pine-theme.css (unlike pine,
+		   navy and amber), so this has to point at the generated tone. */
+		--pu: var(--color-cobalt-300, #6f9bff);
 		--pubg: rgba(111, 155, 255, 0.16);
 		--okbg: rgba(74, 144, 117, 0.16);
 		--ok: var(--color-pine-l);

@@ -4,6 +4,7 @@ import VitopsHead from "@getvitops/astro/Head.astro";
 import { getSiteSettings } from "emdash";
 import { EmDashHead } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
+import Analytics from "../components/Analytics.astro";
 // Design-system CSS, layout-scoped (getvitops css.inject: false): only pages
 // rendered through PineLayout get it — keeps it out of /_emdash/admin, while
 // EmDash previews (rendered through this layout) keep it.
@@ -96,6 +97,9 @@ const year = new Date().getFullYear();
 		<VitopsHead />
 		<Font cssVariable="--font-body" preload />
 		<Font cssVariable="--font-geist-mono" />
+		<!-- Microsoft Clarity. Self-gates to the production host, so this is
+		     inert on dev.vitops.ca, *.workers.dev and localhost. -->
+		<Analytics />
 	</head>
 	<body>
 		<header class="site-header navbar-sticky centered">
@@ -244,20 +248,8 @@ const year = new Date().getFullYear();
 							<li><a href="/business-software">Business software</a></li>
 							<li><a href="/back-office">Back office</a></li>
 							<li><a href="/digital-presence">Digital presence</a></li>
+							<li><a href="/industries">Industries</a></li>
 							<li><a href="/pricing">Pricing</a></li>
-						</ul>
-					</div>
-					<div class="footer-col">
-						<h2 class="font-eyebrow footer-head">Industries</h2>
-						<ul>
-							<li><a href="/industries/trades">Trades &amp; contractors</a></li>
-							<li><a href="/industries/real-estate">Real estate</a></li>
-							<li>
-								<a href="/industries/professional-services"
-									>Professional firms</a
-								>
-							</li>
-							<li><a href="/industries/clinics">Clinics</a></li>
 						</ul>
 					</div>
 					<div class="footer-col">
@@ -489,7 +481,7 @@ const year = new Date().getFullYear();
 
 			.footer-nav {
 				display: grid;
-				grid-template-columns: repeat(4, minmax(0, 1fr));
+				grid-template-columns: repeat(3, minmax(0, 1fr));
 				gap: 2rem;
 				inline-size: 100%;
 				margin-top: 2rem;

@@ -8,6 +8,7 @@ import Prose from "../components/page/Prose.astro";
 import Faq from "../components/page/Faq.astro";
 import PageCta from "../components/page/PageCta.astro";
 import Schema from "../components/page/Schema.astro";
+import StackAnimation from "../components/StackAnimation.astro";
 import { breadcrumb, service } from "../lib/schema";
 import { FUNDING_CALLOUT, FUNDING_NOTE } from "../lib/copy";
 
@@ -52,10 +53,17 @@ const work = [
 	{
 		tag: "04 · Run it",
 		heading: "Identity, licences, endpoints, support.",
-		body: "Identity and lifecycle, licence tuning, endpoint security on every device, and the day-to-day support your team leans on. On the managed tier this is continuous rather than a project.",
+		body: "Identity and lifecycle, licence and access management, multi-factor authentication on every account, and the support your team leans on — all of it in the one plan. We're your first line across every vendor in the stack. Managed backup and a one-hour response commitment are add-ons; monitored endpoints are the one thing here we don't run yet, and we'll say so rather than imply otherwise.",
 	},
 ];
 
+// Ordered: what this is → what it isn't → how it's priced → what we don't do →
+// what we'd actually do → AI → funding.
+//
+// There is one plan and two add-ons (see pricing.astro). Nothing here should
+// gate a capability behind a tier, because there are no tiers — if an answer
+// starts explaining which plan something is in, the pricing model has drifted
+// again. Add-ons are named explicitly so a reader knows what's extra.
 const faq = [
 	{
 		q: "Is this the same as hiring an MSP?",
@@ -66,8 +74,28 @@ const faq = [
 		a: "That's common and it works fine. We handle software operations, identity, licensing and vendor coordination; they keep doing whatever they do well. We'd rather coordinate with them than replace them, and we'll say so honestly if we think the overlap isn't worth paying for twice.",
 	},
 	{
+		q: "Why is there only one plan?",
+		a: "Because tiers would have been theatre. A ladder makes sense when capabilities cluster into genuinely different bundles; ours don't. There's one operational service — choosing, integrating and running your stack, the HRIS, joiners and leavers, MFA, and first-line support — and it doesn't get meaningfully smaller if you pay less. So it's a flat base plus a per-user rate, plus two add-ons for the things that genuinely cost extra to deliver: managed backup and a faster response commitment. The base covers the work that doesn't change with headcount; the per-user part covers what does. You can tell what you're buying without a comparison chart.",
+	},
+	{
+		q: "Is multi-factor authentication extra?",
+		a: "No, and it never will be. MFA on every account is part of the base plan — enforced and checked rather than left to each person to switch on. Charging separately for it would be charging you for the lock on the door. We don't sell single sign-on, though: most SaaS vendors gate it behind their own enterprise plan, so you'd be paying us to configure something you'd first have to pay them to unlock. We'll tell you when that trade is worth making for a specific app, and usually it isn't.",
+	},
+	{
+		q: "Do you do managed detection and response?",
+		a: "Not today, and we'd rather say so here than on a sales call. Endpoint detection and response and device management aren't services we operate yet. What we do cover is the identity side — MFA enforced on every account, which is where most incidents start, and access that follows the employee record so a leaver's doesn't linger — plus managed backup as an add-on, which is what decides how bad the incidents that do get through turn out to be. If you need monitored endpoints now, we'll point you at someone who does that properly.",
+	},
+	{
+		q: "Is onboarding and offboarding included?",
+		a: "Yes, in the base plan — it's the one capability we didn't want sitting behind a paywall, because the cost of doing it badly falls on the smallest teams hardest. We wire your HRIS up as the trigger, so a start date, a role change or a termination in the employee record drives the accounts, licences and permissions rather than waiting on a request to us. How far that reaches depends on what each application supports — some SaaS tools simply don't expose the hooks — and we'll tell you which ones can't be wired that way and have to be handled by hand. If we also run your back office, both ends of that workflow sit with the same team.",
+	},
+	{
 		q: "How quickly do you answer when something breaks?",
-		a: "Business hours on the Foundations tier, with continuous monitoring and vendor escalation on Managed. Response targets are on the pricing page — we publish them rather than negotiate them per client.",
+		a: "The base plan includes email and ticket support in business hours, with next-business-day first response. The priority response add-on commits us to one business hour instead, with an escalation path agreed up front and a named person at the end of it. We put those targets in writing before you sign — a stated time is worth something, whereas 'priority' just means ahead of whoever didn't buy it.",
+	},
+	{
+		q: "Isn't Microsoft 365 already backed up?",
+		a: "No, and this is the single most common misunderstanding we correct. Microsoft and Google replicate your data so their infrastructure can fail without losing it — that isn't the same as being able to recover a mailbox someone emptied in March, or files a departing employee deleted on their way out. Retention windows are short and they're theirs to change. Backup with a retention period you control is our managed backup add-on.",
 	},
 	{
 		q: "Will you actually recommend we buy less software?",
@@ -79,7 +107,7 @@ const faq = [
 	},
 	{
 		q: "Can government funding cover this?",
-		a: "Often, for eligible Ontario for-profit SMEs. DMAP covers up to $15,000 of planning work, and TDP up to $50,000 of implementation for businesses that have completed a DMAP and clear a $750,000 revenue floor. We'll tell you before you apply whether you're likely to qualify. Approval and amounts are decided by OCI, not us.",
+		a: "Often, for eligible Ontario for-profit SMEs. DMAP covers up to $15,000 of planning work through the province's Digital Competence Centre. Other programs open and close through the year, and which ones apply depends on your revenue and sector — we track them and will tell you before you apply whether you're likely to qualify, including when you aren't. Approval and amounts are decided by OCI, not us.",
 	},
 ];
 
@@ -151,6 +179,22 @@ const platforms = [
 				lead="This is deliberately sequential. Integrating tools you shouldn't be paying for, or putting AI on top of data nobody has organised, is work that has to be undone later."
 			/>
 			<Cards cards={work} />
+		</div>
+	</section>
+
+	<!--
+		The same animation the home page's Vitops Complete section carries. It is
+		the software story in detail, so it belongs here too — the home page
+		frames it as the bundle, this page frames it as the work.
+	-->
+	<section class="section centered" id="how-it-works">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="How it works"
+				title="Choose, right-size, connect, run."
+				lead="The same four steps above, plus what you end up looking at once they're done."
+			/>
+			<StackAnimation />
 		</div>
 	</section>
 
