@@ -28,11 +28,11 @@ importers:
         specifier: ^0.31.0
         version: 0.31.0(3510b5ddab3cd3b918b30d8b30c2891e)
       '@getvitops/astro':
-        specifier: ^0.9.0
-        version: 0.9.0(@tailwindcss/vite@4.3.3(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0)))(@types/node@26.1.1)(astro@7.0.9(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0))(tailwindcss@4.3.3)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))
+        specifier: ^1.0.0
+        version: 1.0.0(@tailwindcss/vite@4.3.3(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0)))(@types/node@26.1.1)(astro@7.0.9(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0))(tailwindcss@4.3.3)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))
       '@getvitops/emdash':
-        specifier: ^0.2.0
-        version: 0.2.0(daaad6efb81fe597a4bab818425b7b24)
+        specifier: ^0.2.3
+        version: 0.2.3(daaad6efb81fe597a4bab818425b7b24)
       '@iconify-json/ph':
         specifier: ^1.2.2
         version: 1.2.2
@@ -65,8 +65,8 @@ importers:
         specifier: ^4.20260305.1
         version: 4.20260702.1
       '@getvitops/cli':
-        specifier: ^0.9.0
-        version: 0.9.0(@types/node@26.1.1)
+        specifier: ^1.0.0
+        version: 1.0.0(@types/node@26.1.1)
       '@tailwindcss/vite':
         specifier: ^4.3.3
         version: 4.3.3(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))
@@ -778,14 +778,17 @@ packages:
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
 
-  '@getvitops/astro@0.9.0':
-    resolution: {integrity: sha512-HMddRnmFOyrVS1qQwTqKWWo2u3m081BBDyREOEFlm47HQWNjjV/O8S/CrqMP7HEWqC/BlY+yw6DBu17yxHt9mw==}
+  '@getvitops/astro@1.0.0':
+    resolution: {integrity: sha512-Z/GpCvxq0NBAJ/sRLbJs0qfa2b4kU7qOQWfs29PrW3EoB7LS3bM3mhJPRznHV4TEoznfZkUi7wcuaz/VuXBFxw==}
     peerDependencies:
+      '@astrojs/sitemap': '>=3.6'
       '@tailwindcss/vite': '>=4'
       astro: '>=7'
       astro-icon: '>=1'
       tailwindcss: '>=4'
     peerDependenciesMeta:
+      '@astrojs/sitemap':
+        optional: true
       '@tailwindcss/vite':
         optional: true
       astro-icon:
@@ -793,15 +796,15 @@ packages:
       tailwindcss:
         optional: true
 
-  '@getvitops/cli@0.9.0':
-    resolution: {integrity: sha512-p4CBhR0HORtEOergGGj3MMlt6a/HEC2TCqOVjWUPvFote4S02C8FXmN8VDiV9JBzWh9mwPcE69Gq33erpcsyYA==}
+  '@getvitops/cli@1.0.0':
+    resolution: {integrity: sha512-O4hZBsE5comaqJmXPFoLoPPJHNRnUouX5430ABy/Afy20MKIju45OV5pKKQtudYlxaCWvFRv8/yb4vST4aQBjA==}
     hasBin: true
 
-  '@getvitops/core@0.9.0':
-    resolution: {integrity: sha512-CE3PwkwyoKi9nXStf6DwMnIJYn/tFFkPPKJG4v6OYGX5xmC8Hqqe+ohLL4j0i/MWHact0M+MXxvAFpJ1intNvg==}
+  '@getvitops/core@1.0.0':
+    resolution: {integrity: sha512-D1zYPnVzPx56QgkNrzBGq2bieQPwLuSG1V+HgOelKuPZ/9nGjUflgzxCIG5gyp6f17muRqXSuCmMV8EgbpPqZw==}
 
-  '@getvitops/emdash@0.2.0':
-    resolution: {integrity: sha512-RKZGxVUxbAbCp717i0kw8+1hOtpl2LAGFzJsF31+F09Sc2VqkbIo5DB0enmZczBiGEDAgv9m92M9qf1Ilm0Scg==}
+  '@getvitops/emdash@0.2.3':
+    resolution: {integrity: sha512-uKnfaK5Q9ayH6ud14QX5W7vs+VGV0G2on0DavwI/JWNmpDsWk9EsEbbMJ+CN08tjXTABWDhV+djKMBLtJGdSpA==}
     peerDependencies:
       '@astrojs/cloudflare': '>=14'
       '@emdash-cms/cloudflare': '>=0.31.0'
@@ -813,14 +816,14 @@ packages:
       '@emdash-cms/cloudflare':
         optional: true
 
-  '@getvitops/generator@0.9.0':
-    resolution: {integrity: sha512-GQfk57Z7O5F07V0Gs+LuUz3153rsCVPnsZpPhoZ+K3tr4kKRw/qgDzb05OgHFdJiG36OF4VdHvHAUgESO5QRgw==}
+  '@getvitops/generator@1.0.0':
+    resolution: {integrity: sha512-PQSGCzlXiPq3Bkr49DfnEJZX0TWgPmi095RX97Cv3I4o7zdEv2AmSHg9z8iz+F4IEELeQnDZkB9Qxvh2L33XJA==}
 
-  '@getvitops/utils@0.9.0':
-    resolution: {integrity: sha512-UQx6rlyjPs93pcob/8lPYJu4+SEe5vHYoDdwZiwEXgnh8w5yDyXBCMeBe9XedySjw2/DLniC6ky7x2FDlRmF9w==}
+  '@getvitops/utils@1.0.0':
+    resolution: {integrity: sha512-RpsoVEMKIjvJ6ejRXqvM66gswXKpOWrwGLjUXFJpTYtVXXk9ULQ8gRV8b4tgdBcjQ7eTxvB+04x41K1a3H0T0A==}
 
-  '@getvitops/vite@0.9.0':
-    resolution: {integrity: sha512-Egs9bpETFvYq05MXx6knMvM6uJ/nhFfHN4jD9l3I/mJZvA7DxzemIgZpHQVPPbpVcj5XrXIn2cTIEnLur9VIlA==}
+  '@getvitops/vite@1.0.0':
+    resolution: {integrity: sha512-mR1Ki12bRguiUmbsEcpI9JMog2bT354aLUvfuMpMoinToXKVJEU2R1Vs+RDGi18hnioRJsuoARnAmlKwqLJPKg==}
     peerDependencies:
       vite: '>=5'
 
@@ -1311,9 +1314,11 @@ packages:
 
   '@oslojs/crypto@1.0.0':
     resolution: {integrity: sha512-dVz8TkkgYdr3tlwxHd7SCYGxoN7ynwHLA0nei/Aq9C+ERU0BK+U8+/3soEzBUxUNKYBf42351DyJUZ2REla50w==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@oslojs/crypto@1.0.1':
     resolution: {integrity: sha512-7n08G8nWjAr/Yu3vu9zzrd0L9XnrJfpMioQcvCMxBIiF5orECHe5/3J0jmXRVvgfqMm/+4oxlQ+Sq39COYLcNQ==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@oslojs/encoding@0.4.1':
     resolution: {integrity: sha512-hkjo6MuIK/kQR5CrGNdAPZhS01ZCXuWDRJ187zh6qqF2+yMHZpD9fAYpX8q2bOO6Ryhl3XpCT6kUX76N8hhm4Q==}
@@ -1329,6 +1334,7 @@ packages:
 
   '@oslojs/webauthn@1.0.0':
     resolution: {integrity: sha512-2ZRpbt3msNURwvjmavzq9vrNlxUnWFBGMYqbC1kO3fYBLskL7r4DiLJT1wbtLoI+hclFwjhl48YhRFBl6RWg1A==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@oxc-project/runtime@0.141.0':
     resolution: {integrity: sha512-Z/6jQ0dyvE2fVjMUO7GoD4h+3q0G4lI4BWQNjaPhC4RPxaS4hF1b7/QYKB/Tl+KAQwqqKgMF54ukR/VvV5FILg==}
@@ -2662,6 +2668,7 @@ packages:
 
   arctic@3.7.0:
     resolution: {integrity: sha512-ZMQ+f6VazDgUJOd+qNV+H7GohNSYal1mVjm5kEaZfE2Ifb7Ss70w+Q7xpJC87qZDkMZIXYf0pTIYZA0OPasSbw==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
@@ -5894,12 +5901,12 @@ snapshots:
 
   '@floating-ui/utils@0.2.12': {}
 
-  '@getvitops/astro@0.9.0(@tailwindcss/vite@4.3.3(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0)))(@types/node@26.1.1)(astro@7.0.9(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0))(tailwindcss@4.3.3)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))':
+  '@getvitops/astro@1.0.0(@tailwindcss/vite@4.3.3(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0)))(@types/node@26.1.1)(astro@7.0.9(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0))(tailwindcss@4.3.3)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))':
     dependencies:
-      '@getvitops/core': 0.9.0(@types/node@26.1.1)
-      '@getvitops/generator': 0.9.0(@types/node@26.1.1)
-      '@getvitops/utils': 0.9.0(@types/node@26.1.1)
-      '@getvitops/vite': 0.9.0(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))
+      '@getvitops/core': 1.0.0(@types/node@26.1.1)
+      '@getvitops/generator': 1.0.0(@types/node@26.1.1)
+      '@getvitops/utils': 1.0.0(@types/node@26.1.1)
+      '@getvitops/vite': 1.0.0(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))
       astro: 7.0.9(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0)
     optionalDependencies:
       '@tailwindcss/vite': 4.3.3(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))
@@ -5908,16 +5915,16 @@ snapshots:
       - '@types/node'
       - vite
 
-  '@getvitops/cli@0.9.0(@types/node@26.1.1)':
+  '@getvitops/cli@1.0.0(@types/node@26.1.1)':
     dependencies:
-      '@getvitops/generator': 0.9.0(@types/node@26.1.1)
-      '@getvitops/utils': 0.9.0(@types/node@26.1.1)
+      '@getvitops/generator': 1.0.0(@types/node@26.1.1)
+      '@getvitops/utils': 1.0.0(@types/node@26.1.1)
     transitivePeerDependencies:
       - '@types/node'
 
-  '@getvitops/core@0.9.0(@types/node@26.1.1)':
+  '@getvitops/core@1.0.0(@types/node@26.1.1)':
     dependencies:
-      '@getvitops/utils': 0.9.0(@types/node@26.1.1)
+      '@getvitops/utils': 1.0.0(@types/node@26.1.1)
       '@lit-labs/signals': 0.3.0
       '@oddbird/css-anchor-positioning': 0.9.0
       '@oddbird/popover-polyfill': 0.7.1
@@ -5931,7 +5938,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@getvitops/emdash@0.2.0(daaad6efb81fe597a4bab818425b7b24)':
+  '@getvitops/emdash@0.2.3(daaad6efb81fe597a4bab818425b7b24)':
     dependencies:
       astro: 7.0.9(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0)
       emdash: 0.31.0(@astrojs/react@6.0.1(@types/node@26.1.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(esbuild@0.28.1)(jiti@2.7.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.3)(yaml@2.9.0))(@atcute/identity@2.0.1(@atcute/lexicons@2.0.2)(typescript@6.0.3))(@date-fns/tz@1.5.0)(@floating-ui/dom@1.8.0)(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(astro@7.0.9(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0))(date-fns@4.4.0)(echarts@6.1.0)(prosemirror-model@1.25.11)(prosemirror-state@1.4.4)(prosemirror-view@1.42.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.3)
@@ -5939,15 +5946,15 @@ snapshots:
       '@astrojs/cloudflare': 14.1.3(@types/node@26.1.1)(astro@7.0.9(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0))(esbuild@0.28.1)(jiti@2.7.0)(typescript@6.0.3)(wrangler@4.111.0(@cloudflare/workers-types@4.20260702.1))(yaml@2.9.0)
       '@emdash-cms/cloudflare': 0.31.0(3510b5ddab3cd3b918b30d8b30c2891e)
 
-  '@getvitops/generator@0.9.0(@types/node@26.1.1)':
+  '@getvitops/generator@1.0.0(@types/node@26.1.1)':
     dependencies:
-      '@getvitops/utils': 0.9.0(@types/node@26.1.1)
+      '@getvitops/utils': 1.0.0(@types/node@26.1.1)
       lightningcss: 1.33.0
       zod: 4.4.3
     transitivePeerDependencies:
       - '@types/node'
 
-  '@getvitops/utils@0.9.0(@types/node@26.1.1)':
+  '@getvitops/utils@1.0.0(@types/node@26.1.1)':
     dependencies:
       colorjs.io: 0.5.2
       parse5: 7.3.0
@@ -5956,10 +5963,10 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@getvitops/vite@0.9.0(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))':
+  '@getvitops/vite@1.0.0(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))':
     dependencies:
-      '@getvitops/generator': 0.9.0(@types/node@26.1.1)
-      '@getvitops/utils': 0.9.0(@types/node@26.1.1)
+      '@getvitops/generator': 1.0.0(@types/node@26.1.1)
+      '@getvitops/utils': 1.0.0(@types/node@26.1.1)
       vite: 8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0)
     transitivePeerDependencies:
       - '@types/node'

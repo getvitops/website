@@ -1,84 +1,42 @@
 {
-  "$schema": "https://unpkg.com/@getvitops/generator/schema.json",
+  "$schema": "./node_modules/@getvitops/generator/schema.json",
   "colors": {
     "palette": {
       "pine": {
-        "tones": {
-          "xxd": "#00120A",
-          "xd": "#073929",
-          "d": "#29634D",
-          "base": "#4A9075",
-          "l": "#70AA92",
-          "xl": "#94C4AF",
-          "xxl": "#B9DECE"
-        }
+        "seed": "#4A9075"
       },
       "navy": {
-        "tones": {
-          "xxd": "#090D14",
-          "xd": "#0F141D",
-          "d": "#141B26",
-          "base": "#1A2230",
-          "l": "#48505D",
-          "xl": "#7B828E",
-          "xxl": "#B3B9C3"
-        }
+        "seed": "#1A2230"
       },
       "amber": {
-        "tones": {
-          "xxd": "#150B00",
-          "xd": "#583D00",
-          "d": "#A6770F",
-          "base": "#F5B94A",
-          "l": "#FAC76F",
-          "xl": "#FED48E",
-          "xxl": "#FFE2B3"
-        }
+        "seed": "#F5B94A"
       },
       "rust": {
-        "tones": {
-          "xxd": "#230001",
-          "xd": "#611212",
-          "d": "#9E3935",
-          "base": "#E0625A",
-          "l": "#F0837A",
-          "xl": "#FFA39A",
-          "xxl": "#FFC9C3"
-        }
+        "seed": "#E0625A"
       },
       "cobalt": {
-        "tones": {
-          "xxd": "#010631",
-          "xd": "#1B336F",
-          "d": "#4365B5",
-          "base": "#6F9BFF",
-          "l": "#8EB2FF",
-          "xl": "#ADC8FF",
-          "xxl": "#CCDDFF"
-        }
+        "seed": "#6F9BFF"
       },
       "grey": {
-        "tones": {
-          "xxd": "#090D15",
-          "xd": "#272D38",
-          "d": "#48505F",
-          "base": "#6C7689",
-          "l": "#8B93A4",
-          "xl": "#AAB2C0",
-          "xxl": "#CBD2DD"
-        }
+        "seed": "#6C7689"
       }
     },
-    "utilities": ["bg", "text", "border"],
+    "utilities": ["bg", "text", "border", "icon"],
     "roles": {
       "brand-primary": "pine",
       "ui-primary": "pine",
-      "surface": "navy",
+      "surface": {
+        "hue": "navy",
+        "kind": "surface"
+      },
       "success": "pine",
       "info": "cobalt",
       "danger": "rust",
       "warning": "amber",
-      "neutral": "grey"
+      "neutral": {
+        "hue": "grey",
+        "kind": "surface"
+      }
     }
   },
   "shadows": {
@@ -120,7 +78,7 @@
   "patterns": {
     "defaults": {
       "ds": "none",
-      "b": "1px solid var(--surface-border)",
+      "b": "1px solid var(--color-border-surface)",
       "br": "0.375rem",
       "p": "1rem",
       "fs": "1rem"
@@ -212,7 +170,7 @@
           "hover": {
             "step": 1,
             "css": {
-              "background-color": "var(--color-surface-muted)"
+              "background-color": "var(--color-bg-surface-muted)"
             }
           },
           "focus-visible": {
@@ -246,7 +204,7 @@
           "line-height": "inherit",
           "text-decoration": "none",
           "cursor": "pointer",
-          "color": "var(--brand-primary-on-solid)",
+          "color": "var(--color-text-on-brand-primary)",
           "box-shadow": "var(--ds-cta-group)"
         },
         "states": {
@@ -268,7 +226,7 @@
         "element": "a",
         "default_role": "brand-primary",
         "base": {
-          "color": "var(--color-brand-primary-d)",
+          "color": "var(--color-text-brand-primary)",
           "text-decoration": "underline",
           "text-underline-offset": "0.15em"
         },
@@ -303,7 +261,7 @@
         "base": {
           "border-radius": "var(--br-card-group)",
           "padding": "1.75rem",
-          "background": "var(--surface-bg-bold)",
+          "background": "var(--color-bg-surface)",
           "border": "var(--b-card-group)",
           "box-shadow": "var(--ds-card-group)"
         },
@@ -325,7 +283,7 @@
           "font-weight": "500",
           "line-height": "1.2",
           "white-space": "nowrap",
-          "color": "var(--color-neutral-d)"
+          "color": "var(--color-text-neutral)"
         },
         "states": {},
         "roles": ["success", "danger", "warning", "info"]
@@ -338,7 +296,7 @@
           "inline-size": "var(--status-size, 0.5rem)",
           "block-size": "var(--status-size, 0.5rem)",
           "border-radius": "var(--br-circle, 50%)",
-          "background-color": "var(--color-neutral-d)"
+          "background-color": "var(--color-bg-neutral-solid)"
         },
         "states": {},
         "roles": ["success", "danger", "warning", "info"]
@@ -463,7 +421,7 @@
         "size": "var(--text-s)",
         "weight": 400,
         "line-height": "1.3",
-        "color": "var(--color-neutral-l)"
+        "color": "var(--color-text-neutral-muted)"
       },
       "eyebrow": {
         "family": "sans",
@@ -472,14 +430,14 @@
         "line-height": "1.3",
         "tracking": "0.08em",
         "text-transform": "uppercase",
-        "color": "var(--color-brand-primary-l)"
+        "color": "var(--color-text-brand-primary)"
       },
       "footnote": {
         "family": "sans",
         "size": "var(--text-xs)",
         "weight": 400,
         "line-height": "1.4",
-        "color": "var(--color-neutral-l)"
+        "color": "var(--color-text-neutral-muted)"
       },
       "code": {
         "family": "code",

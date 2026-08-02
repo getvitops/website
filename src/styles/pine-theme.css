@@ -24,19 +24,28 @@
   --color-mist: #b9c0cb;
   --color-slate: #6c7689;
 
-  /* Palette bridge — generator 0.2.0 renamed color tokens to Tailwind-style
-     numeric scales (--color-pine-400 etc.). Site styles keep the Pine shade
-     names; these aliases map them to the new tokens, with the original hex
-     as fallback so they resolve even while the framework CSS import is
-     paused mid-migration. navy-xd/xxd and amber-l were dropped by 0.2.0's
-     lightness bucketing (dark tones collided), so those pin the hex only. */
-  --color-pine: var(--color-pine-400, #4a9075);
-  --color-pine-l: var(--color-pine-300, #70aa92);
-  --color-navy: var(--color-navy-700, #1a2230);
-  --color-navy-d: var(--color-navy-800, #141b26);
+  /* Palette bridge — site styles keep the Pine shade names; these map them onto
+     the generated numeric scale, with the original hex as fallback so they
+     resolve even while the framework CSS import is paused mid-migration.
+
+     THE STEPS MOVED IN TOOLCHAIN 1.0.0. The palette is now seeded
+     (design-system.json) rather than a fixed tone kit: each authored brand
+     colour is pinned verbatim at its own natural step on the shared lightness
+     ladder, and the rest of the ramp is generated around it. Pine landed on
+     500, navy on 900, amber on 300 — all three reproduce the brand hex exactly.
+     Don't "tidy" these back to rounder numbers; the step is decided by the
+     seed's lightness, not by preference, and moving it silently changes the
+     colour.
+
+     navy-xd/xxd stay literal hexes: both are darker than the ladder's darkest
+     rung (950 = L 0.21), so no generated step reproduces them. */
+  --color-pine: var(--color-pine-500, #4a9075);
+  --color-pine-l: var(--color-pine-400, #81b9a1);
+  --color-navy: var(--color-navy-900, #1a2230);
+  --color-navy-d: var(--color-navy-950, #141b26);
   --color-navy-xd: #0f141d;
   --color-navy-xxd: #090d14;
-  --color-amber: var(--color-amber-200, #f5b94a);
+  --color-amber: var(--color-amber-300, #f5b94a);
 
   /* Hairlines over shadows — the Pine chrome rule. */
   --line-1: rgba(255, 255, 255, 0.07);
