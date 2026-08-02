@@ -125,8 +125,27 @@ body {
   border-color: var(--color-snow);
 }
 
+/* The arrow is DRAWN, not typed. It used to be a literal "→" (U+2192) in the
+   markup, and Geist has no glyph for it — so every browser fell back to a
+   different face and drew a different arrow. Measured in Chrome 149: the
+   fallback arrow's ink centre sits 0.2em below the text's optical centre and
+   renders small and thin, while Firefox picked a face whose arrow is larger and
+   near-centred. The flex box was centred exactly (measured offset: 0px) in both
+   — the misalignment was entirely inside the glyph.
+
+   A mask keeps `currentColor`, so the hover colour change still applies, and
+   the box is a fixed em square, so `align-items: center` on .cta/.cta-ghost
+   centres it by construction in every browser. Don't put the character back. */
 .cta .arrow,
 .cta-ghost .arrow {
+  flex: none;
+  inline-size: 0.85em;
+  block-size: 0.85em;
+  background-color: currentColor;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15M13 6l6 6-6 6'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
   transition: translate 0.2s ease;
 }
 
