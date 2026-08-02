@@ -62,10 +62,11 @@ const work = [
 // argument rather than a shuffle.
 //
 // Anything promising account provisioning or same-day revocation MUST say it
-// needs the business-software side. Joiner/mover/leaver is in that plan, run
-// as a worked process — we don't sell SCIM automation. Neither is priced in these
-// back-office services — an answer implying it comes with bookkeeping is
-// selling something we don't price here. See the JML note in pricing.astro.
+// needs the business-software side. Joiner/mover/leaver is in that plan, driven
+// by the HRIS integration — the employee record is the trigger, with reach
+// depending on what each app exposes. It is not priced in these back-office
+// services, so an answer implying it comes with bookkeeping is selling
+// something we don't charge for here. See the JML note in pricing.astro.
 const faq = [
 	{
 		q: "Is this fractional HR?",
@@ -97,7 +98,7 @@ const faq = [
 	},
 	{
 		q: "How does this connect to the software side?",
-		a: "When you take both, it's the same workflow seen from two ends: HR processes a new hire and the accounts, licences and permissions follow; HR processes a termination and access revokes across every system that day. That half of it is the business-software side, which covers it as standard. It's a worked process rather than an automated pipeline — the thing that makes it reliable is that one team holds both ends, not that a script runs it. Companies that split these between two vendors are the ones with ghost accounts, and they usually don't know it.",
+		a: "When you take both, it's the same workflow seen from two ends: HR processes a new hire and the accounts, licences and permissions follow; HR processes a termination and access revokes across every system that day. That half of it is the business-software side, which covers it as standard: the HRIS is wired up as the trigger, so the employee record drives the provisioning rather than a request going to us. Companies that split these between two vendors are the ones with ghost accounts, and they usually don't know it.",
 	},
 	{
 		q: "What accounting software do you use?",
@@ -113,7 +114,7 @@ const faq = [
 	},
 	{
 		q: "Can government funding cover this?",
-		a: "The systems work often qualifies. DMAP covers up to $15,000 of planning for eligible Ontario for-profit SMEs, and TDP up to $50,000 of implementation after a completed DMAP. Ongoing administration isn't grant-funded. We'll tell you which parts of your project plausibly qualify before you apply.",
+		a: "The systems work often qualifies. DMAP covers up to $15,000 of planning for eligible Ontario for-profit SMEs, and other programs open and close through the year depending on your revenue and sector. Ongoing administration isn't grant-funded. We'll tell you which parts of your project plausibly qualify before you apply.",
 	},
 ];
 ---

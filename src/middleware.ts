@@ -1,5 +1,6 @@
 import { defineMiddleware } from "astro:middleware";
 import { B_PREFIX, hasBPage, toBVariantPath } from "./lib/ab-pages";
+import { PROD_HOST } from "./lib/site";
 import { DEFAULT_SPLIT_B, resolveVariant, VARIANT_COOKIE } from "./lib/variant";
 
 /**
@@ -18,10 +19,6 @@ import { DEFAULT_SPLIT_B, resolveVariant, VARIANT_COOKIE } from "./lib/variant";
  */
 
 const ONE_YEAR = 60 * 60 * 24 * 365;
-
-/** The only host that should be indexed. Everything else (dev.vitops.ca,
- *  *.workers.dev, previews) gets X-Robots-Tag: noindex. */
-const PROD_HOST = "vitops.ca";
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const url = new URL(context.request.url);
