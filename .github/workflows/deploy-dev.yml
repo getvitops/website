@@ -25,6 +25,11 @@ jobs:
     environment: dev
     steps:
       - uses: actions/checkout@v4
+        with:
+          # scripts/sitemap.mjs stamps <lastmod> from `git log`. The default
+          # shallow clone has one commit, so every page would claim the deploy
+          # date — plausible-looking and wrong.
+          fetch-depth: 0
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:

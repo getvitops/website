@@ -1,35 +1,32 @@
 /**
- * Microsoft Clarity configuration (session recordings + heatmaps).
+ * Microsoft Clarity gating (session recordings + heatmaps).
  *
- * Pure helpers only — the actual tag is loaded by
- * `src/components/Analytics.astro`, which PineLayout renders in <head>.
+ * Pure helpers only. The tag itself is emitted by `<Analytics />` from
+ * `@getvitops/astro`, configured in `astro.config.mjs` from `site.json`'s
+ * `site.analytics.clarityId` — one project id, read by both the tag and the
+ * generated privacy policy. This module owns only the *when*.
  */
 
 import { PROD_HOST } from "./site";
 
 /**
- * Clarity project id.
- *
- * Deliberately a repo constant, not an env var: it is not a secret (it ships
- * in the tag URL in the HTML of every page), and neither deploy workflow
- * passes any `PUBLIC_*` var to `astro build` — so an env var would silently
- * resolve to "" in production, which is a worse failure than a visible string.
- *
- * Set to "" to turn Clarity off everywhere.
- */
-export const CLARITY_PROJECT_ID = "xp2ujotyhg";
-
-/**
- * Whether to load Clarity for this request.
+ * Whether to load Clarity for this request, passed to `<Analytics enabled>`.
  *
  * Production host only. dev.vitops.ca, *.workers.dev and localhost all render
  * the identical bundle, and their traffic is us — letting it into the same
  * project would pollute the heatmaps and burn the recording quota on our own
  * sessions. The `/_emdash/` guard covers CMS preview renders, which go through
  * PineLayout like any public page.
+ *
+ * This is the runtime half of `site.json`'s `site.environments.<env>.analytics`,
+ * which records the same fact for the legal disclosure. It has to be a host
+ * check rather than a build-time env var because one bundle serves both
+ * stages — see `./site.ts`.
+ *
+ * PineLayout gates the consent banner on this too: with opt-in consent and no
+ * analytics off-production, a banner would ask permission for nothing.
  */
 export function clarityEnabled(hostname: string, pathname: string): boolean {
-  if (!CLARITY_PROJECT_ID) return false;
   if (hostname !== PROD_HOST) return false;
   if (pathname.startsWith("/_emdash/")) return false;
   return true;

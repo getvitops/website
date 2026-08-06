@@ -9,6 +9,7 @@ import Faq from "../components/page/Faq.astro";
 import PageCta from "../components/page/PageCta.astro";
 import Schema from "../components/page/Schema.astro";
 import StackAnimation from "../components/StackAnimation.astro";
+import KeyPartners from "../components/sections/KeyPartners.astro";
 import { breadcrumb, service } from "../lib/schema";
 import { FUNDING_CALLOUT, FUNDING_NOTE } from "../lib/copy";
 
@@ -109,17 +110,6 @@ const faq = [
 		q: "Can government funding cover this?",
 		a: "Often, for eligible Ontario for-profit SMEs. DMAP covers up to $15,000 of planning work through the province's Digital Competence Centre. Other programs open and close through the year, and which ones apply depends on your revenue and sector — we track them and will tell you before you apply whether you're likely to qualify, including when you aren't. Approval and amounts are decided by OCI, not us.",
 	},
-];
-
-const platforms = [
-	"Microsoft 365",
-	"Google Workspace",
-	"Zoho One",
-	"QuickBooks",
-	"Rippling",
-	"Intune",
-	"CrowdStrike",
-	"NinjaOne",
 ];
 ---
 
@@ -227,20 +217,7 @@ const platforms = [
 		</div>
 	</section>
 
-	<section class="section centered">
-		<div class="spotlight">
-			<SectionIntro eyebrow="Platforms" title="The tools we're in every day." />
-			<ul class="platform-list">
-				{platforms.map((p) => <li>{p}</li>)}
-			</ul>
-			<p class="font-caption industry-row">
-				This lands differently depending on what you run — <a
-					class="link"
-					href="/industries">see who we work with</a
-				>.
-			</p>
-		</div>
-	</section>
+	<KeyPartners />
 
 	<Faq items={faq} />
 
@@ -266,25 +243,6 @@ const platforms = [
 	.prose-inline .limit {
 		padding-top: 1.1rem;
 		border-top: 1px solid var(--line-1);
-		color: var(--color-slate);
-	}
-	.platform-list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.6rem;
-	}
-	.platform-list li {
-		border: 1px solid var(--line-1);
-		border-radius: 999px;
-		padding: 0.4rem 0.9rem;
-		font-size: var(--text-s);
-		color: var(--color-mist);
-	}
-	.industry-row {
-		margin-top: 2rem;
 		color: var(--color-slate);
 	}
 </style>

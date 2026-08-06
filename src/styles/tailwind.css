@@ -1,5 +1,7 @@
 /* GENERATED for Tailwind v4 (Astro) — do not edit by hand.
-   Class reference: npx vitops docs classes  ·  All topics: npx vitops docs */
+   Class reference: npx vitops docs classes  ·  All topics: npx vitops docs
+   Fonts below are STACKS ONLY — this file loads no webfonts. Load them with
+   Astro's fonts: config and point the token at the family's cssVariable. */
 @import "tailwindcss";
 
 @theme {
@@ -71,7 +73,7 @@
   --color-grey-900: #262b35;
   --color-grey-950: #15181f;
 
-  /* Fonts → font-* */
+  /* Fonts → font-* (stacks only; no @font-face is emitted — see header) */
   --font-display: "Mulish", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: ui-monospace, "Cascadia Code", "SF Mono", Menlo, monospace;
@@ -234,7 +236,9 @@
 }
 
 /* ── Framework tokens (consumed by the inlined components) ── */
-/* GENERATED font families + fluid type/space scales — do not edit by hand. */
+/* GENERATED font families + fluid type/space scales — do not edit by hand.
+   --font-* are STACKS ONLY; no @font-face is emitted here. Load webfonts with
+   Astro's fonts: config and point the token at the family's cssVariable. */
 :root {
   --font-display: "Mulish", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -521,6 +525,54 @@
 
 /* State variant for the active flip (hover/focus-visible are built in). */
 @custom-variant is-active (&.is-active, &[data-active]);
+
+/* Bare-element type roles (typography.headings) */
+@layer base {
+  h1 {
+    font-family: var(--display-ff, var(--font-display));
+    font-size: var(--display-fs, var(--text-6xl, 3.5832rem));
+    font-weight: var(--display-fw, 700);
+    font-style: var(--display-fst, normal);
+    line-height: var(--display-lh, 1);
+    letter-spacing: var(--display-ls, -0.035em);
+    text-decoration: var(--display-td, none);
+    text-transform: var(--display-tt, none);
+    text-wrap: var(--display-tw, balance);
+  }
+  h2 {
+    font-family: var(--title-ff, var(--font-display));
+    font-size: var(--title-fs, var(--text-5xl, 2.986rem));
+    font-weight: var(--title-fw, 600);
+    font-style: var(--title-fst, normal);
+    line-height: var(--title-lh, 1.12);
+    letter-spacing: var(--title-ls, -0.025em);
+    text-decoration: var(--title-td, none);
+    text-transform: var(--title-tt, none);
+    text-wrap: var(--title-tw, balance);
+  }
+  h3 {
+    font-family: var(--heading-ff, var(--font-display));
+    font-size: var(--heading-fs, var(--text-xl, 1.44rem));
+    font-weight: var(--heading-fw, 600);
+    font-style: var(--heading-fst, normal);
+    line-height: var(--heading-lh, 1.3);
+    letter-spacing: var(--heading-ls, -0.025em);
+    text-decoration: var(--heading-td, none);
+    text-transform: var(--heading-tt, none);
+    text-wrap: var(--heading-tw, balance);
+  }
+  h4 {
+    font-family: var(--heading-ff, var(--font-display));
+    font-size: var(--heading-fs, var(--text-xl, 1.44rem));
+    font-weight: var(--heading-fw, 600);
+    font-style: var(--heading-fst, normal);
+    line-height: var(--heading-lh, 1.3);
+    letter-spacing: var(--heading-ls, -0.025em);
+    text-decoration: var(--heading-td, none);
+    text-transform: var(--heading-tt, none);
+    text-wrap: var(--heading-tw, balance);
+  }
+}
 
 /* Role colour utilities (the public API) */
 @utility bg-brand-primary-x-muted {
@@ -1119,57 +1171,175 @@
   --height-from: 0;
   --height-to: auto;
 }
+@utility flip-size-grow {
+  --t-height: var(--height-to, auto);
+}
 @utility size-shrink {
   --_anim: layout;
   overflow: clip;
   --height-from: auto;
   --height-to: 0;
 }
+@utility flip-size-shrink {
+  --t-height: var(--height-to, auto);
+}
 
 /* Split — internal fractions (pair split with a ratio) */
-@utility split {
-  display: flex;
-  & > * {
-    flex: 1;
-  }
+@utility split-reverse {
+  reading-flow: flex-visual;
   & > :first-child {
-    flex: var(--_split-a, 1);
-  }
-  & > :last-child {
-    flex: var(--_split-b, 1);
+    order: 1;
   }
 }
 @utility split-1-2 {
+  flex-direction: row;
   --_split-a: 1;
   --_split-b: 2;
 }
 @utility split-2-1 {
+  flex-direction: row;
   --_split-a: 2;
   --_split-b: 1;
 }
 @utility split-1-3 {
+  flex-direction: row;
   --_split-a: 1;
   --_split-b: 3;
 }
 @utility split-3-1 {
+  flex-direction: row;
   --_split-a: 3;
   --_split-b: 1;
 }
 @utility split-1-4 {
+  flex-direction: row;
   --_split-a: 1;
   --_split-b: 4;
 }
 @utility split-4-1 {
+  flex-direction: row;
   --_split-a: 4;
   --_split-b: 1;
 }
 @utility split-2-3 {
+  flex-direction: row;
   --_split-a: 2;
   --_split-b: 3;
 }
 @utility split-3-2 {
+  flex-direction: row;
   --_split-a: 3;
   --_split-b: 2;
+}
+
+/* Gap — the fluid space scale (var(--space-<name>)) */
+@utility gap-2xs {
+  gap: var(--space-2xs);
+}
+@utility gap-x-2xs {
+  column-gap: var(--space-2xs);
+}
+@utility gap-y-2xs {
+  row-gap: var(--space-2xs);
+}
+@utility gap-xs {
+  gap: var(--space-xs);
+}
+@utility gap-x-xs {
+  column-gap: var(--space-xs);
+}
+@utility gap-y-xs {
+  row-gap: var(--space-xs);
+}
+@utility gap-s {
+  gap: var(--space-s);
+}
+@utility gap-x-s {
+  column-gap: var(--space-s);
+}
+@utility gap-y-s {
+  row-gap: var(--space-s);
+}
+@utility gap-m {
+  gap: var(--space-m);
+}
+@utility gap-x-m {
+  column-gap: var(--space-m);
+}
+@utility gap-y-m {
+  row-gap: var(--space-m);
+}
+@utility gap-l {
+  gap: var(--space-l);
+}
+@utility gap-x-l {
+  column-gap: var(--space-l);
+}
+@utility gap-y-l {
+  row-gap: var(--space-l);
+}
+@utility gap-xl {
+  gap: var(--space-xl);
+}
+@utility gap-x-xl {
+  column-gap: var(--space-xl);
+}
+@utility gap-y-xl {
+  row-gap: var(--space-xl);
+}
+@utility gap-2xl {
+  gap: var(--space-2xl);
+}
+@utility gap-x-2xl {
+  column-gap: var(--space-2xl);
+}
+@utility gap-y-2xl {
+  row-gap: var(--space-2xl);
+}
+@utility gap-3xl {
+  gap: var(--space-3xl);
+}
+@utility gap-x-3xl {
+  column-gap: var(--space-3xl);
+}
+@utility gap-y-3xl {
+  row-gap: var(--space-3xl);
+}
+@utility gap-4xl {
+  gap: var(--space-4xl);
+}
+@utility gap-x-4xl {
+  column-gap: var(--space-4xl);
+}
+@utility gap-y-4xl {
+  row-gap: var(--space-4xl);
+}
+@utility gap-5xl {
+  gap: var(--space-5xl);
+}
+@utility gap-x-5xl {
+  column-gap: var(--space-5xl);
+}
+@utility gap-y-5xl {
+  row-gap: var(--space-5xl);
+}
+@utility gap-6xl {
+  gap: var(--space-6xl);
+}
+@utility gap-x-6xl {
+  column-gap: var(--space-6xl);
+}
+@utility gap-y-6xl {
+  row-gap: var(--space-6xl);
+}
+@utility gap-7xl {
+  gap: var(--space-7xl);
+}
+@utility gap-x-7xl {
+  column-gap: var(--space-7xl);
+}
+@utility gap-y-7xl {
+  row-gap: var(--space-7xl);
 }
 
 /* Track placement (inside .centered) */
@@ -1184,6 +1354,63 @@
 }
 @utility fullbleed {
   grid-column: fullbleed;
+}
+
+/* Auto-fit grid — column count is content-driven, unlike .split */
+@utility grid-auto {
+  display: grid;
+  gap: var(--grid-gap, 1rem);
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min, 13rem), 1fr));
+  &:is(ul, ol) > li + li {
+    margin-block-start: 0;
+  }
+}
+
+/* Vertical-rhythm overrides (mirrors layout.css) */
+@utility m-h-p {
+  margin-top: calc(var(--rhythm-base) * var(--rhythm-h-p));
+}
+@utility m-p-p {
+  margin-top: calc(var(--rhythm-base) * var(--rhythm-p-p));
+}
+@utility m-p-h {
+  margin-top: calc(var(--rhythm-base) * var(--rhythm-p-h));
+}
+@utility m-h-h {
+  margin-top: calc(var(--rhythm-base) * var(--rhythm-h-h));
+}
+@utility m-p-list {
+  margin-top: calc(var(--rhythm-base) * var(--rhythm-p-list));
+}
+@utility m-list-p {
+  margin-top: calc(var(--rhythm-base) * var(--rhythm-list-p));
+}
+@utility m-li-li {
+  margin-top: calc(var(--rhythm-base) * var(--rhythm-li-li));
+}
+@utility m-text-media {
+  margin-top: calc(var(--rhythm-base) * var(--rhythm-text-media));
+}
+@utility m-media-text {
+  margin-top: calc(var(--rhythm-base) * var(--rhythm-media-text));
+}
+@utility m-0 {
+  margin-top: 0;
+}
+@utility m-xs {
+  margin-top: calc(var(--rhythm-base) * 0.25);
+}
+@utility m-s {
+  margin-top: calc(var(--rhythm-base) * 0.5);
+}
+@utility m-m {
+  margin-top: calc(var(--rhythm-base) * 1);
+}
+@utility m-l {
+  margin-top: calc(var(--rhythm-base) * 1.5);
+}
+@utility m-xl {
+  margin-top: calc(var(--rhythm-base) * 2);
 }
 
 /* ── Structure (mirrors src/css/layout.css) ── */
@@ -1207,6 +1434,11 @@
 
 body {
   container-type: inline-size;
+  /* Named so `patterns/scroll-target.css`'s `@container body (…)` queries
+     resolve — .toc-layout/.toc-sidebar/.toc-inline. Those partials are inlined
+     into this bundle verbatim, so dropping the name (as this literal did) left
+     the TOC permanently in its narrow layout in the tailwind format only. */
+  container-name: body;
 }
 
 /* Class-level structure rules live in `components` so track/spacing utilities
@@ -1271,6 +1503,39 @@ body {
       var(--region-space-max, 8rem)
     );
   }
+
+  /* `.split` is a PATTERN, so it belongs here rather than in an `@utility` — that
+   is what makes `flex-col` beat it by layer instead of by a source-order race
+   whose winner depends on Tailwind's property-based sort of custom utilities.
+   Its ratio/reversal modifiers stay utilities. Mirrors layout.css, where each
+   rule's rationale is written out; in short: `min-inline-size: 0` because a flex
+   item's automatic minimum is its min-content size; the ratio as a flex BASIS
+   rather than a grow factor, because grow shares out only the free space and a
+   child's padding is not part of it; scoped to a two-child split because a ratio
+   is a pair contract and a middle child with no basis would collapse to zero;
+   `box-sizing: border-box` because a basis only sizes the border box on a
+   border-box item (Tailwind's preflight sets it, the other formats' reset does). */
+  .split {
+    display: flex;
+    flex-direction: row;
+  }
+  .split > * {
+    flex: 1;
+    box-sizing: border-box;
+    min-inline-size: 0;
+  }
+  .split > :first-child {
+    flex-grow: var(--_split-a, 1);
+  }
+  .split > :last-child {
+    flex-grow: var(--_split-b, 1);
+  }
+  .split > :first-child:nth-last-child(2) {
+    flex-basis: calc(var(--_split-a, 1) / (var(--_split-a, 1) + var(--_split-b, 1)) * 100%);
+  }
+  .split > :nth-child(2):last-child {
+    flex-basis: calc(var(--_split-b, 1) / (var(--_split-a, 1) + var(--_split-b, 1)) * 100%);
+  }
 }
 
 /* ── Animation engine (animation.css) ── */
@@ -1288,15 +1553,18 @@ body {
  *     · animate-view / animate-scroll — keyframe linked to a scroll timeline
  *     · animate-trigger              — keyframe, time-based; plays once when
  *                                      .is-active / [data-active] is set
- *     · transition-active / -hover   — TRANSITION (not keyframe) over the same
- *                                      from/to vars, so it reverses on state flip
+ *     · transition + hover-/focus-/  — TRANSITION (not keyframe) over the same
+ *       active-<fx>                    from/to vars, so it reverses on state flip.
+ *                                      Each state matches the element OR its
+ *                                      direct parent, so an effect that clips
+ *                                      itself away (reveal-*) is still reachable.
  *   Both driver families read the same `--<prop>-*` vars, so one effect
  *   (e.g. .fade-in) works in every mode with no redefinition.
  *
  * Effects by rendering stage (cheapest → most expensive):
  *   composite: fade-in/out, slide-up/down/left/right, scale-up/down, rotate-cw/ccw
  *   paint:     blur-in/out, elevate-up/down, reveal-left/right/up/down
- *   layout:    size-grow, size-shrink            (keyframe-only — auto height)
+ *   layout:    size-grow, size-shrink            (auto height; needs interpolate-size)
  *   journey:   fade-journey, slide-journey, …    (multi-phase; view timeline)
  * One keyframe per element: same-stage effects compose via vars (fade-in +
  * scale-up); cross-stage (fade + blur) needs nested elements.
@@ -1308,8 +1576,8 @@ body {
  * Usage:
  *   <div class="fade-in slide-up animate-view">     <!-- scroll-into-view -->
  *   <div class="fade-in scale-up animate-trigger">  <!-- play once on enter -->
- *   <button class="scale-up transition-hover">      <!-- grow on hover -->
- *   <div class="fade-in slide-up transition-active"><!-- flip via .is-active -->
+ *   <button class="transition hover-scale-up">      <!-- grow on hover -->
+ *   <div class="transition active-fade-in">         <!-- flip via .is-active -->
  */
 
   /* ===========================================
@@ -1497,11 +1765,20 @@ body {
   /* ===========================================
  * Trigger Play-State
  * Paused until activated. deferred.ts adds .is-active via IntersectionObserver,
- * but [data-active] / .is-active can also be toggled by any state logic. Gated
- * on JS (no-js → animation runs immediately, so content is never stuck hidden).
+ * but [data-active] / .is-active can also be toggled by any state logic.
+ *
+ * Gated on `scripting: enabled` because pausing is only safe when something can
+ * un-pause it: with no JS, .is-active is never added, and a paused entrance
+ * animation is `opacity: 0` — i.e. invisible content, permanently. Note which way
+ * this fails. An engine that doesn't know the media feature drops the whole block
+ * and the animation simply runs on load: an enhancement lost, nothing hidden.
+ * That is the right direction, and it is why this is a media query rather than
+ * the `:root:not(.no-js)` class it replaced — that spelling needed a class in the
+ * consumer's own <html>, which the Astro integration cannot put there, so every
+ * Astro site was silently failing the other way.
  * =========================================== */
 
-  :where(:root:not(.no-js)) {
+  @media (scripting: enabled) {
     .animate-trigger {
       animation-play-state: paused;
     }
@@ -1538,6 +1815,21 @@ body {
  * Stagger Support
  * =========================================== */
 
+  /* Both are per-element positions, never something a child should inherit — an
+   unregistered custom property would leak the parent's index into every
+   descendant that happens to carry a driver. */
+  @property --_stagger-index {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0;
+  }
+
+  @property --_anim-range-offset {
+    syntax: "<length-percentage>";
+    inherits: false;
+    initial-value: 0%;
+  }
+
   .stagger {
     --_stagger-amount: var(--stagger-amount, 0.1s);
   }
@@ -1547,15 +1839,36 @@ body {
      --_stagger-index inline, which wins. Where sibling-index() is supported
      it provides a JS-free fallback via the @supports block below. */
     --_stagger-index: 0;
+
+    /* Time-based drivers (.animate-trigger, .float) stagger on delay. */
     animation-delay: calc(var(--_stagger-index) * var(--_stagger-amount));
+
+    /* Scroll-driven drivers do NOT: animation-delay is time-based and is ignored
+     outright on a progress-based timeline, which is why `.stagger > .animate-view`
+     used to arrive all at once. Offsetting the view RANGE by the same index is the
+     equivalent move — each child starts its entrance a little further into its own
+     entry phase. .animate-view folds this into its default range, so one .stagger
+     works under both driver families. Journeys set an explicit animation-range and
+     opt out by construction.
+
+     The step is a VIEWPORT length, matching the window it shifts: .animate-view
+     now spans 10vh → 25vh of the element's midpoint travel, so a step expressed
+     as a percentage of the element's own height (which is what a bare `%` means
+     inside the entry range) would be a few pixels against an ~80px window — a
+     stagger too small to read, and one that changed meaning with tile size. */
+    --_anim-range-offset: calc(var(--_stagger-index) * var(--stagger-range-step, 5vh));
   }
 
-  /* sibling-index() is near-baseline (lacking only Firefox as of 2026). Guarded so
-   that on unsupported engines the declaration is skipped and delay stays 0
-   (items animate together) rather than producing an invalid animation-delay. */
-  @supports (--x: sibling-index()) {
+  /* sibling-index() is near-baseline (lacking only Firefox as of 2026). The test
+   must be a REAL property — `@supports (--x: sibling-index())` is always true,
+   because any token stream is a valid custom-property value, so it guarded
+   nothing. Where it is unsupported the declaration is skipped and the index stays
+   0 (items animate together) rather than producing an invalid delay/range.
+   `- 1` because applyRowStagger writes a 0-based index and sibling-index() is
+   1-based; the two must agree or the JS and CSS paths differ by one step. */
+  @supports (animation-delay: calc(sibling-index() * 1s)) {
     .stagger > * {
-      --_stagger-index: sibling-index();
+      --_stagger-index: calc(sibling-index() - 1);
     }
   }
 
@@ -1632,11 +1945,34 @@ body {
   .animate-view {
     animation-name: var(--_anim);
     animation-timeline: view();
-    /* Finish the entrance early — by default within the first 20% of the element's
-     ENTRY into the viewport — so it's done just after it appears (fill: both
-     holds the end state). Override the stops via --anim-range; journey effects
-     set their own `entry exit` range and are unaffected. */
-    animation-range: var(--anim-range, entry 0% entry 20%);
+    /* Timed off the element's MIDPOINT, measured into the viewport — the only
+     framing that behaves the same for a 4rem card and a full-bleed section.
+
+     The pivot is `entry 50%`. The entry phase runs from "leading edge at the
+     viewport's trailing edge" to "trailing edge at the viewport's trailing
+     edge", a scroll of exactly one element height — so at its halfway point the
+     element's midpoint sits precisely ON the viewport edge, whatever the element
+     measures. Everything after that is stated in viewport units: `+ 10vh` is
+     "midpoint 10% of the viewport further in".
+
+     So the default plays from midpoint 15% in to midpoint 25% in. Both stops are
+     the ELEMENT's position on screen, not a fraction of its own height, which is
+     what the previous defaults got wrong in both directions: `entry 20%` was ~17px
+     of scroll for a small tile (over before it appeared), and `entry 100%` still
+     finished with the element flush against the bottom edge.
+
+     Percentages here resolve against the entry range (the element's height) and
+     lengths against the scrollport, so the two mix in one calc() by design.
+
+     --anim-start / --anim-end move the window without restating the pivot;
+     --anim-range replaces it outright; --_anim-range-offset shifts both stops
+     together (that's how .stagger offsets scroll-driven children — see Stagger
+     Support). Journeys declare their own range and ignore all of it. */
+    animation-range: var(
+      --anim-range,
+      entry calc(50% + var(--anim-start, 10vh) + var(--_anim-range-offset, 0%)) entry
+        calc(50% + var(--anim-end, 25vh) + var(--_anim-range-offset, 0%))
+    );
   }
 
   .animate-scroll {
@@ -1649,13 +1985,21 @@ body {
     animation-duration: var(--trigger-animation-duration);
   }
 
-  /* Fallback: when scroll-driven timelines are unsupported, deferred.ts adds
-   .no-scroll-timeline to <html>. Without a timeline, view()/scroll() animations
-   never advance and elements would stick at their `from` keyframe (e.g.
-   opacity:0, clipped, blurred). Cancel the animation so they render in their
-   natural, fully-visible state. Trigger animations are unaffected (JS-driven). */
-  :root.no-scroll-timeline :where(.animate-view, .animate-scroll) {
-    animation: none;
+  /* Fallback: without a scroll-driven timeline, view()/scroll() animations never
+   advance and their elements stick at the `from` keyframe (opacity:0, clipped,
+   blurred) — an entrance animation that never runs is invisible content. Cancel
+   the animation so they render in their natural, fully-visible state. Trigger
+   animations are unaffected (JS-driven, see Trigger Play-State above).
+
+   Same probe as the `.text-reveal` block above, in its negative form — no JS, so
+   it holds with scripting disabled, which the `.no-scroll-timeline` class this
+   replaced could not (a class only JS can add cannot help a page with no JS).
+   `.animate-scroll` uses scroll() rather than view(), but no engine has shipped
+   one without the other, so one probe covers both. */
+  @supports not (animation-timeline: view()) {
+    :where(.animate-view, .animate-scroll) {
+      animation: none;
+    }
   }
 
   /* ===========================================
@@ -1665,7 +2009,8 @@ body {
  * active-<fx> in animation-effects.css) set those vars per state, so different
  * effects bind to different states on one element:
  *   <div class="transition hover-slide-up active-elevate-up">
- * Covers compositor + the full paint chain; layout (auto height) is keyframe-only.
+ * Covers compositor, the full paint chain, and — where `interpolate-size` is
+ * supported — the layout stage (auto height) too.
  * =========================================== */
 
   .transition {
@@ -1687,13 +2032,123 @@ body {
       sepia(var(--t-sepia, var(--sepia-from, 0)))
       hue-rotate(var(--t-hue-rotate, var(--hue-rotate-from, 0deg)));
     clip-path: var(--t-clip, var(--clip-from, none));
-    transition:
-      opacity var(--animation-duration) var(--custom-ease-out),
-      translate var(--animation-duration) var(--custom-ease-out),
-      scale var(--animation-duration) var(--custom-ease-out),
-      rotate var(--animation-duration) var(--custom-ease-out),
-      filter var(--animation-duration) var(--custom-ease-out),
-      clip-path var(--animation-duration) var(--custom-ease-out);
+    /* Longhands rather than the `transition` shorthand: every property here shares
+     one duration and one easing, so listing them once lets the @supports block
+     below APPEND height without restating the whole list (a shorthand would
+     replace it, and transition-property has no additive form). */
+    transition-property: opacity, translate, scale, rotate, filter, clip-path;
+    transition-duration: var(--animation-duration);
+    transition-timing-function: var(--custom-ease-out);
+  }
+
+  /* Layout stage — `height`, the only one that reflows, and the only one that
+   needs a feature gate.
+
+   `height: 0 → auto` is not interpolable on its own: `auto` isn't a length, so
+   the pair falls back to discrete and the transition doesn't run.
+   `interpolate-size: allow-keywords` (set on :root in utilities.css) is what
+   makes `auto` a real endpoint — NOT `transition-behavior: allow-discrete`,
+   which only permits genuinely discrete properties (display,
+   content-visibility, overlay) to transition and would at best snap at the
+   midpoint here. Gated so engines without it keep no height transition rather
+   than that snap. The same dependency applies to the `layout` KEYFRAME, so this
+   is not a weaker path than a driver — it is the same requirement, stated once.
+
+   Declaring `height: auto` on every .transition element is safe because auto is
+   the initial value and animation.css is imported second in index.css — before
+   layout.css, every pattern and utilities.css — so anything later at equal
+   specificity still wins.
+
+   Caveat worth keeping: patterns/details.css records that transitioning
+   block-size to `auto` on ::details-content DEADLOCKS in Chrome 149
+   (content-visibility: hidden → no layout → `auto` resolves to 0 → nothing
+   runs). That is specific to ::details-content, but the lesson generalises — a
+   passing @supports query is not evidence the interaction works. Verify a real
+   hover before trusting a change here. */
+  @supports (interpolate-size: allow-keywords) {
+    .transition {
+      height: var(--t-height, var(--height-from, auto));
+      transition-property: opacity, translate, scale, rotate, filter, clip-path, height;
+    }
+  }
+
+  /* ===========================================
+ * Tier 1c: Top layer (popover / dialog open-close)
+ * The `open-<fx>` state variants (generated, like hover-/focus-/active-) already
+ * supply the VALUES. What a top-layer element additionally needs is mechanism,
+ * and that is the same for every effect — so it lives here, once:
+ *
+ *   <div popover class="drawer drawer--start transition open-slide-right">
+ *
+ * Before this existed there was no driver for the top layer, so every overlay
+ * pattern hand-rolled one: drawer.css drove entry with four @keyframes and
+ * `animation:`, which only plays on OPEN (its close was instant), while
+ * sitenav.css used a transition and animated both ways. Same job, two
+ * mechanisms, two behaviours.
+ * =========================================== */
+
+  /* Applied to the top layer BY DEFAULT, and at `:where()` zero specificity.
+ *
+ * Not an opt-in class, unlike the other three drivers, for two reasons. It is
+ * free: every endpoint below defaults to identity (opacity 1, translate 0,
+ * scale 1), so a popover that sets no effect vars transitions between two
+ * identical states and looks exactly as it did before. And it preserves the DX
+ * the keyframes had — `.drawer--right` animated without asking the author for a
+ * driver class, and it still does; it just states its start as
+ * `--translate-x-from: 100%` instead of owning a keyframe.
+ *
+ * Zero specificity means any pattern that wants different motion simply
+ * declares it. */
+  :where([popover], dialog) {
+    opacity: var(--t-opacity, var(--opacity-from, 1));
+    translate: var(--t-translate-x, var(--translate-x-from, 0))
+      var(--t-translate-y, var(--translate-y-from, 0));
+    scale: var(--t-scale-x, var(--scale-x-from, 1)) var(--t-scale-y, var(--scale-y-from, 1));
+    rotate: var(--t-rotate, var(--rotate-from, 0deg));
+    clip-path: var(--t-clip, var(--clip-from, none));
+
+    /* `display` and `overlay` are discrete, and BOTH must transition or the
+     element is yanked out of the top layer the instant it closes — you get an
+     entry animation and no exit, which is exactly the asymmetry drawer.css had.
+     `allow-discrete` is what keeps it rendered for the duration. */
+    transition-property: opacity, translate, scale, rotate, clip-path, display, overlay;
+    transition-duration: var(--animation-duration);
+    transition-timing-function: var(--custom-ease-out);
+    transition-behavior: allow-discrete;
+  }
+
+  /* The open flip. Mirrors what the generated `open-<fx>` variants do, so the
+   common case needs no effect class at all; an explicit `open-<fx>` still wins
+   on specificity and can pick a different effect. */
+  :where([popover]:popover-open, dialog[open]) {
+    --t-opacity: var(--opacity-to, 1);
+    --t-translate-x: var(--translate-x-to, 0);
+    --t-translate-y: var(--translate-y-to, 0);
+    --t-scale-x: var(--scale-x-to, 1);
+    --t-scale-y: var(--scale-y-to, 1);
+    --t-rotate: var(--rotate-to, 0deg);
+    --t-clip: var(--clip-to, none);
+  }
+
+  /* The entry half. A closed popover is `display: none`, so it has no
+   before-change style and the open transition would simply not run —
+   @starting-style supplies one.
+ *
+ * It declares the PROPERTIES rather than resetting the `--t-*` custom
+ * properties, which sidesteps a specificity trap: the generated
+ * `.open-<fx>:popover-open` rules are (0,2,0), set `--t-*`, and are imported
+ * after this file, so a custom-property reset here would have to outrank them.
+ * Setting `opacity`/`translate`/… directly at (0,2,0) instead competes only with
+ * the (0,0,0) base rule above, which it beats regardless of what any effect
+ * class does. */
+  @starting-style {
+    :is([popover], dialog):is(:popover-open, [open]) {
+      opacity: var(--opacity-from, 1);
+      translate: var(--translate-x-from, 0) var(--translate-y-from, 0);
+      scale: var(--scale-x-from, 1) var(--scale-y-from, 1);
+      rotate: var(--rotate-from, 0deg);
+      clip-path: var(--clip-from, none);
+    }
   }
 
   /* Respect reduced-motion: drop keyframes, transitions, and continuous floats so
@@ -1708,6 +2163,17 @@ body {
       animation: none !important;
     }
     .transition {
+      transition: none !important;
+    }
+    /* The top-layer driver is applied by default rather than by class, so it needs
+     naming here explicitly — `.transition` above does not cover it. `display`
+     and `overlay` must still change, they just must not be animated, and
+     `transition: none` is exactly that. */
+    [popover],
+    dialog {
+      transition: none !important;
+    }
+    :where([popover], dialog)::backdrop {
       transition: none !important;
     }
   }
@@ -1842,11 +2308,11 @@ body {
     cursor: pointer;
   }
   @media (hover: hover) {
-    :where(button, .btn):hover {
+    :where(button:hover, .btn:hover) {
       background-color: var(--color-bg-surface-muted);
     }
   }
-  :where(button, .btn):focus-visible {
+  :where(button:focus-visible, .btn:focus-visible) {
     outline: none;
     box-shadow: 0 0 0 3px var(--color-border-focus);
   }
@@ -1855,13 +2321,13 @@ body {
     color: var(--color-text-success);
   }
   @media (hover: hover) {
-    :where(button, .btn).success:hover,
+    :where(button:hover, .btn:hover).success,
     .btn-success:hover {
       color: var(--color-text-success-bold);
       background-color: var(--color-bg-surface-muted);
     }
   }
-  :where(button, .btn).success:focus-visible,
+  :where(button:focus-visible, .btn:focus-visible).success,
   .btn-success:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px var(--color-bg-success-solid);
@@ -1871,13 +2337,13 @@ body {
     color: var(--color-text-danger);
   }
   @media (hover: hover) {
-    :where(button, .btn).danger:hover,
+    :where(button:hover, .btn:hover).danger,
     .btn-danger:hover {
       color: var(--color-text-danger-bold);
       background-color: var(--color-bg-surface-muted);
     }
   }
-  :where(button, .btn).danger:focus-visible,
+  :where(button:focus-visible, .btn:focus-visible).danger,
   .btn-danger:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px var(--color-bg-danger-solid);
@@ -1887,13 +2353,13 @@ body {
     color: var(--color-text-warning);
   }
   @media (hover: hover) {
-    :where(button, .btn).warning:hover,
+    :where(button:hover, .btn:hover).warning,
     .btn-warning:hover {
       color: var(--color-text-warning-bold);
       background-color: var(--color-bg-surface-muted);
     }
   }
-  :where(button, .btn).warning:focus-visible,
+  :where(button:focus-visible, .btn:focus-visible).warning,
   .btn-warning:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px var(--color-bg-warning-solid);
@@ -1903,13 +2369,13 @@ body {
     color: var(--color-text-info);
   }
   @media (hover: hover) {
-    :where(button, .btn).info:hover,
+    :where(button:hover, .btn:hover).info,
     .btn-info:hover {
       color: var(--color-text-info-bold);
       background-color: var(--color-bg-surface-muted);
     }
   }
-  :where(button, .btn).info:focus-visible,
+  :where(button:focus-visible, .btn:focus-visible).info,
   .btn-info:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px var(--color-bg-info-solid);
@@ -2033,11 +2499,11 @@ body {
     text-underline-offset: 0.15em;
   }
   @media (hover: hover) {
-    :where(a):hover {
+    :where(a:hover) {
       color: var(--color-text-brand-primary-bold);
     }
   }
-  :where(a):focus-visible {
+  :where(a:focus-visible) {
     outline: none;
     box-shadow: 0 0 0 3px var(--color-bg-brand-primary-solid);
   }
@@ -2127,9 +2593,9 @@ body {
   }
 }
 /* ── Component + structural partials (Tailwind-clashing utilities dropped) ── */
-/* Dropped 8 pre-expanded breakpoint block(s) — write @sm:/@md:/@lg:/@xl: instead.
-   Dropped 8 clashing utilit(ies) Tailwind provides itself:
-   block grid hidden inline inline-block not-sr-only sr-only sticky */
+/* Dropped 0 pre-expanded breakpoint block(s) — write @sm:/@md:/@lg:/@xl: instead.
+   Dropped 0 clashing utilit(ies) Tailwind provides itself:
+   (none) */
 @layer components {
   /* ── patterns/cluster.css ── */
   /**
@@ -2354,8 +2820,13 @@ body {
      .stagger (animation.css): sibling-index() lacks only Firefox as of 2026,
      and where it's missing the margin stays 0 and rows fall back to the grid
      gap, rather than producing an invalid margin. The second selector repeats
-     the rule at the specificity rhythm forces above. */
-    @supports (--x: sibling-index()) {
+     the rule at the specificity rhythm forces above.
+
+     The test must name a REAL property: `@supports (--x: sibling-index())` is
+     always true, because any token stream is a valid custom-property value —
+     it guarded nothing, and on an engine without sibling-index() the margin
+     went invalid-at-computed-value-time instead of being skipped. */
+    @supports (margin-block-start: calc(sibling-index() * 1px)) {
       > *,
       &:is(ul, ol) > li + li {
         --_row-index: round(down, calc((sibling-index() - 1) / var(--_cols)), 1);
@@ -2776,6 +3247,36 @@ body {
   }
 
   /* ── patterns/sticky.css ── */
+  /**
+ * Sticky — pattern partial migrated from old-css-lib.
+ * Consumes the generated token cascade (src/css/generated/tokens.css).
+ */
+
+  /* ── Sticky — position:sticky variants + scroll-state() stuck detection ────── */
+  .sticky {
+    --_sticky-offset: var(--sticky-offset, 0);
+
+    position: sticky;
+    inset-block-start: var(--_sticky-offset);
+    z-index: var(--z-tier-sticky);
+
+    &.sticky--bottom {
+      inset-block-start: auto;
+      inset-block-end: var(--_sticky-offset);
+    }
+
+    &.sticky--inline-start {
+      inset-inline-start: var(--_sticky-offset);
+      inset-block-start: auto;
+    }
+
+    &.sticky--inline-end {
+      inset-inline-end: var(--_sticky-offset);
+      inset-inline-start: auto;
+      inset-block-start: auto;
+    }
+  }
+
   .sticky-header {
     --_sticky-offset: var(--sticky-header-offset, 0);
 
@@ -3157,13 +3658,25 @@ body {
     }
   }
 
-  /* ── utilities.css ── */
+  /* ── patterns/reveal.css ── */
   /* ═══════════════════════════════════════════════════════════════════════════
    DISCLOSURE — animatable show/hide (auto ↔ 0), layered by support
+
+   Lives in `vitops.components` (the default for an unmapped partial), NOT in
+   utilities.css where it used to sit. `.reveal` is a container pattern — three
+   rules, a state selector and a child contract — and shelving it as a utility
+   meant it beat every pattern AND beat the display utilities, so
+   `class="reveal hidden"` stayed visible. The tailwind format has always inlined
+   it into `@layer components`; this removes the divergence.
+
+   The ::details-content half of this family is NOT here: patterns/details.css
+   owns it. Two copies existed, and the utilities-layer one was winning purely on
+   layer, which is how `overflow: clip` beat details.css's `overflow: hidden`.
+
    Layer 1 (primary, broadly supported): CSS grid 0fr↔1fr hack. Needs ONE child
      wrapper; the wrapper clips its own content as the track reveals.
    Layer 2 (progressive): interpolate-size + native height:auto animation.
-   Layer 3 (native <details>): animate ::details-content directly.
+   Layer 3 (native <details>, animating ::details-content): patterns/details.css.
    `.reveal-fade` covers the display:none fade case with the allow-discrete +
    @starting-style idiom (same as nav.css `.drawer-menu`).
    Toggle: consumer sets `.is-open` / `[data-open]` (mirrors .is-active /
@@ -3212,30 +3725,6 @@ body {
     }
     .reveal-h:not(.is-open):not([data-open]) {
       height: 0;
-    }
-  }
-
-  /* ── Layer 3: native <details> disclosure ──
-   Markup:
-     <details>
-       <summary>Toggle</summary>
-       … content …
-     </details>
-   Animate the UA-generated content box directly; interpolate-size (Layer 2)
-   lets block-size reach `auto`. Guarded — engines without ::details-content just
-   snap open (fully accessible). */
-  /* NOTE: the transition that used to live here is gone, for the same reason as in
-   patterns/details.css — in Chrome 149 *any* transition on ::details-content
-   deadlocks (content-visibility stays hidden → `auto` resolves to 0 → nothing
-   runs) and the disclosure never opens. Collapsing still works; only the motion
-   is dropped. Don't reinstate it without checking that a first click expands. */
-  @supports selector(::details-content) {
-    details::details-content {
-      overflow: clip;
-      block-size: 0;
-    }
-    details[open]::details-content {
-      block-size: auto;
     }
   }
 
@@ -3299,16 +3788,20 @@ body {
     color: var(--color-text-surface);
     max-block-size: calc(100vh - 2rem);
 
-    &::backdrop {
-      backdrop-filter: blur(4px);
-    }
+    /* The scrim itself is one rule in popover.css; this only says how it should
+     look for a dialog. It also fades in/out from there, so the bespoke
+     `dialog-backdrop-enter` keyframe that used to run here is gone (it only ever
+     animated the entry). */
+    --scrim-filter: blur(4px);
 
-    &[open] {
-      animation: dialog-enter 0.3s ease;
-    }
-    &[open]::backdrop {
-      animation: dialog-backdrop-enter 0.3s ease;
-    }
+    /* The entry, as effect vars rather than a keyframe. Same three endpoints the
+     `dialog-enter` keyframe used, now run by the top-layer driver in
+     animation.css — which means the dialog also animates OUT, which it never did
+     (an `animation:` on `[open]` only ever plays once, on open). */
+    --opacity-from: 0;
+    --scale-x-from: 0.95;
+    --scale-y-from: 0.95;
+    --translate-y-from: -1rem;
 
     .dialog__header {
       display: flex;
@@ -3346,28 +3839,6 @@ body {
     }
   }
 
-  @keyframes dialog-enter {
-    from {
-      opacity: 0;
-      scale: 0.95;
-      translate: 0 -1rem;
-    }
-    to {
-      opacity: 1;
-      scale: 1;
-      translate: 0 0;
-    }
-  }
-
-  @keyframes dialog-backdrop-enter {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
   /* ── patterns/drawer.css ── */
   /**
  * Drawer — pattern partial migrated from old-css-lib.
@@ -3392,24 +3863,30 @@ body {
     max-block-size: none;
 
     &::backdrop {
-      backdrop-filter: blur(4px);
+      backdrop-filter: var(--scrim-filter, blur(4px));
     }
 
     /**
-   * Modeless — a panel you work *alongside* rather than through. Drops the
-   * scrim so the page behind stays legible, which is the whole point for a
-   * live editor or an inspector: you're watching what your edits do.
+   * Each edge states WHERE IT STARTS in the animation system's own vocabulary
+   * (`--translate-<axis>-from`) instead of owning a keyframe. Add `.transition`
+   * and the top-layer driver in animation.css animates it — both ways.
    *
-   * Pair with `popover="manual"`. An `auto` popover light-dismisses on the
-   * first click outside — i.e. exactly the interaction a modeless panel exists
-   * to allow — and `manual` also drops Esc, so give it an explicit close
-   * control (and wire Esc yourself if the panel warrants it).
+   * This replaced four `@keyframes drawer-slide-in-*` driven by `animation:`,
+   * which only ever played on OPEN: the drawer's close was instant, while
+   * sitenav's transition-based copy of the same idea animated both ways.
+   *
+   * The var is set here rather than asking authors for a `.slide-*` effect
+   * class, because both would trip them up: the effect names read backwards for
+   * an edge panel (a LEFT drawer starts off-screen left and travels right, i.e.
+   * `.slide-right`), and `--slide-distance` defaults to 2rem where a drawer
+   * needs the full 100%. An explicit effect class still overrides this.
+   *
+   * EVERY edge states BOTH axes. The unset axis does not inherit a sensible
+   * zero — it inherits whatever the bare `.drawer` default left there, and the
+   * default is the left edge's `-100%`. Setting only `--translate-y-from` on
+   * `.drawer--bottom` therefore produced `translate: -100% 100%` and the panel
+   * flew in diagonally from the bottom-left corner.
    */
-    &.drawer--modeless::backdrop {
-      background: none;
-      backdrop-filter: none;
-    }
-
     &,
     &.drawer--left {
       inset-block: 0;
@@ -3417,11 +3894,8 @@ body {
       block-size: 100dvh;
       inline-size: min(100dvi, var(--drawer-max-inline-size, 280px));
       border-radius: 0;
-
-      &[open],
-      &:popover-open {
-        animation: drawer-slide-in-left 0.3s ease;
-      }
+      --translate-x-from: -100%;
+      --translate-y-from: 0;
     }
 
     &.drawer--right {
@@ -3429,22 +3903,16 @@ body {
       inset-inline-end: 0;
       inset-inline-start: auto;
       inline-size: min(100dvi, var(--drawer-max-inline-size, 280px));
-
-      &[open],
-      &:popover-open {
-        animation: drawer-slide-in-right 0.3s ease;
-      }
+      --translate-x-from: 100%;
+      --translate-y-from: 0;
     }
 
     &.drawer--top {
       inset-block-start: 0;
       inset-inline: 0;
       block-size: min(100dvb, var(--drawer-max-block-size, 100dvb));
-
-      &[open],
-      &:popover-open {
-        animation: drawer-slide-in-top 0.3s ease;
-      }
+      --translate-x-from: 0;
+      --translate-y-from: -100%;
     }
 
     &.drawer--bottom {
@@ -3452,47 +3920,8 @@ body {
       inset-block-start: auto;
       inset-inline: 0;
       block-size: min(100dvb, var(--drawer-max-block-size, 100dvb));
-
-      &[open],
-      &:popover-open {
-        animation: drawer-slide-in-bottom 0.3s ease;
-      }
-    }
-  }
-
-  @keyframes drawer-slide-in-left {
-    from {
-      translate: -100% 0;
-    }
-    to {
-      translate: 0 0;
-    }
-  }
-
-  @keyframes drawer-slide-in-right {
-    from {
-      translate: 100% 0;
-    }
-    to {
-      translate: 0 0;
-    }
-  }
-
-  @keyframes drawer-slide-in-top {
-    from {
-      translate: 0 -100%;
-    }
-    to {
-      translate: 0 0;
-    }
-  }
-
-  @keyframes drawer-slide-in-bottom {
-    from {
-      translate: 0 100%;
-    }
-    to {
-      translate: 0 0;
+      --translate-x-from: 0;
+      --translate-y-from: 100%;
     }
   }
 
@@ -3527,20 +3956,70 @@ body {
     inset: auto;
   }
 
+  /**
+ * Open/closed behaviour, at real specificity so a component's own rules can't
+ * accidentally reveal a closed popover.
+ *
+ * This block used to also carry `&:popover-open { opacity: 1 }` and an
+ * `@starting-style { opacity: 0 }`. Both are gone, and must not come back:
+ * nothing here declared a `transition`, so they never animated anything on their
+ * own — but `[popover]:popover-open` is (0,1,0) and this partial is imported
+ * AFTER animation.css, so that rule outranked `.transition`'s
+ * `opacity: var(--t-opacity, …)` at equal specificity and pinned every top-layer
+ * fade to 1. The `open-<fx>` driver cannot work while it exists.
+ */
   [popover] {
-    &:popover-open {
-      opacity: 1;
-    }
-
     &:not(:popover-open):not([open]) {
       display: none;
     }
+  }
 
-    @starting-style {
-      &:popover-open {
-        opacity: 0;
-      }
+  /**
+ * The scrim — one definition for every top-layer element.
+ *
+ * This used to be restated in seven partials (dialog, drawer, dropdown,
+ * lightbox, nav, sitenav, split-link — 18 `::backdrop` blocks between them),
+ * each inventing its own colour, blur and transition. They are now one rule with
+ * two knobs.
+ *
+ * `:where()` for the same reason the visual reset above uses it: this partial is
+ * imported after drawer.css and dialog.css, so at plain specificity it would
+ * beat their own `::backdrop` rules. At zero specificity any pattern still wins.
+ *
+ * `overlay`/`display` transition with `allow-discrete` so the scrim fades OUT
+ * too — without them the backdrop vanishes the instant the popover closes while
+ * the panel is still animating away.
+ */
+  :where([popover], dialog)::backdrop {
+    background-color: var(--scrim, rgb(0 0 0 / 25%));
+    backdrop-filter: var(--scrim-filter, none);
+    transition:
+      background-color var(--scrim-duration, 0.3s),
+      overlay var(--scrim-duration, 0.3s) allow-discrete,
+      display var(--scrim-duration, 0.3s) allow-discrete;
+  }
+
+  :where([popover], dialog):not(:popover-open):not([open])::backdrop {
+    background-color: transparent;
+  }
+
+  @starting-style {
+    :where([popover], dialog):is(:popover-open, [open])::backdrop {
+      background-color: transparent;
     }
+  }
+
+  /**
+ * No scrim — a panel you work *alongside* rather than through, where the page
+ * behind must stay legible (a live editor, an inspector). Pair with
+ * `popover="manual"`: an `auto` popover light-dismisses on the first outside
+ * click, which is exactly the interaction a modeless panel exists to allow.
+ * `.drawer--modeless` is the historical name and stays as an alias.
+ */
+  .no-scrim::backdrop,
+  .drawer--modeless::backdrop {
+    background-color: transparent;
+    backdrop-filter: none;
   }
 
   .popover-anchor {
@@ -3675,7 +4154,19 @@ body {
         opacity 0.2s ease,
         translate 0.2s ease,
         visibility 0.2s allow-discrete;
+      /* `position: absolute`, anchored to the `position: relative` host above.
+       This is the whole reason a hover dropdown ever worked or didn't: a closed
+       popover is NOT in the top layer, but it keeps the UA's
+       `[popover] { position: fixed }`. Resetting only `inset` left it fixed to
+       the VIEWPORT at whatever static position it resolved to — measured 3300px
+       below its own trigger and off-screen, so the panel faithfully faded in
+       somewhere nobody was looking, which reads exactly like "hover does
+       nothing". Anchoring it puts it under the trigger and makes it follow on
+       scroll. */
+      position: absolute;
       inset: auto;
+      inset-block-start: 100%;
+      inset-inline-start: 0;
       margin: 0;
     }
 
@@ -3695,8 +4186,10 @@ body {
       padding-block-start: var(--dropdown-gap, 0.5rem);
     }
 
+    /* Was `!important`, to beat popover.css's then plain-specificity ::backdrop.
+     That rule is `:where()` (0,0,0) now, so ordinary specificity is enough. */
     > [popover]::backdrop {
-      background: transparent !important;
+      background: transparent;
     }
   }
 
@@ -3804,15 +4297,105 @@ body {
       }
     }
 
-    &::backdrop {
-      background: transparent;
-    }
+    /* No scrim. Stated through popover.css's token rather than overriding its
+     ::backdrop rule, so it keeps the shared fade timing. */
+    --scrim: transparent;
   }
 
   /* Builder-only: rendered without the `popover` attribute so nested content is
    visible and droppable while editing (a live [popover] is display:none). */
   .split-link__panel--editing {
     margin-block-start: var(--split-link-gap, 0.5rem);
+  }
+
+  /* ── patterns/navbar.css ── */
+  /**
+ * Navbar — a horizontal row of links, with alignment.
+ *
+ *   <nav class="navbar navbar--end">
+ *     <a class="link" href="/guides">Guides</a>
+ *     <a class="link" href="/reference">Reference</a>
+ *   </nav>
+ *
+ * Extracted from patterns/nav.css, where `.navbar` already lived but only as the
+ * horizontal half of that file's drawer⇄navbar pair — it could not be used on
+ * its own, and it had no way to say where the links should sit. It is a
+ * primitive now, so `sitenav` (and anything else that needs a link row at width)
+ * composes it instead of restating `display: flex` and a gap.
+ *
+ * Deliberately NOT a `.cluster`: a cluster wraps and is content-agnostic; a
+ * navbar is a single row of navigation that stays a row, and carries the
+ * alignment vocabulary a nav actually needs.
+ */
+  .navbar {
+    display: flex;
+    align-items: center;
+    gap: var(--navbar-gap, 2rem);
+
+    /* Links stay on one line — a navbar that wraps mid-row reads as broken chrome.
+     Above its breakpoint `sitenav` is what decides there is room; below it, the
+     drawer is the answer, not a wrapped bar. */
+    flex-wrap: nowrap;
+  }
+
+  /* ── Alignment. `--start` is the default and exists so the intent can be stated
+   rather than inferred from its absence. ── */
+  .navbar--start {
+    justify-content: flex-start;
+  }
+
+  .navbar--center {
+    justify-content: center;
+  }
+
+  .navbar--end {
+    justify-content: flex-end;
+  }
+
+  /**
+ * Push everything after this element to the far edge — the usual "brand on the
+ * left, links on the right" split, without a wrapper element per side.
+ */
+  .navbar__spacer {
+    margin-inline-start: auto;
+  }
+
+  .navbar--sticky,
+/* The pre-extraction spelling. Kept so an existing consumer's markup keeps
+   working; prefer `.navbar--sticky`. */
+.navbar-sticky {
+    position: sticky;
+    inset-block-start: var(--navbar-sticky-offset, 0);
+    z-index: var(--z-tier-sticky);
+  }
+
+  /* ── Legacy composition: nav.css's `.nav-*` parts inside a navbar. Kept with the
+   pattern they belong to so nav.css can be retired as one piece. ── */
+  .navbar {
+    nav {
+      flex: 1;
+      flex-direction: row;
+    }
+
+    .nav-items {
+      flex: 1;
+      flex-direction: row;
+      gap: 2.25rem;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .nav-actions {
+      flex-direction: row;
+      gap: 2.25rem;
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .nav-header {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
   }
 
   /* ── patterns/sitenav.css ── */
@@ -3835,10 +4418,32 @@ body {
  * OR click (native `[open]` pins it). Top-level submenus drop below their item;
  * deeper (megamenu) submenus fly out to the inline-end side.
  *
- * `.sitenav__disclosure` is `display: contents` so the `<summary>` (caret) and the
- * submenu `<ul>` participate directly in the branch item's grid — that is what lets
- * the caret sit inline with the link while the submenu spans full width on its own
- * row. Native `[open]` toggling is unaffected by `display: contents`.
+ * The `<details>` is grid-placed at column 2 and the submenu `<ul>` is its SIBLING,
+ * a real grid child of the branch item — that is what lets the caret sit inline with
+ * the link while the submenu spans full width on its own row.
+ *
+ * ── TWO BRANCHES, NOT BASE-PLUS-OVERRIDE ──
+ *
+ * `@container` contributes ZERO specificity, so a rule inside the wide block competes
+ * at its bare selector weight. A bare `.sitenav--drawer-end .sitenav__panel` (0,2,0)
+ * therefore beat the wide block's `.sitenav__panel` (0,1,0) reset *in the wide state*:
+ * the promoted navbar shipped translated a full panel-width off-screen, and the
+ * accordion's `overflow: hidden` clipped away every third-level megamenu. Before the
+ * four per-breakpoint blocks were folded into one style query, those resets carried a
+ * `.sitenav--bp-*` class and won the tie on source order; folding them removed it.
+ *
+ * So the rule is: **a narrow-state rule that is MORE SPECIFIC than its wide-state
+ * counterpart lives inside `@container style(--_sitenav-wide: 0)`.** Rules at (0,1,0)
+ * — the panel's box, the lists, the links — stay unscoped, because that same work is
+ * what neutralises the UA `[popover]` sheet, which applies in BOTH states; scoping it
+ * would mean writing it twice. `src/css/state-branch.test.ts` asserts the invariant.
+ *
+ * Both branches read an INHERITED flag, so every part must live inside `.sitenav`,
+ * which declares it. Note the file mixes two unnamed query kinds that resolve against
+ * DIFFERENT containers: `style()` against the nearest ancestor ELEMENT (every element
+ * is a style container — no `container-type` needed, and it resolves for a panel
+ * promoted to the top layer), the `(min-width:)` queries below against `body`
+ * (layout.css). That asymmetry is why the flag has to be a custom property.
  *
  * Per-breakpoint depth caps come pre-resolved from PHP as item classes:
  *   `.sitenav__item--desktop-branch` — caret + submenu shown only ≥ breakpoint;
@@ -3848,6 +4453,10 @@ body {
 
   /* ── Container + mobile chrome ─────────────────────────────────────────────── */
   .sitenav {
+    /* Reset first — the flag inherits, so a nested sitenav must resolve against
+     itself rather than an outer instance's promoted state. */
+    --_sitenav-wide: 0;
+
     display: flex;
     align-items: center;
   }
@@ -3889,6 +4498,19 @@ body {
     inset-block: 0;
     inline-size: min(100dvw, var(--sitenav-drawer-size, 20rem));
     max-inline-size: 100dvw;
+
+    /* The UA `[popover]` sheet supplies `margin: auto` and `height: fit-content`, and
+     neither was being undone — so `inset-block: 0` bought nothing and the "drawer"
+     rendered as a content-height card floating in the vertical centre, while at
+     width the auto margins absorbed the free space of any stretched `.sitenav`.
+     `drawer.css` resets margin for exactly this reason; this panel doesn't compose
+     it. Both live in the base block because the UA sheet applies in BOTH states:
+     against `position: fixed` + `inset-block: 0` an auto block-size stretches to
+     the drawer's full height, and against the wide branch's `position: static` the
+     same declaration sizes the navbar to its content. */
+    margin: 0;
+    block-size: auto;
+
     padding: 1.5rem;
     padding-block-start: 3.5rem; /* clearance for the close button */
     background: var(--color-bg-surface);
@@ -3920,32 +4542,41 @@ body {
     }
   }
 
-  /* Slide from the chosen edge (default inline-end). */
-  .sitenav--drawer-end .sitenav__panel {
-    inset-inline-end: 0;
-    inset-inline-start: auto;
-    translate: 100% 0;
-  }
-
-  .sitenav--drawer-start .sitenav__panel {
-    inset-inline-start: 0;
-    inset-inline-end: auto;
-    translate: -100% 0;
-  }
-
-  .sitenav__panel:popover-open {
-    opacity: 1;
-    translate: 0 0;
-  }
-
-  @starting-style {
-    .sitenav--drawer-end .sitenav__panel:popover-open {
-      opacity: 0;
+  /* ── Drawer geometry + transition — NARROW ONLY ─────────────────────────────
+   Scoped rather than bare because these are (0,2,0)/(0,3,0) and would outrank the
+   wide block's (0,1,0) panel reset. `:popover-open` and the `@starting-style`
+   pair are one transition system with the edge modifiers, so they travel with
+   them: both are inert at width only by coincidence (the panel is always
+   displayed there, and their values happen to match the reset's), which is the
+   same shape of accident as the bug itself. ── */
+  @container style(--_sitenav-wide: 0) {
+    /* Slide from the chosen edge (default inline-end). The insets also undo the UA
+     `[popover] { inset: 0 }`; the wide branch does that job with `inset: auto`. */
+    .sitenav--drawer-end .sitenav__panel {
+      inset-inline-end: 0;
+      inset-inline-start: auto;
       translate: 100% 0;
     }
-    .sitenav--drawer-start .sitenav__panel:popover-open {
-      opacity: 0;
+    .sitenav--drawer-start .sitenav__panel {
+      inset-inline-start: 0;
+      inset-inline-end: auto;
       translate: -100% 0;
+    }
+
+    .sitenav__panel:popover-open {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    @starting-style {
+      .sitenav--drawer-end .sitenav__panel:popover-open {
+        opacity: 0;
+        translate: 100% 0;
+      }
+      .sitenav--drawer-start .sitenav__panel:popover-open {
+        opacity: 0;
+        translate: -100% 0;
+      }
     }
   }
 
@@ -3984,31 +4615,7 @@ body {
     font-style: italic;
   }
 
-  /* ── Branch item — mobile accordion ────────────────────────────────────────
-   The item is a grid: [link | caret] on row 1, the submenu spanning row 2. The
-   <details> holds only the caret <summary>; the submenu <ul> is its sibling and a
-   real grid child of the item. The row-2 track animates 0fr→1fr when the details is
-   open (the classic no-JS accordion, driven by `:has`), so the submenu pushes the
-   content below rather than overlaying it. */
-  .sitenav__item--branch {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto 0fr;
-    align-items: center;
-    column-gap: 0.5rem;
-    transition: grid-template-rows 0.25s ease;
-  }
-
-  .sitenav__item--branch > .split-link__link {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  /* <details> is only the caret; keep its box out of the flow's height. */
-  .sitenav__disclosure {
-    grid-column: 2;
-    grid-row: 1;
-  }
+  /* ── Branch item — the two rules both presentations share ──────────────────── */
 
   /* The <summary>. `.split-link__toggle` supplies the flush look, hover + focus, and
    the caret transition; only the disclosure-marker reset is added here. */
@@ -4021,384 +4628,599 @@ body {
     }
   }
 
-  .sitenav__item--branch > .sitenav__submenu {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    /* Stretch to the row-2 track (not content-sized) so the 0fr collapsed state
-     actually clips to 0 — the item's own align-self must beat the grid's
-     `align-items: center`, or overflow:hidden has nothing to clip against. */
-    align-self: stretch;
-    min-block-size: 0;
-    overflow: hidden;
-    padding-inline-start: 1rem;
-  }
-
-  .sitenav__item--branch:has(> .sitenav__disclosure[open]) {
-    grid-template-rows: auto 1fr;
-  }
-
-  /* Caret flips while the disclosure is open (summary carries no aria-expanded). */
+  /* Caret flips while the disclosure is open (summary carries no aria-expanded).
+   Unscoped: at width the same native `[open]` pins a dropdown, so the flip is
+   wanted in both states. */
   .sitenav__disclosure[open] > .sitenav__subtoggle .split-link__caret {
     rotate: 180deg;
   }
 
-  /* Depth cap (mobile side): a desktop-only branch shows just its parent link. */
-  .sitenav__item--desktop-branch > .sitenav__disclosure,
-  .sitenav__item--desktop-branch > .sitenav__submenu {
-    display: none;
+  /* ── Mobile accordion — NARROW ONLY ─────────────────────────────────────────
+   The item is a grid: [link | caret] on row 1, the submenu spanning row 2. The
+   <details> holds only the caret <summary>; the submenu <ul> is its sibling and a
+   real grid child of the item. The row-2 track animates 0fr→1fr when the details is
+   open (the classic no-JS accordion, driven by `:has`), so the submenu pushes the
+   content below rather than overlaying it.
+
+   Scoped because these selectors are (0,2,0)/(0,3,0). Most of what is in here is
+   inert at width anyway — grid placement on a flex item, `align-self` on an
+   absolutely positioned box, `min-block-size: 0` where `auto` already computes to
+   0 — but `overflow: hidden` and `padding-inline-start` are NOT, and leaking them
+   into the navbar is what clipped the megamenus. ── */
+  @container style(--_sitenav-wide: 0) {
+    .sitenav__item--branch {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto 0fr;
+      align-items: center;
+      column-gap: 0.5rem;
+      transition: grid-template-rows 0.25s ease;
+    }
+
+    .sitenav__item--branch > .split-link__link {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    /* <details> is only the caret; keep its box out of the flow's height. */
+    .sitenav__disclosure {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .sitenav__item--branch > .sitenav__submenu {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      /* Stretch to the row-2 track (not content-sized) so the 0fr collapsed state
+       actually clips to 0 — the item's own align-self must beat the grid's
+       `align-items: center`, or overflow:hidden has nothing to clip against. */
+      align-self: stretch;
+      min-block-size: 0;
+      overflow: hidden;
+      padding-inline-start: 1rem;
+    }
+
+    .sitenav__item--branch:has(> .sitenav__disclosure[open]) {
+      grid-template-rows: auto 1fr;
+    }
+
+    /* Depth cap (mobile side): a desktop-only branch shows just its parent link.
+     Scoped, so the wide branch needs no counter-rule — it simply stops applying. */
+    .sitenav__item--desktop-branch > .sitenav__disclosure,
+    .sitenav__item--desktop-branch > .sitenav__submenu {
+      display: none;
+    }
   }
 
-  /* ── Desktop promotion — one block per framework breakpoint ─────────────────
-   Only the min-width threshold + `.sitenav--bp-*` scope differ; the nested ruleset
-   is identical. CSS has no mixins, so the four blocks are intentionally parallel —
-   edit them together. Each: hide the mobile chrome, force the [popover] panel back
-   inline as a navbar, turn the list horizontal, and promote submenus to dropdowns. */
+  /* ── Desktop promotion.
+ *
+ * Four thresholds, ONE ruleset. This used to be four ~86-line blocks that had to
+ * be kept in step by hand, and the file said so: "CSS has no mixins, so the four
+ * blocks are intentionally parallel — edit them together."
+ *
+ * They were not in step. `md`, `lg` and `xl` were byte-identical; `sm` had drifted
+ * onto an older markup shape, selecting `.sitenav__disclosure > .sitenav__submenu`
+ * where the submenu is actually the disclosure's SIBLING (see the accordion
+ * comment above, and bricks/elements/sitenav.php). So `.sitenav--bp-sm` shipped a
+ * navbar whose dropdowns could never open, and nothing failed loudly enough to
+ * notice. One shared block makes that class of drift unrepresentable.
+ *
+ * The mechanism is a style query on an inherited flag, the same one
+ * patterns/navshell.css uses. `.sitenav` resets the flag so a nested sitenav
+ * resolves against ITSELF rather than inheriting an outer instance's "I'm wide".
+ *
+ * Note the wide state is a navbar in everything but name — a horizontal row of
+ * links. It does not literally compose `patterns/navbar.css`, because the panel
+ * has to be a COLUMN in its drawer state, and a class can't be conditional; the
+ * flip would have to be undone at mobile, which costs more than the two
+ * declarations it saves. Use `.navbar` directly for a link row that is only ever
+ * a row.
+ * ── */
   @container (min-width: 30rem) {
     .sitenav--bp-sm {
-      & > .sitenav__toggle,
-      & .sitenav__close {
-        display: none;
-      }
-      /* [popover] is UA/polyfill display:none while closed; !important forces the
-       navbar body back inline (the hamburger is gone, so it never re-hides). */
-      & .sitenav__panel {
-        display: flex !important;
-        flex-direction: row;
-        align-items: center;
-        position: static;
-        inset: auto;
-        inline-size: auto;
-        max-inline-size: none;
-        block-size: auto;
-        padding: 0;
-        translate: none;
-        opacity: 1;
-        overflow: visible;
-        background: none;
-        color: inherit;
-        box-shadow: none;
-        z-index: auto;
-      }
-      & .sitenav__panel::backdrop {
-        display: none;
-      }
-      & .sitenav__list {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-      & .sitenav__item--branch {
-        position: relative;
-        display: flex;
-        align-items: center;
-        grid-template-columns: none;
-        grid-template-rows: none;
-      }
-      & .sitenav__submenu {
-        position: absolute;
-        inset-block-start: 100%;
-        inset-inline-start: 0;
-        min-inline-size: 13rem;
-        padding: 0.5rem;
-        overflow: visible;
-        background: var(--color-bg-surface);
-        color: var(--color-text-surface);
-        border: var(--b-panel);
-        border-radius: var(--br-panel);
-        box-shadow: var(--ds-panel);
-        z-index: var(--z-tier-overlay);
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        translate: 0 0.25rem;
-        transition:
-          opacity 0.15s ease,
-          translate 0.15s ease,
-          visibility 0.15s allow-discrete;
-      }
-      /* deeper submenus (inside a panel) fly out to the side, not downward */
-      & .sitenav__submenu .sitenav__item--branch > .sitenav__disclosure > .sitenav__submenu {
-        inset-block-start: 0;
-        inset-inline-start: 100%;
-        translate: 0.25rem 0;
-      }
-      & .sitenav__item--branch:hover > .sitenav__disclosure > .sitenav__submenu,
-      & .sitenav__item--branch:focus-within > .sitenav__disclosure > .sitenav__submenu,
-      & .sitenav__item--branch > .sitenav__disclosure[open] > .sitenav__submenu {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        translate: 0 0;
-      }
-      /* depth caps flip at the breakpoint */
-      & .sitenav__item--desktop-branch > .sitenav__disclosure > .sitenav__subtoggle {
-        display: inline-flex;
-      }
-      & .sitenav__item--mobile-branch > .sitenav__disclosure > .sitenav__subtoggle,
-      & .sitenav__item--mobile-branch > .sitenav__disclosure > .sitenav__submenu {
-        display: none;
-      }
+      --_sitenav-wide: 1;
     }
   }
 
   @container (min-width: 48rem) {
     .sitenav--bp-md {
-      & > .sitenav__toggle,
-      & .sitenav__close {
-        display: none;
-      }
-      & .sitenav__panel {
-        display: flex !important;
-        flex-direction: row;
-        align-items: center;
-        position: static;
-        inset: auto;
-        inline-size: auto;
-        max-inline-size: none;
-        block-size: auto;
-        padding: 0;
-        translate: none;
-        opacity: 1;
-        overflow: visible;
-        background: none;
-        color: inherit;
-        box-shadow: none;
-        z-index: auto;
-      }
-      & .sitenav__panel::backdrop {
-        display: none;
-      }
-      & .sitenav__list {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-      & .sitenav__item--branch {
-        position: relative;
-        display: flex;
-        align-items: center;
-        grid-template-columns: none;
-        grid-template-rows: none;
-      }
-      & .sitenav__submenu {
-        position: absolute;
-        inset-block-start: 100%;
-        inset-inline-start: 0;
-        min-inline-size: 13rem;
-        padding: 0.5rem;
-        overflow: visible;
-        background: var(--color-bg-surface);
-        color: var(--color-text-surface);
-        border: var(--b-panel);
-        border-radius: var(--br-panel);
-        box-shadow: var(--ds-panel);
-        z-index: var(--z-tier-overlay);
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        translate: 0 0.25rem;
-        transition:
-          opacity 0.15s ease,
-          translate 0.15s ease,
-          visibility 0.15s allow-discrete;
-      }
-      & .sitenav__submenu .sitenav__item--branch > .sitenav__submenu {
-        inset-block-start: 0;
-        inset-inline-start: 100%;
-        translate: 0.25rem 0;
-      }
-      & .sitenav__item--branch:hover > .sitenav__submenu,
-      & .sitenav__item--branch:focus-within > .sitenav__submenu,
-      & .sitenav__item--branch:has(> .sitenav__disclosure[open]) > .sitenav__submenu {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        translate: 0 0;
-      }
-      /* depth caps flip at the breakpoint: desktop-only branches reveal their caret +
-       dropdown; mobile-only branches collapse to a plain link. */
-      & .sitenav__item--desktop-branch > .sitenav__disclosure,
-      & .sitenav__item--desktop-branch > .sitenav__submenu {
-        display: block;
-      }
-      & .sitenav__item--mobile-branch > .sitenav__disclosure,
-      & .sitenav__item--mobile-branch > .sitenav__submenu {
-        display: none;
-      }
+      --_sitenav-wide: 1;
     }
   }
 
   @container (min-width: 64rem) {
     .sitenav--bp-lg {
-      & > .sitenav__toggle,
-      & .sitenav__close {
-        display: none;
-      }
-      & .sitenav__panel {
-        display: flex !important;
-        flex-direction: row;
-        align-items: center;
-        position: static;
-        inset: auto;
-        inline-size: auto;
-        max-inline-size: none;
-        block-size: auto;
-        padding: 0;
-        translate: none;
-        opacity: 1;
-        overflow: visible;
-        background: none;
-        color: inherit;
-        box-shadow: none;
-        z-index: auto;
-      }
-      & .sitenav__panel::backdrop {
-        display: none;
-      }
-      & .sitenav__list {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-      & .sitenav__item--branch {
-        position: relative;
-        display: flex;
-        align-items: center;
-        grid-template-columns: none;
-        grid-template-rows: none;
-      }
-      & .sitenav__submenu {
-        position: absolute;
-        inset-block-start: 100%;
-        inset-inline-start: 0;
-        min-inline-size: 13rem;
-        padding: 0.5rem;
-        overflow: visible;
-        background: var(--color-bg-surface);
-        color: var(--color-text-surface);
-        border: var(--b-panel);
-        border-radius: var(--br-panel);
-        box-shadow: var(--ds-panel);
-        z-index: var(--z-tier-overlay);
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        translate: 0 0.25rem;
-        transition:
-          opacity 0.15s ease,
-          translate 0.15s ease,
-          visibility 0.15s allow-discrete;
-      }
-      & .sitenav__submenu .sitenav__item--branch > .sitenav__submenu {
-        inset-block-start: 0;
-        inset-inline-start: 100%;
-        translate: 0.25rem 0;
-      }
-      & .sitenav__item--branch:hover > .sitenav__submenu,
-      & .sitenav__item--branch:focus-within > .sitenav__submenu,
-      & .sitenav__item--branch:has(> .sitenav__disclosure[open]) > .sitenav__submenu {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        translate: 0 0;
-      }
-      /* depth caps flip at the breakpoint: desktop-only branches reveal their caret +
-       dropdown; mobile-only branches collapse to a plain link. */
-      & .sitenav__item--desktop-branch > .sitenav__disclosure,
-      & .sitenav__item--desktop-branch > .sitenav__submenu {
-        display: block;
-      }
-      & .sitenav__item--mobile-branch > .sitenav__disclosure,
-      & .sitenav__item--mobile-branch > .sitenav__submenu {
-        display: none;
-      }
+      --_sitenav-wide: 1;
     }
   }
 
   @container (min-width: 80rem) {
     .sitenav--bp-xl {
-      & > .sitenav__toggle,
-      & .sitenav__close {
-        display: none;
-      }
-      & .sitenav__panel {
-        display: flex !important;
-        flex-direction: row;
-        align-items: center;
-        position: static;
-        inset: auto;
-        inline-size: auto;
-        max-inline-size: none;
-        block-size: auto;
-        padding: 0;
-        translate: none;
-        opacity: 1;
-        overflow: visible;
-        background: none;
-        color: inherit;
-        box-shadow: none;
-        z-index: auto;
-      }
-      & .sitenav__panel::backdrop {
-        display: none;
-      }
-      & .sitenav__list {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-      & .sitenav__item--branch {
-        position: relative;
-        display: flex;
-        align-items: center;
-        grid-template-columns: none;
-        grid-template-rows: none;
-      }
-      & .sitenav__submenu {
-        position: absolute;
-        inset-block-start: 100%;
-        inset-inline-start: 0;
-        min-inline-size: 13rem;
-        padding: 0.5rem;
-        overflow: visible;
-        background: var(--color-bg-surface);
-        color: var(--color-text-surface);
-        border: var(--b-panel);
-        border-radius: var(--br-panel);
-        box-shadow: var(--ds-panel);
-        z-index: var(--z-tier-overlay);
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        translate: 0 0.25rem;
-        transition:
-          opacity 0.15s ease,
-          translate 0.15s ease,
-          visibility 0.15s allow-discrete;
-      }
-      & .sitenav__submenu .sitenav__item--branch > .sitenav__submenu {
-        inset-block-start: 0;
-        inset-inline-start: 100%;
-        translate: 0.25rem 0;
-      }
-      & .sitenav__item--branch:hover > .sitenav__submenu,
-      & .sitenav__item--branch:focus-within > .sitenav__submenu,
-      & .sitenav__item--branch:has(> .sitenav__disclosure[open]) > .sitenav__submenu {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        translate: 0 0;
-      }
-      /* depth caps flip at the breakpoint: desktop-only branches reveal their caret +
-       dropdown; mobile-only branches collapse to a plain link. */
-      & .sitenav__item--desktop-branch > .sitenav__disclosure,
-      & .sitenav__item--desktop-branch > .sitenav__submenu {
-        display: block;
-      }
-      & .sitenav__item--mobile-branch > .sitenav__disclosure,
-      & .sitenav__item--mobile-branch > .sitenav__submenu {
-        display: none;
-      }
+      --_sitenav-wide: 1;
+    }
+  }
+
+  @container style(--_sitenav-wide: 1) {
+    .sitenav > .sitenav__toggle,
+    .sitenav__close {
+      display: none;
+    }
+    .sitenav__panel {
+      display: flex !important;
+      flex-direction: row;
+      align-items: center;
+      position: static;
+      inset: auto;
+      inline-size: auto;
+      max-inline-size: none;
+      block-size: auto;
+      padding: 0;
+      translate: none;
+      opacity: 1;
+      overflow: visible;
+      background: none;
+      color: inherit;
+      box-shadow: none;
+      z-index: auto;
+    }
+    .sitenav__panel::backdrop {
+      display: none;
+    }
+    .sitenav__list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .sitenav__item--branch {
+      position: relative;
+      display: flex;
+      align-items: center;
+      /* Restated, not inherited: this used to leak in from the accordion rule, which
+       is now narrow-scoped. Without it the caret hugs the link at width. */
+      column-gap: 0.5rem;
+    }
+    .sitenav__submenu {
+      position: absolute;
+      inset-block-start: 100%;
+      inset-inline-start: 0;
+      min-inline-size: 13rem;
+      padding: 0.5rem;
+      background: var(--color-bg-surface);
+      color: var(--color-text-surface);
+      border: var(--b-panel);
+      border-radius: var(--br-panel);
+      box-shadow: var(--ds-panel);
+      z-index: var(--z-tier-overlay);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      translate: 0 0.25rem;
+      transition:
+        opacity 0.15s ease,
+        translate 0.15s ease,
+        visibility 0.15s allow-discrete;
+    }
+    /* Third level (megamenu) flies out to the inline-end side. Its containing block
+     is the inner `.sitenav__item--branch` (position: relative, above), which sits
+     INSIDE the parent submenu — so nothing between the two may clip. The
+     accordion's `overflow: hidden` used to leak in here at (0,2,0) and beat this
+     branch's (0,1,0) reset, and every megamenu was invisible at width. It is now
+     scoped to `style(--_sitenav-wide: 0)` and cannot. */
+    .sitenav__submenu .sitenav__item--branch > .sitenav__submenu {
+      inset-block-start: 0;
+      inset-inline-start: 100%;
+      translate: 0.25rem 0;
+    }
+    .sitenav__item--branch:hover > .sitenav__submenu,
+    .sitenav__item--branch:focus-within > .sitenav__submenu,
+    .sitenav__item--branch:has(> .sitenav__disclosure[open]) > .sitenav__submenu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      translate: 0 0;
+    }
+    /* Depth cap (desktop side): a mobile-only branch collapses to a plain link. Its
+     mirror — hiding a DESKTOP-only branch below the breakpoint — lives in the
+     narrow branch, so there is nothing to undo here. A `display: block`
+     counter-rule used to sit alongside this one and, at (0,2,0), beat the base
+     `.sitenav__submenu`'s `display: flex` (0,1,0) — costing every desktop-only
+     dropdown its column direction and gap. */
+    .sitenav__item--mobile-branch > .sitenav__disclosure,
+    .sitenav__item--mobile-branch > .sitenav__submenu {
+      display: none;
+    }
+  }
+
+  /* ── patterns/navshell.css ── */
+  /**
+ * Navshell — a navigation ASIDE beside main content at width, collapsing to a
+ * toggle + drawer below it. One markup tree, two presentations, no JS beyond the
+ * Popover polyfill.
+ *
+ *   <div class="navshell navshell--bp-md">
+ *     <div class="navshell__bar">
+ *       <button class="navshell__toggle" popovertarget="site-nav">Menu</button>
+ *     </div>
+ *     <div id="site-nav" popover class="navshell__panel drawer drawer--left">
+ *       <button class="navshell__close" popovertarget="site-nav" popovertargetaction="hide">×</button>
+ *       <nav class="navshell__nav" aria-label="Documentation"> … </nav>
+ *     </div>
+ *     <div class="navshell__main"> … </div>
+ *   </div>
+ *
+ * It NESTS — that is the point, and it is what `.toc-layout` (which this
+ * supersedes) could not do. A docs page is a site nav wrapping a page nav:
+ * the outer promotes to two columns at `md`, the inner waits for `lg`, and
+ * neither needs to know about the other.
+ *
+ * The mobile panel composes `.drawer`, so this file declares NO animation and no
+ * `::backdrop`: the edge modifier states the slide direction, the top-layer
+ * driver in animation.css runs it both ways, and popover.css owns the scrim.
+ */
+
+  .navshell {
+    /* RESET FIRST — these two must sit above the breakpoint blocks, and EVERY
+     root must re-declare them.
+     Both custom properties inherit, and this pattern is built to nest. Without
+     the reset, an outer instance already past ITS breakpoint hands its flag and
+     column template down to an inner instance that is still narrow, and the
+     inner one renders its desktop layout early. Re-declaring on every root
+     severs the inheritance at each instance boundary.
+     `.navshell--bp-*` and `.navshell` are the same specificity, so ORDER is what
+     lets the breakpoint blocks win. */
+    --_navshell-wide: 0;
+    --_navshell-cols: minmax(0, 1fr);
+
+    display: grid;
+    grid-template-columns: var(--_navshell-cols);
+    align-items: start;
+
+    /* Stacked, `gap` is the space between the toggle row and the content — a
+     different job from the space between two columns, and the column value is
+     far too big for it. `--navshell-gap` is applied in the breakpoint blocks
+     instead, which is also the only place it CAN be: the desktop style query
+     below cannot reach `.navshell` itself, because a style query resolves
+     against an ancestor container and never the declaring element. */
+    gap: var(--navshell-stack-gap, 0.75rem);
+
+    /* Resolved once here, read as `--_navshell-size` below, so the fallback chain
+     is stated in one place instead of eight. `--width-nav` is the design
+     system's own token (layout.css, beside --width-measure/-breakout/-spotlight);
+     the literal is only a last resort for navshell.css used without it. */
+    --_navshell-size: var(--navshell-size, var(--width-nav, 16rem));
+  }
+
+  /* ── Promotion thresholds. Four blocks, but each is two lines: they only raise a
+   FLAG. The desktop ruleset itself is written once, below. (Contrast
+   patterns/sitenav.css, which repeats a ~60-line block per breakpoint and whose
+   own header says "CSS has no mixins — edit them together".)
+
+   `minmax(0, 1fr)` for the content column, never a bare `1fr`: a `1fr` track's
+   automatic minimum is min-content, so one wide <pre> pushes the grid past the
+   viewport. That is the bug this pattern was written to end.
+
+   `--navshell-size` carries an inline fallback rather than being registered with
+   `@property { inherits: false }`, which is what this wanted. A registered
+   property's `initial-value` must be computationally independent, and `16rem`
+   depends on the root font-size — so Chrome rejects the whole rule and the
+   variable resolves to nothing, which takes `--_navshell-cols` and then
+   `grid-template-columns` down with it (measured: the shell silently fell back
+   to auto columns). `0`/`0%` initial values, like the two registrations in
+   animation.css, are fine; lengths in rem are not.
+
+   The cost is that `--navshell-size` INHERITS, so an inner instance adopts an
+   outer instance's width unless it sets its own. NavShell.astro always emits it
+   for exactly this reason. ── */
+  @container (min-width: 30rem) {
+    .navshell--bp-sm {
+      --_navshell-wide: 1;
+      gap: var(--navshell-gap, 3rem);
+      --_navshell-cols: var(--_navshell-size) minmax(0, 1fr);
+    }
+    .navshell--bp-sm.navshell--end {
+      --_navshell-cols: minmax(0, 1fr) var(--_navshell-size);
+    }
+  }
+
+  @container (min-width: 48rem) {
+    .navshell--bp-md {
+      --_navshell-wide: 1;
+      gap: var(--navshell-gap, 3rem);
+      --_navshell-cols: var(--_navshell-size) minmax(0, 1fr);
+    }
+    .navshell--bp-md.navshell--end {
+      --_navshell-cols: minmax(0, 1fr) var(--_navshell-size);
+    }
+  }
+
+  @container (min-width: 64rem) {
+    .navshell--bp-lg {
+      --_navshell-wide: 1;
+      gap: var(--navshell-gap, 3rem);
+      --_navshell-cols: var(--_navshell-size) minmax(0, 1fr);
+    }
+    .navshell--bp-lg.navshell--end {
+      --_navshell-cols: minmax(0, 1fr) var(--_navshell-size);
+    }
+  }
+
+  @container (min-width: 80rem) {
+    .navshell--bp-xl {
+      --_navshell-wide: 1;
+      gap: var(--navshell-gap, 3rem);
+      --_navshell-cols: var(--_navshell-size) minmax(0, 1fr);
+    }
+    .navshell--bp-xl.navshell--end {
+      --_navshell-cols: minmax(0, 1fr) var(--_navshell-size);
+    }
+  }
+
+  /* ── Mobile chrome ────────────────────────────────────────────────────────── */
+
+  /**
+ * The in-shell toggle row.
+ *
+ * Sticky by default, but BOTH knobs are variables, because two nested instances
+ * both sticking to `--top-offset` land exactly on top of each other — which is
+ * what happens on a docs page with a site nav and an on-this-page nav. Three
+ * ways out, in order of preference:
+ *
+ *   1. Put the outer toggle in the site header instead (`.navshell-toggle`
+ *      below), leaving one in-flow bar and no conflict. This is the Starlight
+ *      arrangement and the reason the standalone toggle exists.
+ *   2. Stack them: `--navshell-bar-offset: calc(var(--top-offset) + 2.5rem)` on
+ *      the inner instance.
+ *   3. Opt out: `--navshell-bar-position: static`.
+ */
+  .navshell__bar {
+    position: var(--navshell-bar-position, sticky);
+    inset-block-start: var(--navshell-bar-offset, var(--top-offset, 0px));
+    z-index: var(--navshell-bar-z, var(--z-tier-sticky));
+    display: flex;
+    align-items: center;
+    gap: var(--navshell-bar-gap, 0.5rem);
+    background: var(--navshell-bar-background, none);
+  }
+
+  .navshell-toggle,
+  .navshell__toggle,
+  .navshell__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    border-radius: var(--br-control, 0.375rem);
+
+    &:hover {
+      background: var(--color-bg-surface-muted);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--navshell-focus-color, var(--color-border-focus));
+      outline-offset: 2px;
+    }
+  }
+
+  .navshell__close {
+    position: absolute;
+    inset-block-start: 0.75rem;
+    inset-inline-end: 0.75rem;
+  }
+
+  /**
+ * A toggle that lives OUTSIDE the shell — in a site header, a navbar, anywhere.
+ * `popovertarget` is an id reference, so the HTML works from any position; what
+ * it can't inherit is the shell's own "am I wide?" flag, because a style query
+ * resolves against an ancestor container and the header is not inside
+ * `.navshell`. So it carries its own breakpoint, and the two must agree:
+ * `.navshell--bp-md` pairs with `.navshell-toggle--bp-md`.
+ *
+ * Four two-line blocks rather than one, for the same reason the promotion
+ * thresholds are four: the threshold is the one thing that genuinely differs.
+ */
+  @container (min-width: 30rem) {
+    .navshell-toggle--bp-sm {
+      display: none;
+    }
+  }
+
+  @container (min-width: 48rem) {
+    .navshell-toggle--bp-md {
+      display: none;
+    }
+  }
+
+  @container (min-width: 64rem) {
+    .navshell-toggle--bp-lg {
+      display: none;
+    }
+  }
+
+  @container (min-width: 80rem) {
+    .navshell-toggle--bp-xl {
+      display: none;
+    }
+  }
+
+  /**
+ * The panel. Pair with `.drawer` + an edge modifier in markup; everything about
+ * how it slides in and dims the page behind is theirs.
+ *
+ * What IS here is only what a drawer doesn't already know. Size COMPOSES via the
+ * drawer's own knob rather than re-declaring `inline-size`: `.drawer` states it
+ * under `&, &.drawer--left`, which is (0,2,0) once the edge modifier is on the
+ * element, so a (0,1,0) `.navshell__panel { inline-size: … }` silently lost and
+ * the panel came out at the drawer's 280px default.
+ *
+ * The scrolling half IS the "mobile menu doesn't fill the viewport" bug: the
+ * hand-rolled version this replaces was `position: absolute; inset-inline: 0`
+ * with no block-size, no overflow, no overscroll containment and no stacking — a
+ * strip of links pinned under the header that scrolled the article behind it.
+ * The drawer supplies the full-height box; these two make it usable.
+ *
+ * `overscroll-behavior: contain` rather than a scroll lock: the panel is in the
+ * top layer so stacking is already correct, and what actually went wrong was
+ * scroll CHAINING. A real scroll lock needs `showModal()` or JS, and this is a
+ * no-JS pattern.
+ */
+  .navshell__panel {
+    --drawer-max-inline-size: var(--navshell-drawer-size, 20rem);
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: var(--navshell-panel-padding, 1.5rem);
+    /* Clearance for the absolutely-positioned close button. */
+    padding-block-start: 3.5rem;
+  }
+
+  .navshell__main {
+    /* Flex/grid items floor at min-content; without this the content column is
+     held open by its widest <pre> instead of scrolling it. */
+    min-inline-size: 0;
+
+    /* What makes NESTING measure the right thing.
+     The promotion thresholds are unnamed `@container (min-width: …)` queries, so
+     they resolve against the nearest ancestor with a `container-type` — which,
+     for everything in this framework, is `body`. A shell nested inside another
+     shell's content column would therefore promote on the VIEWPORT's width while
+     sitting in a fraction of it, and go two-column inside a 460px column (seen
+     on the Patterns page demo).
+     Declaring the content column a container gives an inner shell its parent's
+     actual width to measure. It also means ordinary responsive utilities inside
+     the column resolve against the column, which is what an unnamed container
+     query is supposed to mean. `@container body (…)` queries are unaffected —
+     they name their container. */
+    container-type: inline-size;
+  }
+
+  /* ── The nav itself ───────────────────────────────────────────────────────── */
+
+  .navshell__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .navshell__link {
+    display: block;
+    padding: 0.375rem 0.75rem;
+    border-radius: var(--br-control, 0.375rem);
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      background: var(--color-bg-surface-muted);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--navshell-focus-color, var(--color-border-focus));
+      outline-offset: 2px;
+    }
+  }
+
+  /* Nesting depth for a table-of-contents nav, from `data-depth` rather than an
+   inline style on every item. */
+  .navshell__link[data-depth="2"] {
+    padding-inline-start: 1.75rem;
+  }
+
+  .navshell__link[data-depth="3"] {
+    padding-inline-start: 2.75rem;
+  }
+
+  /**
+ * Current item. TWO rules, deliberately not one selector list: `:target-current`
+ * is unknown to engines that haven't shipped `scroll-target-group`, and one
+ * unknown selector invalidates the WHOLE list — the `[aria-current]` half, which
+ * every engine understands, would go down with it.
+ */
+  .navshell__link[aria-current] {
+    font-weight: 600;
+    color: var(--navshell-current-color, var(--color-text-brand-primary));
+  }
+
+  .navshell__link:target-current {
+    font-weight: 600;
+    color: var(--navshell-current-color, var(--color-text-brand-primary));
+  }
+
+  /* ── Desktop. ONE block, because the thresholds above only set a flag.
+ *
+ * Two consequences worth stating:
+ *
+ * · `.navshell` itself is unreachable from here — a style query resolves against
+ *   an ANCESTOR container, never the declaring element. That is why the root's
+ *   own columns come from `--_navshell-cols` above and are restated nowhere.
+ * · Scoping is automatic, and it is what makes nesting work. A nested instance's
+ *   panel resolves this query against the INNER root (its nearest ancestor
+ *   container), which re-declared `--_navshell-wide: 0`. So an outer nav at `md`
+ *   and an inner nav at `lg` promote independently, with no `>` combinators and
+ *   no `.navshell--bp-*` prefix on every inner selector.
+ * ── */
+  @container style(--_navshell-wide: 1) {
+    .navshell__bar,
+    .navshell__close {
+      display: none;
+    }
+
+    /* `.navshell__panel.drawer`, not `.navshell__panel`.
+     The drawer states its box under `&, &.drawer--left`, which is (0,2,0) once
+     the edge modifier is on the element — so a (0,1,0) selector here lost every
+     conflicting declaration and the panel kept its DRAWER geometry at desktop:
+     320px wide inside a 224px column (a 48px overlap into the content, visible
+     as the panel's scrollbar sitting inside the prose) and `block-size: 100dvh`
+     instead of `auto`. This compound is (0,2,0) and wins on source order, since
+     navshell.css imports after drawer.css. */
+    .navshell__panel.drawer {
+      /* `[popover]` is UA `display: none` while closed, and the polyfill agrees.
+       `!important` for the same reason patterns/sitenav.css needs it: at this
+       width the toggle is gone, so nothing can ever re-hide the panel. */
+      display: block !important;
+
+      position: sticky;
+      inset-block-start: var(--_navshell-stick, calc(var(--top-offset, 0px) + 1rem));
+      inset-inline: auto;
+      inline-size: auto;
+      max-inline-size: none;
+      block-size: auto;
+      max-block-size: calc(
+        100dvb - var(--_navshell-stick, calc(var(--top-offset, 0px) + 1rem)) - 1rem
+      );
+      padding: 0;
+      overscroll-behavior: auto;
+
+      /* Undo the drawer's panel surface — at this width it is part of the page,
+       not something floating over it. */
+      background: none;
+      color: inherit;
+      border: none;
+      box-shadow: none;
+      z-index: auto;
+      translate: none;
+      opacity: 1;
+
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .navshell__panel::backdrop {
+      display: none;
+    }
+
+    .navshell__main {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    /* The only rules that need to know which side they're on. */
+    .navshell--end > .navshell__panel {
+      grid-column: 2;
+    }
+    .navshell--end > .navshell__main {
+      grid-column: 1;
     }
   }
 
@@ -4575,9 +5397,9 @@ body {
     display: grid;
     place-items: center;
 
-    &::backdrop {
-      background: transparent;
-    }
+    /* No scrim. Stated through popover.css's token rather than overriding its
+     ::backdrop rule, so it keeps the shared fade timing. */
+    --scrim: transparent;
 
     &[open] {
       display: grid;
@@ -5324,30 +6146,42 @@ body {
     }
 
     /**
-   * Collapse without a transition — deliberately.
+   * Animated collapse — `block-size: 0 → auto`, backed by the
+   * `interpolate-size: allow-keywords` in patterns/reveal.css.
    *
-   * This carried the canonical open/close animation (`block-size: 0 → auto` with
-   * `content-visibility` under `allow-discrete`, backed by the
-   * `interpolate-size: allow-keywords` in utilities.css). In Chrome 149 that
-   * deadlocks: `content-visibility` stays `hidden`, so the content has no layout,
-   * so `auto` resolves to `0`, so the transition has nothing to run — and the
-   * disclosure never opens *at all*. Not "opens without animating": every
-   * `<details>` on the page becomes inert, which is a total content-loss bug.
+   * This was previously disabled with a long note saying the transition
+   * DEADLOCKS: `content-visibility` stays `hidden`, the content never gets
+   * layout, `auto` resolves to `0`, and the disclosure never opens at all —
+   * total content loss, not merely a missing animation.
    *
-   * Verified against a bare `<details>` with only this stylesheet, and bisected:
-   * `transition: none` is the only thing that restores it. Transitioning only
-   * `block-size`, only `content-visibility`, `calc-size(auto, size)`, and the
-   * `grid-template-rows: 0fr → 1fr` technique all fail the same way.
+   * Re-verified on Chrome 149.0.7827.200 by the standard that note itself set:
+   * a real dispatched click on a bare `<details>`, not an `@supports` query.
+   * It opens, and it animates both ways — measured 25 → 41 → 133 → 196px on
+   * open and 196 → 132 → 25px on close.
    *
-   * So: correctness over motion. Re-add the transition only with a live
-   * cross-browser check that a first click actually expands — a passing
-   * `@supports` query is not evidence, since the syntax is valid and supported;
-   * it's the interaction that breaks.
+   * Keep BOTH properties in the transition list. `content-visibility` with
+   * `allow-discrete` is the load-bearing half: it is precisely what lets the
+   * content take layout during the transition, and dropping it is what
+   * reproduces the deadlock. If this ever regresses, the tell is a `<details>`
+   * that will not open on the first click — check a real interaction, because
+   * the syntax stays valid either way.
    */
     &::details-content {
       display: block;
       overflow: hidden;
       block-size: 0;
+
+      /* Re-added and re-verified — see the note above, which this supersedes.
+       `content-visibility` MUST be in the transition list with `allow-discrete`:
+       that is the exact thing whose absence caused the deadlock, because
+       `content-visibility: hidden` leaves the content unlaid-out and `auto`
+       resolves to 0. Behind reduced-motion, so the no-preference case keeps the
+       instant open the previous version guaranteed. */
+      @media (prefers-reduced-motion: no-preference) {
+        transition:
+          block-size var(--animation-duration) var(--custom-ease-out),
+          content-visibility var(--animation-duration) allow-discrete;
+      }
     }
 
     > summary + * {
@@ -5544,6 +6378,136 @@ body {
 
     .banner__action {
       flex-shrink: 0;
+    }
+  }
+
+  /* ── patterns/consent.css ── */
+  /**
+ * Consent — the docked banner `<wc-consent>` reveals.
+ *
+ * Deliberately thin: this partial owns the *dock* (where the thing sits and how it
+ * stacks) and nothing else. Everything inside it is composed from patterns that
+ * already exist — `.banner`, `.cluster`, `.btn`, `.cta`, the form patterns — so a
+ * consumer restyles their consent banner by restyling those, not by learning a
+ * second vocabulary.
+ *
+ * **Shown in the top layer via the Popover API**, for the same reason `.tooltip`
+ * is: a plain `position: fixed` banner resolves against the nearest containing
+ * block, and any ancestor with `container-type`, `transform`, `filter` or
+ * `contain` becomes one. `body { container-type: inline-size }` is a normal thing
+ * to write in a framework whose breakpoints are container queries — and it traps a
+ * fixed banner mid-page. The top layer escapes the containing-block chain
+ * entirely, so the dock is always the viewport and no z-index can lose to
+ * anything. `popover="manual"` (not `auto`): a light-dismiss banner would let a
+ * stray click count as a decision.
+ *
+ * The other reason it's fixed-and-floating: the banner appears after hydration,
+ * and out of flow it can't push content, so it contributes nothing to CLS. A
+ * statically-positioned bar inserted at the top of the document would shift the
+ * whole page and cost the metric the deferred script-loading strategy protects.
+ */
+
+  /* ── Consent — bottom-docked banner shown while a choice is outstanding ────── */
+
+  /**
+ * Layout only — `display` is set by the open/closed rules below.
+ *
+ * `[popover].consent` (0-2-0) rather than `.consent` (0-1-0) on purpose: this
+ * partial is imported *after* popover.css, whose `[popover] { &:not(:popover-open)
+ * { display: none } }` sits at 0-1-0. A bare `.consent { display: flex }` would
+ * tie on specificity, win on order, and reveal a closed popover.
+ */
+  .consent {
+    --_p: var(--p-consent, var(--p-consent-group, var(--p-default)));
+    --_br: var(--br-consent, var(--br-consent-group, var(--br-default)));
+    --_ds: var(--ds-consent, var(--ds-consent-group, var(--ds-default)));
+    --_b: var(--b-consent, var(--b-consent-group, var(--b-default)));
+
+    position: fixed;
+    z-index: 100;
+    /* The gap is an inset, not a block margin: for an absolutely positioned box the
+     offsets resolve against the margin edge, so `inset-block-end: 0` plus a bottom
+     margin still sits flush to the viewport edge. Inline centring does come from
+     `margin-inline: auto`, where that resolution is the one we want. */
+    inset-block-end: 1rem;
+    inset-inline: 0;
+    inset-block-start: auto;
+    margin-inline: auto;
+    max-inline-size: min(48rem, calc(100% - 2rem));
+
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    padding: var(--_p);
+    border: var(--_b);
+    border-radius: var(--_br);
+    box-shadow: var(--_ds);
+    background: var(--color-bg-surface);
+    color: var(--color-text-surface);
+
+    /* Clear an iOS home indicator. */
+    padding-block-end: max(var(--_p), env(safe-area-inset-bottom));
+
+    .consent__body {
+      flex: 1 1 20rem;
+    }
+
+    .consent__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-inline-start: auto;
+    }
+
+    /* The per-category checkboxes. A row is hidden unless this showing is about it,
+     so the markup can carry every category the site might ever need while the
+     banner still only asks what was actually demanded. */
+    .consent__options {
+      flex-basis: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* One category is a yes/no question and the Reject/Accept buttons already ask
+     it — a lone checkbox would be a third control for the same decision, and the
+     Save button a second way to press Accept. `<wc-consent>` sets this class at
+     show time because how many rows are on offer is now a runtime fact. */
+    &.consent--single {
+      .consent__options,
+      [data-consent-save] {
+        display: none;
+      }
+    }
+  }
+
+  /* Open, in the top layer. */
+  [popover].consent:popover-open {
+    display: flex;
+  }
+
+  /* The no-popover path: `<wc-consent>` strips the attribute when `showPopover` is
+   missing and falls back to toggling `hidden`, so this needs no `:popover-open`
+   support to work. `[hidden]` comes last and wins over both. */
+  .consent:not([popover]) {
+    display: flex;
+  }
+
+  .consent[hidden],
+  wc-consent[hidden] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .consent {
+      animation: consent-enter 0.25s ease-out;
+    }
+  }
+
+  @keyframes consent-enter {
+    from {
+      opacity: 0;
+      translate: 0 1rem;
     }
   }
 
@@ -5807,9 +6771,38 @@ body {
  * Consumes the generated token cascade (src/css/generated/tokens.css).
  */
 
+  /* An unregistered custom element is `display: inline`, and `<wc-tree>` wraps a
+   `<ul>` — a block child in an inline box, which forces an anonymous block and
+   leaves the element unable to take sizing or spacing. It must be block whether
+   or not `elements.js` ever loads, because the tag is in the SSR'd markup either
+   way. (Same gap exists on most other `wc-*` tags; see the note in
+   `src/js/elements.ts`.) */
+  wc-tree {
+    display: block;
+  }
+
   /* ── Tree — hierarchical view over nested lists / <details> ───────────────── */
   .tree {
     --_p: var(--p-tree, var(--p-tree-group, var(--p-default)));
+    /* Resolved once here so the indent and the `--lines` elbow that must align to
+     it cannot disagree. Read through `--tree-indent` rather than assigning it, so
+     a consumer setting `--tree-indent` on an ancestor still wins — assigning the
+     default directly to `--tree-indent` on `.tree` would out-specify the hook and
+     silently ignore it. */
+    --_indent: var(--tree-indent, clamp(0.75rem, 2.5vw, 1.5rem));
+
+    /* The toggle column. A branch spends this on its chevron before its label; a
+     leaf has no chevron, so without compensation a leaf label sits one whole
+     column to the INLINE-START of its branch siblings and nothing at a given
+     depth lines up. Measured: 24px of misalignment at every level.
+
+     Two vars rather than one because they answer different questions —
+     `--_node-indent` is how wide the toggle column is, `--_leaf-indent` is what a
+     row without a toggle owes to sit in the same label column. Anything that
+     needs to align to the label (the description, a future `.tree__actions`
+     offset) reads `--_leaf-indent` rather than re-deriving the sum. */
+    --_node-indent: var(--tree-icon-size, 1.25rem);
+    --_leaf-indent: calc(var(--_node-indent) + var(--tree-gap, 0.25rem));
 
     list-style: none;
     margin: 0;
@@ -5819,14 +6812,49 @@ body {
       position: relative;
     }
 
-    .tree__item > .tree {
-      margin-inline-start: var(--tree-indent, 1.5rem);
-      padding-inline-start: var(--tree-indent, 1.5rem);
+    /* Nested list indent. Two shapes are supported: the item may BE the
+     `<details>`, or be an `<li>` wrapping one — the latter is what `<Tree />`
+     emits, because `<ul>`/`<li>` is what gives assistive tech list position and
+     depth. Keep both; the flat shape is the pattern's original contract.
+
+     Indent is ONE `--tree-indent` per level, not two. This used to set both
+     `margin-inline-start` and `padding-inline-start` to it, putting the guide
+     border between them and costing 2× per level — 3rem × 10 levels = 480px on
+     the config schema, which is wider than a 390px viewport, so the deepest
+     fields sat entirely off-screen. The border now hugs the parent's edge and
+     the padding alone carries the offset, which looks the same at one level and
+     stays on screen at ten.
+
+     Fluid, because a tree's depth is a property of the DATA and can't be known
+     when the pattern is written: `2ch`-ish on a narrow screen, the full step on
+     a wide one. Deep trees stay usable on a phone without flattening the
+     hierarchy visually on a desktop. */
+    .tree__item > .tree,
+    .tree__item > details > .tree {
+      /* Reset BOTH box axes before re-applying the one indent this level owes.
+       Two separate leaks compounded here, each adding ~16px per level and each
+       invisible in the CSS:
+
+       1. `.tree { padding: var(--_p) }` applies to every nested `.tree`, not just
+          the outermost, so the container padding was charged once per level — on
+          all four sides, narrowing from the end as well.
+       2. `patterns/details.css` gives every non-summary child of a `<details>`
+          `margin-inline: var(--_content-margin)`. Its selector is
+          `details, .details`, which under CSS nesting takes `:is()` specificity
+          (0-1-1), so `.tree { margin: 0 }` at 0-1-0 LOSES to it. A nested tree is
+          exactly such a child.
+
+       Measured before this: 41px per level against a 24px design, so a 9-deep
+       tree spent 382px on indent and left its deepest label 162px wide. */
+      margin-inline: 0;
+      padding: 0;
+      padding-inline-start: var(--_indent);
       border-inline-start: 1px solid var(--color-bg-surface-muted);
     }
 
     .tree__content,
-    details.tree__item > summary {
+    details.tree__item > summary,
+    .tree__item > details > summary {
       display: flex;
       align-items: center;
       gap: var(--tree-gap, 0.25rem);
@@ -5835,9 +6863,13 @@ body {
 
     .tree__content {
       cursor: default;
+      /* Sit in the same label column as a branch sibling, which spends this much on
+       its chevron. Without it a leaf reads as out-dented by one toggle width. */
+      padding-inline-start: var(--_leaf-indent);
     }
 
-    details.tree__item > summary {
+    details.tree__item > summary,
+    .tree__item > details > summary {
       cursor: pointer;
       list-style: none;
 
@@ -5863,7 +6895,8 @@ body {
       transition: transform 0.2s ease;
     }
 
-    details.tree__item[open] > summary .tree__toggle {
+    details.tree__item[open] > summary .tree__toggle,
+    .tree__item > details[open] > summary .tree__toggle {
       transform: rotate(90deg);
     }
 
@@ -5915,10 +6948,10 @@ body {
       &::before {
         content: "";
         position: absolute;
-        inset-inline-start: calc(-1 * var(--tree-indent, 1.5rem) + 0.5rem);
+        inset-inline-start: calc(-1 * var(--_indent) + 0.5rem);
         inset-block-start: 0;
         block-size: 1rem;
-        inline-size: calc(var(--tree-indent, 1.5rem) - 0.5rem);
+        inline-size: calc(var(--_indent) - 0.5rem);
         border-inline-start: 1px solid var(--color-bg-surface-muted);
         border-block-end: 1px solid var(--color-bg-surface-muted);
       }
@@ -5926,6 +6959,47 @@ body {
 
     &.tree--lines > .tree__item::before {
       display: none;
+    }
+
+    /* A node's own prose. `.tree__label` is `nowrap` + ellipsis for file-tree-style
+     single-line names, so a description can't live in it — it sits below the
+     summary row and wraps. Indented to the label, past the toggle. */
+    .tree__desc {
+      margin-block: 0.125rem 0.25rem;
+      margin-inline-start: var(--_leaf-indent);
+      color: var(--color-text-surface-muted);
+      text-wrap: pretty;
+    }
+  }
+
+  /* ── Tree toolbar — generated by <wc-tree>, never authored ─────────────────── */
+  /*
+ * These controls only exist once the element upgrades, so they are styled but
+ * never present in a no-JS render. Kept out of the `.tree` block because the
+ * toolbar is a SIBLING of the tree, not a node in it — nesting it there would
+ * inherit `.tree`'s padding and the `.tree__item` positioning context.
+ */
+  .tree__toolbar {
+    align-items: center;
+    margin-block-end: var(--p-tree, var(--p-tree-group, var(--p-default)));
+
+    /* The filter is wrapped in `.input-group` so forms.css styles it; the group is
+     what flexes, and the input fills it. */
+    .tree__filter-group {
+      flex: 1 1 12rem;
+      min-inline-size: 0;
+    }
+
+    .tree__filter {
+      inline-size: 100%;
+      min-inline-size: 0;
+    }
+
+    .tree__count {
+      color: var(--color-text-surface-muted);
+      /* Hold the row height whether or not a count is showing, so typing into the
+       filter doesn't reflow the tree by a line. */
+      min-inline-size: 6ch;
     }
   }
 
@@ -6147,6 +7221,43 @@ body {
     mask-repeat: no-repeat;
   }
 
+  /**
+ * Skip link — the first focusable thing on a page, jumping past the chrome to
+ * the main landmark. Every site needs one and every site was hand-rolling it.
+ *
+ * `clip-path` + a 1px box rather than the old `inset-inline-start: -100vw`
+ * idiom: `100vw` includes the scrollbar gutter (`global.css` sets
+ * `scrollbar-gutter: stable`), and a negatively-positioned box DOES contribute
+ * scrollable overflow in RTL, where the page then scrolls to nothing. This
+ * version has no position to get wrong in either direction.
+ *
+ * Not `.sr-only` — that name is in the generator's TW_CLASH list, so the
+ * tailwind format ships no rule for it and a consumer on that format would get a
+ * permanently visible skip link.
+ */
+  .skip-link:not(:focus-visible) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .skip-link:focus-visible {
+    position: absolute;
+    inset-inline-start: 0.5rem;
+    inset-block-start: 0.5rem;
+    z-index: var(--z-tier-top);
+    padding: 0.5rem 0.75rem;
+    background: var(--color-bg-surface);
+    color: var(--color-text-surface);
+    border-radius: var(--br-control, 0.375rem);
+  }
+
   /* ── patterns/icon.css ── */
   /**
  * Icon — pattern partial migrated from old-css-lib.
@@ -6238,6 +7349,30 @@ body {
     color: var(--color-text-neutral);
     padding: 0.1em 0.4em;
     border-radius: var(--br-default);
+
+    /* `anywhere`, not the `break-word` global.css gives prose: an inline code span
+     is usually ONE token with no break opportunity at all — a 61-character CSS
+     selector or a package path — so `break-word` never fires and it overflows
+     the measure. Breaking mid-token is the right trade for code in running text.
+     `anywhere` does affect min-content sizing, which is the point here: it lets
+     an intrinsically sized ancestor shrink instead of being held open. */
+    overflow-wrap: anywhere;
+  }
+
+  /* ── Code blocks. The framework had NO `pre` rule, so every consumer re-derived
+   this — and a <pre> is the widest thing on a typical docs page.
+
+   Worth knowing, because it is the reverse of what the spec reads like: making a
+   <pre> a scroll container does NOT zero its min-content contribution in Chrome.
+   Measured at 390px on this repo's own docs site, a `pre` with `overflow-x: auto`
+   still reported a 797px min-content, its parent inherited 829px, and any
+   ancestor sized under `fit-content` resolved to THAT rather than the available
+   width. `max-inline-size: 100%` is what actually caps it. ── */
+  :where(pre) {
+    max-inline-size: 100%;
+    overflow-x: auto;
+    /* Don't chain a horizontal flick out to the page once the block ends. */
+    overscroll-behavior-x: contain;
   }
 
   /* ── patterns/scroll-based.css ── */
@@ -6533,8 +7668,15 @@ body {
     color: var(--scroll-target-inactive-color, currentColor);
   }
 
-  /* `.is-current` mirrors `:target-current` for the JS scroll-spy fallback
-   (deferred.ts) on engines without `scroll-target-group` support. */
+  /* `.is-current` is a MANUAL hook, mirroring `:target-current` for anything that
+   sets it itself.
+
+   It previously claimed to be "the JS scroll-spy fallback (deferred.ts)". There
+   is no such code — nothing in the repo sets `.is-current`, and deferred.ts has
+   no scroll-spy. Highlighting is therefore `:target-current` only, which today
+   means Chrome; other engines get no highlight until they ship
+   `scroll-target-group`, which is a deliberate choice, not an oversight. Set
+   `.is-current` yourself if you need it sooner. */
   .scroll-target-group a:target-current,
   .scroll-target-group a.is-current {
     color: var(--scroll-target-active-color, var(--color-bg-brand-primary-solid));
@@ -6586,12 +7728,19 @@ body {
     }
   }
 
+  /* Superseded by `.navshell` (patterns/navshell.css), which is this plus a mobile
+   toggle, a parametric breakpoint, an inline-end variant and the ability to
+   nest. Kept because it ships in a published major; prefer `.navshell` for new
+   work. */
   .toc-layout {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
 
     @container body (inline-size >= 64rem) {
-      grid-template-columns: 16rem 1fr;
+      /* minmax(0, 1fr), never a bare `1fr`: a `1fr` track's automatic minimum is
+       min-content, so one wide <pre> or long token in the content column blows
+       the grid out and the page scrolls sideways. */
+      grid-template-columns: 16rem minmax(0, 1fr);
       gap: var(--gutter, 2rem);
     }
   }
@@ -7136,22 +8285,48 @@ body {
   /* ── patterns/marquee.css ── */
   /**
  * Marquee — CSS-only infinite scrolling row/column migrated from old-css-lib.
- * Duplicate the .marquee__content for a seamless loop. Pauses on hover with the
- * --pause-hover modifier; reverses / goes vertical via modifiers.
+ *
+ *   <div class="marquee marquee--pause-hover">
+ *     <div class="marquee__content"><span class="marquee__item">…</span></div>
+ *     <div class="marquee__content" aria-hidden="true">…the same items…</div>
+ *   </div>
+ *
+ * TWO `.marquee__content` blocks, not one. Each is `min-inline-size: 100%` and the
+ * keyframe travels exactly its own width, so the second copy is what occupies the
+ * space the first vacates. With a single copy the track scrolls off and leaves
+ * blank space — which reads as "the marquee isn't working" rather than as a
+ * missing duplicate.
+ *
+ * Spacing is `--marquee-gap`, and it has to be applied in BOTH places: between
+ * items inside a copy, and between the two copies. The keyframe then travels
+ * `100% + gap`, because the seam between copies is one more gap that has to be
+ * consumed for the loop to be seamless — translate by a bare `-100%` and the
+ * items visibly bunch up once per revolution.
  */
 
   .marquee {
     --_marquee-direction: var(--marquee-direction, normal);
 
+    /* `<wc-marquee>` overrides this to `auto`, releasing the 100% floor. */
+    --_marquee-min: 100%;
+
     display: flex;
+    gap: var(--marquee-gap, 1rem);
     overflow: hidden;
     user-select: none;
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 
     .marquee__content {
       display: flex;
+      gap: var(--marquee-gap, 1rem);
       flex-shrink: 0;
-      min-inline-size: 100%;
+      /* 100% pads a short copy out to the track width, which puts the leftover
+       space at the end of every copy and makes the seam gap wider than the item
+       gaps. `<wc-marquee>` sets `--_marquee-min: auto` and clones enough copies to
+       cover the track, so the copy can be its own width and every gap matches.
+       Without the element this stays 100% — the CSS-only loop still works, it
+       just needs the author to duplicate the content. */
+      min-inline-size: var(--_marquee-min, 100%);
       animation: marquee-scroll var(--marquee-duration, 20s) linear infinite;
       animation-direction: var(--_marquee-direction);
     }
@@ -7190,7 +8365,9 @@ body {
       translate: 0 0;
     }
     to {
-      translate: -100% 0;
+      /* One copy + one gap. `--_marquee-distance` is the measured px value when
+       the element is present; the percentage is the CSS-only equivalent. */
+      translate: calc(-1 * var(--_marquee-distance, calc(100% + var(--marquee-gap, 1rem)))) 0;
     }
   }
 
@@ -7199,16 +8376,26 @@ body {
       translate: 0 0;
     }
     to {
-      translate: 0 -100%;
+      translate: 0 calc(-1 * var(--_marquee-distance, calc(100% + var(--marquee-gap, 1rem))));
     }
   }
 
   /* ── patterns/nav.css ── */
   /**
- * Nav — base / navbar / drawer / collapse navigation presentations migrated
- * from old-css-lib. CSS shell: drawer + submenu use the Popover API / <details>
- * with @starting-style transitions (polyfilled). The open/close toggle wiring
- * arrives with the Lit nav component; the CSS degrades to plain links without it.
+ * Nav — LEGACY. Base / drawer / collapse navigation presentations migrated from
+ * old-css-lib, superseded by the three patterns below. Kept because it ships in
+ * a published major; removal is its own breaking change.
+ *
+ * This header used to say "the open/close toggle wiring arrives with the Lit nav
+ * component". No such component was ever written, and none is planned — the
+ * house pattern is native (`popovertarget` + `[popover]`, `<details>`), which
+ * needs no JS at all beyond the Popover polyfill.
+ *
+ * Which one you actually want:
+ *   · `patterns/navbar.css`  — a horizontal row of links, with alignment.
+ *   · `patterns/sitenav.css` — navbar at width ⇄ toggle + drawer below it.
+ *   · `patterns/navshell.css` — a nav ASIDE beside main content, collapsing to a
+ *                               toggle + drawer. Nestable (site nav + on-page nav).
  */
 
   nav:has(> .nav-items) {
@@ -7339,48 +8526,20 @@ body {
     width: 100%;
     background: var(--color-bg-surface);
     color: var(--color-text-surface);
-    opacity: 0;
-    translate: -100%;
-    transition-timing-function: var(--interact-easing, ease);
-    transition:
-      opacity 0.4s,
-      translate 0.4s,
-      overlay 0.4s allow-discrete,
-      display 0.4s allow-discrete;
+
+    /* Entry direction only. The transition, the `@starting-style` and the scrim
+     used to be restated here in full; they now come from the top-layer driver in
+     animation.css and the single `::backdrop` in popover.css. Add an effect
+     class to change the motion (`class="drawer-menu open-fade-in"`).
+
+     Timing moved with them: this was a hand-set 0.4s / 0.7s pair and is now the
+     framework's `--animation-duration` + `--custom-ease-out`, like every other
+     transition in the system. */
+    --translate-x-from: -100%;
 
     &[open],
     &:popover-open {
       display: flex;
-      opacity: 1;
-      translate: 0%;
-    }
-
-    @starting-style {
-      &[open],
-      &:popover-open {
-        opacity: 0;
-        translate: -100%;
-      }
-    }
-
-    &::backdrop {
-      background-color: transparent;
-      transition:
-        display 0.7s allow-discrete,
-        overlay 0.7s allow-discrete,
-        background-color 0.7s;
-    }
-
-    &[open]::backdrop,
-    &:popover-open::backdrop {
-      background-color: rgb(0 0 0 / 25%);
-    }
-
-    @starting-style {
-      &[open]::backdrop,
-      &:popover-open::backdrop {
-        background-color: transparent;
-      }
     }
   }
 
@@ -7399,43 +8558,9 @@ body {
     overflow-y: auto;
   }
 
-  /* ── Navbar presentation ──────────────────────────────────────────────────── */
-  .navbar {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-
-    nav {
-      flex: 1;
-      flex-direction: row;
-    }
-
-    .nav-items {
-      flex: 1;
-      flex-direction: row;
-      gap: 2.25rem;
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .nav-actions {
-      flex-direction: row;
-      gap: 2.25rem;
-      border-top: none;
-      padding-top: 0;
-    }
-
-    .nav-header {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-  }
-
-  .navbar-sticky {
-    position: sticky;
-    top: 0;
-    z-index: var(--z-tier-sticky);
-  }
+  /* Navbar presentation moved to patterns/navbar.css, where it is a primitive
+   rather than one half of this file's drawer⇄navbar pair. `.navbar-sticky`
+   is aliased there so existing markup keeps working. */
 
   .nav-split {
     margin-block-start: auto;
@@ -7922,6 +9047,43 @@ body {
     }
     .ed-danger {
       color: var(--color-text-danger);
+    }
+  }
+
+  /**
+ * Editor chrome icons.
+ *
+ * The editor ships as a standalone JS bundle: no astro-icon, no build-time
+ * sprite, no `<Icon />`. That is exactly the case `.icon-mask` exists for — a
+ * `currentColor`-filled box driven by a `mask-image`, with the glyph as a data
+ * URI. It is the same mechanism `.link--icon::before` uses, and the reason it is
+ * worth using here rather than typing a character: `×` and `🎨` are TEXT, so
+ * they resolve through font fallback and render differently on every platform
+ * (the CTA arrow shipped wrong in Chrome for exactly this reason). A mask has no
+ * font to fall back to.
+ *
+ * Scoped under `wc-theme-editor` like everything else here, so a consumer who
+ * never loads the editor bundle pays nothing.
+ */
+  wc-theme-editor {
+    .ed-icon {
+      /* Slightly under the 1.25em default: this chrome runs at --text-xs. */
+      --icon-size: 1.1em;
+    }
+
+    /* Palette — the launcher. */
+    .ed-icon--theme {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='%23000' d='M200.8 53.9A103.4 103.4 0 0 0 128 24h-1.1A104 104 0 0 0 24 128c0 57.3 46.7 104 104 104a24 24 0 0 0 24-24a23.6 23.6 0 0 0-6.2-16.1a8 8 0 0 1 6-13.3H176a56 56 0 0 0 56-56a102.9 102.9 0 0 0-31.2-68.7M176 152h-24.2a24 24 0 0 0-17.9 40a8 8 0 0 1-5.9 13.3A88 88 0 0 1 40 128a88 88 0 0 1 87.1-88h.9a88 88 0 0 1 88 88a40 40 0 0 1-40 24m-96-16a12 12 0 1 1-12-12a12 12 0 0 1 12 12m0-48a12 12 0 1 1-12-12a12 12 0 0 1 12 12m48-16a12 12 0 1 1-12-12a12 12 0 0 1 12 12m48 16a12 12 0 1 1-12-12a12 12 0 0 1 12 12'/%3E%3C/svg%3E");
+    }
+
+    /* Close — a real X, not the multiplication sign a keyboard offers. */
+    .ed-icon--close {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='%23000' d='M205.7 194.3a8 8 0 0 1-11.4 11.4L128 139.3l-66.3 66.4a8 8 0 0 1-11.4-11.4l66.4-66.3l-66.4-66.3a8 8 0 0 1 11.4-11.4l66.3 66.4l66.3-66.4a8 8 0 0 1 11.4 11.4L139.3 128Z'/%3E%3C/svg%3E");
+    }
+
+    /* Disclosure caret. `.details-icon` supplies the rotation on [open]. */
+    .ed-icon--caret {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='%23000' d='M181.7 133.7l-80 80a8 8 0 0 1-11.4-11.4L164.7 128L90.3 53.7a8 8 0 0 1 11.4-11.4l80 80a8 8 0 0 1 0 11.4'/%3E%3C/svg%3E");
     }
   }
 }

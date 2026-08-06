@@ -1,10 +1,13 @@
 ---
 import { Font } from "astro:assets";
 import VitopsHead from "@getvitops/astro/Head.astro";
+import Analytics from "@getvitops/astro/Analytics.astro";
+import CookieConsent from "@getvitops/astro/CookieConsent.astro";
+import Tracking from "@getvitops/astro/Tracking.astro";
 import { getSiteSettings } from "emdash";
 import { EmDashHead } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
-import Analytics from "../components/Analytics.astro";
+import { clarityEnabled } from "../lib/analytics";
 // Design-system CSS, layout-scoped (getvitops css.inject: false): only pages
 // rendered through PineLayout get it — keeps it out of /_emdash/admin, while
 // EmDash previews (rendered through this layout) keep it.
@@ -82,6 +85,23 @@ const drawerLinks = navLinks.flatMap((l) =>
 	l.children ? l.children : [l],
 );
 const year = new Date().getFullYear();
+
+// Whether this request gets analytics at all. The same bundle ships to
+// production and to the dev worker, so the stage gate has to be a runtime host
+// check, not a build-time env var (see src/lib/site.ts). `site.json`'s
+// environments.<env>.analytics records the same fact for the legal disclosure;
+// this is what enforces it per request.
+//
+// The consent banner is gated on the SAME predicate: with opt-in consent and no
+// analytics on dev, a banner would be asking permission for nothing.
+//
+// So is <Tracking />, which since toolchain 4.0 is the other thing that asks for
+// a category. Everything that can raise the banner and the banner itself must
+// share one gate — a demand with no banner on the page waits forever and never
+// writes, silently. Keep that invariant if consent ever gates something else
+// (an embed, A/B assignment).
+const analyticsEnabled = clarityEnabled(Astro.url.hostname, Astro.originPathname);
+const variant = Astro.locals.variant ?? "a";
 ---
 
 <!doctype html>
@@ -97,9 +117,26 @@ const year = new Date().getFullYear();
 		<VitopsHead />
 		<Font cssVariable="--font-body" preload />
 		<Font cssVariable="--font-geist-mono" />
-		<!-- Microsoft Clarity. Self-gates to the production host, so this is
+		<!-- Microsoft Clarity, configured on the integration (astro.config.mjs)
+		     and gated on the `analytics` consent category: until the visitor
+		     accepts, the tag ships with type="text/plain" and the page issues no
+		     request to Microsoft at all. `enabled` is the production-host gate —
 		     inert on dev.vitops.ca, *.workers.dev and localhost. -->
-		<Analytics />
+		<Analytics enabled={analyticsEnabled} />
+		{analyticsEnabled && <meta name="clarity-ab-variant" content={variant} />}
+		<!-- Ad-click attribution: captures a click ID / UTMs off the landing URL
+		     into the first-party `_ac` cookie, which /api/contact reads back. In
+		     <head> because the capture must run before the visitor can navigate
+		     away. The write waits on `marketing` consent, and only asks on an
+		     arrival that actually carried a click ID.
+
+		     Gated on the same production-host flag as Clarity, and that is
+		     load-bearing rather than tidy: the <CookieConsent /> banner below is
+		     gated on it too, so off production there would be nothing on the page
+		     able to answer the `marketing` demand this raises. The capture would
+		     wait forever and never write — silently. Ads point at vitops.ca, so
+		     there is nothing to attribute off it anyway. -->
+		{analyticsEnabled && <Tracking />}
 	</head>
 	<body>
 		<header class="site-header navbar-sticky centered">
@@ -267,6 +304,9 @@ const year = new Date().getFullYear();
 							<li><a href="/about">About</a></li>
 							<li><a href="/#contact">Contact</a></li>
 							<li><a href="mailto:hi@vitops.ca">hi@vitops.ca</a></li>
+							<li><a href="/privacy">Privacy policy</a></li>
+							<li><a href="/cookies">Cookie notice</a></li>
+							<li><a href="/terms">Terms of service</a></li>
 						</ul>
 					</div>
 				</nav>
@@ -275,6 +315,21 @@ const year = new Date().getFullYear();
 						<span>© {year} Vitops</span>
 						<span class="hidden @md:inline" aria-hidden="true">·</span>
 						<span>Run the business; we run the rest.</span>
+						{
+							analyticsEnabled && (
+								<Fragment>
+									<span class="hidden @md:inline" aria-hidden="true">
+										·
+									</span>
+									{/* Reopens <wc-consent>; the cookie notice tells
+									    readers they can change their choice, so there
+									    has to be something that does it. */}
+									<button type="button" class="footer-consent" data-consent-open>
+										Cookie preferences
+									</button>
+								</Fragment>
+							)
+						}
 					</span>
 				</div>
 			</div>
@@ -538,6 +593,26 @@ const year = new Date().getFullYear();
 				gap: 0.1rem 0.4rem;
 			}
 
+			/* A button because it acts on this page rather than navigating, but
+			   it sits in a run of text and should read as part of it. */
+			.footer-consent {
+				appearance: none;
+				background: none;
+				border: 0;
+				padding: 0;
+				font: inherit;
+				letter-spacing: inherit;
+				color: inherit;
+				text-decoration: underline;
+				text-underline-offset: 0.2em;
+				cursor: pointer;
+				transition: color 0.2s ease;
+			}
+
+			.footer-consent:hover {
+				color: var(--color-snow);
+			}
+
 			/* Collapse the centered nav on small screens; brand + CTA stay and
 			   the hamburger takes over (opens the site-nav drawer). Back to 720px
 			   now that Funding has left the nav — four short items fit. */
@@ -590,5 +665,40 @@ const year = new Date().getFullYear();
 				});
 			})();
 		</script>
+		{
+			analyticsEnabled && (
+				<Fragment>
+					<CookieConsent policyUrl="/cookies" />
+					<script is:inline>
+						(() => {
+							// A <script> body is raw text in Astro, not JSX — write plain
+							// JS here. Wrapping it in {`...`} emits the braces and the
+							// backticks verbatim, which parses as a block containing a
+							// discarded string and silently does nothing.
+							//
+							// Reopening the banner needs no code: @getvitops/core/consent
+							// delegates a document click listener to `[data-consent-open]`
+							// itself, which is why the footer button carries that attribute
+							// and nothing here binds it.
+
+							// Segment recordings/heatmaps by A/B arm. Clarity does not
+							// exist until consent is granted and the gated tag has run, so
+							// this waits on the consent event rather than firing at parse
+							// time. Dormant today (every visitor gets "a"), but a launched
+							// test is then already attributed without a second deploy.
+							const meta = document.querySelector('meta[name="clarity-ab-variant"]');
+							if (!meta) return;
+							const tag = () => {
+								if (window.vitopsConsent?.granted?.("analytics") && window.clarity) {
+									window.clarity("set", "ab_variant", meta.content);
+								}
+							};
+							document.addEventListener("vitops:consent", tag);
+							tag();
+						})();
+					</script>
+				</Fragment>
+			)
+		}
 	</body>
 </html>

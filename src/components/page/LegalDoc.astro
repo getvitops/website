@@ -1,0 +1,106 @@
+---
+// Renders one generated legal document.
+//
+// The markdown is produced from site.json's `legal` block by @getvitops/astro
+// (see src/content.config.ts) and carries its own `# H1`, so this supplies only
+// the frame — the page passes the CMS-facing title/description to the layout.
+//
+// Mostly framework classes, per the convention in src/pages/about.astro:
+// `centered` puts a child without `spotlight`/`breakout` in the reading
+// `measure` track, `rhythm` spaces the flow, and the base layer styles bare
+// h1/h2/p. The one exception is list markers — see the style block.
+import { getEntry } from "astro:content";
+import PineLayout from "../../layouts/PineLayout.astro";
+
+interface Props {
+	/** Filename stem in src/content/legal, e.g. "privacy-policy". */
+	slug: string;
+	title: string;
+	description: string;
+}
+
+const { slug, title, description } = Astro.props;
+
+const entry = await getEntry("legal", slug);
+if (!entry) {
+	// The document is generated from site.json — a miss means it is disabled
+	// there (legal.<doc>.enabled) while this route still exists. 404 rather
+	// than render an empty page.
+	return Astro.rewrite("/404");
+}
+
+// `vitops legal` opens each document with a blockquote addressed to whoever
+// wired it up — "a starting point, not legal advice ... have it reviewed before
+// you publish it". Correct advice for us, and nonsense for a visitor, who would
+// be reading a privacy policy that opens by disclaiming itself. The files are
+// rewritten from site.json on every build, so it can't be deleted by hand.
+//
+// Astro 7.1 renders markdown with Sätteri rather than unified, and reaching for
+// a remark plugin now means installing @astrojs/markdown-remark and swapping the
+// whole markdown pipeline — far too much for one blockquote. So the rendered
+// HTML is patched instead, which is why this uses `entry.rendered` rather than
+// `render()`.
+const NOTE = "Generated from this site";
+const html = entry.rendered?.html ?? "";
+const body = html.replace(
+	new RegExp(`<blockquote>\\s*(?:<p>)?\\s*${NOTE}[\\s\\S]*?</blockquote>`),
+	"",
+);
+
+// Fail loudly rather than publish the note: if upstream rewords it, the regex
+// stops matching and this catches it at render time instead of shipping a
+// self-disclaiming policy.
+if (body.includes(NOTE)) {
+	throw new Error(
+		`[LegalDoc] the generator's build-time note is still present in "${slug}" after stripping. ` +
+			`Its wording probably changed upstream — update NOTE in src/components/page/LegalDoc.astro.`,
+	);
+}
+---
+
+<PineLayout title={title} description={description}>
+	<article class="section centered">
+		<div class="rhythm font-body text-neutral-muted legal-doc" set:html={body} />
+	</article>
+</PineLayout>
+
+<style>
+	/* The framework resets lists to `list-style: none` with no indent, which is
+	   right for the nav and card lists it exists for and wrong for prose: these
+	   documents are mostly enumerations ("the information we collect is ..."),
+	   and without markers they read as loose lines. Restored only inside a
+	   generated legal document. */
+	.legal-doc :global(:is(ul, ol)) {
+		list-style: revert;
+		padding-inline-start: 1.5rem;
+	}
+
+	.legal-doc :global(li) {
+		margin-block-start: 0.35rem;
+	}
+
+	/* The base layer sizes headings for marketing sections — one h1, a couple of
+	   h2s, lots of air. A legal document is the opposite: ~4000 words, eight h2s
+	   and twenty h3s over 16px body text, where h1 55px / h2 46px reads as two
+	   competing titles and then falls off a cliff to h3. Re-spaced onto the same
+	   scale tokens so it stays on-system: a clear h1, and h2/h3 that separate
+	   from each other and from the body without shouting. */
+	.legal-doc :global(h1) {
+		font-size: var(--text-4xl);
+	}
+
+	.legal-doc :global(h2) {
+		font-size: var(--text-2xl);
+	}
+
+	.legal-doc :global(h3) {
+		font-size: var(--text-l);
+	}
+
+	/* Long documents need the heading tied to what follows it, not floating
+	   between two blocks of body copy. */
+	.legal-doc :global(:is(h2, h3)) {
+		margin-block-start: 2rem;
+		color: var(--color-snow);
+	}
+</style>
