@@ -77,7 +77,8 @@
           {
             "name": "Zoho",
             "purpose": "receiving and storing email sent to us",
-            "country": "the United States",
+            "storage": [{ "country": "Canada" }],
+            "operatorCountry": "India",
             "privacyUrl": "https://www.zoho.com/privacy.html"
           }
         ]

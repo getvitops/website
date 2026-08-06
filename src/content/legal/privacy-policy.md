@@ -109,7 +109,11 @@ It is important to understand that no security measures are absolute. We cannot 
 
 ### We May Transfer Personal Information to Other Countries
 
-Some or all of the personal information we collect may be stored or processed in jurisdictions outside of Canada, including the United States. As a result, this information may be subject to access requests from governments, courts or law enforcement in those jurisdictions according to laws in those jurisdictions.
+Some or all of the personal information we collect may be stored or processed in jurisdictions outside of Canada, including the United States.
+
+Some of the service providers we use are established in, or controlled from, jurisdictions outside of Canada, including India. Personal information those providers handle on our behalf may be subject to the laws of those jurisdictions even when it is stored in Canada.
+
+As a result, this information may be subject to access requests from governments, courts or law enforcement in those jurisdictions according to laws in those jurisdictions.
 
 ### Accessing and Correcting Your Personal Information
 
