@@ -7,7 +7,7 @@ import Tracking from "@getvitops/astro/Tracking.astro";
 import { getSiteSettings } from "emdash";
 import { EmDashHead } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
-import { clarityEnabled } from "../lib/analytics";
+import { clarityEnabled, isProdStage } from "../lib/analytics";
 // Design-system CSS, layout-scoped (getvitops css.inject: false): only pages
 // rendered through PineLayout get it — keeps it out of /_emdash/admin, while
 // EmDash previews (rendered through this layout) keep it.
@@ -86,11 +86,10 @@ const drawerLinks = navLinks.flatMap((l) =>
 );
 const year = new Date().getFullYear();
 
-// Whether this request gets analytics at all. The same bundle ships to
-// production and to the dev worker, so the stage gate has to be a runtime host
-// check, not a build-time env var (see src/lib/site.ts). `site.json`'s
-// environments.<env>.analytics records the same fact for the legal disclosure;
-// this is what enforces it per request.
+// Whether this page gets analytics at all. Decided at BUILD time: public pages
+// are prerendered, so there is no request to test a hostname against (see
+// src/lib/analytics.ts). `site.json`'s environments.<env>.analytics records the
+// same fact for the legal disclosure; this is what enforces it.
 //
 // The consent banner is gated on the SAME predicate: with opt-in consent and no
 // analytics on dev, a banner would be asking permission for nothing.
@@ -100,7 +99,7 @@ const year = new Date().getFullYear();
 // share one gate — a demand with no banner on the page waits forever and never
 // writes, silently. Keep that invariant if consent ever gates something else
 // (an embed, A/B assignment).
-const analyticsEnabled = clarityEnabled(Astro.url.hostname, Astro.originPathname);
+const analyticsEnabled = clarityEnabled(Astro.originPathname);
 const variant = Astro.locals.variant ?? "a";
 ---
 
@@ -110,6 +109,16 @@ const variant = Astro.locals.variant ?? "a";
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{fullTitle}</title>
+		{/*
+		  Keep non-production stages out of the index.
+
+		  `src/middleware.ts` also sets `x-robots-tag` for non-prod hosts, but it
+		  cannot reach these pages: prerendered HTML is served straight from Workers
+		  Assets without invoking the Worker, so middleware never runs. Without this
+		  tag dev.vitops.ca is crawlable. The header still covers the routes that
+		  really are server-rendered; this covers the static ones.
+		*/}
+		{!isProdStage && <meta name="robots" content="noindex, nofollow" />}
 		<EmDashHead page={pageCtx} />
 		<!-- Favicon/PWA links + the vitops web-component runtime. The runtime
 		     progressively enhances the @getvitops/emdash editor blocks
@@ -120,8 +129,8 @@ const variant = Astro.locals.variant ?? "a";
 		<!-- Microsoft Clarity, configured on the integration (astro.config.mjs)
 		     and gated on the `analytics` consent category: until the visitor
 		     accepts, the tag ships with type="text/plain" and the page issues no
-		     request to Microsoft at all. `enabled` is the production-host gate —
-		     inert on dev.vitops.ca, *.workers.dev and localhost. -->
+		     request to Microsoft at all. `enabled` is the production-STAGE gate,
+		     baked in at build time — inert in every non-prod build. -->
 		<Analytics enabled={analyticsEnabled} />
 		{analyticsEnabled && <meta name="clarity-ab-variant" content={variant} />}
 		<!-- Ad-click attribution: captures a click ID / UTMs off the landing URL
@@ -130,7 +139,7 @@ const variant = Astro.locals.variant ?? "a";
 		     away. The write waits on `marketing` consent, and only asks on an
 		     arrival that actually carried a click ID.
 
-		     Gated on the same production-host flag as Clarity, and that is
+		     Gated on the same production-stage flag as Clarity, and that is
 		     load-bearing rather than tidy: the <CookieConsent /> banner below is
 		     gated on it too, so off production there would be nothing on the page
 		     able to answer the `marketing` demand this raises. The capture would

@@ -19,7 +19,7 @@ The admin UI is at `http://localhost:4321/_emdash/admin`.
 | `seed/seed.json`         | Schema definition + demo content (collections, fields, taxonomies, menus, widgets) |
 | `emdash-env.d.ts`        | Generated types for collections (auto-regenerated on dev server start)             |
 | `src/layouts/Base.astro` | Base layout with EmDash wiring (menus, search, page contributions)                 |
-| `src/pages/`             | Astro pages -- all server-rendered                                                 |
+| `src/pages/`             | Astro pages -- public pages prerendered, see "Rendering model"                     |
 
 ## Skills
 
@@ -37,11 +37,53 @@ This template ships with `.mcp.json`, `.cursor/mcp.json`, and `.vscode/mcp.json`
 
 ## Rules
 
-- All content pages must be server-rendered (`output: "server"`). No `getStaticPaths()` for CMS content.
+- Public pages are prerendered (`export const prerender = true`); see "Rendering model". A page that reads per-request data must opt out with `prerender = false`.
 - Image fields are objects (`{ src, alt }`), not strings. Use `<Image image={...} />` from `"emdash/ui"`.
 - `entry.id` is the slug (for URLs). `entry.data.id` is the database ULID (for API calls like `getEntryTerms`).
 - Always call `Astro.cache.set(cacheHint)` on pages that query content.
 - Taxonomy names in queries must match the seed's `"name"` field exactly (e.g., `"category"` not `"categories"`).
+
+## Rendering model
+
+**Public pages are static HTML on Cloudflare's edge; the Worker handles only the
+dynamic remainder.** Each page carries `export const prerender = true`, and only
+two routes stay on-demand: `src/pages/api/contact.ts` (needs the `EMAIL` binding)
+and `src/pages/b-variant/[...path].astro` (the A/B dispatcher). Measured locally,
+TTFB drops from ~10.5ms to ~4.8ms, and — the bigger win — HTML becomes CDN
+cacheable at all, which middleware's blanket `private, no-store` previously
+forbade.
+
+**`output` stays `"server"`. Do not change it to `"static"`.** It looks like the
+tidier way to express this (flip the default, annotate the exceptions) and it
+fails the build: `emdash()` injects dozens of _dynamic_ routes
+(`/_emdash/admin/[...path]`, `/_emdash/api/admin/api-tokens/[id]`, ...), which
+under `output: "static"` default to prerendered and each demand a
+`getStaticPaths()`. So the per-page exports are the price of keeping EmDash. If
+EmDash is ever removed, `output: "static"` becomes available and they collapse to
+the two exceptions.
+
+`getStaticPaths()` is how you'd prerender CMS content — one static file per entry
+on a `[slug].astro` route. Nothing here uses it: every page is hand-authored, and
+no page queries CMS content. Note the trade if that changes: prerendered CMS
+content **does not update until a rebuild**, so a route that must reflect
+publishing immediately should stay `prerender = false`.
+
+Three things follow from prerendering, all of which failed silently before being
+fixed — keep them in mind when adding a page:
+
+- **`site:` in `astro.config.mjs` is load-bearing.** A prerendered page has no
+  request to derive an origin from, so without it every canonical and `og:url`
+  reads `http://localhost:4321`.
+- **Middleware does not run for prerendered pages.** Workers Assets serves them
+  without invoking the Worker, so nothing in `src/middleware.ts` applies —
+  no `cache-control`, no `x-ab-variant`, and critically no `x-robots-tag`. The
+  `noindex` for non-production stages is therefore a build-time `<meta>` in
+  PineLayout. Anything request-shaped belongs on an on-demand route, not here.
+- **Stage gating is build-time.** See below.
+
+`wrangler.jsonc` sets `assets.html_handling: "drop-trailing-slash"` so
+`/pricing` serves 200 rather than 307-ing to `/pricing/`, which would contradict
+the canonical URL and every `<loc>` in the sitemap.
 
 ## Site config, analytics and legal
 
@@ -84,10 +126,20 @@ integration and emitted by `<Analytics enabled={...} />`; until a visitor accept
 the tag ships as `type="text/plain"` and the page makes no third-party request at
 all. Two gates, deliberately distinct:
 
-- `clarityEnabled()` (`src/lib/analytics.ts`) — the production-host check. One
-  bundle serves prod and dev, so the stage gate is a runtime hostname test.
-  `site.environments.<env>.analytics` in `site.json` records the same fact for
-  the legal disclosure only.
+- `clarityEnabled()` (`src/lib/analytics.ts`) — the production-**stage** check,
+  decided at build time from `isProdStage`, which `vite.define` bakes in from
+  `VITOPS_STAGE`. Only `deploy-prod.yml` sets it, and it fails closed: an unset
+  variable means no analytics. `site.environments.<env>.analytics` in `site.json`
+  records the same fact for the legal disclosure only.
+
+  It was a runtime hostname test until the pages were prerendered, on the
+  premise that one bundle served both stages. That premise was already wrong —
+  `deploy` and `deploy:dev` each run their own `astro build` — and prerendering
+  made it dangerous: with `site:` set, the build-time hostname is `vitops.ca`, so
+  the check resolved to _true_ and would have shipped a live Clarity tag to
+  dev.vitops.ca, feeding the production project with our own sessions. Do not
+  reintroduce a hostname check here; a prerendered page has no hostname to read.
+
 - The consent category — the visitor's choice, handled by `@getvitops/core/consent`.
 
 **Consent is demand-driven** (toolchain 4.0): the banner appears when something
@@ -175,8 +227,18 @@ sticky `ab_variant` cookie > split) and exposed as `Astro.locals.variant`.
   middleware chain — to the `src/pages/b-variant/[...path].astro` dispatcher.
   The public URL never changes; direct hits to `/b-variant/*` 404.
 
-**To launch a test:** add the B content under `src/_b/`, then set `DEFAULT_SPLIT_B`
-above 0. Nothing else needs wiring.
+**To launch a test:** add the B content under `src/_b/`, set `prerender = false`
+on the route under test, then set `DEFAULT_SPLIT_B` above 0. Nothing else needs
+wiring.
+
+That middle step is what makes A/B work alongside static rendering. Variant is
+resolved per request, and a prerendered page can only bake one variant — layers 1
+and 2 read `Astro.locals.variant` at render time, so on a static page they would
+silently freeze at whatever the build produced. Opting _one_ route out of
+prerendering restores the whole system for it while the other ~15 stay static.
+Revert the line when the test ends. Don't reach for a client-side variant swap
+instead: it reintroduces flicker and layout shift on precisely the page being
+measured, which is the opposite of what prerendering bought.
 
 Rules: never link to `/b-variant/*`; in shared layouts/components use
 `Astro.originPathname`, not `Astro.url.pathname` (`Astro.url` is the internal

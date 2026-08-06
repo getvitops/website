@@ -12,7 +12,11 @@ import PresenceAnimation from "../components/PresenceAnimation.astro";
 import { breadcrumb, service } from "../lib/schema";
 import { FUNDING_CALLOUT, FUNDING_NOTE } from "../lib/copy";
 
-export const prerender = false;
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
 
 
 const problems = [

@@ -12,17 +12,21 @@ import config from "../site.json" with { type: "json" };
  * Why a build step rather than a route:
  *
  * - The integration's `sitemap` option is skipped with a warning when `emdash()`
- *   is registered, and the `@astrojs/sitemap` it wraps enumerates *prerendered*
- *   routes only. This site is `output: "server"`, so it would list nothing.
+ *   is registered, and the `@astrojs/sitemap` it wraps needs a route list at
+ *   config time, which it cannot get from per-page `prerender` exports.
  * - EmDash serves its own `/sitemap.xml`, but that is built from database
  *   collections. Every public route here is a `src/pages/*.astro` file, so none
  *   of them appear in it. Hence the separate name — `/sitemap.xml` is taken.
  * - An Astro endpoint would have to be `prerender = true`, because `gitLastmod`
- *   shells out to `git log` and workerd has no git. But introducing the site's
- *   first prerendered route creates a second build target, and that target fails
- *   to resolve Astro 7.1's markdown renderer (`satteri`) to a wasm binding.
- *   Writing the file into `public/` sidesteps the whole question, and has
- *   precedent: the toolchain already generates the favicons there.
+ *   shells out to `git log` and workerd has no git. That is now unremarkable —
+ *   the public pages are all prerendered — but a route would still have to run
+ *   during the build it is describing, and `public/` is written before the build
+ *   reads it. Precedent, too: the toolchain generates the favicons there.
+ *
+ *   (This note previously claimed the first prerendered route fails to resolve
+ *   Astro 7.1's markdown renderer to a wasm binding. That is no longer true —
+ *   verified by prerendering the markdown-rendering legal pages — so it is not a
+ *   reason to avoid prerendering anything.)
  *
  * The route list is derived from the filesystem rather than written out, because
  * a hand-maintained list drifts silently — a new page is simply never submitted

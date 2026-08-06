@@ -32,6 +32,11 @@ const sitemap = {
 };
 
 export default defineConfig({
+  // Required for prerendering: a prerendered page has no request to derive an
+  // origin from, so without this every <link rel="canonical"> and og:url in the
+  // static HTML would read http://localhost:4321. Silent, and invisible under
+  // SSR where Astro.url is a real request.
+  site: config.site.domains.canonical,
   output: "server",
   adapter: cloudflare(),
   image: {
@@ -39,6 +44,23 @@ export default defineConfig({
     responsiveStyles: true,
   },
   vite: {
+    // The deployment stage, baked in as a literal at build time.
+    //
+    // This used to be a runtime hostname test, on the grounds that one bundle
+    // served both stages. That was never quite true — `deploy` and `deploy:dev`
+    // each run their own `astro build` — and prerendering makes it actively
+    // wrong: a prerendered page has no request to read a hostname from, so the
+    // check resolves once during the build. With `site:` set it resolves to
+    // vitops.ca, which would enable Clarity on dev.vitops.ca and pollute the
+    // production project.
+    //
+    // `define` rather than a bare `import.meta.env` read so the value is a
+    // literal in BOTH build targets: the prerendered HTML and the workerd SSR
+    // bundle, which has no `process.env`. Defaults to "dev" — analytics is
+    // opt-in per stage, so an unset variable must fail closed.
+    define: {
+      "import.meta.env.VITOPS_STAGE": JSON.stringify(process.env.VITOPS_STAGE ?? "dev"),
+    },
     ssr: {
       optimizeDeps: {
         // Pre-bundle so it isn't discovered mid-render, which would trigger
