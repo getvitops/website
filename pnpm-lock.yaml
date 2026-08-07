@@ -31,8 +31,8 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0(@tailwindcss/vite@4.3.3(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0)))(@types/node@26.1.1)(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0))(tailwindcss@4.3.3)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))
       '@getvitops/emdash':
-        specifier: ^0.3.3
-        version: 0.3.3(ba112b4dc38720f2ad76756ee43139b8)
+        specifier: ^0.3.4
+        version: 0.3.4(ba112b4dc38720f2ad76756ee43139b8)
       '@getvitops/utils':
         specifier: ^4.1.0
         version: 4.1.0(@types/node@26.1.1)
@@ -839,8 +839,8 @@ packages:
   '@getvitops/core@4.1.0':
     resolution: {integrity: sha512-1wqM9hW7Gb2sdmKe1slH/CWvaDZM4COIr0KUL3YGA8kimI5ggPCTvgGy5hpZnyn+s+BoRSK+VUsV685wxIONUg==}
 
-  '@getvitops/emdash@0.3.3':
-    resolution: {integrity: sha512-+S7O2PQfB/VwUheDc1fHhBIXwbGtdZtHCmlYqNSkHsEcqOkA9qUjkLRBPS+/PuRmrSopufa+jhB619EJmBanyg==}
+  '@getvitops/emdash@0.3.4':
+    resolution: {integrity: sha512-SzZmMpfvB4j5sFDosIG8sa6AaYPdUgpAaB4Bv+WBaJTW1xZ5voRhFED4aD+JBAFXQzDTeAbIb7yL6tvJNhILyw==}
     peerDependencies:
       '@astrojs/cloudflare': '>=14'
       '@emdash-cms/cloudflare': '>=0.31.0'
@@ -855,9 +855,6 @@ packages:
 
   '@getvitops/generator@4.1.0':
     resolution: {integrity: sha512-64qkowjcLdMuXsDuybWhHmzSuoBc9sFIdLMJAjENuNR9P3ltTQH/PvhfNTTEj2vcP5ULgUIQqfbZDeX+TE5umw==}
-
-  '@getvitops/utils@4.0.0':
-    resolution: {integrity: sha512-1GYZaKxVa72SozmJQcogCQJfjdRPH1WxmNcvg5HQ/iFF8V1n68JkM8YMmpzLmF6IuESiADLCKpWqfmIDqXZEig==}
 
   '@getvitops/utils@4.1.0':
     resolution: {integrity: sha512-CMmZaTToLSAspGFzF+rWuiwqAElUJx7H62wzmB/kNjXAZHbzfuclhO+LTZjKlH4U4YjGZSF4JfAKIvke6hMiQw==}
@@ -6249,10 +6246,10 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@getvitops/emdash@0.3.3(ba112b4dc38720f2ad76756ee43139b8)':
+  '@getvitops/emdash@0.3.4(ba112b4dc38720f2ad76756ee43139b8)':
     dependencies:
       '@getvitops/astro': 4.1.0(@tailwindcss/vite@4.3.3(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0)))(@types/node@26.1.1)(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0))(tailwindcss@4.3.3)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))
-      '@getvitops/utils': 4.0.0(@types/node@26.1.1)
+      '@getvitops/utils': 4.1.0(@types/node@26.1.1)
       astro: 7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0)
       emdash: 0.31.1(@astrojs/react@6.0.1(@types/node@26.1.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(esbuild@0.28.1)(jiti@2.7.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)(yaml@2.9.0))(@atcute/identity@2.0.1(@atcute/lexicons@2.0.2)(typescript@6.0.3))(@date-fns/tz@1.5.0)(@floating-ui/dom@1.8.0)(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.0))(date-fns@4.4.0)(echarts@6.1.0)(prosemirror-model@1.25.11)(prosemirror-state@1.4.4)(prosemirror-view@1.42.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
     optionalDependencies:
@@ -6270,15 +6267,6 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
       - supports-color
-
-  '@getvitops/utils@4.0.0(@types/node@26.1.1)':
-    dependencies:
-      colorjs.io: 0.5.2
-      parse5: 7.3.0
-      png-to-ico: 3.0.2
-      sharp: 0.35.3(@types/node@26.1.1)
-    transitivePeerDependencies:
-      - '@types/node'
 
   '@getvitops/utils@4.1.0(@types/node@26.1.1)':
     dependencies:

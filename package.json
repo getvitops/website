@@ -18,7 +18,7 @@
     "@astrojs/react": "^6.0.0",
     "@emdash-cms/cloudflare": "^0.31.1",
     "@getvitops/astro": "^4.1.0",
-    "@getvitops/emdash": "^0.3.3",
+    "@getvitops/emdash": "^0.3.4",
     "@getvitops/utils": "^4.1.0",
     "@iconify-json/ph": "^1.2.2",
     "@iconify-json/simple-icons": "^1.2.0",
