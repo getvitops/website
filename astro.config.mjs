@@ -153,9 +153,30 @@ export default defineConfig({
       // environments, analytics, legal — the deployment's facts).
       // Naming it here is what lets `legal` below default its own input to it.
       site: { input: "site.json" },
+      // Favicons only — deliberately NOT a PWA.
+      //
+      // `name` is the switch: supplying it generates `site.webmanifest` and links
+      // it from <head>, and a manifest carrying 192/512 icons, a start_url and
+      // `display: "standalone"` is exactly what makes Android offer to install
+      // the site. This is a marketing site; an install prompt on a first visit is
+      // noise, and nothing here benefits from running in a standalone window.
+      //
+      // There is no `display` option in the config schema (checked in 4.0 and
+      // 4.1), so the manifest cannot be kept and made non-installable — it is all
+      // or nothing.
+      //
+      // The other two keys are NOT manifest-only, despite their descriptions:
+      // `themeColor` also emits <meta name="theme-color"> (mobile browser chrome),
+      // and `backgroundColor` fills the maskable outputs — the source SVG has
+      // transparency, and icon-mask.png / apple-touch-icon.png must be opaque
+      // because the OS crops them to its own shape. Drop it and the build warns
+      // and defaults them to WHITE, behind a dark brand mark. apple-touch-icon is
+      // used for an iOS home-screen bookmark whether or not a manifest exists.
+      //
+      // Re-adding `name` re-enables the PWA. Do that only if it is a deliberate
+      // decision, not to silence a Lighthouse hint.
       favicon: {
         source: "src/assets/vitops-mark.svg",
-        name: "Vitops",
         themeColor: "#2f6f5e",
         backgroundColor: "#0c1116",
       },
