@@ -16,7 +16,7 @@ public/icon-mask.png
 public/site.webmanifest
 public/vitops/
 # Written by scripts/sitemap.mjs on every build, from git history
-public/sitemap-pages.xml
+public/pages-sitemap.xml
 
 # Astro
 .astro/

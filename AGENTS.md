@@ -171,13 +171,20 @@ split the factory documents.
 
 ## Sitemap and search indexing
 
-`scripts/sitemap.mjs` writes `public/sitemap-pages.xml` from `git log` on every
+`scripts/sitemap.mjs` writes `public/pages-sitemap.xml` from `git log` on every
 build, wired as an `astro:build:start` integration in `astro.config.mjs`. Three
 things forced that shape, and all three are worth knowing before "simplifying" it:
 
 - EmDash serves `/sitemap.xml`, but from **database collections** — every public
   route here is a `src/pages/*.astro` file, so none appear in it. Hence a second
   document under a different name.
+
+  **That name must not match `sitemap-*.xml`.** EmDash also injects
+  `/sitemap-[collection].xml`, so the obvious `sitemap-pages.xml` collided with a
+  real collection named `pages`: the URL returned 200 serving the CMS's sitemap,
+  and `vitops search notify` read three CMS URLs instead of the site's fifteen
+  routes, with nothing to indicate a problem.
+
 - The toolchain's own `sitemap` option is skipped with a warning when `emdash()`
   is registered, and the `@astrojs/sitemap` behind it lists **prerendered** routes
   only. This site is `output: "server"`, so it would emit nothing.

@@ -6,8 +6,15 @@ import { gitLastmod, routeFromPage } from "@getvitops/astro";
 import config from "../site.json" with { type: "json" };
 
 /**
- * Writes `public/sitemap-pages.xml` — the sitemap for this site's hand-authored
+ * Writes `public/pages-sitemap.xml` — the sitemap for this site's hand-authored
  * pages — as a build step.
+ *
+ * **The name must not match `sitemap-*.xml`.** EmDash injects a dynamic route at
+ * `/sitemap-[collection].xml`, so the obvious `sitemap-pages.xml` collides with
+ * it — and `pages` is a real EmDash collection, so that URL resolved to the CMS's
+ * own sitemap and won. It served a 200 with the wrong document, and
+ * `vitops search notify` happily read it: three CMS URLs instead of the fifteen
+ * routes here. Nothing errored. `/sitemap.xml` is taken by EmDash too.
  *
  * Why a build step rather than a route:
  *
@@ -16,7 +23,8 @@ import config from "../site.json" with { type: "json" };
  *   config time, which it cannot get from per-page `prerender` exports.
  * - EmDash serves its own `/sitemap.xml`, but that is built from database
  *   collections. Every public route here is a `src/pages/*.astro` file, so none
- *   of them appear in it. Hence the separate name — `/sitemap.xml` is taken.
+ *   of them appear in it. Hence a separate document, under a name its route
+ *   patterns cannot claim.
  * - An Astro endpoint would have to be `prerender = true`, because `gitLastmod`
  *   shells out to `git log` and workerd has no git. That is now unremarkable —
  *   the public pages are all prerendered — but a route would still have to run
@@ -42,7 +50,7 @@ import config from "../site.json" with { type: "json" };
 const CANONICAL_ORIGIN = config.site.domains.canonical;
 
 const PAGES_DIR = "src/pages";
-const OUT = "public/sitemap-pages.xml";
+const OUT = "public/pages-sitemap.xml";
 
 async function pageFiles(root) {
   const dir = resolve(root, PAGES_DIR);

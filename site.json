@@ -30,7 +30,7 @@
     },
     "seo": {
       "indexing": {
-        "sitemapUrl": "https://vitops.ca/sitemap-pages.xml",
+        "sitemapUrl": "https://vitops.ca/pages-sitemap.xml",
         "searchConsole": {
           "siteUrl": "sc-domain:vitops.ca"
         }
