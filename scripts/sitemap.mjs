@@ -1,0 +1,129 @@
+import { readdir, writeFile } from "node:fs/promises";
+import { relative, resolve } from "node:path";
+
+import { gitLastmod, routeFromPage } from "@getvitops/astro";
+
+import config from "../site.json" with { type: "json" };
+
+/**
+ * Writes `public/pages-sitemap.xml` — the sitemap for this site's hand-authored
+ * pages — as a build step.
+ *
+ * **The name must not match `sitemap-*.xml`.** EmDash injects a dynamic route at
+ * `/sitemap-[collection].xml`, so the obvious `sitemap-pages.xml` collides with
+ * it — and `pages` is a real EmDash collection, so that URL resolved to the CMS's
+ * own sitemap and won. It served a 200 with the wrong document, and
+ * `vitops search notify` happily read it: three CMS URLs instead of the fifteen
+ * routes here. Nothing errored. `/sitemap.xml` is taken by EmDash too.
+ *
+ * Why a build step rather than a route:
+ *
+ * - The integration's `sitemap` option is skipped with a warning when `emdash()`
+ *   is registered, and the `@astrojs/sitemap` it wraps needs a route list at
+ *   config time, which it cannot get from per-page `prerender` exports.
+ * - EmDash serves its own `/sitemap.xml`, but that is built from database
+ *   collections. Every public route here is a `src/pages/*.astro` file, so none
+ *   of them appear in it. Hence a separate document, under a name its route
+ *   patterns cannot claim.
+ * - An Astro endpoint would have to be `prerender = true`, because `gitLastmod`
+ *   shells out to `git log` and workerd has no git. That is now unremarkable —
+ *   the public pages are all prerendered — but a route would still have to run
+ *   during the build it is describing, and `public/` is written before the build
+ *   reads it. Precedent, too: the toolchain generates the favicons there.
+ *
+ *   (This note previously claimed the first prerendered route fails to resolve
+ *   Astro 7.1's markdown renderer to a wasm binding. That is no longer true —
+ *   verified by prerendering the markdown-rendering legal pages — so it is not a
+ *   reason to avoid prerendering anything.)
+ *
+ * The route list is derived from the filesystem rather than written out, because
+ * a hand-maintained list drifts silently — a new page is simply never submitted
+ * and nothing fails.
+ */
+
+/**
+ * Read from the config rather than restated, because `site.seo.indexing.sitemapUrl`
+ * — the URL `vitops search notify` fetches — is built on the same origin. A second
+ * copy here could disagree with it, and the symptom would be a sitemap full of
+ * URLs the notifier never looks at.
+ */
+const CANONICAL_ORIGIN = config.site.domains.canonical;
+
+const PAGES_DIR = "src/pages";
+const OUT = "public/pages-sitemap.xml";
+
+async function pageFiles(root) {
+  const dir = resolve(root, PAGES_DIR);
+  const entries = await readdir(dir, { recursive: true, withFileTypes: true });
+  return entries
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".astro"))
+    .map((entry) => `/${relative(root, resolve(entry.parentPath, entry.name))}`);
+}
+
+/**
+ * Routes that exist but must not be indexed.
+ *
+ * `/404` is an error page. `/b-variant/*` is the A/B layer-3 dispatcher, which
+ * 404s on a direct hit and must never be linked (see CLAUDE.md). A leading
+ * underscore on any segment means Astro does not route the file at all — the
+ * `src/pages/industries/_*.astro` partials — but a filesystem walk still finds
+ * them, so they are filtered here rather than assumed away.
+ */
+function isPublicRoute(route) {
+  if (route === "/404") return false;
+  return !route.split("/").some((segment) => segment.startsWith("_") || segment === "b-variant");
+}
+
+function escapeXml(value) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+export async function writeSitemap({ root = process.cwd(), log = console.log } = {}) {
+  // Resolves a URL to its source file's last commit date. Built once, because it
+  // reads the whole history up front.
+  const stamp = await gitLastmod({
+    cwd: root,
+    onWarn: (message) => log(`[sitemap] ${message}`),
+  });
+
+  const routes = (await pageFiles(root))
+    .map(routeFromPage)
+    .filter((route) => route !== undefined)
+    .filter(isPublicRoute)
+    .sort();
+
+  const entries = routes.map((route) => stamp({ url: new URL(route, CANONICAL_ORIGIN).href }));
+
+  const undated = entries.filter((entry) => !entry.lastmod).length;
+  if (undated > 0) {
+    // Not fatal — a page committed for the first time in this very build has no
+    // history yet. But it is worth saying, because the other cause is a shallow
+    // CI clone, and that silently flattens every date instead of just this one.
+    log(
+      `[sitemap] ${undated}/${entries.length} routes have no <lastmod> (uncommitted, or a shallow clone)`,
+    );
+  }
+
+  const urls = entries
+    .map(({ url, lastmod }) => {
+      const parts = [`    <loc>${escapeXml(url)}</loc>`];
+      // Omit a missing lastmod rather than substituting "now": a wrong date is
+      // worse than none, since `vitops search notify` diffs on it to decide what
+      // actually changed.
+      if (lastmod) parts.push(`    <lastmod>${escapeXml(lastmod)}</lastmod>`);
+      return `  <url>\n${parts.join("\n")}\n  </url>`;
+    })
+    .join("\n");
+
+  await writeFile(
+    resolve(root, OUT),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+    "utf8",
+  );
+
+  log(`[sitemap] ${OUT} — ${entries.length} routes`);
+}

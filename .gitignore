@@ -15,6 +15,8 @@ public/icon-512.png
 public/icon-mask.png
 public/site.webmanifest
 public/vitops/
+# Written by scripts/sitemap.mjs on every build, from git history
+public/pages-sitemap.xml
 
 # Astro
 .astro/
@@ -55,6 +57,14 @@ Thumbs.db
 *.log
 npm-debug.log*
 
-# @getvitops/cli generate sidecars (styles.css is committed; these are reproducible)
+# @getvitops/cli generate sidecars (tailwind.css is committed; these are reproducible)
 src/styles/design-manifest.json
 src/styles/tokens.json
+# `generate` with a site config as --input also writes the legal documents into
+# the output directory as HTML. The copies we actually render are the markdown
+# in src/content/legal (see src/content.config.ts); these are a duplicate.
+src/styles/legal/
+
+# `vitops search notify` snapshot — the last-submitted sitemap state, used to
+# resubmit only what changed. Machine-local; CI restores it from actions/cache.
+.vitops/

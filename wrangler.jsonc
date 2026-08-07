@@ -32,6 +32,13 @@
   // for Email Sending (the apex vitops.ca is not); sending from any other
   // domain fails DKIM and bounces.
   "send_email": [{ "name": "EMAIL" }],
+  // Serve prerendered HTML at its slash-less URL. Astro emits the directory
+  // layout (/pricing/index.html), which Workers Assets would otherwise expose
+  // as /pricing/ and 307 /pricing to it — contradicting both the canonical URL
+  // PineLayout builds (it strips trailing slashes) and every <loc> in
+  // public/sitemap-pages.xml, so each sitemap entry would cost a redirect hop.
+  // "drop-trailing-slash" inverts that: /pricing is 200, /pricing/ redirects.
+  "assets": { "html_handling": "drop-trailing-slash" },
   // Drives scheduled publishing, plugin cron, and maintenance (see src/worker.ts)
   "triggers": {
     "crons": ["* * * * *"],

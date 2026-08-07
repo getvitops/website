@@ -9,7 +9,11 @@ import PageCta from "../../components/page/PageCta.astro";
 import Schema from "../../components/page/Schema.astro";
 import { breadcrumb } from "../../lib/schema";
 
-export const prerender = false;
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
 
 // Every figure here is verified against OCI / BDC directly and dated. See
 // content-plan/funding.md for the audit and funding-watch.md for the standing

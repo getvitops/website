@@ -4,6 +4,10 @@
 #
 # Required repo secrets:
 #   CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
+#   VITOPS_GSC_SERVICE_ACCOUNT — Google service-account JSON with Search Console
+#     access to sc-domain:vitops.ca. A service account rather than the user OAuth
+#     refresh token `vitops search setup` uses: this runs on every deploy, and a
+#     refresh token for an OAuth client still in Testing expires after 7 days.
 name: Deploy prod
 
 on:
@@ -23,6 +27,12 @@ jobs:
     environment: production
     steps:
       - uses: actions/checkout@v4
+        with:
+          # scripts/sitemap.mjs stamps <lastmod> from `git log`. The default
+          # shallow clone has one commit, so every page would claim the deploy
+          # date — plausible-looking and wrong, and `vitops search notify` diffs
+          # on exactly that field to decide what to resubmit.
+          fetch-depth: 0
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
@@ -34,3 +44,28 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # The ONLY place this is set to "production". Public pages are
+          # prerendered, so the Clarity gate and the `noindex` meta tag are both
+          # decided at build time (src/lib/analytics.ts) and baked into the HTML.
+          # Every other build — dev, local — defaults to "dev": analytics off,
+          # noindex on. Unsetting this disables prod analytics; it can never
+          # enable analytics somewhere they don't belong.
+          VITOPS_STAGE: production
+
+      # `search notify` diffs the deployed sitemap against the previous run's
+      # snapshot in `.vitops/` and resubmits only what moved. Without the cache
+      # every run looks cold and resubmits the whole site.
+      - name: Restore indexing snapshot
+        uses: actions/cache@v4
+        with:
+          path: .vitops
+          key: vitops-indexing-${{ github.run_id }}
+          restore-keys: vitops-indexing-
+
+      # Non-fatal by design: the deploy above already succeeded, and a search
+      # engine that wasn't told about it is a delay, not an outage.
+      - name: Notify search engines
+        continue-on-error: true
+        run: npx vitops search notify -i site.json
+        env:
+          VITOPS_GSC_SERVICE_ACCOUNT: ${{ secrets.VITOPS_GSC_SERVICE_ACCOUNT }}

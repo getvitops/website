@@ -1,36 +1,48 @@
 /**
- * Microsoft Clarity configuration (session recordings + heatmaps).
+ * Microsoft Clarity gating (session recordings + heatmaps).
  *
- * Pure helpers only — the actual tag is loaded by
- * `src/components/Analytics.astro`, which PineLayout renders in <head>.
+ * Pure helpers only. The tag itself is emitted by `<Analytics />` from
+ * `@getvitops/astro`, configured in `astro.config.mjs` from `site.json`'s
+ * `site.analytics.clarityId` — one project id, read by both the tag and the
+ * generated privacy policy. This module owns only the *when*.
  */
-
-import { PROD_HOST } from "./site";
 
 /**
- * Clarity project id.
+ * Whether this build targets production.
  *
- * Deliberately a repo constant, not an env var: it is not a secret (it ships
- * in the tag URL in the HTML of every page), and neither deploy workflow
- * passes any `PUBLIC_*` var to `astro build` — so an env var would silently
- * resolve to "" in production, which is a worse failure than a visible string.
+ * Baked in as a literal by `vite.define` in `astro.config.mjs` from the
+ * `VITOPS_STAGE` environment variable, which only `deploy-prod.yml` sets.
  *
- * Set to "" to turn Clarity off everywhere.
+ * A build-time flag rather than the runtime hostname check this replaced. Public
+ * pages are prerendered, so there is no request to read a hostname from: the old
+ * check would resolve once during the build and bake that single answer into
+ * every page. Worse, `site:` makes the build-time hostname `vitops.ca`, so it
+ * would have resolved to *true* and shipped Clarity to dev.vitops.ca. The two
+ * stages already run separate `astro build`s, so a build-time flag is the honest
+ * expression of the same fact.
+ *
+ * Fails closed: anything other than an explicit "production" is non-production.
  */
-export const CLARITY_PROJECT_ID = "xp2ujotyhg";
+export const isProdStage: boolean = import.meta.env.VITOPS_STAGE === "production";
 
 /**
- * Whether to load Clarity for this request.
+ * Whether to load Clarity, passed to `<Analytics enabled>`.
  *
- * Production host only. dev.vitops.ca, *.workers.dev and localhost all render
- * the identical bundle, and their traffic is us — letting it into the same
- * project would pollute the heatmaps and burn the recording quota on our own
- * sessions. The `/_emdash/` guard covers CMS preview renders, which go through
- * PineLayout like any public page.
+ * Production stage only. dev.vitops.ca, *.workers.dev and localhost are us —
+ * letting that traffic into the same project would pollute the heatmaps and burn
+ * the recording quota on our own sessions. The `/_emdash/` guard covers CMS
+ * preview renders, which are server-rendered and go through PineLayout like any
+ * public page.
+ *
+ * This is the build-time half of `site.json`'s
+ * `site.environments.<env>.analytics`, which records the same fact for the legal
+ * disclosure.
+ *
+ * PineLayout gates the consent banner on this too: with opt-in consent and no
+ * analytics off-production, a banner would ask permission for nothing.
  */
-export function clarityEnabled(hostname: string, pathname: string): boolean {
-  if (!CLARITY_PROJECT_ID) return false;
-  if (hostname !== PROD_HOST) return false;
+export function clarityEnabled(pathname: string): boolean {
+  if (!isProdStage) return false;
   if (pathname.startsWith("/_emdash/")) return false;
   return true;
 }

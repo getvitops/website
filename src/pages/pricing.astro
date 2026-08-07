@@ -3,7 +3,11 @@ import PineLayout from "../layouts/PineLayout.astro";
 import PageHero from "../components/page/PageHero.astro";
 import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 
-export const prerender = false;
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
 
 // --- IT & HR Operations: priced per user, per month -------------------------
 //
@@ -211,8 +215,9 @@ const backOfficeServices = [
 		price: "$30",
 		period: "/ user / mo · $150 minimum",
 		included: [
-			"Pay runs, direct deposits, CRA remittances, T4s and ROEs, run to schedule",
+			"Pay runs prepared and submitted, direct deposits and CRA remittances scheduled from your account, T4s and ROEs filed to schedule",
 			"Year-end filing and audit-ready documentation",
+			"Funded from your account — we never hold client funds",
 		],
 	},
 	{

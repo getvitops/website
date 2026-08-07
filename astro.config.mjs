@@ -7,8 +7,36 @@ import emdash from "emdash/astro";
 import { github } from "emdash/auth/providers/github";
 import vitops from "@getvitops/astro";
 import { vitopsEmdash } from "@getvitops/emdash";
+// The Clarity project id lives in site.json, where the generated privacy policy
+// also reads it. Importing it here keeps the tag and the disclosure from drifting.
+// Since toolchain 3.0 the file is a three-section `Config` — designSystem /
+// organization / site — so the site-level facts are one level down.
+import config from "./site.json" with { type: "json" };
+import { writeSitemap } from "./scripts/sitemap.mjs";
+
+/**
+ * Writes public/sitemap-pages.xml before the build reads `public/`.
+ *
+ * An integration rather than a `package.json` step because there are three
+ * entry points into a build (`build`, `deploy`, `deploy:dev`) and only one of
+ * them goes through `pnpm run build` — a prepended script would be missing from
+ * the other two, silently. See scripts/sitemap.mjs for why this is not a route.
+ */
+const sitemap = {
+  name: "vitops-website:sitemap",
+  hooks: {
+    "astro:build:start": async ({ logger }) => {
+      await writeSitemap({ log: (message) => logger.info(message) });
+    },
+  },
+};
 
 export default defineConfig({
+  // Required for prerendering: a prerendered page has no request to derive an
+  // origin from, so without this every <link rel="canonical"> and og:url in the
+  // static HTML would read http://localhost:4321. Silent, and invisible under
+  // SSR where Astro.url is a real request.
+  site: config.site.domains.canonical,
   output: "server",
   adapter: cloudflare(),
   image: {
@@ -16,6 +44,23 @@ export default defineConfig({
     responsiveStyles: true,
   },
   vite: {
+    // The deployment stage, baked in as a literal at build time.
+    //
+    // This used to be a runtime hostname test, on the grounds that one bundle
+    // served both stages. That was never quite true — `deploy` and `deploy:dev`
+    // each run their own `astro build` — and prerendering makes it actively
+    // wrong: a prerendered page has no request to read a hostname from, so the
+    // check resolves once during the build. With `site:` set it resolves to
+    // vitops.ca, which would enable Clarity on dev.vitops.ca and pollute the
+    // production project.
+    //
+    // `define` rather than a bare `import.meta.env` read so the value is a
+    // literal in BOTH build targets: the prerendered HTML and the workerd SSR
+    // bundle, which has no `process.env`. Defaults to "dev" — analytics is
+    // opt-in per stage, so an unset variable must fail closed.
+    define: {
+      "import.meta.env.VITOPS_STAGE": JSON.stringify(process.env.VITOPS_STAGE ?? "dev"),
+    },
     ssr: {
       optimizeDeps: {
         // Pre-bundle so it isn't discovered mid-render, which would trigger
@@ -26,6 +71,7 @@ export default defineConfig({
     },
   },
   integrations: [
+    sitemap,
     react(),
     icon({
       // Only ship the Phosphor icons actually referenced in templates,
@@ -102,15 +148,76 @@ export default defineConfig({
       ],
     }),
     vitops({
+      // site.json is a three-section Config: `designSystem` (the tokens, at
+      // themes.default), `organization` (the company), and `site` (locales,
+      // environments, analytics, legal — the deployment's facts).
+      // Naming it here is what lets `legal` below default its own input to it.
+      site: { input: "site.json" },
+      // Favicons only — deliberately NOT a PWA.
+      //
+      // `name` is the switch: supplying it generates `site.webmanifest` and links
+      // it from <head>, and a manifest carrying 192/512 icons, a start_url and
+      // `display: "standalone"` is exactly what makes Android offer to install
+      // the site. This is a marketing site; an install prompt on a first visit is
+      // noise, and nothing here benefits from running in a standalone window.
+      //
+      // There is no `display` option in the config schema (checked in 4.0 and
+      // 4.1), so the manifest cannot be kept and made non-installable — it is all
+      // or nothing.
+      //
+      // The other two keys are NOT manifest-only, despite their descriptions:
+      // `themeColor` also emits <meta name="theme-color"> (mobile browser chrome),
+      // and `backgroundColor` fills the maskable outputs — the source SVG has
+      // transparency, and icon-mask.png / apple-touch-icon.png must be opaque
+      // because the OS crops them to its own shape. Drop it and the build warns
+      // and defaults them to WHITE, behind a dark brand mark. apple-touch-icon is
+      // used for an iOS home-screen bookmark whether or not a manifest exists.
+      //
+      // Re-adding `name` re-enables the PWA. Do that only if it is a deliberate
+      // decision, not to silence a Lighthouse hint.
       favicon: {
         source: "src/assets/vitops-mark.svg",
-        name: "Vitops",
         themeColor: "#2f6f5e",
         backgroundColor: "#0c1116",
       },
       // inject: false — PineLayout imports the stylesheet, so EmDash's
       // /_emdash/admin routes don't inherit the design system.
-      css: { format: "tailwind", inject: false },
+      css: { format: "tailwind", inject: false, input: "site.json" },
+      // Clarity's tag is emitted by <Analytics /> in PineLayout, which gates it
+      // on the `analytics` consent category. strategy defaults to 'idle', so
+      // nothing touches the critical path.
+      analytics: { clarity: config.site.analytics.clarityId },
+      // Opt-in: gated tags render as <script type="text/plain">, so a visitor
+      // who has not accepted issues no request to Microsoft at all.
+      //
+      // Since 4.0 the banner is demand-driven: it appears when something asks
+      // for a category, not on first visit. Here the only thing that asks is
+      // the gated Clarity tag, at its `idle` strategy.
+      //
+      // `categories` is pinned because the default is ['analytics',
+      // 'preferences'] and this site is dark-only with no colour-scheme toggle
+      // — nothing ever writes a display preference, so offering the row would
+      // ask about nothing and make the generated cookie notice disclose a
+      // stored preference that does not exist. `marketing` is here for the
+      // ad-click attribution `<Tracking />` demands.
+      consent: {
+        policyUrl: "/cookies",
+        categories: ["analytics", "marketing"],
+      },
+      // Ad-click attribution. <Tracking /> in PineLayout's <head> captures a
+      // click ID / UTMs off the landing URL into the first-party `_ac` cookie,
+      // which src/pages/api/contact.ts reads back so an enquiry can be traced to
+      // the ad that produced it.
+      //
+      // The capture is what raises the consent banner for `marketing`, and only
+      // on an arrival that actually carried a click ID — an organic visitor has
+      // nothing to attribute and is never asked. Reading the query string is not
+      // storage, so the script itself is ungated; only the write waits.
+      tracking: true,
+      // Renders the privacy policy, cookie notice and terms from site.json's
+      // `site.legal` block into src/content/legal. Requires `css` — the same Vite
+      // plugin re-renders them when site.json changes.
+      legal: {},
     }),
   ],
   fonts: [

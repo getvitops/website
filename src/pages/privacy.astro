@@ -1,0 +1,16 @@
+---
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+import LegalDoc from "../components/page/LegalDoc.astro";
+
+---
+
+<LegalDoc
+	slug="privacy-policy"
+	title="Privacy policy"
+	description="What personal information Vitops collects, how we use and disclose it, and the choices you have."
+/>

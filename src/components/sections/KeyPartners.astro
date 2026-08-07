@@ -3,6 +3,11 @@
 // Icons are inlined at build time via astro-iconset (no runtime requests).
 // "whc" is a local icon (src/icons/whc.svg) — Web Hosting Canada isn't in
 // simple-icons.
+//
+// Rendered on the homepage and on /business-software, so the footnote link is
+// root-relative (`/#contact`): the anchor lives in Contact.astro, which only the
+// homepage renders. A bare `#contact` would resolve against the current page and
+// dangle everywhere else. Matches PineLayout's own CTAs.
 import { Icon } from "astro-iconset/components";
 
 const partners = [
@@ -38,7 +43,7 @@ const partners = [
 			}
 		</ul>
 		<p class="footnote">
-			Interested in something else? <a href="#contact">Reach out</a> to see how
+			Interested in something else? <a href="/#contact">Reach out</a> to see how
 			we can make it work
 		</p>
 	</div>
