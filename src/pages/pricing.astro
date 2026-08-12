@@ -133,7 +133,10 @@ const presenceServices = [
 		price: "$650",
 		period: "/ mo",
 		included: [
-			"Ongoing search + AI-answer-engine optimization with monthly reporting",
+			"Ongoing search + AI-answer-engine optimization",
+			"1 curated blog post per month",
+			"Business listings managed: Google Business Profile, Bing Places, Apple Business Connect — claimed, verified, kept in sync",
+			"Automated monthly SEO & performance report: keyword ranks, Search Console, Core Web Vitals, conversion summary",
 		],
 	},
 	{
@@ -151,14 +154,6 @@ const presenceServices = [
 		period: "/ mo",
 		included: [
 			"Content calendar and posting across up to 3 platforms, kept on brand",
-		],
-	},
-	{
-		name: "Business listings",
-		price: "$75",
-		period: "/ mo",
-		included: [
-			"Google Business Profile, Bing Places, Apple Business Connect — claimed, verified, kept in sync",
 		],
 	},
 ];
@@ -241,10 +236,9 @@ const hostingTiers = [
 		annual: "$34/mo annual",
 		setup: "$750 setup",
 		features: [
-			"AI-built Astro site with security updates, analytics, and transactional email",
+			"SEO- & AI-search (GEO) optimized at build: Core Web Vitals, structured data, sitemaps, llms.txt, FAQ schema",
+			"Uptime monitoring, SSL, backups, staging environment, security updates, basic analytics, and custom form submission handling",
 			"2 small edits / mo",
-			"Everything competitors nickel-and-dime, included: uptime monitoring, SSL, backups, staging environment",
-			"Ships SEO- & AI-search (GEO) optimized at build: Core Web Vitals, structured data, sitemaps, llms.txt, FAQ schema",
 		],
 		highlighted: false,
 	},
@@ -259,7 +253,6 @@ const hostingTiers = [
 			"Everything in Essential, plus:",
 			"Server-side conversion tracking (Meta CAPI, Google enhanced conversions)",
 			"Qualified-lead alerts — a text, email, or call when a lead matches your rules, not every form fire",
-			"Automated monthly SEO & performance report: keyword ranks, Search Console, Core Web Vitals, conversion summary",
 			"4 edits / mo with priority turnaround",
 		],
 		highlighted: true,
@@ -276,7 +269,6 @@ const hostingTiers = [
 			"Quarterly 30-minute strategy call",
 			"One landing page per quarter",
 			"6 edits / mo",
-			"Best above ~500 sessions / mo — below that, heatmap-driven iteration instead. No ads management or e-commerce.",
 		],
 		highlighted: false,
 	},
@@ -530,6 +522,14 @@ const finePrint = [
 					))
 				}
 			</Subgrid>
+
+			<p class="section-note breakout">
+				Growth is built for traffic above ~500 sessions/mo — below that, we run
+				heatmap-driven iteration instead; it doesn't include ads management or
+				e-commerce. Edit allowances aren't cumulative across tiers — Signal's 4
+				edits/mo replace Essential's 2 rather than adding to them, and the same
+				holds moving into Growth's 6.
+			</p>
 
 			{/*
 				Deliberately UNPRICED. This is demand research, not a product: the
