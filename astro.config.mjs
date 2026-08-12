@@ -15,7 +15,7 @@ import config from "./site.json" with { type: "json" };
 import { writeSitemap } from "./scripts/sitemap.mjs";
 
 /**
- * Writes public/sitemap-pages.xml before the build reads `public/`.
+ * Writes public/pages-sitemap.xml before the build reads `public/`.
  *
  * An integration rather than a `package.json` step because there are three
  * entry points into a build (`build`, `deploy`, `deploy:dev`) and only one of
@@ -155,19 +155,23 @@ export default defineConfig({
       site: { input: "site.json" },
       // Favicons only — deliberately NOT a PWA.
       //
-      // `name` is the switch: supplying it generates `site.webmanifest` and links
-      // it from <head>, and a manifest carrying 192/512 icons, a start_url and
-      // `display: "standalone"` is exactly what makes Android offer to install
-      // the site. This is a marketing site; an install prompt on a first visit is
-      // noise, and nothing here benefits from running in a standalone window.
+      // `name` AND `themeColor` together are the switch: setting both generates
+      // `site.webmanifest` and links it from <head>, and a manifest carrying
+      // 192/512 icons, a start_url and `display: "standalone"` is exactly what
+      // makes Android offer to install the site — neither key alone does
+      // anything. This is a marketing site; an install prompt on a first visit
+      // is noise, and nothing here benefits from running in a standalone
+      // window. `themeColor` is already required below for the mobile browser
+      // chrome meta tag, so `name` staying unset is what keeps the manifest off.
       //
-      // There is no `display` option in the config schema (checked in 4.0 and
-      // 4.1), so the manifest cannot be kept and made non-installable — it is all
-      // or nothing.
+      // There is no `display` option in the config schema (checked at 7.0), so
+      // the manifest cannot be kept and made non-installable — it is all or
+      // nothing.
       //
-      // The other two keys are NOT manifest-only, despite their descriptions:
-      // `themeColor` also emits <meta name="theme-color"> (mobile browser chrome),
-      // and `backgroundColor` fills the maskable outputs — the source SVG has
+      // `themeColor`/`backgroundColor` are NOT manifest-only, despite their
+      // descriptions: `themeColor` also emits <meta name="theme-color"> (mobile
+      // browser chrome) regardless of whether a manifest exists, and
+      // `backgroundColor` fills the maskable outputs — the source SVG has
       // transparency, and icon-mask.png / apple-touch-icon.png must be opaque
       // because the OS crops them to its own shape. Drop it and the build warns
       // and defaults them to WHITE, behind a dark brand mark. apple-touch-icon is
@@ -194,12 +198,21 @@ export default defineConfig({
       // for a category, not on first visit. Here the only thing that asks is
       // the gated Clarity tag, at its `idle` strategy.
       //
-      // `categories` is pinned because the default is ['analytics',
-      // 'preferences'] and this site is dark-only with no colour-scheme toggle
-      // — nothing ever writes a display preference, so offering the row would
-      // ask about nothing and make the generated cookie notice disclose a
-      // stored preference that does not exist. `marketing` is here for the
-      // ad-click attribution `<Tracking />` demands.
+      // `categories` MUST be declared here, not left to the default. The
+      // integration only falls back to site.json's `site.legal.cookieConsent.
+      // categories` when this option is `true`/omitted; passed as an object
+      // (as below), `categories` here is the sole source for the runtime
+      // banner, and the provider-derived default is ['analytics',
+      // 'preferences', ...] — it always includes 'preferences', which this
+      // site never wants (dark-only, no colour-scheme toggle, so nothing ever
+      // writes a display preference and offering the row would ask about
+      // nothing). `marketing` is here for the ad-click attribution
+      // `<Tracking />` demands.
+      //
+      // site.json's `site.legal.cookieConsent.categories` (same two values) is
+      // a SEPARATE declaration that drives the generated privacy/cookie notice
+      // text — the build only cross-checks the two configs' `enabled` flags,
+      // never `categories`, so keeping these in sync is on us, by hand.
       consent: {
         policyUrl: "/cookies",
         categories: ["analytics", "marketing"],

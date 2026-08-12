@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-iconset/components";
+import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 
 interface Props {
 	node: {
@@ -41,25 +42,29 @@ const iconMap: Record<string, string> = {
 				{subheadline && <p class="section-subheadline">{subheadline}</p>}
 			</header>
 		)}
-		<div class="features-grid">
+		<Subgrid class="features-grid">
 			{features.map((feature) => (
-				<div class="feature-card">
+				<li class="feature-card subgrid-card">
 					<div class="icon-tile feature-icon">
 						<Icon name={iconMap[feature.icon] || "ph:sparkle"} aria-hidden="true" />
 					</div>
 					<h3 class="feature-title">{feature.title}</h3>
 					<p class="feature-description">{feature.description}</p>
-				</div>
+				</li>
 			))}
-		</div>
+		</Subgrid>
 	</div>
 </section>
 
 <style>
+	/* Icon, title and description are the tranches subgrid aligns — a
+	   short-description card no longer sits taller or shorter than its row. */
 	.features-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-xl);
+		--subgrid-cols: 3;
+		--subgrid-row-span: 3;
+		--subgrid-card-rows: 3; /* must match --subgrid-row-span; .subgrid-card's
+		                           own grid-row wins the cascade over .subgrid's */
+		--subgrid-gap: var(--spacing-xl);
 	}
 
 	.feature-card {
@@ -97,13 +102,13 @@ const iconMap: Record<string, string> = {
 
 	@media (max-width: 900px) {
 		.features-grid {
-			grid-template-columns: repeat(2, 1fr);
+			--subgrid-cols: 2;
 		}
 	}
 
 	@media (max-width: 600px) {
 		.features-grid {
-			grid-template-columns: 1fr;
+			--subgrid-cols: 1;
 		}
 	}
 </style>

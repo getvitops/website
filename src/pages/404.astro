@@ -44,6 +44,11 @@ import PineLayout from "../layouts/PineLayout.astro";
 		margin-bottom: 0.75rem;
 	}
 
+	/* Not `.centered`: this section is already inside .section.centered's page-
+	   scale grid (see markup) — this is a reading-measure cap on one paragraph,
+	   not a competing hand-rolled container. `vitops lint` pattern-matches on
+	   `max-width` + auto margins together, which this paragraph's centring
+	   happens to also trip. */
 	.not-found p {
 		color: var(--color-mist);
 		margin: 0 auto 2rem;

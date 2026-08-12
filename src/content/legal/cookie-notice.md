@@ -33,6 +33,13 @@ Cookies used on this Site may track:
 
 - `_ac` — records the advertisement or campaign you arrived from, so an enquiry can be attributed to it. Kept for 90 days.
 
+## Cookie Categories
+
+Our consent controls group cookies into the following categories, which you can accept or decline before any non-essential cookie is set:
+
+- analytics
+- marketing
+
 ## Your Choices
 
 - You may configure your browser to refuse cookies, though parts of our Site may not function as intended.

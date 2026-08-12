@@ -8,6 +8,7 @@ import Prose from "../components/page/Prose.astro";
 import Faq from "../components/page/Faq.astro";
 import PageCta from "../components/page/PageCta.astro";
 import Schema from "../components/page/Schema.astro";
+import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 import { breadcrumb, service } from "../lib/schema";
 import { FUNDING_CALLOUT, FUNDING_NOTE } from "../lib/copy";
 
@@ -200,7 +201,7 @@ const faq = [
 					it's still worth knowing.
 				</p>
 
-				<div class="bookkeeping-grid">
+				<Subgrid as="div" class="bookkeeping-grid">
 					<article>
 						<h3 class="font-heading">What we run</h3>
 						<p class="font-body">
@@ -230,7 +231,7 @@ const faq = [
 							the cheaper half of that relationship.
 						</p>
 					</article>
-				</div>
+				</Subgrid>
 
 				<div class="cluster bookkeeping-actions">
 					<a class="cta" href="/#contact">Talk to us <span class="arrow"></span></a>
@@ -332,10 +333,12 @@ const faq = [
 		max-width: 64ch;
 		margin: 0;
 	}
+	/* Heading and body are the tranches subgrid aligns — as="div" keeps the
+	   plain (borderless) look; there's no need for .subgrid-card here. */
 	.bookkeeping-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 2rem;
+		--subgrid-cols: 3;
+		--subgrid-row-span: 2;
+		--subgrid-gap: 2rem;
 		margin-top: 1.25rem;
 		padding-top: 1.75rem;
 		border-top: 1px solid var(--line-1);
@@ -359,8 +362,8 @@ const faq = [
 
 	@media (max-width: 860px) {
 		.bookkeeping-grid {
-			grid-template-columns: 1fr;
-			gap: 1.5rem;
+			--subgrid-cols: 1;
+			--subgrid-gap: 1.5rem;
 		}
 	}
 </style>

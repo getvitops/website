@@ -496,14 +496,15 @@ const finePrint = [
 			<Subgrid class="pricing-tiers">
 				{
 					hostingTiers.map((tier) => (
-						<article
+						<li
 							class:list={[
 								"card",
+								"subgrid-card",
 								"pricing-tier",
 								tier.highlighted ? "pricing-tier--featured" : "",
 							]}>
 							<div class="tier-head">
-								<div class="tier-name-row">
+								<div class="tier-name-row flex items-center">
 									<h3 class="font-heading tier-name">{tier.name}</h3>
 									{tier.tag && <span class="tier-tag">{tier.tag}</span>}
 								</div>
@@ -525,7 +526,7 @@ const finePrint = [
 								href="/#contact">
 								Get started <span class="arrow"></span>
 							</a>
-						</article>
+						</li>
 					))
 				}
 			</Subgrid>
@@ -783,12 +784,14 @@ const finePrint = [
 	}
 
 	/* ---- Plan tiers ----
-	   Laid out by the framework's <Subgrid>: it renders the <ul>/<li> and puts
-	   `grid-template-rows: subgrid` on each card, so the three tranches — head,
-	   feature list, CTA — snap to shared row lines across all cards regardless
-	   of feature count.
+	   Laid out by the framework's <Subgrid>: it emits the <ul> and puts
+	   `grid-template-rows: subgrid` on it; each tier is authored here as an
+	   `<li class="card subgrid-card …">` (Subgrid renders its slot verbatim as
+	   of @getvitops/astro 5.0 — it no longer rebuilds children into <li>s), so
+	   the three tranches — head, feature list, CTA — snap to shared row lines
+	   across all cards regardless of feature count.
 
-	   The variable names are the framework's public contract (@getvitops 0.9):
+	   The variable names are the framework's public contract:
 	   --subgrid-cols / --subgrid-row-span / --subgrid-gap / --subgrid-row-gap.
 	   They must match exactly — an unrecognised name silently falls back to the
 	   pattern's default, and the default row-span is 2 against our 3 tranches,
@@ -797,12 +800,24 @@ const finePrint = [
 	   --subgrid-gap is BOTH the column gap and the gap between tranches, so it
 	   can't be split here; --subgrid-row-gap is extra space once cards wrap.
 
-	   The <ul> and the card <li> are emitted inside the component, so they sit
-	   outside this page's style scope — hence :global(). Everything nested in
-	   the card is rendered from this file and stays scoped as usual. */
+	   --subgrid-card-rows MUST mirror --subgrid-row-span. `.subgrid-card` (on
+	   each <li>, for the position: relative a stretched-link needs) declares
+	   its own `grid-row: span var(--subgrid-card-rows, 4)`, same specificity as
+	   `.subgrid > *`'s `grid-row: span var(--subgrid-row-span, 2)` and later in
+	   the stylesheet — so it wins the cascade, and --subgrid-row-span alone is
+	   silently ignored on any element that also carries .subgrid-card. Leaving
+	   --subgrid-card-rows at its default (4) here would span each tier across
+	   4 row tracks against 3 real tranches, i.e. exactly the "CTA falls out of
+	   the subgrid" failure the paragraph above warns about, from the other
+	   variable.
+
+	   The <ul> is emitted inside the component, so it sits outside this page's
+	   style scope — hence :global(). The <li> cards and everything nested in
+	   them are rendered from this file and stay scoped as usual. */
 	:global(.pricing-tiers) {
 		--subgrid-cols: 3;
 		--subgrid-row-span: 3; /* head · feature list · CTA */
+		--subgrid-card-rows: 3; /* must match --subgrid-row-span; see above */
 		--subgrid-gap: 1.5rem;
 		--subgrid-row-gap: 1.5rem; /* extra separation once cards wrap */
 		list-style: none;
@@ -908,8 +923,6 @@ const finePrint = [
 		border-bottom: 1px solid var(--line-1);
 	}
 	.tier-name-row {
-		display: flex;
-		align-items: center;
 		justify-content: space-between;
 		gap: 0.75rem;
 	}

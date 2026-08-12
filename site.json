@@ -25,6 +25,9 @@
     "domains": {
       "canonical": "https://vitops.ca"
     },
+    "google": {
+      "project": "vitops"
+    },
     "searchConsole": {
       "vitops.ca": {}
     },
@@ -86,7 +89,8 @@
       "cookieConsent": {
         "enabled": true,
         "type": "opt-in",
-        "position": "bottom"
+        "position": "bottom",
+        "categories": ["analytics", "marketing"]
       },
       "termsOfService": {
         "enabled": true,

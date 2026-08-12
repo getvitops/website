@@ -159,7 +159,7 @@ const variant = Astro.locals.variant ?? "a";
 				</a>
 
 				<nav aria-label="Primary">
-					<ul class="nav-items justify-center">
+					<ul class="nav-items justify-center" role="list">
 						{
 							navLinks.map((link) =>
 								link.children ? (
@@ -251,7 +251,7 @@ const variant = Astro.locals.variant ?? "a";
 				</a>
 			</div>
 			<nav class="drawer-nav" aria-label="Menu">
-				<ul class="nav-items">
+				<ul class="nav-items" role="list">
 					{
 						drawerLinks.map((link) => (
 							<li>
@@ -319,7 +319,7 @@ const variant = Astro.locals.variant ?? "a";
 						</ul>
 					</div>
 				</nav>
-				<div class="footer-base">
+				<div class="footer-base flex items-center">
 					<span class="footer-copy flex flex-col @md:flex-row @md:items-center">
 						<span>© {year} Vitops</span>
 						<span class="hidden @md:inline" aria-hidden="true">·</span>
@@ -543,6 +543,13 @@ const variant = Astro.locals.variant ?? "a";
 				margin: 0;
 			}
 
+			/* Not `.subgrid`: `vitops lint` flags this repeat() grid, but the three
+			   columns are a <nav> landmark of hand-authored heading+list groups
+			   (not a `.map()`-rendered list of cards), and every heading is
+			   already one line — there's no variable-height content above the
+			   lists for subgrid to realign. `.subgrid` would also default to a
+			   markerless <ul> of <li>s, which doesn't fit a <nav> of headed
+			   groups without a role/semantics change this doesn't need. */
 			.footer-nav {
 				display: grid;
 				grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -582,9 +589,7 @@ const variant = Astro.locals.variant ?? "a";
 			}
 
 			.footer-base {
-				display: flex;
 				justify-content: space-between;
-				align-items: center;
 				gap: 1rem;
 				flex-wrap: wrap;
 				inline-size: 100%;

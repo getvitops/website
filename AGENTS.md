@@ -42,6 +42,7 @@ This template ships with `.mcp.json`, `.cursor/mcp.json`, and `.vscode/mcp.json`
 - `entry.id` is the slug (for URLs). `entry.data.id` is the database ULID (for API calls like `getEntryTerms`).
 - Always call `Astro.cache.set(cacheHint)` on pages that query content.
 - Taxonomy names in queries must match the seed's `"name"` field exactly (e.g., `"category"` not `"categories"`).
+- When authoring a `<Subgrid>` card with `.subgrid-card` (`pricing.astro`, `blocks/Features.astro`, `blocks/Pricing.astro`, `blocks/Testimonials.astro`, `sections/Pain.astro`, `sections/Services.astro`, `industries/index.astro`), set `--subgrid-card-rows` to the SAME value as `--subgrid-row-span` on the container. `.subgrid-card`'s own `grid-row` (same specificity, later in the stylesheet) wins the cascade over `.subgrid`'s, so `--subgrid-row-span` alone is silently ignored on any element that also carries `.subgrid-card` — the card spans the wrong number of row tracks with no build error.
 
 ## Rendering model
 
@@ -149,6 +150,10 @@ carrying an ad click ID). `consent.categories` is pinned to
 `["analytics", "marketing"]` in `astro.config.mjs` because the default includes
 `preferences`, and this dark-only site never stores a display preference — an
 offered row nothing uses would also make the generated cookie notice disclose it.
+`site.json`'s `site.legal.cookieConsent.categories` carries the same two values,
+for the generated privacy/cookie-notice text — a separate declaration from the
+runtime banner's, since the build only cross-checks the two configs' `enabled`
+flags against each other, never `categories`.
 
 **Everything that can raise the banner, and the banner itself, share one gate.**
 `<Analytics />`, `<Tracking />`, `<CookieConsent />` and the footer's "Cookie
@@ -168,6 +173,13 @@ email. Attribution never fails a submission — the visitor has already sent it.
 The `createConversionRoute()` factory is deliberately **not** used: `contact.ts`
 owns validation and the `send.vitops.ca` sender constraints, which is exactly the
 split the factory documents.
+
+**No `src/pages/api/track.ts`, deliberately.** The build warns that `tracking`
+is on with no route answering `/api/track` — that route only ever receives the
+capture script's `tel:`-click beacon, and this site has no `tel:` link
+anywhere, so the warning is accurate about the wiring and describes no lost
+conversion. Add the route (`createConversionRoute()` from
+`@getvitops/astro/routes`) if a phone number is ever linked.
 
 ## Sitemap and search indexing
 
@@ -207,6 +219,24 @@ deploy already succeeded) and keeps its snapshot in `.vitops/`, restored from
 `site.searchConsole` domains and is run **by hand**, not in CI — it needs a user
 OAuth credential, because verifying a property makes the caller an owner and that
 should be a person. The old command name was `vitops indexing`; there is no alias.
+
+By hand, `vitops search setup`/`search notify` can authenticate from a plain
+`gcloud auth application-default login` instead of a self-issued OAuth client
+(which sits in Google's _Testing_ publishing status and has its refresh token
+expired after 7 days). `site.google.project` (`site.json`) names the Google
+Cloud project ADC usage is attributed to — required for a user credential, and
+deliberately **not** sent for CI's service-account credential, which already
+belongs to a project. The login needs the Search Console scopes, not in ADC's
+default set:
+
+```
+gcloud auth application-default login \
+  --scopes=openid,https://www.googleapis.com/auth/siteverification,\
+https://www.googleapis.com/auth/webmasters,https://www.googleapis.com/auth/cloud-platform
+```
+
+`.github/workflows/deploy-prod.yml`'s `VITOPS_GSC_SERVICE_ACCOUNT` is unaffected
+by any of this — CI keeps using its own credential.
 
 > A `<script>` body in an `.astro` file is **raw text, not JSX**. Wrapping it in
 > `{`...`}` emits the braces and backticks verbatim, producing a block that

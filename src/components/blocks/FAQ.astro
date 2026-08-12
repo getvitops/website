@@ -24,7 +24,7 @@ const { _key, headline, items } = node;
 		<div class="faq-list">
 			{items.map((item) => (
 				<details class="faq-item" name="faq">
-					<summary class="faq-question">
+					<summary class="faq-question flex items-center">
 						<span>{item.question}</span>
 						<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 							<path d="M6 9l6 6 6-6" />
@@ -65,8 +65,6 @@ const { _key, headline, items } = node;
 	}
 
 	.faq-question {
-		display: flex;
-		align-items: center;
 		justify-content: space-between;
 		gap: var(--spacing-md);
 		padding: var(--spacing-lg);

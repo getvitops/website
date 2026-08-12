@@ -6,7 +6,8 @@ import Cards from "../../components/page/Cards.astro";
 import Prose from "../../components/page/Prose.astro";
 import PageCta from "../../components/page/PageCta.astro";
 import Schema from "../../components/page/Schema.astro";
-import { breadcrumb } from "../../lib/schema";
+import { breadcrumb, SITE_URL } from "../../lib/schema";
+import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 
 // Prerendered: no per-request data on this page. EmDash pins the site to
 // output:"server" — its injected /_emdash/* dynamic routes would each need
@@ -40,33 +41,41 @@ const profile = [
 	},
 ];
 
-// Descriptive only — these deliberately do NOT link. The four per-industry
-// pages (industries/_trades.astro and siblings) are parked behind an underscore
-// prefix because their copy commits us to sector-specific delivery we can't
-// stand behind yet. The copy is good and the pages are intact; drop the
-// underscore and restore the hrefs + the ItemList `url` field when the delivery
-// exists. Until then this hub carries the positioning on its own.
+// Descriptive only — these deliberately do NOT link to their own pages. The
+// four per-industry pages (industries/_trades.astro and siblings) are parked
+// behind an underscore prefix because their copy commits us to sector-specific
+// delivery we can't stand behind yet. The copy is good and the pages are
+// intact; drop the underscore and restore the hrefs when the delivery exists.
+// Until then this hub carries the positioning on its own.
+//
+// The ItemList below still needs a real, dereferenceable `item.url` per
+// Google's carousel spec — a bare `name` fails validation (no `item`, no
+// `url`). Rather than link to a parked page, each card gets an `id` and the
+// schema points at this page plus that anchor (the "all-in-one page" format).
+// Swap in the real per-industry URL when a page is unparked.
 const industries = [
 	{
+		slug: "trades",
 		name: "Trades and contractors",
 		body: "Crews on sites, tablets that need to work without signal, a dispatch process that can't wait for head office. Plus safety documentation that has to survive an inspection.",
 	},
 	{
+		slug: "real-estate",
 		name: "Real estate brokerages",
 		body: "A roster that turns over faster than anything else we work with, board-connected tools that don't integrate cleanly, and commission administration that has to be exactly right.",
 	},
 	{
+		slug: "professional-services",
 		name: "Legal, accounting and professional firms",
 		body: "Matter-based permissions, conflict checks, and retention rules where the consequence of getting access wrong is professional rather than merely awkward.",
 	},
 	{
+		slug: "clinics",
 		name: "Medical and dental clinics",
 		body: "PHIPA obligations, an EMR that dictates a lot of the environment, and front-desk staff who cannot be waiting on IT while patients are in the room.",
 	},
 ];
 
-// No `url` per item while the per-industry pages are parked — an ItemList that
-// points at 404s is worse than one that just names the sectors.
 const listSchema = {
 	"@context": "https://schema.org",
 	"@type": "ItemList",
@@ -74,7 +83,12 @@ const listSchema = {
 	itemListElement: industries.map((i, n) => ({
 		"@type": "ListItem",
 		position: n + 1,
-		name: i.name,
+		item: {
+			"@type": "Thing",
+			name: i.name,
+			url: `${SITE_URL}/industries#${i.slug}`,
+			description: i.body,
+		},
 	})),
 };
 ---
@@ -99,16 +113,16 @@ const listSchema = {
 				title="Industries that benefit most from what we do."
 				lead="We know these sectors well enough to be useful in the first week — the tools, the rules, and what urgent means at four in the afternoon. If you're somewhere else, the service is the same; it just takes us a little longer to learn your particulars, and we'll say so rather than pretend otherwise."
 			/>
-			<div class="industry-grid">
+			<Subgrid class="industry-grid">
 				{
 					industries.map((i) => (
-						<article class="card industry-card">
+						<li class="card subgrid-card industry-card" id={i.slug}>
 							<h3 class="font-heading">{i.name}</h3>
 							<p class="font-body card-copy">{i.body}</p>
-						</article>
+						</li>
 					))
 				}
-			</div>
+			</Subgrid>
 		</div>
 	</section>
 
@@ -147,16 +161,17 @@ const listSchema = {
 </PineLayout>
 
 <style>
+	/* Heading and body are the tranches subgrid aligns. */
 	.industry-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1.5rem;
+		--subgrid-cols: 2;
+		--subgrid-row-span: 2;
+		--subgrid-card-rows: 2; /* must match --subgrid-row-span; .subgrid-card's
+		                           own grid-row wins the cascade over .subgrid's */
+		--subgrid-gap: 1.5rem;
 	}
 	/* Not a link while the per-industry pages are parked, so no hover lift and
 	   no affordance suggesting there's somewhere to go. */
 	.industry-card {
-		display: flex;
-		flex-direction: column;
 		gap: 0.85rem;
 		padding: 2rem;
 	}
@@ -167,7 +182,7 @@ const listSchema = {
 
 	@media (max-width: 860px) {
 		.industry-grid {
-			grid-template-columns: 1fr;
+			--subgrid-cols: 1;
 		}
 	}
 </style>
