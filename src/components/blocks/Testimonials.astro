@@ -1,4 +1,6 @@
 ---
+import Subgrid from "@getvitops/astro/components/Subgrid.astro";
+
 interface Props {
 	node: {
 		headline?: string;
@@ -23,13 +25,13 @@ const { headline, testimonials } = node;
 				<h2 class="section-headline">{headline}</h2>
 			</header>
 		)}
-		<div class="testimonials-grid">
+		<Subgrid class="testimonials-grid">
 			{testimonials.map((testimonial) => (
-				<div class="testimonial-card">
+				<li class="testimonial-card subgrid-card">
 					<blockquote class="testimonial-quote">
 						"{testimonial.quote}"
 					</blockquote>
-					<div class="testimonial-author">
+					<div class="testimonial-author flex items-center">
 						{testimonial.avatar && (
 							<img
 								src={testimonial.avatar}
@@ -49,9 +51,9 @@ const { headline, testimonials } = node;
 							)}
 						</div>
 					</div>
-				</div>
+				</li>
 			))}
-		</div>
+		</Subgrid>
 	</div>
 </section>
 
@@ -60,10 +62,14 @@ const { headline, testimonials } = node;
 		background: var(--color-surface);
 	}
 
+	/* Quote and author are the tranches subgrid aligns, so a short quote
+	   doesn't leave its author sitting above its neighbours'. */
 	.testimonials-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-xl);
+		--subgrid-cols: 3;
+		--subgrid-row-span: 2;
+		--subgrid-card-rows: 2; /* must match --subgrid-row-span; .subgrid-card's
+		                           own grid-row wins the cascade over .subgrid's */
+		--subgrid-gap: var(--spacing-xl);
 	}
 
 	.testimonial-card {
@@ -71,8 +77,6 @@ const { headline, testimonials } = node;
 		background: var(--color-bg);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-lg);
-		display: flex;
-		flex-direction: column;
 		gap: var(--spacing-lg);
 	}
 
@@ -80,12 +84,9 @@ const { headline, testimonials } = node;
 		font-size: var(--font-size-lg);
 		line-height: var(--leading-normal);
 		color: var(--color-text);
-		flex: 1;
 	}
 
 	.testimonial-author {
-		display: flex;
-		align-items: center;
 		gap: var(--spacing-md);
 	}
 
@@ -113,13 +114,13 @@ const { headline, testimonials } = node;
 
 	@media (max-width: 900px) {
 		.testimonials-grid {
-			grid-template-columns: repeat(2, 1fr);
+			--subgrid-cols: 2;
 		}
 	}
 
 	@media (max-width: 600px) {
 		.testimonials-grid {
-			grid-template-columns: 1fr;
+			--subgrid-cols: 1;
 		}
 	}
 </style>

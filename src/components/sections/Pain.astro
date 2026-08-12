@@ -1,6 +1,7 @@
 ---
 // PAIN POINT — extracted verbatim from src/pages/index.astro (A/B layer-3
 // enabler refactor). Markup and scoped styles are a pure move.
+import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 ---
 
 <!-- PAIN POINT -->
@@ -16,27 +17,27 @@
 			</p>
 		</header>
 
-		<div class="pain-grid">
-			<article class="card pain-card">
+		<Subgrid class="pain-grid">
+			<li class="card subgrid-card pain-card">
 				<span class="pain-tag">Hiring it</span>
 				<p class="font-body pain-copy">
 					A dedicated IT or HR person is a six-figure commitment, and a small team rarely keeps one fully busy.
 				</p>
-			</article>
-			<article class="card pain-card">
+			</li>
+			<li class="card subgrid-card pain-card">
 				<span class="pain-tag">Doing it yourself</span>
 				<p class="font-body pain-copy">
 					You or your most capable person trade hours you
 					should spend on customers for operational tasks.
 				</p>
-			</article>
-			<article class="card pain-card">
+			</li>
+			<li class="card subgrid-card pain-card">
 				<span class="pain-tag">Ignoring it</span>
 				<p class="font-body pain-copy">
 					Without expertise and constant monitoring, security gaps widen, money is wasted, and you fall behind.
 				</p>
-			</article>
-		</div>
+			</li>
+		</Subgrid>
 	</div>
 
 	<p class="pain-close breakout">
@@ -64,14 +65,16 @@
 	.pain-eyebrow {
 		color: var(--color-amber);
 	}
+	/* Tag and copy are the tranches subgrid aligns, so a shorter pain-point
+	   copy doesn't leave its tag out of line with its neighbours'. */
 	.pain-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1.5rem;
+		--subgrid-cols: 3;
+		--subgrid-row-span: 2;
+		--subgrid-card-rows: 2; /* must match --subgrid-row-span; .subgrid-card's
+		                           own grid-row wins the cascade over .subgrid's */
+		--subgrid-gap: 1.5rem;
 	}
 	.pain-card {
-		display: flex;
-		flex-direction: column;
 		gap: 0.85rem;
 		padding: 1.75rem;
 	}
@@ -104,7 +107,7 @@
 
 	@media (max-width: 860px) {
 		.pain-grid {
-			grid-template-columns: 1fr;
+			--subgrid-cols: 1;
 		}
 	}
 </style>

@@ -12,6 +12,8 @@
 //
 // Styling is framework classes (`npx vitops docs classes`): `card` pattern,
 // `rhythm` for flow, `list` for the feature lists, functional colour tokens.
+import Subgrid from "@getvitops/astro/components/Subgrid.astro";
+
 const pillars = [
 	{
 		tag: "01 · Business software",
@@ -65,13 +67,13 @@ const pillars = [
 			</p>
 		</header>
 
-		<div class="grid gap-6 @md:grid-cols-3">
+		<Subgrid class="pillars-grid">
 			{
 				pillars.map((p) => (
-					<article class="card rhythm">
+					<li class="card subgrid-card rhythm">
 						<span class="font-eyebrow text-brand-primary">{p.tag}</span>
 						<h3 class="font-heading">{p.heading}</h3>
-						<ul class="list rhythm pt-4 border-t border-neutral">
+						<ul class="list rhythm pt-4 border-t border-neutral" role="list">
 							{p.features.map((f) => (
 								<li class="font-body text-neutral-muted">{f}</li>
 							))}
@@ -81,9 +83,32 @@ const pillars = [
 								More on {p.tag.split("· ")[1]} →
 							</a>
 						</p>
-					</article>
+					</li>
 				))
 			}
-		</div>
+		</Subgrid>
 	</div>
 </section>
+
+<style>
+	/* Tag, heading, feature list and the "More on…" caption are the tranches
+	   subgrid aligns, so the shortest feature list doesn't leave its link
+	   sitting above its neighbours'. Framework classes handle everything else
+	   (see header comment) — this is only the subgrid custom-property contract. */
+	.pillars-grid {
+		--subgrid-cols: 3;
+		--subgrid-row-span: 4;
+		--subgrid-card-rows: 4; /* must match --subgrid-row-span; .subgrid-card's
+		                           own grid-row wins the cascade over .subgrid's */
+		--subgrid-gap: 1.5rem;
+	}
+
+	/* 48rem to match the original @md: container-query breakpoint this
+	   replaced (--container-md in tailwind.css) as closely as a viewport
+	   query can. */
+	@media (max-width: 48rem) {
+		.pillars-grid {
+			--subgrid-cols: 1;
+		}
+	}
+</style>

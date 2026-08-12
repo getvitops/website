@@ -1,4 +1,6 @@
 ---
+import Subgrid from "@getvitops/astro/components/Subgrid.astro";
+
 interface RawPlan {
 	name: string;
 	price: string;
@@ -44,9 +46,9 @@ const plans = rawPlans.map((plan) => ({
 				<h2 class="section-headline">{headline}</h2>
 			</header>
 		)}
-		<div class="pricing-grid">
+		<Subgrid class="pricing-grid">
 			{plans.map((plan) => (
-				<div class:list={["pricing-card", { "pricing-highlighted": plan.highlighted }]}>
+				<li class:list={["pricing-card", "subgrid-card", { "pricing-highlighted": plan.highlighted }]}>
 					{plan.highlighted && <div class="pricing-badge">Most popular</div>}
 					<div class="pricing-plan-header">
 						<h3 class="pricing-name">{plan.name}</h3>
@@ -74,9 +76,9 @@ const plans = rawPlans.map((plan) => ({
 					>
 						{plan.cta.label}
 					</a>
-				</div>
+				</li>
 			))}
-		</div>
+		</Subgrid>
 	</div>
 </section>
 
@@ -85,21 +87,23 @@ const plans = rawPlans.map((plan) => ({
 		margin-bottom: var(--spacing-2xl);
 	}
 
+	/* Plan header, feature list and CTA are the tranches subgrid aligns, so a
+	   plan with fewer features doesn't strand its CTA above its neighbours'. */
 	.pricing-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-xl);
-		align-items: start;
+		--subgrid-cols: 3;
+		--subgrid-row-span: 3;
+		--subgrid-card-rows: 3; /* must match --subgrid-row-span; .subgrid-card's
+		                           own grid-row wins the cascade over .subgrid's */
+		--subgrid-gap: var(--spacing-xl);
 	}
 
+	/* No position: relative here — .subgrid-card (markup) already sets it on
+	   this same element, which .pricing-badge's position: absolute relies on. */
 	.pricing-card {
-		position: relative;
 		padding: var(--spacing-xl);
 		background: var(--color-surface);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-lg);
-		display: flex;
-		flex-direction: column;
 		gap: var(--spacing-lg);
 	}
 
@@ -161,7 +165,6 @@ const plans = rawPlans.map((plan) => ({
 
 	.pricing-features {
 		list-style: none;
-		flex: 1;
 		display: flex;
 		flex-direction: column;
 		gap: var(--spacing-sm);
@@ -184,11 +187,12 @@ const plans = rawPlans.map((plan) => ({
 
 	.pricing-cta {
 		width: 100%;
+		align-self: end; /* pin to the bottom of its shared subgrid row track */
 	}
 
 	@media (max-width: 900px) {
 		.pricing-grid {
-			grid-template-columns: 1fr;
+			--subgrid-cols: 1;
 			max-width: 400px;
 			margin: 0 auto;
 		}

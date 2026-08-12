@@ -117,7 +117,7 @@ const SIMPLE_ICONS = [
 						<div class="s3-col" id="seats" />
 					</div>
 				</div>
-				<div class="gap" id="gap2">↓ &nbsp;we handle updates, support, and escalation</div>
+				<div class="gap flex items-center" id="gap2">↓ &nbsp;we handle updates, support, and escalation</div>
 				<div class="band band-surface"><div class="bt">Apps</div><div class="vend" id="vend" /></div>
 			</div>
 		</section>
@@ -161,7 +161,13 @@ const SIMPLE_ICONS = [
 <style is:global>
 	/* Palette remap: the widget's private tokens point at Pine framework
 	   tokens. Everything is scoped under .stack-anim so the widget's
-	   generic class names (.card, .grid, .link) never fight the framework. */
+	   generic class names (.card, .grid, .link) never fight the framework.
+	   That isolation is deliberate: `vitops lint` reports .grid/.metrics as
+	   repeat()-grid candidates for `.subgrid`/`.grid-auto`, and the P.map()
+	   card loop as a `<Subgrid>` candidate, but this is a decorative,
+	   JS-generated animation, not real list content — pulling it onto the
+	   framework's shared subgrid vocabulary would fight the isolation this
+	   comment describes for no accessibility or layout benefit. Left as-is. */
 	.stack-anim {
 		--s0: var(--color-navy-xxd);
 		--s1: var(--color-navy-d);
@@ -216,8 +222,6 @@ const SIMPLE_ICONS = [
 		border-radius: 50%;
 		background: var(--ac);
 		color: var(--s0);
-		display: flex;
-		align-items: center;
 		justify-content: center;
 		font-size: 12px;
 		font-weight: 700;
@@ -227,7 +231,7 @@ const SIMPLE_ICONS = [
 	}
 	.stack-anim .card.pick .pick-badge { opacity: 1; transform: scale(1); }
 
-	.stack-anim .mk { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; filter: grayscale(1); color: var(--tp); }
+	.stack-anim .mk { width: 26px; height: 26px; justify-content: center; filter: grayscale(1); color: var(--tp); }
 	.stack-anim .mk svg { width: 100%; height: 100%; }
 
 	.stack-anim .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
@@ -260,15 +264,15 @@ const SIMPLE_ICONS = [
 	.stack-anim .wval { color: var(--tp); font-weight: 500; font-variant-numeric: tabular-nums; }
 	.stack-anim .wval .wd { color: var(--ok); font-size: 11px; font-weight: 500; margin-right: 6px; opacity: 0; transition: opacity 0.4s; }
 
-	.stack-anim .gap { height: 26px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 11px; color: var(--tm); opacity: 0; transition: opacity 0.5s; margin-block: 8px; }
+	.stack-anim .gap { height: 26px; justify-content: center; gap: 8px; font-size: 11px; color: var(--tm); opacity: 0; transition: opacity 0.5s; margin-block: 8px; }
 	.stack-anim .gap.on { opacity: 1; }
 
-	.stack-anim .tk { display: flex; align-items: center; gap: 8px; font-size: 12px; padding: 7px 10px; border-radius: var(--r); background: var(--s0); border: 1px solid var(--bd); opacity: 0; transform: translateY(10px); transition: all 0.45s; }
+	.stack-anim .tk { gap: 8px; font-size: 12px; padding: 7px 10px; border-radius: var(--r); background: var(--s0); border: 1px solid var(--bd); opacity: 0; transform: translateY(10px); transition: all 0.45s; }
 	.stack-anim .tk.on { opacity: 1; transform: none; }
 	.stack-anim .tk.done { background: var(--okbg); border-color: transparent; color: var(--ok); }
 
 	.stack-anim .vend { display: flex; gap: 9px; flex-wrap: wrap; }
-	.stack-anim .vd { width: 30px; height: 30px; border-radius: 8px; background: var(--s0); border: 1px solid var(--bd); display: flex; align-items: center; justify-content: center; transition: all 0.35s; padding: 6px; }
+	.stack-anim .vd { width: 30px; height: 30px; border-radius: 8px; background: var(--s0); border: 1px solid var(--bd); justify-content: center; transition: all 0.35s; padding: 6px; }
 	.stack-anim .vd .mk { width: 100%; height: 100%; color: var(--tm); }
 	.stack-anim .vd.hot { background: var(--ac); border-color: var(--ac); transform: scale(1.1); }
 	.stack-anim .vd.hot .mk { color: #fff; }
@@ -334,14 +338,14 @@ const TOT=p=>p.sk.reduce((a,s)=>a+s.q,0);
 function mark(p,mono){
   const ic=p.icon;
   if(typeof ic==='string'){
-    return `<span class="mk">${iconSvg(ic)}</span>`;
+    return `<span class="mk flex items-center">${iconSvg(ic)}</span>`;
   }
   const c=CUSTOM[ic.custom];
   const inner = mono ? c.inner.replace(/fill="#[0-9A-Fa-f]{6}"/g,'fill="currentColor"') : c.inner;
-  return `<span class="mk"><svg viewBox="${c.vb}" xmlns="http://www.w3.org/2000/svg">${inner}</svg></span>`;
+  return `<span class="mk flex items-center"><svg viewBox="${c.vb}" xmlns="http://www.w3.org/2000/svg">${inner}</svg></span>`;
 }
 
-fill('g0',P.map((p,i)=>`<div class="card" id="c${i}"><span class="pick-badge" aria-hidden="true">✓</span>${mark(p)}<div class="nm">${p.n}</div><div class="sub">${p.s}</div></div>`).join(''));
+fill('g0',P.map((p,i)=>`<div class="card" id="c${i}"><span class="pick-badge flex items-center" aria-hidden="true">✓</span>${mark(p)}<div class="nm">${p.n}</div><div class="sub">${p.s}</div></div>`).join(''));
 
 const SEL=P.map((p,i)=>({...p,i})).filter(p=>p.pick);
 if($('dp'))$('dp').textContent=SEL.length;
@@ -374,8 +378,8 @@ if(fill('net',INT.map((e,i)=>{const a=pos[e[0]],b=pos[e[1]],hub=e[0]==='Rippling
 
 // managed ops
 const HEAD=22;
-fill('vend',SEL.map(p=>`<div class="vd" id="v${p.i}">${mark(p,true)}</div>`).join('')
- +`<div class="vd" id="vastro"><span class="mk">${iconSvg('simple-icons:astro')}</span></div>`);
+fill('vend',SEL.map(p=>`<div class="vd flex items-center" id="v${p.i}">${mark(p,true)}</div>`).join('')
+ +`<div class="vd flex items-center" id="vastro"><span class="mk flex items-center">${iconSvg('simple-icons:astro')}</span></div>`);
 
 let SQ=[14,8];
 // This-month dashboard metrics; managed events (tickets) bump them.
@@ -400,7 +404,7 @@ const TIX=[
  {t:'Audited access permissions',v:SEL.map(p=>p.i).concat('astro')}];
 // `src` no longer renders a badge on the ticket — it only marks which tickets
 // originate in the HRIS, so the Rippling chip in the vendor row lights up below.
-fill('tix',TIX.map((t,i)=>`<div class="tk" id="tk${i}"><span style="flex:1">${t.t}</span><span id="tc${i}" style="opacity:0;font-size:11px">✓</span></div>`).join(''));
+fill('tix',TIX.map((t,i)=>`<div class="tk flex items-center" id="tk${i}"><span style="flex:1">${t.t}</span><span id="tc${i}" style="opacity:0;font-size:11px">✓</span></div>`).join(''));
 
 fill('g4',SEL.map(p=>`<div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:10px 12px"><div style="display:flex;align-items:center;gap:12px"><div style="width:22px;height:22px">${mark(p)}</div><div style="flex:1;font-size:14px">${p.n}</div><span style="font-size:12px;color:var(--ts)">${TOT(p)} seats</span></div>${p.sk.map(s=>`<div style="display:flex;gap:12px;padding:6px 0 0 34px;font-size:12px;color:var(--tm)"><span style="flex:1">${s.k}</span><span>${s.q} seats</span><span style="width:66px;text-align:right;color:${s.d>0?'var(--ok)':s.d<0?'var(--wn)':'var(--tm)'}">${s.d?'('+(s.d>0?'+':'')+s.d+')':''}</span></div>`).join('')}</div>`).join(''));
 

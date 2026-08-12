@@ -35,7 +35,7 @@ const partners = [
 		<ul class="partner-strip">
 			{
 				partners.map((p) => (
-					<li class="partner">
+					<li class="partner flex items-center">
 						<Icon name={p.icon} />
 						<span class="partner-name">{p.name}</span>
 					</li>
@@ -55,6 +55,13 @@ const partners = [
 		margin-bottom: 2rem;
 	}
 
+	/* A repeat() grid, not `.subgrid`/`.grid-auto`: each item is an icon + a
+	   single name, with no head/body/footer tranches for `.subgrid` to align,
+	   and the fixed 2-col/4-col breakpoints are a deliberate "12 logos, N even
+	   rows" layout that `.grid-auto`'s auto-fit sizing would not reproduce
+	   without picking magic `--grid-min` numbers that need visual re-tuning at
+	   every breakpoint. `vitops lint` flags this and calls exactly this shape
+	   out as its own false-positive case. */
 	.partner-strip {
 		list-style: none;
 		margin: 0;
@@ -65,8 +72,6 @@ const partners = [
 		gap: 1.5rem 3rem;
 	}
 	.partner {
-		display: flex;
-		align-items: center;
 		gap: 0.65rem;
 		color: var(--color-mist);
 	}

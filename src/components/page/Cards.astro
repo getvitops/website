@@ -4,6 +4,19 @@
 // Framework classes only (`npx vitops docs classes`): `card` is the pattern,
 // `rhythm` handles flow inside it, colour comes from the functional tokens.
 // `bg-navy-d` is deliberately NOT used — it resolves to nothing (see below).
+//
+// Not `<Subgrid>`: `vitops lint` flags this `.map()` loop, but this component
+// is reused across ~10 pages with two structurally different card shapes
+// (heading+body, or tag+heading+body — `tag` is optional per Card) and no
+// type-level guarantee that a given call's array is internally uniform.
+// `.subgrid`'s row-span is one fixed number for the whole set; a wrong guess
+// would misalign rather than align. The `@md:` container-query column count
+// also has no established subgrid equivalent in this codebase (the
+// framework's own responsive helper for it, `.subgrid-responsive`, uses
+// viewport media queries) — and container queries are load-bearing here since
+// this component nests in containers of very different widths across its
+// call sites. `sections/Services.astro` converted because it's a single
+// fixed-shape call site; this one stays as a plain Tailwind grid.
 interface Card {
 	tag?: string;
 	heading: string;
@@ -29,7 +42,7 @@ const colClass = cols === 3 ? "@md:grid-cols-3" : "@md:grid-cols-2";
 				<h3 class="font-heading">{card.heading}</h3>
 				<p class="font-body text-neutral-muted">{card.body}</p>
 				{card.items && (
-					<ul class="list rhythm pt-4 border-t border-neutral">
+					<ul class="list rhythm pt-4 border-t border-neutral" role="list">
 						{card.items.map((i) => (
 							<li class="font-body text-neutral-muted">{i}</li>
 						))}
