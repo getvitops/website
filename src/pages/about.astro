@@ -18,6 +18,10 @@ export const prerender = true;
 // founders, credentials and sameAs live in src/lib/schema.ts so every mention
 // of "Vitops" resolves to the same entity. See content-plan/geo.md.
 //
+// Mission/vision/values page, not a founder spotlight. Founders get one
+// short, un-interleaved bio each near the bottom — enough to back the
+// Person nodes above, not the subject of the page. Don't re-promote them.
+//
 // Bios are written without pronouns: neither founder's are on record.
 // Prior companies are deliberately unnamed — the experience is the point.
 //
@@ -29,7 +33,7 @@ export const prerender = true;
 //     remap themselves in dark mode; `var(--color-mist)` does not.
 //   · `split` gives equal flex columns; `flex-col @md:flex-row` stacks them.
 
-const decisions = [
+const values = [
 	{
 		heading: "We publish our prices.",
 		body: "Per seat, on the pricing page. Not “contact us for a quote”, which usually means the number depends on what you look like you can pay.",
@@ -50,93 +54,45 @@ const decisions = [
 ---
 
 <PineLayout
-	title="About Vitops — two halves of the same job"
-	description="Vitops is an Ottawa operations partner run by two founders — one from back-office and HR operations, one from software and digital presence. Who we are, how we work, and who we suit."
+	title="About Vitops — our mission, values and how we work"
+	description="Vitops is an Ottawa operations partner running the digital presence a business is seen through and the software and back-office operations behind it. Our mission, what we've decided in advance, and who this suits."
 >
 	<Schema data={organizationGraph} />
 	<Schema data={breadcrumb(["About", "/about"])} />
 
 	<PageHero
 		eyebrow="About"
-		title="Two halves of the same job."
-		lead="Vitops was started by two people who had each spent years fixing one half of the same problem, from opposite ends, for the same kind of business. The company is what happens when you stop handing the work between them."
+		title="One partner for all of it."
+		lead="Vitops runs the digital presence a business is seen through and the software and back-office operations behind it — under one partner rather than two vendors. What we're for, what we're aiming at, and what we've decided in advance."
 		secondaryLabel="See pricing"
 		secondaryHref="/pricing"
 	/>
 
 	<Prose lead>
 		<p>
-			Vitops is an Ottawa-based operations partner for Ontario small businesses,
-			founded by Justin Lang and Alex Gagnon. Justin holds a PhD in Population
-			Health and has spent years running HR, payroll and benefits operations for
-			small employers. Alex holds a Master of Computer Science focused on
-			artificial intelligence and has spent them building websites, search
-			presence and the software systems underneath. Vitops runs both halves —
-			the digital presence a business is seen through, and the software and
-			back-office operations behind it — under one partner rather than two
-			vendors.
+			Vitops is an Ottawa-based operations partner for Ontario small businesses.
+			We run both halves of the work a growing company needs handled — the
+			digital presence it is seen through, and the software, IT and back-office
+			operations behind it — under one partner rather than two vendors. The
+			company was founded by Justin Lang and Alex Gagnon, who had each spent
+			years running one of those halves for the same kind of business.
 		</p>
 	</Prose>
 
 	<section class="section centered">
 		<div class="spotlight">
 			<SectionIntro
-				title="Meet the team."
+				eyebrow="Mission"
+				title="Run the work a small business can't justify hiring for."
 			/>
-
-			<div class="split flex-col @md:flex-row gap-10">
-				<article class="rhythm border-l-2 border-brand-primary pl-5">
-					<h3 class="font-heading">Justin Lang — back office</h3>
-					<h4 class='font-heading'>CEO & Co-Founder</h4>
-					<p class="font-body text-neutral-muted">
-						A PhD in Population Health and more than a decade studying how
-						absence, disability and injury move through a business — and how
-						much of that cost is process rather than circumstance. Since then,
-						running HR, payroll and benefits operations for small employers,
-						where the recurring finding was that most of what's sold to them is
-						an enterprise system with the price cut and the fit left alone.
-					</p>
-					<p class="font-body text-neutral-muted">
-						At Vitops, Justin owns the back office: bookkeeping, payroll,
-						benefits, HR operations, and the employee lifecycle end of
-						joiner-mover-leaver.
-					</p>
-					<p class="font-caption">
-						<a
-							class="link"
-							href="https://www.linkedin.com/in/justinl-viabilityhr"
-							rel="noopener">LinkedIn</a
-						>
-					</p>
-				</article>
-
-				<article class="rhythm border-l-2 border-brand-primary pl-5">
-					<h3 class="font-heading">Alex Gagnon — software and presence</h3>
-					<h4 class="font-heading">CTO & Co-Founder</h4>
-					<p class="font-body text-neutral-muted">
-						A Master of Computer Science focused on artificial intelligence, and
-						years building websites, search presence and the systems underneath
-						them for small businesses — on the view that performance and
-						technical search health aren't upsells to be sold separately;
-						they're either in the build or the build is deficient. Microsoft
-						Certified: Azure Solutions Architect Expert, and certified in
-						Security, Compliance and Identity.
-					</p>
-					<p class="font-body text-neutral-muted">
-						At Vitops, Alex owns the software stack and the digital presence:
-						selection, implementation and integration, AI enablement where it
-						earns its place, and the website, search and campaign work in front
-						of it.
-					</p>
-					<p class="font-caption">
-						<a
-							class="link"
-							href="https://www.linkedin.com/in/alex-gagnon-658108189/"
-							rel="noopener">LinkedIn</a
-						>
-					</p>
-				</article>
-			</div>
+			<p class="font-body text-neutral-muted">
+				Every growing business needs its software and devices, its books and
+				payroll, and its presence handled well. Almost none of them can justify
+				a hire for one of those, let alone three. Vitops exists to run all
+				three under one partner, at a published price, for businesses past the
+				point where the admin is a real cost and short of the point where a
+				dedicated hire pays for itself.
+			</p>
 		</div>
 
 		<div class="rhythm mt-12 pt-8 border-t border-neutral">
@@ -154,7 +110,24 @@ const decisions = [
 				the second founder gives you is that the other half never becomes
 				somebody else's vendor.
 			</p>
-			<p class="font-body text-neutral-x-muted">
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="Vision"
+				title="One operator on file, not two vendors and a seam."
+			/>
+			<p class="font-body text-neutral-muted">
+				The gap was never inside either discipline; it was between the vendors.
+				We want the ordinary state of an Ontario small business to be that the
+				onboarding process, the systems behind it and the site in front of it
+				are one person's accountability — that nobody has to project-manage
+				their own suppliers to get a new hire a laptop and a payroll record in
+				the same week.
+			</p>
+			<p class="font-body text-neutral-x-muted mt-4">
 				This doesn't scale indefinitely, so we take on a limited number of
 				accounts. If we're at capacity we'll say so rather than stretching and
 				doing it badly.
@@ -165,10 +138,55 @@ const decisions = [
 	<section class="section centered">
 		<div class="spotlight">
 			<SectionIntro
-				eyebrow="How we work"
+				eyebrow="Values"
 				title="Four things we've decided, so you don't have to ask."
 			/>
-			<Cards cards={decisions} />
+			<Cards cards={values} />
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="Co-founders" title="Who runs it." />
+
+			<div class="split flex-col @md:flex-row gap-10">
+				<article class="rhythm">
+					<h3 class="font-heading">Justin Lang — CEO</h3>
+					<p class="font-body text-neutral-muted">
+						A PhD in Population Health and more than a decade spent on how
+						absence, disability and injury move through a business, then
+						running HR, payroll and benefits operations for small employers.
+						Owns the back office at Vitops: bookkeeping, payroll, benefits, HR
+						operations and the employee lifecycle.
+					</p>
+					<p class="font-caption">
+						<a
+							class="link"
+							href="https://www.linkedin.com/in/justinl-viabilityhr"
+							rel="noopener">LinkedIn</a
+						>
+					</p>
+				</article>
+
+				<article class="rhythm">
+					<h3 class="font-heading">Alex Gagnon — CTO</h3>
+					<p class="font-body text-neutral-muted">
+						A Master of Computer Science focused on artificial intelligence,
+						and years building websites, search presence and the systems
+						underneath them for small businesses. Microsoft Certified: Azure
+						Solutions Architect Expert, and certified in Security, Compliance
+						and Identity. Owns the software stack and the digital presence at
+						Vitops.
+					</p>
+					<p class="font-caption">
+						<a
+							class="link"
+							href="https://www.linkedin.com/in/alex-gagnon-658108189/"
+							rel="noopener">LinkedIn</a
+						>
+					</p>
+				</article>
+			</div>
 		</div>
 	</section>
 
