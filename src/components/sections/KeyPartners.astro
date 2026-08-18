@@ -27,7 +27,7 @@ const partners = [
 ---
 
 <!-- KEY PARTNERS -->
-<section class="partners-section section centered" id="partners">
+<section class="partners-section section centered anim-slow" id="partners">
 	<div class="spotlight">
 		<header class="section-intro">
 			<span class="font-eyebrow">Key partners</span>
@@ -53,6 +53,13 @@ const partners = [
 	.section-intro {
 		max-width: 56ch;
 		margin-bottom: 2rem;
+	}
+
+	/* Slower, earlier-starting entrance for every .animate-view descendant —
+	   see the identical rule + rationale in Pain.astro. */
+	.anim-slow {
+		--anim-start: -8vh;
+		--anim-end: 40vh;
 	}
 
 	/* A repeat() grid, not `.subgrid`/`.grid-auto`: each item is an icon + a

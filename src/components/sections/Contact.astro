@@ -6,7 +6,7 @@
 ---
 
 <!-- CONTACT -->
-<section class="contact section centered" id="contact">
+<section class="contact section centered anim-slow" id="contact">
 	<div class="spotlight contact-grid stagger">
 		<div class="contact-intro fade-in slide-up animate-view">
 			<span class="font-eyebrow">Talk to a partner</span>
@@ -56,6 +56,13 @@
 </section>
 
 <style>
+	/* Slower, earlier-starting entrance for every .animate-view descendant —
+	   see the identical rule + rationale in Pain.astro. */
+	.anim-slow {
+		--anim-start: -8vh;
+		--anim-end: 40vh;
+	}
+
 	/* Contact */
 	.contact-grid {
 		display: grid;

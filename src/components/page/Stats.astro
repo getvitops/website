@@ -28,7 +28,7 @@ interface Props {
 const { stats, eyebrow, title, lead, cols = stats.length >= 4 ? 4 : 3 } = Astro.props;
 ---
 
-<section class="stats section centered">
+<section class="stats section centered anim-slow">
 	<div class="spotlight">
 		{title && <SectionIntro eyebrow={eyebrow} title={title} lead={lead} />}
 		<Subgrid class="stats-grid stagger" style={`--subgrid-cols: ${cols}`}>
@@ -50,6 +50,13 @@ const { stats, eyebrow, title, lead, cols = stats.length >= 4 ? 4 : 3 } = Astro.
 </section>
 
 <style>
+	/* Slower, earlier-starting entrance for every .animate-view descendant —
+	   see the identical rule + rationale in Pain.astro. */
+	.anim-slow {
+		--anim-start: -8vh;
+		--anim-end: 40vh;
+	}
+
 	.stats-grid {
 		--subgrid-row-span: 3;
 		--subgrid-card-rows: 3; /* must match --subgrid-row-span; .subgrid-card's

@@ -11,7 +11,7 @@ import StackAnimation from "../StackAnimation.astro";
 ---
 
 <!-- VITOPS COMPLETE — bundle section + stack animation -->
-<section class="stack-section section centered" id="complete">
+<section class="stack-section section centered anim-slow" id="complete">
 	<div class="spotlight">
 		<header class="section-intro fade-in slide-up animate-view">
 			<span class="font-eyebrow">Vitops Complete</span>
@@ -30,6 +30,13 @@ import StackAnimation from "../StackAnimation.astro";
 </section>
 
 <style>
+	/* Slower, earlier-starting entrance for every .animate-view descendant —
+	   see the identical rule + rationale in Pain.astro. */
+	.anim-slow {
+		--anim-start: -8vh;
+		--anim-end: 40vh;
+	}
+
 	/* Section intros (shared block, duplicated per section — Astro scoping) */
 	.section-intro {
 		max-width: 56ch;

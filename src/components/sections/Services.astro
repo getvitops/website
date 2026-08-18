@@ -58,7 +58,7 @@ const pillars = [
 ---
 
 <!-- THREE PILLARS -->
-<section class="services section centered" id="services">
+<section class="services section centered anim-slow" id="services">
 	<div class="spotlight">
 		<header class="rhythm max-w-[60ch] mb-12 fade-in slide-up animate-view">
 			<span class="font-eyebrow">What we do</span>
@@ -95,6 +95,13 @@ const pillars = [
 </section>
 
 <style>
+	/* Slower, earlier-starting entrance for every .animate-view descendant —
+	   see the identical rule + rationale in Pain.astro. */
+	.anim-slow {
+		--anim-start: -8vh;
+		--anim-end: 40vh;
+	}
+
 	/* Tag, heading, feature list and the "More on…" caption are the tranches
 	   subgrid aligns, so the shortest feature list doesn't leave its link
 	   sitting above its neighbours'. Framework classes handle everything else

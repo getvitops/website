@@ -5,7 +5,7 @@ import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 ---
 
 <!-- PAIN POINT -->
-<section class="pain section centered">
+<section class="pain section centered anim-slow">
 	<div class="spotlight feature">
 		<header class="section-intro fade-in slide-up animate-view">
 			<span class="font-eyebrow pain-eyebrow">The problem</span>
@@ -59,6 +59,16 @@ import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 	.section-lead {
 		margin-top: 1rem;
 		color: var(--color-mist);
+	}
+
+	/* Slower, earlier-starting entrance for every .animate-view descendant —
+	   --anim-start/--anim-end are plain (uninherited-by-default-but-not-@property)
+	   custom props, so setting them once here cascades to every child's
+	   animation-range without repeating it per element. Wider span (48vh vs the
+	   engine's 15vh default) reads as unhurried instead of a flicker. */
+	.anim-slow {
+		--anim-start: -8vh;
+		--anim-end: 40vh;
 	}
 
 	/* Pain point */
