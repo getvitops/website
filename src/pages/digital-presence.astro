@@ -4,6 +4,7 @@ import PageHero from "../components/page/PageHero.astro";
 import FundingCallout from "../components/page/FundingCallout.astro";
 import SectionIntro from "../components/page/SectionIntro.astro";
 import Cards from "../components/page/Cards.astro";
+import Stats from "../components/page/Stats.astro";
 import Prose from "../components/page/Prose.astro";
 import Faq from "../components/page/Faq.astro";
 import PageCta from "../components/page/PageCta.astro";
@@ -35,6 +36,23 @@ const problems = [
 	{
 		heading: "Nobody's steered it since launch.",
 		body: "Campaigns get built well and then left. Twelve months later the budget is going to keywords that stopped converting in month three.",
+	},
+];
+
+// Sourced figures — see content-plan/time-savings-statistics.md.
+const presenceStats = [
+	{
+		value: "15+ hours a week",
+		label: "What social media takes a full-time specialist — content, analytics, strategy, replies. Doing it solo, on top of everything else, is a part-time job.",
+		sourceLabel: "Sprout Social, Social Media Productivity Report, 2023",
+		sourceUrl: "https://sproutsocial.com/insights/social-media-statistics/",
+	},
+	{
+		value: "56% have an hour a day, or less",
+		label: "To spend on marketing overall — and 73% of owners aren't confident it's working in the first place.",
+		sourceLabel: "Constant Contact / Ascend2, Small Business Now, 2024",
+		sourceUrl:
+			"https://news.constantcontact.com/2024-04-23-New-Research-from-Constant-Contact-Reveals-Small-Businesses-Struggle-to-Market-Effectively-Due-to-Low-Confidence,-Limited-Time,-and-Lack-of-Knowledge",
 	},
 ];
 
@@ -114,6 +132,8 @@ const faq = [
 		</div>
 	</section>
 
+	<Stats stats={presenceStats} cols={2} />
+
 	<!--
 		This replaces the "What we do" card grid that used to sit above it — the
 		animation covers the same four surfaces with more in each. Moved here from
@@ -171,7 +191,7 @@ const faq = [
 
 	<PageCta
 		title="Send us your site."
-		lead="We'll come back with what's slow, what's missing, and what we'd change first — whether or not you hire us."
+		lead="We'll come back with what's slow, what's missing, and what we'd change first — whether or not you hire us. Once we run it, visits, impressions, and quotes given and won get reported the same way every month — one part of your business's health, run by us."
 		note={FUNDING_NOTE}
 		links={[
 			{ label: "Business software", href: "/business-software" },

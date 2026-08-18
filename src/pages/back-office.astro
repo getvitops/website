@@ -4,6 +4,7 @@ import PageHero from "../components/page/PageHero.astro";
 import FundingCallout from "../components/page/FundingCallout.astro";
 import SectionIntro from "../components/page/SectionIntro.astro";
 import Cards from "../components/page/Cards.astro";
+import Stats from "../components/page/Stats.astro";
 import Prose from "../components/page/Prose.astro";
 import Faq from "../components/page/Faq.astro";
 import PageCta from "../components/page/PageCta.astro";
@@ -35,6 +36,22 @@ const problems = [
 	{
 		heading: "The systems disagree.",
 		body: "Payroll thinks she's part-time, the HRIS thinks she's full-time, benefits has her on the old plan. Every mismatch surfaces eventually, usually as a deduction error someone has to explain.",
+	},
+];
+
+// Sourced figures — see content-plan/time-savings-statistics.md.
+const backOfficeStats = [
+	{
+		value: "~20 hours a week",
+		label: "What the average owner spends on accounting tasks — bookkeeping, invoicing, expense tracking, reporting. 1 in 5 spend 30+.",
+		sourceLabel: "Cornerstone Advisors survey, Q4 2023",
+		sourceUrl: "https://www.tight.com/blog/embedded-accounting-banks-reduce-smb-burden",
+	},
+	{
+		value: "~5 hours a pay period",
+		label: "Calculating, filing, and remitting payroll by hand — as much as 21 days a year for some owners.",
+		sourceLabel: "Intuit/QuickBooks via Kelton Global, reported by Bloomberg Tax, 2020",
+		sourceUrl: "https://news.bloombergtax.com/payroll/survey-small-business-owners-misjudge-time-to-prep-payroll",
 	},
 ];
 
@@ -178,6 +195,8 @@ const faq = [
 		</div>
 	</section>
 
+	<Stats stats={backOfficeStats} cols={2} />
+
 	<section class="section centered">
 		<div class="spotlight">
 			<SectionIntro eyebrow="What we do" title="Four running jobs, on a schedule." />
@@ -287,7 +306,7 @@ const faq = [
 
 	<PageCta
 		title="Tell us what's landing on your desk."
-		lead="Describe a normal month — the pay run, the paperwork, the person who left in March whose account might still be live. We'll tell you what we'd take and what it would cost."
+		lead="Describe a normal month — the pay run, the paperwork, the person who left in March whose account might still be live. We'll tell you what we'd take and what it would cost, and you'll get revenue, expenses, and payroll reported the same way every month — one part of your business's health, run by us."
 		note={FUNDING_NOTE}
 		links={[
 			{ label: "Business software", href: "/business-software" },

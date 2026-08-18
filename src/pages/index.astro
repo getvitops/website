@@ -2,10 +2,46 @@
 import PineLayout from "../layouts/PineLayout.astro";
 import Hero from "../components/sections/Hero.astro";
 import Pain from "../components/sections/Pain.astro";
+import Stats from "../components/page/Stats.astro";
 import Services from "../components/sections/Services.astro";
 import StackSection from "../components/sections/StackSection.astro";
 import KeyPartners from "../components/sections/KeyPartners.astro";
 import Contact from "../components/sections/Contact.astro";
+
+// Sourced figures that price the DIY option Pain just named. Ranked by
+// source quality first, impact second — see
+// content-plan/time-savings-statistics.md. The last stat is the
+// turn: it argues for delegation, not just against doing it all yourself,
+// which sets up Pain's closing line ("There is another option…").
+const homeStats = [
+	{
+		value: "11 hours a week",
+		label: "Owners spend almost twice as long on admin and finance as they do on sales and growing the business.",
+		sourceLabel: "American Express SME Business Barometer, 2026",
+		sourceUrl:
+			"https://retailtimes.co.uk/amex-sme-barometer-small-business-owners-spend-nearly-twice-the-time-on-admin-than-growing-their-business/",
+	},
+	{
+		value: "17% of the work week",
+		label: "Businesses under 10 people lose to administration — accounting is the largest single slice of it.",
+		sourceLabel: "Sage / Plum Consulting, 2017",
+		sourceUrl:
+			"https://www.globenewswire.com/news-release/2017/09/12/1157999/0/en/Sage-Survey-Shows-that-Unleashing-Business-Builders-from-Burdensome-Administrative-Tasks-Could-Unlock-up-to-600-Billion-in-Lost-Productivity.html",
+	},
+	{
+		value: "32% vs. 73%",
+		label: "The share of their time owners spend working on the business, versus the share they'd rather.",
+		sourceLabel: "The Alternative Board, Time Management Survey",
+		sourceUrl: "https://www.thealternativeboard.com/time-management",
+	},
+	{
+		value: "82% vs. 66%",
+		label: "Owners who delegate well were far more likely to report revenue growth over the last two years than those who don't.",
+		sourceLabel: "Time Etc / Censuswide, 2023",
+		sourceUrl:
+			"https://www.timeetc.com/resources/how-to-achieve-more/the-big-price-of-small-tasks-how-entrepreneurs-may-be-unwittingly-keeping-their-businesses-small/",
+	},
+];
 
 // Prerendered: no per-request data on this page. EmDash pins the site to
 // output:"server" — its injected /_emdash/* dynamic routes would each need
@@ -21,6 +57,7 @@ export const prerender = true;
 >
 	<Hero />
 	<Pain />
+	<Stats stats={homeStats} />
 	<Services />
 	<StackSection />
 	<KeyPartners />

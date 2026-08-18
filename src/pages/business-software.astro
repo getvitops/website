@@ -4,6 +4,7 @@ import PageHero from "../components/page/PageHero.astro";
 import FundingCallout from "../components/page/FundingCallout.astro";
 import SectionIntro from "../components/page/SectionIntro.astro";
 import Cards from "../components/page/Cards.astro";
+import Stats from "../components/page/Stats.astro";
 import Prose from "../components/page/Prose.astro";
 import Faq from "../components/page/Faq.astro";
 import PageCta from "../components/page/PageCta.astro";
@@ -36,6 +37,22 @@ const problems = [
 	{
 		heading: "When something breaks, you triage it.",
 		body: "Many vendors, many support portals, many sets of hold music, and you're the one deciding which of them owns the problem.",
+	},
+];
+
+// Sourced figures — see content-plan/time-savings-statistics.md.
+const softwareStats = [
+	{
+		value: "5 months",
+		label: "The average software purchase decision, evaluation to signed contract — and about 60% of buyers regretted a purchase made in the last 18 months.",
+		sourceLabel: "Capterra, 2024/2025 Tech Trends Reports",
+		sourceUrl: "https://www.capterra.com/resources/us-tech-trends/",
+	},
+	{
+		value: "45% of licences",
+		label: "The share of purchased software seats actually used regularly. The rest is a standing bill for empty seats.",
+		sourceLabel: "Productiv, State of SaaS Sprawl, 2021",
+		sourceUrl: "https://productiv.com/wp-content/uploads/2021/09/productiv-the-state-of-saas-sprawl-in-2021.pdf",
 	},
 ];
 
@@ -165,6 +182,8 @@ const faq = [
 		</div>
 	</section>
 
+	<Stats stats={softwareStats} cols={2} />
+
 	<section class="section centered">
 		<div class="spotlight">
 			<SectionIntro
@@ -227,7 +246,7 @@ const faq = [
 
 	<PageCta
 		title="Tell us what you're running."
-		lead="Send us the list — or the invoices, if there isn't a list. We'll come back with what's duplicated, what's unused, and what we'd change first."
+		lead="Send us the list — or the invoices, if there isn't a list. We'll come back with what's duplicated, what's unused, and what we'd change first. Seats in use versus seats paid for, reported the same way every month — one part of your business's health, run by us."
 		note={FUNDING_NOTE}
 		links={[
 			{ label: "Digital presence", href: "/digital-presence" },

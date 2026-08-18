@@ -27,6 +27,7 @@ const pillars = [
 			"Backup you control, and access security enforced rather than assumed",
 			"Tier-1 triage and vendor escalation on your behalf",
 		],
+		signals: "Feeds your business's health: seats in use vs. seats paid for, systems up, requests closed.",
 	},
 	{
 		tag: "02 · Back office",
@@ -38,6 +39,7 @@ const pillars = [
 			"Benefits administration: enrolments, life events, deductions",
 			"Onboarding and offboarding, with access granted or revoked on the same day",
 		],
+		signals: "Feeds your business's health: revenue, expenses, margin, payroll run on time.",
 	},
 	{
 		tag: "03 · Digital presence",
@@ -50,6 +52,7 @@ const pillars = [
 			"Social media, kept active and on brand",
 			"Verified business profiles on Google, Bing, and Apple",
 		],
+		signals: "Feeds your business's health: visits, search and social impressions, quotes given and won.",
 	},
 ];
 ---
@@ -78,6 +81,7 @@ const pillars = [
 								<li class="font-body text-neutral-muted">{f}</li>
 							))}
 						</ul>
+						<p class="font-caption pillar-signals">{p.signals}</p>
 						<p class="font-caption">
 							<a class="link" href={p.href}>
 								More on {p.tag.split("· ")[1]} →
@@ -97,10 +101,13 @@ const pillars = [
 	   (see header comment) — this is only the subgrid custom-property contract. */
 	.pillars-grid {
 		--subgrid-cols: 3;
-		--subgrid-row-span: 4;
-		--subgrid-card-rows: 4; /* must match --subgrid-row-span; .subgrid-card's
+		--subgrid-row-span: 5;
+		--subgrid-card-rows: 5; /* must match --subgrid-row-span; .subgrid-card's
 		                           own grid-row wins the cascade over .subgrid's */
 		--subgrid-gap: 1.5rem;
+	}
+	.pillar-signals {
+		color: var(--color-slate);
 	}
 
 	/* 48rem to match the original @md: container-query breakpoint this

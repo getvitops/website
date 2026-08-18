@@ -1,0 +1,87 @@
+---
+// STAT BAND — sourced figures that price the problem the surrounding page
+// is describing, in hours or dollars rather than adjectives. Every stat
+// carries its own source line: the numbers here come from surveys run by
+// vendors adjacent to the problem they measure (Salesforce, ADP, Intuit…),
+// so naming the source per-figure — not a single "Sources:" line for the
+// whole band — is how a skeptical reader can weigh each one on its own.
+// See content-plan/time-savings-statistics.md for the full brief
+// and the figures deliberately excluded (unsourced/unverifiable).
+import Subgrid from "@getvitops/astro/components/Subgrid.astro";
+import SectionIntro from "./SectionIntro.astro";
+
+interface Stat {
+	value: string;
+	label: string;
+	sourceLabel: string;
+	sourceUrl: string;
+}
+
+interface Props {
+	stats: Stat[];
+	eyebrow?: string;
+	title?: string;
+	lead?: string;
+	cols?: 2 | 3 | 4;
+}
+
+const { stats, eyebrow, title, lead, cols = stats.length >= 4 ? 4 : 3 } = Astro.props;
+---
+
+<section class="stats section centered">
+	<div class="spotlight">
+		{title && <SectionIntro eyebrow={eyebrow} title={title} lead={lead} />}
+		<Subgrid class="stats-grid" style={`--subgrid-cols: ${cols}`}>
+			{
+				stats.map((s) => (
+					<li class="card subgrid-card stat-card">
+						<p class="stat-value">{s.value}</p>
+						<p class="font-body stat-label">{s.label}</p>
+						<p class="source-line">
+							<a class="link" href={s.sourceUrl} rel="noopener" target="_blank">
+								{s.sourceLabel}
+							</a>
+						</p>
+					</li>
+				))
+			}
+		</Subgrid>
+	</div>
+</section>
+
+<style>
+	.stats-grid {
+		--subgrid-row-span: 3;
+		--subgrid-card-rows: 3; /* must match --subgrid-row-span; .subgrid-card's
+		                           own grid-row wins the cascade over .subgrid's */
+		--subgrid-gap: 1.5rem;
+	}
+	.stat-card {
+		gap: 0.6rem;
+		padding: 1.75rem;
+	}
+	.stat-value {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: var(--text-3xl);
+		font-weight: 700;
+		color: var(--color-snow);
+		letter-spacing: -0.02em;
+		line-height: 1.05;
+	}
+	.stat-label {
+		color: var(--color-mist);
+	}
+	.source-line {
+		margin-top: auto;
+		padding-top: 0.5rem;
+		font-size: var(--text-s);
+		color: var(--color-slate);
+	}
+
+	@media (max-width: 48rem) {
+		.stats-grid {
+			--subgrid-cols: 1;
+		}
+	}
+</style>
