@@ -31,10 +31,10 @@ const { stats, eyebrow, title, lead, cols = stats.length >= 4 ? 4 : 3 } = Astro.
 <section class="stats section centered">
 	<div class="spotlight">
 		{title && <SectionIntro eyebrow={eyebrow} title={title} lead={lead} />}
-		<Subgrid class="stats-grid" style={`--subgrid-cols: ${cols}`}>
+		<Subgrid class="stats-grid stagger" style={`--subgrid-cols: ${cols}`}>
 			{
 				stats.map((s) => (
-					<li class="card subgrid-card stat-card">
+					<li class="card subgrid-card stat-card fade-in slide-up animate-view">
 						<p class="stat-value">{s.value}</p>
 						<p class="font-body stat-label">{s.label}</p>
 						<p class="source-line">

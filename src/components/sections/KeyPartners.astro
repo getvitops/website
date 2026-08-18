@@ -32,10 +32,10 @@ const partners = [
 		<header class="section-intro">
 			<span class="font-eyebrow">Key partners</span>
 		</header>
-		<ul class="partner-strip">
+		<ul class="partner-strip stagger">
 			{
 				partners.map((p) => (
-					<li class="partner flex items-center">
+					<li class="partner flex items-center fade-in animate-view">
 						<Icon name={p.icon} />
 						<span class="partner-name">{p.name}</span>
 					</li>
@@ -70,6 +70,11 @@ const partners = [
 		grid-template-columns: repeat(2, 1fr);
 		align-items: center;
 		gap: 1.5rem 3rem;
+		/* 12 logos: the default 5vh range-step would spread the last item's
+		   entry window ~55vh past the first's. Tightened so the whole strip
+		   settles within a readable scroll distance. */
+		--stagger-range-step: 1.25vh;
+		--stagger-amount: 0.05s;
 	}
 	.partner {
 		gap: 0.65rem;

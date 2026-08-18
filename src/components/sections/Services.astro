@@ -60,7 +60,7 @@ const pillars = [
 <!-- THREE PILLARS -->
 <section class="services section centered" id="services">
 	<div class="spotlight">
-		<header class="rhythm max-w-[60ch] mb-12">
+		<header class="rhythm max-w-[60ch] mb-12 fade-in slide-up animate-view">
 			<span class="font-eyebrow">What we do</span>
 			<h2 class="font-title">Three services. One partner on file.</h2>
 			<p class="font-lead text-neutral-muted">
@@ -70,10 +70,10 @@ const pillars = [
 			</p>
 		</header>
 
-		<Subgrid class="pillars-grid">
+		<Subgrid class="pillars-grid stagger">
 			{
 				pillars.map((p) => (
-					<li class="card subgrid-card rhythm">
+					<li class="card subgrid-card rhythm fade-in slide-up animate-view">
 						<span class="font-eyebrow text-brand-primary">{p.tag}</span>
 						<h3 class="font-heading">{p.heading}</h3>
 						<ul class="list rhythm pt-4 border-t border-neutral" role="list">
