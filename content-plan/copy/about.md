@@ -178,8 +178,8 @@ professional firms and clinics are where we see that most.
 
 **Not a good fit:**
 Under about five people, where the admin isn't heavy enough yet. Enterprise brand
-campaigns — a different discipline. Desk-side hardware repair; we manage warranties and
-enrol replacements, but somebody local handles the device. And anyone wanting a vendor
+campaigns — a different discipline. Desk-side hardware repair — that stays with whoever's
+physically on site; we run the software, not the hardware. And anyone wanting a vendor
 rather than a partner.
 
 **Caption:** Based in Ottawa, working throughout Ontario, and supporting businesses

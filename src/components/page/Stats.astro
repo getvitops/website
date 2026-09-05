@@ -8,6 +8,7 @@
 // See content-plan/time-savings-statistics.md for the full brief
 // and the figures deliberately excluded (unsourced/unverifiable).
 import Subgrid from "@getvitops/astro/components/Subgrid.astro";
+import Counter from "@getvitops/astro/components/Counter.astro";
 import SectionIntro from "./SectionIntro.astro";
 
 interface Stat {
@@ -23,19 +24,42 @@ interface Props {
 	title?: string;
 	lead?: string;
 	cols?: 2 | 3 | 4;
+	/** Breakpoint the grid collapses to a single column at. Default "sm" (48rem). */
+	stackAt?: "sm" | "md";
 }
 
-const { stats, eyebrow, title, lead, cols = stats.length >= 4 ? 4 : 3 } = Astro.props;
+const {
+	stats,
+	eyebrow,
+	title,
+	lead,
+	cols = stats.length >= 4 ? 4 : 3,
+	stackAt = "sm",
+} = Astro.props;
+
+// <wc-counter> parses ONE numeric run back out of its own rendered text
+// (prefix, number, suffix — see @getvitops/core's `hn`). A value with a
+// second number in its suffix ("32% vs. 73%") fails that parse and would
+// count up to 0 before snapping to the real text. Only animate values the
+// parser can actually read.
+const COUNTABLE = /^[^0-9-]*-?[0-9,]*\.?[0-9]*[^0-9]*$/;
+const canAnimate = (value: string) => COUNTABLE.test(value) && /[0-9]/.test(value);
 ---
 
 <section class="stats section centered anim-slow">
 	<div class="spotlight">
 		{title && <SectionIntro eyebrow={eyebrow} title={title} lead={lead} />}
-		<Subgrid class="stats-grid stagger" style={`--subgrid-cols: ${cols}`}>
+		<Subgrid
+			class="stats-grid stagger"
+			style={`--subgrid-cols: ${cols}`}
+			data-stack-at={stackAt}
+		>
 			{
 				stats.map((s) => (
 					<li class="card subgrid-card stat-card fade-in slide-up animate-view">
-						<p class="stat-value">{s.value}</p>
+						<p class="stat-value">
+							<Counter value={s.value} enhance={canAnimate(s.value)} />
+						</p>
 						<p class="font-body stat-label">{s.label}</p>
 						<p class="source-line">
 							<a class="link" href={s.sourceUrl} rel="noopener" target="_blank">
@@ -84,6 +108,12 @@ const { stats, eyebrow, title, lead, cols = stats.length >= 4 ? 4 : 3 } = Astro.
 		padding-top: 0.5rem;
 		font-size: var(--text-s);
 		color: var(--color-slate);
+	}
+
+	@media (max-width: 64rem) {
+		.stats-grid[data-stack-at="md"] {
+			--subgrid-cols: 1;
+		}
 	}
 
 	@media (max-width: 48rem) {

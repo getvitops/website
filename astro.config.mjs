@@ -39,6 +39,18 @@ export default defineConfig({
   site: config.site.domains.canonical,
   output: "server",
   adapter: cloudflare(),
+  // 301s for the 2026-09 pillar rename (business-software → managed-it-services,
+  // digital-presence → digital-marketing, back-office folded into a subpage under
+  // managed-it-services). Astro's string-form `redirects` are permanent (301) and,
+  // under output: "server", are handled as real SSR routes — no reliance on a
+  // Workers Assets _redirects file. Site is 7 weeks old, so this is the cheapest
+  // this rename will ever be; drop these once analytics show the old slugs have
+  // stopped receiving hits.
+  redirects: {
+    "/business-software": "/managed-it-services",
+    "/digital-presence": "/digital-marketing",
+    "/back-office": "/managed-it-services/bookkeeping-payroll-software",
+  },
   image: {
     layout: "constrained",
     responsiveStyles: true,

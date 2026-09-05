@@ -57,10 +57,15 @@ The portfolio is strong, and it's tilted toward infrastructure rather than the t
 Vitops actually sells.
 
 Azure Solutions Architect and Administrator are cloud-platform credentials. The offering
-is Microsoft 365 administration, identity and lifecycle, Entra ID, Intune, Purview and
-access governance — and the only credential squarely in that territory is SC-900, at
+is Microsoft 365 administration, identity and lifecycle, Entra ID, Purview and access
+governance — and the only credential squarely in that territory is SC-900, at
 Fundamentals level. There's real overlap (AZ-305 includes identity and governance
 architecture), so this is a tilt, not a hole.
+
+<!-- Intune dropped from this list 2026-09-05 — it's Microsoft's device-management
+product (MDM), and device management isn't offered. See the site-wide claim strip the
+same day: /business-software, /about and the industry pages all corrected the same
+overreach. -->
 
 If one more exam is ever worth sitting, the highest-leverage additions are:
 

@@ -161,59 +161,38 @@ const presenceServices = [
 
 // --- Back Office ------------------------------------------------------------
 //
-// Bookkeeping's rate is confirmed. Payroll, benefits administration and HR
-// operations are still ⚠️ PLACEHOLDER figures — plausible Canadian SMB numbers
-// chosen so the structure could be reviewed. Confirm them before production.
+// Bookkeeping REMOVED as a standalone priced line (2026-09-05) — Vitops doesn't
+// perform bookkeeping itself; a white-label bookkeeping arrangement (internally
+// "DoYo") is under consideration but unresolved, and pricing a service we might
+// route through a third party isn't ours to publish yet. Software-side
+// administration of QuickBooks/Zoho Books is still covered — see
+// PLAN-mit-bookkeeping-payroll-software.md — just not as its own billed line
+// until DoYo is settled. Don't reintroduce a bookkeeping price here without
+// that decision made first.
 //
-// Payroll $30 and benefits $20 PEPM are decided, not derived — both sit at the
-// service-level comparables in the market benchmark (payroll's bureau row, not
-// its software row), so the per-user line is the all-in price of serving one
-// person. No base fee sits on top of any of the three: at an all-in rate a base
-// double-counts the same work. A monthly minimum carries the small end instead,
-// which is how these are actually sold — the benchmark notes minimums bind.
+// Payroll and benefits administration are re-scoped the same day: Vitops
+// administers the SOFTWARE (Payworks, ADP, whatever the client is on) rather
+// than running pay or processing enrolments itself. The client submits and
+// approves every payroll run. Prices ($30 / $20 PEPM) are unchanged from the
+// prior full-service framing — they were decided figures, not derived from a
+// cost model, so there's no benchmark to re-run; only what's delivered changed.
 //
-// The HRIS is no longer a back-office line. It sits in the business software
-// plan instead — it's the system of record joiner/mover/leaver runs against,
-// and JML is in that plan too, so splitting the two across pillars priced a
-// dependency away from the thing that depends on it. Nothing on this page
-// charges separately for it now; it's inside the per-user plan price. Don't
-// reintroduce an "HR operations" line without deciding what it contains beyond
-// the HRIS.
+// Both $150 minimums stand (CONFIRMED 2026-08-01, a decided floor, not
+// benchmarked) — they're the reason the small end doesn't run at a loss under
+// either framing.
 //
-// Both $150 minimums are CONFIRMED (2026-08-01). They aren't benchmarked — the
-// source PEPM table has no minimum or base column — they're a decided floor.
-// At $30 payroll that's ~5 users and at $20 benefits ~8, which is where the
-// fixed per-client work (the pay-run calendar, the enrolment setup) stops being
-// covered by headcount alone. They're the reason the small end doesn't run at a
-// loss, so don't drop them to win a five-person client.
-//
-// Bookkeeping is the one genuine exception and stays banded: it scales with
-// transaction volume and entity count, so a 12-person contractor with three
-// entities and heavy AP is more work than a 40-person firm with clean books,
-// and $/user misprices both ends. Do NOT reintroduce a blanket "priced per
-// service, not per seat" claim — three of the four lines now disprove it.
-//
-// Joiner/mover/leaver is intentionally absent — it spans both halves and is
-// already priced inside the business software plan. Don't double-charge it.
+// The HRIS is not a back-office line — it's in the business software plan,
+// priced there because JML runs against it. Joiner/mover/leaver is
+// intentionally absent here for the same reason; don't double-charge it.
 const backOfficeServices = [
-	{
-		name: "Bookkeeping",
-		price: "$300–800",
-		period: "/ mo",
-		included: [
-			"Transaction coding, bank and credit card reconciliations, and a monthly close — the books kept current rather than rebuilt at year-end",
-			"Banded by transaction volume and number of entities — we quote after a look at your last quarter",
-			"Accounts payable and receivable, job costing and inventory tracking are priced on top of the band",
-		],
-	},
 	{
 		name: "Managed payroll",
 		price: "$30",
 		period: "/ user / mo · $150 minimum",
 		included: [
-			"Pay runs prepared and submitted, direct deposits and CRA remittances scheduled from your account, T4s and ROEs filed to schedule",
-			"Year-end filing and audit-ready documentation",
-			"Funded from your account — we never hold client funds",
+			"Payroll software administered — pay schedule, remittance calendar and filing dates configured and kept current",
+			"You submit and approve every pay run yourself; funded from your account — we never hold or move payroll funds",
+			"T4s, ROEs and year-end filing kept audit-ready in the software",
 		],
 	},
 	{
@@ -221,9 +200,9 @@ const backOfficeServices = [
 		price: "$20",
 		period: "/ user / mo · $150 minimum",
 		included: [
-			"Enrolments, life events, terminations, and payroll deduction sync",
-			"Employee questions handled directly, so they don't come to you",
-			"Your broker keeps the plan — we run the daily administration of it",
+			"Benefits software configured for enrolments, life events and terminations",
+			"Payroll deduction sync kept accurate as the plan changes",
+			"Your broker keeps the plan — we administer the software it runs on, and handle employee questions about it so they don't come to you",
 		],
 	},
 ];
@@ -285,7 +264,7 @@ const finePrint = [
 
 <PineLayout
 	title="Pricing"
-	description="Three services, priced simply. Software operations at $30 per user per month, HRIS included; bookkeeping banded by volume, payroll and benefits administration per user; managed website plans from $39/mo. Month-to-month.">
+	description="Three services, priced simply. Software operations at $30 per user per month, HRIS included; payroll and benefits software administration per user; managed website plans from $39/mo. Month-to-month.">
 	<!-- PAGE INTRO -->
 	<PageHero
 		eyebrow="Pricing"
@@ -309,8 +288,8 @@ const finePrint = [
 					rather than a ladder — we'd rather sell one thing that means something
 					than three that need a chart. A user is anyone who needs accounts and
 					access — employees and contractors alike — so you're billed for the
-					people you actually set up, not your headcount. Bookkeeping, payroll and
-					benefits administration are
+					people you actually set up, not your headcount. Payroll and benefits
+					software administration are
 					<a class="link" href="#back-office-pricing">priced separately</a>.
 				</p>
 			</header>
@@ -398,7 +377,7 @@ const finePrint = [
 
 			{/*
 				The honest-gap note, in place of the pulled top tier. Managed detection and
-				response isn't something we run yet, so it isn't on the page — not
+				response isn't something we run, so it isn't on the page — not
 				greyed out, not "coming soon". A disabled price card still occupies
 				the comparison row and still sets an expectation, and the reader who
 				wants MDR is the strongest lead here; the first thing they'd learn
@@ -409,7 +388,7 @@ const finePrint = [
 			<div class="callout-solo">
 				<article class="card callout">
 					<span class="font-eyebrow callout-eyebrow callout-eyebrow--muted">
-						What we don't run yet
+						What we don't run
 					</span>
 					<h3 class="font-heading callout-title">
 						Managed detection and response isn't ours to promise.
@@ -433,14 +412,12 @@ const finePrint = [
 				<span class="font-eyebrow">Back office</span>
 				<h2 class="font-title">Take some or take all of them.</h2>
 				<p class="font-lead section-lead">
-					The books, the pay runs, the benefits changes and the employee records
-					— run to schedule by the same partner that runs your systems.
-					Payroll and benefits administration are priced per user, because every
-					pay slip and every enrolment genuinely is one more person. Bookkeeping
-					is the exception — it's banded by transaction volume and entity count,
-					since that's what actually drives the work.
-					Take one, take all of them, or combine them with the other two
-					services for{" "}
+					Your payroll and benefits software, administered — the pay schedule, the
+					remittance calendar, the enrolment changes — kept current by the same
+					partner that runs your systems. You submit and approve every pay run
+					yourself; we never hold or move funds. Priced per user, because every
+					pay slip and every enrolment genuinely is one more person.
+					Take one or both, or combine them with the other services for{" "}
 					<a class="link" href="#pricing-bundles">a bundle discount</a>.
 				</p>
 			</header>
@@ -706,17 +683,17 @@ const finePrint = [
 					Ontario may cover part of this.
 				</h2>
 				{/*
-					TDP was named here with "up to $50,000" until its 2026-08-10 close
-					came inside two weeks. Pitching a grant nobody can still apply for
-					sets up a conversation that ends in disappointment, so the headline
-					number is DMAP's — which is open — and TDP is left to /funding,
-					where it's covered with its dates and its revenue floor.
-					If a comparable build grant opens, name it here.
+					TDP was named here with "up to $50,000" until its 2026-08-10 close.
+					It has since closed with no replacement announced and its page was
+					removed (redirects to /funding). Pitching a grant nobody can still
+					apply for sets up a conversation that ends in disappointment, so the
+					headline number is DMAP's — which is open. If a comparable build
+					grant opens, name it here.
 				*/}
 				<p class="font-body funding-copy">
 					Eligible Ontario for-profit SMEs can offset the setup and project side
 					of this work through the province's Digital Competence Centre. As of
-					August 2026, <strong>DMAP covers up to $15,000</strong> of planning.
+					September 2026, <strong>DMAP covers up to $15,000</strong> of planning.
 					Other programs open and close through the year, and which ones you can
 					use depends on your revenue and sector. Ongoing monthly service isn't
 					grant-funded.

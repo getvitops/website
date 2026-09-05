@@ -102,7 +102,7 @@ tool that can summarise your files can also surface the ones the wrong person sh
 see. Where AI wouldn't help, we'll tell you.
 
 **04 · Run it**
-Identity and lifecycle, licence tuning, endpoint security on every device, and the
+Identity and lifecycle, licence tuning, access management on every account, and the
 day-to-day support your team leans on. On the managed tier this is continuous rather
 than a project.
 
@@ -129,9 +129,9 @@ What that's worth is not really the fixing. It's that nobody on your team spends
 afternoon establishing whose fault something is.
 
 **Honest limit:**
-We're not a break-fix shop and we don't do desk-side hardware repair. If a laptop's screen
-is broken we'll manage the warranty claim and get a replacement enrolled, but somebody
-local is physically handling it.
+We're not a break-fix shop and we don't do desk-side hardware repair or device management.
+If a laptop's screen is broken, that's a call to the manufacturer or whoever's physically
+on site — what we run is the software the replacement comes back to.
 
 ---
 
@@ -141,8 +141,13 @@ local is physically handling it.
 
 **H2:** The tools we're in every day.
 
-Microsoft 365 · Google Workspace · Zoho One · QuickBooks · Rippling · Intune ·
-CrowdStrike · NinjaOne
+Microsoft 365 · Google Workspace · Zoho One · QuickBooks · Rippling · HubSpot · Zendesk
+
+<!-- Intune, CrowdStrike and NinjaOne removed 2026-09-05 — MDM/EDR/RMM tools. Listing
+them here is a device-management and endpoint-security claim, which contradicts the
+"we don't run monitored endpoints or device management" position stated in Section 3
+above and in the pricing FAQ. Match this list to KeyPartners.astro, the single source
+of truth for the partner strip. -->
 
 _Link row, not a grid:_ We work across trades, real estate, professional firms and clinics
 — [see how this lands in your industry](/industries).

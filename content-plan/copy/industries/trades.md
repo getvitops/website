@@ -48,9 +48,10 @@ in later from memory, badly, or not at all. Field apps have to work offline and 
 when the device comes back into coverage. We select on that basis and test it.
 
 **The device will be dropped.**
-Tablets on a site get broken, left behind, and occasionally stolen. Every one of them needs
-enrolment, encryption, and remote wipe, and the replacement needs to be productive the
-same day — not after somebody reconfigures it from scratch.
+Tablets on a site get broken, left behind, and occasionally stolen. If the job data lives
+in the cloud rather than on the tablet, losing the device costs a login, not a day's work
+— and cutting off that login is an account setting, done the moment it's reported. A
+replacement needs to be productive the same day, not reconfigured from scratch.
 
 **Seasonal headcount is a security problem.**
 Crews scale up in spring and down in late autumn. Every one of those people got access to
@@ -73,13 +74,14 @@ what an inspection or a COR audit feels like.
 
 **Business software.**
 Field service and dispatch software chosen for offline behaviour first, connected to
-accounting so job costs don't get retyped. Tablets enrolled and locked down. When a crew
-lead can't get into something at 7am, they call one number and we sort it.
+accounting so job costs don't get retyped. Accounts and permissions run centrally, so a
+lost tablet is one login cut off, not a device to chase down. When a crew lead can't get
+into something at 7am, they call one number and we sort it.
 
 **Back office.**
-Seasonal hiring done as a repeatable process: accounts, device, safety orientation, and
-payroll set up before the first shift. Offboarding that actually revokes access when the
-season ends. Payroll with the overtime and travel-time rules configured properly, and WSIB
+Seasonal hiring done as a repeatable process: accounts, safety orientation, and payroll
+set up before the first shift. Offboarding that actually revokes access when the season
+ends. Payroll with the overtime and travel-time rules configured properly, and WSIB
 reporting kept current.
 
 **Digital presence.**
@@ -106,9 +108,10 @@ which is usually the part that stalls a certification. The audit itself and the 
 program's content are your safety advisor's domain, not ours.
 
 **What happens when a tablet goes missing on a site?**
-We wipe it remotely, and the replacement enrols and configures itself when it's switched
-on. The crew loses part of a day rather than a week, and nothing walks off with the
-device.
+We don't manage the device itself — no remote wipe, no device enrolment — but we don't
+need to. Its login gets cut the moment it's reported, so whoever has the tablet has a slab
+of glass, not access to your job data. A replacement is provisioned and working the same
+day. The crew loses part of a day rather than a week.
 
 **We hire twelve people in April and let eight go in November. Can you handle that?**
 That's the normal shape of a trades account and it's the thing we'd fix first. Both

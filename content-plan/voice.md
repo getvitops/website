@@ -28,10 +28,14 @@ right software…". Never "I", never "our team of experts", never the company na
 subject in body copy (the site says "we", not "Vitops does X" — except in the meta
 description and the opening line of a page, where the entity name is load-bearing).
 
-**Concrete nouns beat adjectives.** The live site says "identity and lifecycle, license
-tuning, endpoint security on every device". It does not say "comprehensive, enterprise-grade
-security solutions". If a sentence survives deleting every adjective, it was a good
-sentence.
+**Concrete nouns beat adjectives.** The live site says "identity and lifecycle, licence
+tuning, access management on every account". It does not say "comprehensive,
+enterprise-grade security solutions". If a sentence survives deleting every adjective, it
+was a good sentence.
+
+_(Was "endpoint security on every device" until 2026-09-05 — corrected once "endpoint" was
+flagged as a device-management claim we don't offer. Concrete-nouns-over-adjectives still
+holds; pick the example from what's actually true.)_
 
 **Admit the limit.** The strongest line on the current site is _"Almost none of them need,
 or can afford, a full-time hire to do it."_ — it concedes something before it sells.

@@ -17,11 +17,30 @@ const cert = (name: string) => ({
 });
 
 export const ORGANIZATION = {
-  "@type": "Organization",
+  // ProfessionalService is a LocalBusiness subtype — local-search ranking in a
+  // city-targeted market wants that, not a bare Organization. Keep this one
+  // node under the one @id below rather than emitting a second node: the
+  // header comment's "byte-identical everywhere" rule is what makes an answer
+  // engine treat every mention as the same entity.
+  "@type": "ProfessionalService",
   "@id": `${SITE_URL}/#organization`,
   name: "Vitops",
   url: SITE_URL,
   email: "hi@vitops.ca",
+  telephone: "+1-613-518-7984",
+  // Service-area business — city + phone, no street address. `telephone` here
+  // must match site.json's organization.contact.phone by hand (that field is
+  // named `phone`, not `telephone` — schema.org's own vocabulary — and its
+  // sibling `address` there requires a streetAddress we don't have, which is
+  // why the PostalAddress below is hand-authored here rather than fed through
+  // site.json/the generator at all; see this file's header comment on why
+  // these facts are duplicated rather than imported).
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Ottawa",
+    addressRegion: "ON",
+    addressCountry: "CA",
+  },
   description:
     "Vitops runs the digital presence and the software, IT and back-office operations behind it for Ontario small businesses.",
   areaServed: ["Ottawa", "Ontario", "Canada"],

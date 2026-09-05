@@ -201,28 +201,28 @@ decided by OCI, not Vitops."_
 
 ## 8. Keep / cut / rewrite, page by page
 
-| Planned page                                             | Call                   | Where it goes                                                     |
-| -------------------------------------------------------- | ---------------------- | ----------------------------------------------------------------- |
-| Homepage (June)                                          | **Rewrite**            | Stays one page; sections recut to three pillars                   |
-| Services (June)                                          | **Cut as a page**      | Nav dropdown replaces it                                          |
-| Industries (June)                                        | **Keep, rewrite**      | `/industries` hub                                                 |
-| Contact (June)                                           | **Keep**               | Service-area copy is good; promote anchor to a page               |
-| HR Managed Services (June)                               | **Keep, rewrite**      | Becomes `/back-office`                                            |
-| HR Software Impl. (June)                                 | **Keep**               | Phase 2 spoke                                                     |
-| Health & Safety Software (June)                          | **Keep**               | Phase 2 spoke; strong trades/COR angle                            |
-| Benefits Administration (June)                           | **Keep**               | Phase 2 spoke                                                     |
-| Managed Payroll (June)                                   | **Keep**               | Phase 2 spoke                                                     |
-| Onboarding/Offboarding (June)                            | **Keep, promote**      | Core to Back Office pillar — JML is the flagship                  |
-| Managed IT Services (July)                               | **Cut as a pillar**    | Salvage: MDM/endpoint bullets → Business Software                 |
-| AI Enablement (July)                                     | **Keep, rewrite hard** | Folds into `/business-software`; spoke in phase 2                 |
-| Software Subscription Mgmt (July)                        | **Keep, rewrite**      | Core of `/business-software`                                      |
-| Marketing & Ads (July)                                   | **Keep, rewrite**      | Merges into `/digital-presence`                                   |
-| Website Development (July)                               | **Keep, rewrite**      | Merges into `/digital-presence`                                   |
-| IT Support & Helpdesk                                    | **Reframe**            | `/business-software` support-and-triage section, spoke in phase 2 |
-| IT Operations / IT Consulting                            | **Cut**                | Absorbed                                                          |
-| Cloud Services ×3                                        | **Cut**                | Already removed by the client                                     |
-| SaaS Optimization, License Mgmt                          | **Merge**              | Into `/business-software`                                         |
-| Google & Social Ads, Analytics, SEO, Web Design, Web Dev | **Merge**              | Into `/digital-presence`; spokes in phase 2                       |
+| Planned page                                             | Call                   | Where it goes                                                                                                                                                              |
+| -------------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Homepage (June)                                          | **Rewrite**            | Stays one page; sections recut to three pillars                                                                                                                            |
+| Services (June)                                          | **Cut as a page**      | Nav dropdown replaces it                                                                                                                                                   |
+| Industries (June)                                        | **Keep, rewrite**      | `/industries` hub                                                                                                                                                          |
+| Contact (June)                                           | **Keep**               | Service-area copy is good; promote anchor to a page                                                                                                                        |
+| HR Managed Services (June)                               | **Keep, rewrite**      | Becomes `/back-office`                                                                                                                                                     |
+| HR Software Impl. (June)                                 | **Keep**               | Phase 2 spoke                                                                                                                                                              |
+| Health & Safety Software (June)                          | **Keep**               | Phase 2 spoke; strong trades/COR angle                                                                                                                                     |
+| Benefits Administration (June)                           | **Keep**               | Phase 2 spoke                                                                                                                                                              |
+| Managed Payroll (June)                                   | **Keep**               | Phase 2 spoke                                                                                                                                                              |
+| Onboarding/Offboarding (June)                            | **Keep, promote**      | Core to Back Office pillar — JML is the flagship                                                                                                                           |
+| Managed IT Services (July)                               | **Cut as a pillar**    | Do not salvage MDM/endpoint bullets — device management and monitored endpoints are not offered (2026-09-05). Salvage only the identity/access framing → Business Software |
+| AI Enablement (July)                                     | **Keep, rewrite hard** | Folds into `/business-software`; spoke in phase 2                                                                                                                          |
+| Software Subscription Mgmt (July)                        | **Keep, rewrite**      | Core of `/business-software`                                                                                                                                               |
+| Marketing & Ads (July)                                   | **Keep, rewrite**      | Merges into `/digital-presence`                                                                                                                                            |
+| Website Development (July)                               | **Keep, rewrite**      | Merges into `/digital-presence`                                                                                                                                            |
+| IT Support & Helpdesk                                    | **Reframe**            | `/business-software` support-and-triage section, spoke in phase 2                                                                                                          |
+| IT Operations / IT Consulting                            | **Cut**                | Absorbed                                                                                                                                                                   |
+| Cloud Services ×3                                        | **Cut**                | Already removed by the client                                                                                                                                              |
+| SaaS Optimization, License Mgmt                          | **Merge**              | Into `/business-software`                                                                                                                                                  |
+| Google & Social Ads, Analytics, SEO, Web Design, Web Dev | **Merge**              | Into `/digital-presence`; spokes in phase 2                                                                                                                                |
 
 Net: **24 planned pages → 12 in phase 1**, with spokes opened only where a pillar earns
 them.

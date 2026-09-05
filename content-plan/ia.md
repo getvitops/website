@@ -189,7 +189,7 @@ business ontario`, `HR outsourcing small business`, `benefits administration ser
 - **`/industries/professional-services`** — matter-based permissions, conflict checks,
   retention rules, document hygiene (law, notary, paralegal, accounting)
 - **`/industries/clinics`** — PHIPA-aware access, EMR-adjacent work, recall campaigns,
-  clean endpoints
+  front-desk software that stays out of the way
 - **Each page:** the vertical's specific operational reality → how the three pillars land
   in it → one funding callout → FAQ → CTA. **Cross-links to all three pillars** — this is
   the second axis of the matrix, and its whole job is routing.

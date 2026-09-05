@@ -225,9 +225,8 @@ otherwise is overselling.
 
 **Can government funding cover this?**
 The systems work often qualifies. DMAP covers up to $15,000 of planning for eligible
-Ontario for-profit SMEs, and TDP up to $50,000 of implementation after a completed DMAP.
-Ongoing administration isn't grant-funded. We'll tell you which parts of your project
-plausibly qualify before you apply. [More on funding →](/funding)
+Ontario for-profit SMEs. Ongoing administration isn't grant-funded. We'll tell you which
+parts of your project plausibly qualify before you apply. [More on funding →](/funding)
 
 ---
 
