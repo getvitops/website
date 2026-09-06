@@ -7,7 +7,8 @@ depends_on: [PLAN-industries (shell fix)]
 blocks: []
 target_geography: Ontario (primary)
 primary_keywords:
-  - per ia.md's original targeting: field tablets, offline capability, dispatch, WSIB/COR readiness, seasonal ad cycles — no volumes pulled for this vertical yet, informational/differentiator-driven rather than head-term-driven
+  - per ia.md's original targeting: field tablets, offline capability, dispatch, WSIB/COR readiness, seasonal ad cycles
+  - Semrush pass 2026-09-05 (CA): "trades business software" and "it support for contractors" both return 0 volume — confirms this vertical has no head term to chase. Differentiator-driven copy (already shipped) is the correct call, not a placeholder waiting on data.
 forbidden_terms:
   - device-management language — already claim-stripped this session (see below)
 title_prop: "IT, HR and marketing for Ontario trades and contractors"

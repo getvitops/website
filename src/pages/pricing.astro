@@ -2,6 +2,8 @@
 import PineLayout from "../layouts/PineLayout.astro";
 import PageHero from "../components/page/PageHero.astro";
 import Subgrid from "@getvitops/astro/components/Subgrid.astro";
+import Schema from "../components/page/Schema.astro";
+import { breadcrumb, service } from "../lib/schema";
 
 // Prerendered: no per-request data on this page. EmDash pins the site to
 // output:"server" — its injected /_emdash/* dynamic routes would each need
@@ -254,6 +256,21 @@ const hostingTiers = [
 	},
 ];
 
+// Offer/PriceSpecification schema — one UnitPriceSpecification per recurring,
+// per-user line. Website tiers and one-off/consulting work are quoted, not
+// published prices, so they're excluded rather than represented with a
+// placeholder.
+const managedItOffers = [
+	{ name: softwarePlan.name, price: 30, minPrice: 150, unitText: "per user per month" },
+	{ name: "Managed payroll", price: 30, minPrice: 150, unitText: "per user per month" },
+	{ name: "Benefits administration", price: 20, minPrice: 150, unitText: "per user per month" },
+];
+const digitalMarketingOffers = hostingTiers.map((t) => ({
+	name: `Website — ${t.name}`,
+	price: Number(t.price.replace("$", "")),
+	unitText: "per month",
+}));
+
 const finePrint = [
 	"No long-term contracts — month-to-month by default, with an optional annual commitment that waives setup",
 	"Our fees are for the work, not the software — you keep your own vendor licences at your own price, and we'll tell you when a feature needs a licence tier you don't have yet",
@@ -263,22 +280,62 @@ const finePrint = [
 ---
 
 <PineLayout
-	title="Pricing"
-	description="Three services, priced simply. Software operations at $30 per user per month, HRIS included; payroll and benefits software administration per user; managed website plans from $39/mo. Month-to-month.">
+	title="Managed IT and digital marketing pricing, Ontario"
+	description="Two services, priced simply. Managed IT at $30 per user per month, HRIS included; payroll and benefits software administration per user; managed website plans from $39/mo. Month-to-month.">
+	<Schema
+		data={{
+			...service(
+				"Managed IT services",
+				"Software selection, implementation, integration, licence and vendor management, identity and access, AI enablement and day-to-day IT support for Ontario small businesses.",
+				"/managed-it-services",
+			),
+			offers: managedItOffers.map((o) => ({
+				"@type": "Offer",
+				name: o.name,
+				priceSpecification: {
+					"@type": "UnitPriceSpecification",
+					price: o.price,
+					priceCurrency: "CAD",
+					unitText: o.unitText,
+					...(o.minPrice ? { minPrice: o.minPrice } : {}),
+				},
+			})),
+		}}
+	/>
+	<Schema
+		data={{
+			...service(
+				"Digital marketing",
+				"Websites, SEO and answer-engine optimization, paid campaigns, social and business listings for Ontario small businesses.",
+				"/digital-marketing",
+			),
+			offers: digitalMarketingOffers.map((o) => ({
+				"@type": "Offer",
+				name: o.name,
+				priceSpecification: {
+					"@type": "UnitPriceSpecification",
+					price: o.price,
+					priceCurrency: "CAD",
+					unitText: o.unitText,
+				},
+			})),
+		}}
+	/>
+	<Schema data={breadcrumb(["Pricing", "/pricing"])} />
 	<!-- PAGE INTRO -->
 	<PageHero
 		eyebrow="Pricing"
-		title="Three services, priced simply."
-		lead="Month-to-month by default — cancel with 30 days' notice. Business software carries a one-time setup, waived on an annual commitment; website plans include a one-time build & setup. These prices are a starting point for planning; your actual quote depends on team size and scope."
+		title="Two services, priced simply."
+		lead="Month-to-month by default — cancel with 30 days' notice. Managed IT services carries a one-time setup, waived on an annual commitment; website plans include a one-time build & setup. These prices are a starting point for planning; your actual quote depends on team size and scope."
 		secondaryLabel="See what funding covers"
 		secondaryHref="#pricing-funding"
 	/>
 
-	<!-- BUSINESS SOFTWARE -->
-	<section class="section centered" id="it-hr-pricing">
+	<!-- MANAGED IT SERVICES -->
+	<section class="section centered" id="managed-it-pricing">
 		<div class="spotlight">
 			<header class="section-intro">
-				<span class="font-eyebrow">Business software</span>
+				<span class="font-eyebrow">Managed IT services</span>
 				<h2 class="font-title">
 					One rate per user, per month — so the price fits your size.
 				</h2>
@@ -290,7 +347,7 @@ const finePrint = [
 					access — employees and contractors alike — so you're billed for the
 					people you actually set up, not your headcount. Payroll and benefits
 					software administration are
-					<a class="link" href="#back-office-pricing">priced separately</a>.
+					<a class="link" href="#payroll-benefits-pricing">priced separately</a>.
 				</p>
 			</header>
 
@@ -405,11 +462,11 @@ const finePrint = [
 		</div>
 	</section>
 
-	<!-- BACK OFFICE -->
-	<section class="section centered" id="back-office-pricing">
+	<!-- PAYROLL & BENEFITS SOFTWARE (part of Managed IT services) -->
+	<section class="section centered" id="payroll-benefits-pricing">
 		<div class="spotlight">
 			<header class="section-intro">
-				<span class="font-eyebrow">Back office</span>
+				<span class="font-eyebrow">Managed IT services / Payroll &amp; benefits software</span>
 				<h2 class="font-title">Take some or take all of them.</h2>
 				<p class="font-lead section-lead">
 					Your payroll and benefits software, administered — the pay schedule, the
@@ -446,16 +503,16 @@ const finePrint = [
 			<p class="section-note breakout">
 				Onboarding and offboarding isn't listed here — it spans both halves and
 				is already in every{" "}
-				<a class="link" href="#it-hr-pricing">business software</a> plan.
+				<a class="link" href="#managed-it-pricing">managed IT services</a> plan.
 			</p>
 		</div>
 	</section>
 
-	<!-- DIGITAL PRESENCE -->
-	<section class="section centered" id="digital-presence-pricing">
+	<!-- DIGITAL MARKETING -->
+	<section class="section centered" id="digital-marketing-pricing">
 		<div class="spotlight">
 			<header class="section-intro">
-				<span class="font-eyebrow">Digital Presence</span>
+				<span class="font-eyebrow">Digital marketing</span>
 				<h2 class="font-title">One managed website plan. Pick your tier.</h2>
 				<p class="font-lead section-lead">
 					Build, hosting, and care in a single monthly price — pick one tier,
@@ -605,38 +662,29 @@ const finePrint = [
 				</p>
 			</header>
 
-			<div class="grid gap-6 @md:grid-cols-3">
+			<div class="grid gap-6 @md:grid-cols-2">
 				<article class="card rhythm">
-					<span class="font-eyebrow text-brand-primary">Software + Back office</span>
+					<span class="font-eyebrow text-brand-primary">Managed IT services</span>
 					<h3 class="font-heading">Onboarding stops being a handoff.</h3>
 					<p class="font-body text-neutral-muted">
 						The employee record that provisions a new hire's accounts is the
-						same one that sets up their pay and their benefits enrolment, so a
-						start date gets entered once and everything downstream follows. Split
-						across two vendors, the HRIS and the payroll system drift apart, and
-						somebody reconciles them by hand every time a detail changes.
+						same one that drives their payroll and benefits software setup, so
+						a start date gets entered once and everything downstream follows.
+						Split across two vendors, the HRIS and the payroll system drift
+						apart, and somebody reconciles them by hand every time a detail
+						changes.
 					</p>
 				</article>
 
 				<article class="card rhythm">
-					<span class="font-eyebrow text-brand-primary">Software + Digital presence</span>
-					<h3 class="font-heading">The lead lands somewhere that works.</h3>
-					<p class="font-body text-neutral-muted">
-						Enquiries go into a CRM we configured, route to a named person, and
-						trigger a follow-up whether or not anyone's at a desk. When the site
-						and the systems behind it belong to different vendors, this is
-						exactly where leads go quiet.
-					</p>
-				</article>
-
-				<article class="card rhythm">
-					<span class="font-eyebrow text-brand-primary">All three</span>
+					<span class="font-eyebrow text-brand-primary">Managed IT + Digital marketing</span>
 					<h3 class="font-heading">One operator, one bill, one number.</h3>
 					<p class="font-body text-neutral-muted">
-						Nobody establishes whose fault something is. One quarterly review
-						covers the software, the books and the campaigns together, so the
-						spend and the results are read side by side rather than in three
-						separate reports.
+						Enquiries go into a CRM we configured, route to a named person, and
+						trigger a follow-up whether or not anyone's at a desk — instead of
+						going quiet at the seam between the site and the systems behind it.
+						Nobody establishes whose fault something is, and the spend and the
+						results are read side by side rather than reconciled by hand.
 					</p>
 				</article>
 			</div>

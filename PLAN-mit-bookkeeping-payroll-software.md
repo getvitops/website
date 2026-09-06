@@ -1,14 +1,20 @@
 ---
 page: /managed-it-services/bookkeeping-payroll-software
 replaces: /back-office (301 already wired to this exact path)
-status: draft-v1 — keywords UNVERIFIED pending Semrush; pricing contingency RESOLVED 2026-09-05 (draft below already matches)
+status: verified — Semrush pass complete 2026-09-05; pricing contingency RESOLVED 2026-09-05 (draft below already matches)
 priority: 16
 depends_on: [PLAN-managed-it-services, PLAN-pricing (blocking)]
 blocks: []
 target_geography: Ontario (primary), Canada-wide secondary
-primary_keywords_UNVERIFIED:
-  - candidates: "bookkeeping software", "quickbooks setup", "quickbooks consultant", "zoho books", "payroll software canada", "payworks", "adp setup"
-  - PLUS: difficulty + current local rankers for "bookkeeping services" / "bookkeeping services ottawa" — needed to settle whether those parked terms (2400/mo CA, 320/mo Ottawa) ever earn their own page
+primary_keywords:
+  - "bookkeeping software" — 1,000 CA / 8,100 US, informational, KD 61/69 — best real term, but competitive (QuickBooks/Xero/Wave own that SERP)
+  - "payroll software canada" — 720 CA / 110 US, commercial intent, KD 39 — second-best, and the "canada" qualifier is genuinely CA-searched (US number is noise)
+  - "quickbooks consultant" — 40 CA / 2,900 US, KD 0/47 — thin locally, real cross-border if ever relevant
+  - "quickbooks setup" — 20 CA / 590 US, KD 0/31
+  - "adp setup" — 20 CA / 90 US, thin both sides
+  - "zoho books" — 6,600 CA / 27,100 US but intent is navigational (brand/product searches, people looking for Zoho's own site) — large number, wrong intent, do not target
+  - "payworks" — 165,000(!) CA / 1,900 US, same navigational trap as zoho books at far larger scale — this is Payworks' own brand traffic, not implementer demand; ignore the headline number entirely
+  - PARKED-TERM CHECK (per master plan, now settled): "bookkeeping services" 2,400 CA (KD 22) / 18,100 US (KD 51); "bookkeeping services ottawa" 320 CA (KD 19, thin US). `phrase_organic` for the Ottawa term returns exclusively pure-play local bookkeeping firms (envolta.ca, ottawabookkeeping.ca, orbitaccountants.ca, bomcas.ca, ledgersonline.com, etc.) — zero IT/MSP-shaped competitors in that SERP. KD is low-moderate (rankable), but the finding that matters is competitive shape, not difficulty: winning it means displacing dedicated bookkeeping specialists, a different category of competitor than anywhere else on this site. This sharpens rather than resolves the DoyoBooks gate — still parked until that positioning decision lands, but now with real numbers if/when it does (2,400 + 320 = largest recoverable term in the whole exercise, as the master plan already flagged).
 forbidden_terms:
   - "bookkeeping services" / "payroll services" as THIS page's own target — those stay
     parked (see master plan) until the DoyoBooks positioning question resolves; this

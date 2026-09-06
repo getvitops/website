@@ -1,0 +1,109 @@
+---
+import PineLayout from "../../layouts/PineLayout.astro";
+import PageHero from "../../components/page/PageHero.astro";
+import SectionIntro from "../../components/page/SectionIntro.astro";
+import Prose from "../../components/page/Prose.astro";
+import Faq from "../../components/page/Faq.astro";
+import PageCta from "../../components/page/PageCta.astro";
+import Schema from "../../components/page/Schema.astro";
+import { breadcrumb, service } from "../../lib/schema";
+import { FUNDING_NOTE } from "../../lib/copy";
+
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+const whatWeRun = [
+	"Platform selection and setup, tied to how billing actually happens in your business.",
+	"Integration with your bookkeeping software, so nothing gets retyped.",
+	"Templates, payment terms, and automated reminders configured once, not per-invoice.",
+];
+
+const faq = [
+	{
+		q: "Does this replace our bookkeeper?",
+		a: "No — this is the software that feeds your books. Whoever does your bookkeeping (you or your accountant) still works from what it produces.",
+	},
+	{
+		q: "Can clients pay directly through the invoice?",
+		a: "Yes, where the platform supports it — online payment links are part of the setup.",
+	},
+];
+---
+
+<PineLayout
+	title="Invoicing software: Zoho Invoice & Jobber"
+	description="Zoho Invoice or Jobber, set up and connected to your bookkeeping so what goes out gets paid and lands coded correctly — for Ontario small businesses."
+>
+	<Schema
+		data={service(
+			"Invoicing software",
+			"Selection, setup and bookkeeping integration of Zoho Invoice and Jobber invoicing for Ontario small businesses.",
+			"/managed-it-services/invoicing-software",
+		)}
+	/>
+	<Schema
+		data={breadcrumb(
+			["Managed IT services", "/managed-it-services"],
+			["Invoicing software", "/managed-it-services/invoicing-software"],
+		)}
+	/>
+
+	<PageHero
+		eyebrow="Managed IT services / Invoicing software"
+		title="What goes out, coded correctly when it comes back."
+		lead="Zoho Invoice or Jobber, connected to your bookkeeping so an invoice doesn't need to be re-entered by hand once it's paid."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			Invoicing software is what generates and tracks what you bill clients —
+			Zoho Invoice for a general services business, Jobber where invoicing
+			follows a job. The point of configuring it properly is that it feeds
+			your bookkeeping directly: a paid invoice lands coded correctly
+			instead of as a lump your bookkeeper has to unpick by hand.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="What we run" title="Set up once, feeds the books automatically." />
+			<ul class="list rhythm plain-list" role="list">
+				{whatWeRun.map((line) => <li class="font-body text-neutral-muted">{line}</li>)}
+			</ul>
+			<p class="font-caption follow-link">
+				See <a class="link" href="/managed-it-services/bookkeeping-payroll-software"
+					>bookkeeping and payroll software</a
+				> for the half this feeds into.
+			</p>
+		</div>
+	</section>
+
+	<Faq items={faq} />
+
+	<PageCta
+		title="Tell us how billing works today."
+		lead="We'll tell you what's manual that shouldn't be."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Managed IT services", href: "/managed-it-services" },
+			{ label: "Pricing", href: "/pricing" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.plain-list {
+		max-width: 68ch;
+		gap: 1rem;
+	}
+	.follow-link {
+		margin-top: 2rem;
+		color: var(--color-slate);
+	}
+</style>

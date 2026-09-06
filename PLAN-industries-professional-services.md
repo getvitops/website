@@ -7,7 +7,8 @@ depends_on: [PLAN-industries (shell fix)]
 blocks: []
 target_geography: Ontario (primary)
 primary_keywords:
-  - per ia.md's original targeting: matter-based permissions, conflict checks, retention rules, document hygiene — no volumes pulled, differentiator-driven
+  - per ia.md's original targeting: matter-based permissions, conflict checks, retention rules, document hygiene
+  - Semrush pass 2026-09-05 (CA): "law firm it support" — 90/mo, informational intent, KD 5 (near-zero difficulty) — the one real, cheap opportunity found across all four industry verticals. "law firm software ontario" 10/mo (thin), "accounting firm it support" 0. Recommend weaving "IT support for law firms" verbatim into a body H2 or FAQ answer (not the title — budget's already tight); currently the phrase doesn't appear anywhere on the shipped page. Flagged, not applied — a copy decision for the owner, not forced by this pass.
 forbidden_terms: []
 title_prop: "IT, HR and digital presence for Ontario law and accounting firms"
 title_char_count: 51

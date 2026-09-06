@@ -56,6 +56,46 @@ const softwareStats = [
 	},
 ];
 
+// One row per future subpage (PLAN files #11-17) — un-gated placeholder pages
+// beat a 404 from this row, per PLAN-managed-it-services.md section 6.
+const categories = [
+	{
+		label: "Productivity software",
+		href: "/managed-it-services/productivity-software",
+		body: "Microsoft 365, Google Workspace, Zoho Workplace — the tenant your team lives in every day.",
+	},
+	{
+		label: "Communication software",
+		href: "/managed-it-services/communication-software",
+		body: "Teams, Slack, Zoho Cliq — calls, chat and meetings on one identity.",
+	},
+	{
+		label: "CRM software",
+		href: "/managed-it-services/crm-software",
+		body: "Zoho Bigin, HubSpot, Jobber — the record of who you talk to and what they bought.",
+	},
+	{
+		label: "HRIS software",
+		href: "/managed-it-services/hris-software",
+		body: "The employee record that drives every other account — the joiner/mover/leaver trigger.",
+	},
+	{
+		label: "Invoicing software",
+		href: "/managed-it-services/invoicing-software",
+		body: "Zoho Invoice, Jobber — what goes out gets paid, and lands coded correctly when it does.",
+	},
+	{
+		label: "Bookkeeping and payroll software",
+		href: "/managed-it-services/bookkeeping-payroll-software",
+		body: "QuickBooks, Zoho Books, Payworks, ADP — the books your accountant works from, the runs you approve.",
+	},
+	{
+		label: "Job and project tracking software",
+		href: "/managed-it-services/job-tracking-software",
+		body: "Jobber, Zoho Projects — what's promised and what's actually done.",
+	},
+];
+
 const work = [
 	{
 		tag: "01 · Choose",
@@ -131,30 +171,38 @@ const faq = [
 		q: "Can government funding cover this?",
 		a: "Often, for eligible Ontario for-profit SMEs. DMAP covers up to $15,000 of planning work through the province's Digital Competence Centre. Other programs open and close through the year, and which ones apply depends on your revenue and sector — we track them and will tell you before you apply whether you're likely to qualify, including when you aren't. Approval and amounts are decided by OCI, not us.",
 	},
+	{
+		q: "Do you do our bookkeeping?",
+		a: "No — we select, set up and administer the software (QuickBooks, Zoho Books) your books run on. The books themselves stay with you or your accountant. It's the same relationship we have with Microsoft: we run the tenant, not the content that lives in it.",
+	},
+	{
+		q: "Do you run our payroll?",
+		a: "We administer the system — Payworks, ADP, or whatever you're already on — and keep it wired to your HRIS so a start date or a termination drives it correctly. You submit and approve every run yourself.",
+	},
 ];
 ---
 
 <PineLayout
-	title="Business software selection, integration and support"
-	description="We choose your software, wire it together, add AI where it earns its place, and become the one number you call when any of it breaks. Ontario SMEs, one partner on file."
+	title="Managed IT services & vendor management, Ontario"
+	description="Managed IT services for Ontario SMEs: software selection, licence and vendor management, identity and access, and one number to call when anything breaks."
 >
 	<Schema
 		data={service(
-			"Business software operations",
-			"Software selection, implementation, integration, AI enablement and day-to-day support for Ontario small businesses.",
-			"/business-software",
+			"Managed IT services",
+			"Software selection, implementation, integration, licence and vendor management, identity and access, AI enablement and day-to-day IT support for Ontario small businesses.",
+			"/managed-it-services",
 		)}
 	/>
-	<Schema data={breadcrumb(["Business software", "/business-software"])} />
+	<Schema data={breadcrumb(["Managed IT services", "/managed-it-services"])} />
 
 	<FundingCallout
 		text={FUNDING_CALLOUT}
 	/>
 
 	<PageHero
-		eyebrow="Business software"
+		eyebrow="Managed IT services"
 		title="The software stack, selected, wired, and run."
-		lead="Most companies don't have a software problem so much as a software sprawl problem. Tools bought for one reason, kept for another, half-integrated, and nobody quite sure who owns which login. We pick what you actually need, connect the pieces, and take responsibility for the whole thing working."
+		lead="Most companies don't have a software problem so much as a software sprawl problem. Tools bought for one reason, kept for another, half-integrated, and nobody quite sure who owns which login. We pick what you actually need, connect the pieces, and take responsibility for the whole thing working — including the accounts, the licences, and who gets in when someone joins or leaves."
 		secondaryLabel="See pricing"
 		secondaryHref="/pricing"
 		note={FUNDING_NOTE}
@@ -162,12 +210,14 @@ const faq = [
 
 	<Prose lead>
 		<p>
-			Business software management means keeping an accurate picture of every
-			application a company pays for, who actually uses it, how the pieces
-			connect, and what happens when one of them stops working. For a
-			fifty-person company it usually means reclaiming somewhere between a tenth
-			and a third of the software budget in the first year, and cutting the time
-			a new hire waits for access from days to under an hour.
+			Managed IT services means one partner who chooses your software, wires it
+			together, keeps every account and licence under control, and is the first
+			call when any of it breaks. We don't build the software and we don't do
+			the specialist work — we pick who does, wire it into everything else, own
+			the relationship, and stay the one number you call. For a fifty-person
+			company that usually means reclaiming somewhere between a tenth and a
+			third of the software budget in the first year, and cutting the time a new
+			hire waits for access from days to under an hour.
 		</p>
 	</Prose>
 
@@ -192,6 +242,40 @@ const faq = [
 				lead="This is deliberately sequential. Integrating tools you shouldn't be paying for, or putting AI on top of data nobody has organised, is work that has to be undone later."
 			/>
 			<Cards cards={work} />
+			<div class="prose-inline named-subheads">
+				<p class="font-body">
+					<strong class="font-heading">Vendor management, named.</strong>{" "}
+					Choosing, licensing, and staying the point of contact for every
+					vendor in the stack — this is what "vendor management" means in
+					practice, and it's the part most sprawl audits skip because
+					nobody's job is to look at all the vendors together.
+				</p>
+				<p class="font-body">
+					<strong class="font-heading">Licence right-sizing.</strong> The
+					seat count almost never matches the login count. Cutting the
+					difference is usually the fastest way this pays for itself.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="What we run it on"
+				title="Seven categories, one point of contact."
+				lead="Whatever you're already paying for, if it's sound — we work with what's there before we suggest replacing it."
+			/>
+			<div class="grid gap-5 @md:grid-cols-2 category-grid">
+				{
+					categories.map((c) => (
+						<a class="card rhythm category-card" href={c.href}>
+							<h3 class="font-heading">{c.label}</h3>
+							<p class="font-body text-neutral-muted">{c.body}</p>
+						</a>
+					))
+				}
+			</div>
 		</div>
 	</section>
 
@@ -216,7 +300,7 @@ const faq = [
 			<SectionIntro
 				eyebrow="When something breaks"
 				title="One number, every vendor."
-				lead="This is the part most people underestimate until they've lived without it. You don't call the software vendor, and you don't work out which of your vendors owns the problem. You call us."
+				lead="This is the part most people underestimate until they've lived without it. You don't call the software vendor, and you don't work out which of your vendors owns the problem. You call us — this is the IT support most of our clients actually need: not a help desk that reroutes you, a single point of contact who already knows your stack."
 			/>
 			<div class="prose-inline">
 				<p class="font-body">
@@ -240,6 +324,11 @@ const faq = [
 		</div>
 	</section>
 
+	<p class="font-caption text-neutral-x-muted mt-8">
+		Based in Ottawa, working throughout Ontario, and supporting businesses
+		elsewhere in Canada remotely.
+	</p>
+
 	<KeyPartners />
 
 	<Faq items={faq} />
@@ -249,9 +338,9 @@ const faq = [
 		lead="Send us the list — or the invoices, if there isn't a list. We'll come back with what's duplicated, what's unused, and what we'd change first. Seats in use versus seats paid for, reported the same way every month — one part of your business's health, run by us."
 		note={FUNDING_NOTE}
 		links={[
-			{ label: "Digital presence", href: "/digital-presence" },
-			{ label: "Back office", href: "/back-office" },
+			{ label: "Digital marketing", href: "/digital-marketing" },
 			{ label: "Pricing", href: "/pricing" },
+			{ label: "Industries", href: "/industries" },
 		]}
 	/>
 </PineLayout>
@@ -267,5 +356,25 @@ const faq = [
 		padding-top: 1.1rem;
 		border-top: 1px solid var(--line-1);
 		color: var(--color-slate);
+	}
+	.named-subheads {
+		margin-top: 2.5rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--line-1);
+	}
+	.named-subheads strong {
+		display: block;
+		margin-bottom: 0.35rem;
+	}
+	.category-grid {
+		margin-top: 2rem;
+	}
+	.category-card {
+		text-decoration: none;
+		color: inherit;
+		transition: border-color 0.15s ease;
+	}
+	.category-card:hover {
+		border-color: var(--color-pine);
 	}
 </style>

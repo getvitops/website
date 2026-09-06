@@ -9,7 +9,6 @@
 // and the figures deliberately excluded (unsourced/unverifiable).
 import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 import Counter from "@getvitops/astro/components/Counter.astro";
-import SectionIntro from "./SectionIntro.astro";
 
 interface Stat {
 	value: string;
@@ -21,8 +20,8 @@ interface Stat {
 interface Props {
 	stats: Stat[];
 	eyebrow?: string;
-	title?: string;
 	lead?: string;
+	class?: string;
 	cols?: 2 | 3 | 4;
 	/** Breakpoint the grid collapses to a single column at. Default "sm" (48rem). */
 	stackAt?: "sm" | "md";
@@ -31,8 +30,8 @@ interface Props {
 const {
 	stats,
 	eyebrow,
-	title,
 	lead,
+	class: _class,
 	cols = stats.length >= 4 ? 4 : 3,
 	stackAt = "sm",
 } = Astro.props;
@@ -46,13 +45,15 @@ const COUNTABLE = /^[^0-9-]*-?[0-9,]*\.?[0-9]*[^0-9]*$/;
 const canAnimate = (value: string) => COUNTABLE.test(value) && /[0-9]/.test(value);
 ---
 
-<section class="stats section centered anim-slow">
+<section class:list={["stats section centered anim-slow", _class]} data-stack-at={stackAt}>
 	<div class="spotlight">
-		{title && <SectionIntro eyebrow={eyebrow} title={title} lead={lead} />}
+		<header class="rhythm max-w-[60ch] mb-12">
+			{eyebrow && <span class="font-eyebrow">{eyebrow}</span>}
+			<p class="font-eyebrow"><slot name="heading">Key stats</slot></p>
+			{lead && <p class="font-lead text-neutral-muted">{lead}</p>}
+		</header>
 		<Subgrid
-			class="stats-grid stagger"
-			style={`--subgrid-cols: ${cols}`}
-			data-stack-at={stackAt}
+			class="stats-grid stagger [--subgrid-cols:1] @md:[--subgrid-cols:2] @3xl:[--subgrid-cols:4]"
 		>
 			{
 				stats.map((s) => (

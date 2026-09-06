@@ -1,18 +1,22 @@
 ---
 page: /managed-it-services/job-tracking-software
-status: draft-v1 — keywords UNVERIFIED, pending Semrush pass
+status: verified — Semrush pass complete 2026-09-05
 priority: 17
 depends_on: [PLAN-managed-it-services]
 blocks: []
 target_geography: Ontario (primary), Canada-wide secondary
-primary_keywords_UNVERIFIED:
-  - candidates: "job management software", "field service software", "jobber", "project management software small business"
+primary_keywords:
+  - "field service software" — 590 CA / 9,900 US, KD 27/58 — best term, matches the dispatch/job-tracking framing exactly
+  - "job management software" — 140 CA / 1,600 US, commercial intent, KD 32/23
+  - "jobber" — 33,100 CA / 135,000 US but intent is navigational (brand/product search), not implementer demand — huge number, ignore it as a target
+  - "project management software small business" — no CA data, 140 US, KD 49 — too thin to anchor on
+  - Conclusion: "field service software" is the real anchor; already implicit in the page's trades/dispatch framing.
 forbidden_terms: []
 title_prop: "Job & project tracking software: Jobber & Zoho Projects"
 title_char_count: 53
 rendered_title: "Job & project tracking software: Jobber & Zoho Projects — Vitops"
 rendered_char_count: 62
-note: "2 over budget — trim once the real anchor term is confirmed. Placeholder shorter form: 'Job & project tracking software' (33 chars, rendered 42)."
+note: "Live page already ships the shorter fallback, 'Job & project tracking software' (rendered 42) — under budget, no change needed."
 meta_description: "Jobber or Zoho Projects, set up and connected to invoicing and accounting, so what's promised and what's actually done stay in the same record."
 meta_description_char_count: 141
 schema_types: [Service, BreadcrumbList]

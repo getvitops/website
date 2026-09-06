@@ -1,13 +1,15 @@
 ---
 page: /managed-it-services/communication-software
-status: draft-v1 — keywords UNVERIFIED, pending Semrush pass
+status: verified — Semrush pass complete 2026-09-05
 priority: 12
 depends_on: [PLAN-managed-it-services]
 blocks: []
 target_geography: Ontario (primary), Canada-wide secondary
-primary_keywords_UNVERIFIED:
-  - candidates: "microsoft teams setup", "slack setup business", "business phone system"
-  - none confirmed — do not treat as real until the Semrush pass runs
+primary_keywords:
+  - "microsoft teams setup" — 20 CA / 70 US, near-floor both sides, KD 0/70 — not a viable target
+  - "slack setup business" — no distinct Semrush row either database, below reporting floor
+  - "business phone system" — 320 CA / 4,400 US, commercial intent, KD 31/50 — the one real number here, but it's a phone/VoIP-provisioning term, and this page currently states that's NOT offered (chat/meetings only). Real demand exists if that scope call ever flips; until then this page should not target the term, and doesn't.
+  - Conclusion: no viable head term for chat/meetings-only scope. Current category title stands.
 forbidden_terms: []
 title_prop: "Communication software: Teams, Slack & business phone"
 title_char_count: 50
@@ -19,7 +21,7 @@ schema_types: [Service, BreadcrumbList]
 links_out: ["/managed-it-services (parent pillar)", "/pricing", "/contact"]
 links_in_needing_repoint: []
 open_questions:
-  - "BLOCKED: Semrush pass. Also unresolved — does Vitops actually provision business phone/VoIP systems today, or only chat/meeting platforms? Confirm scope before publishing; draft below assumes chat+meetings only, phone system mentioned as adjacent but not asserted as delivered."
+  - "Still unresolved — does Vitops actually provision business phone/VoIP systems today, or only chat/meeting platforms? Confirm scope with an owner; page currently assumes chat+meetings only. Semrush now shows real demand (320 CA/mo, KD 31) sitting behind that decision — worth resolving on the merits, not just to close this gate."
 ---
 
 # PLAN — `/managed-it-services/communication-software` (new page)

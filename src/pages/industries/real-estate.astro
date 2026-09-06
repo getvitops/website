@@ -1,13 +1,17 @@
 ---
 import IndustryPage from "../../components/page/IndustryPage.astro";
 
-export const prerender = false;
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" -- its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" -- so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
 ---
 
 <IndustryPage
 	slug="real-estate"
 	eyebrow="Real estate brokerages"
-	title="IT, HR and marketing for Ontario real estate brokerages"
+	title="IT & marketing for Ontario real estate brokerages"
 	description="Agent onboarding at roster speed, board tools that connect to your CRM, commission administration that reconciles, and farm-area campaigns that route to the right agent."
 	h1="A roster that moves faster than your systems do."
 	heroLead="Independent residential, commercial, and property management brokerages. The distinguishing feature isn't the software — it's the churn. Agents join, leave, and move between brokerages at a rate that would be an emergency anywhere else, and it's Tuesday here."
@@ -30,15 +34,11 @@ export const prerender = false;
 	]}
 	pillars={[
 		{
-			label: "Business software",
-			body: "CRM chosen and configured around how your agents actually work rather than how the demo video does, connected to your listing and marketing tools. The board-tool boundary documented and watched. One number to call when an agent can't get into something on a Saturday, which is when it will happen.",
+			label: "Managed IT services",
+			body: "CRM chosen and configured around how your agents actually work rather than how the demo video does, connected to your listing and marketing tools — see the fuller version of this on our CRM software page. The board-tool boundary documented and watched. Agent onboarding and offboarding run as same-day processes, with commission administration and payout records kept reconciled and licensing documentation kept current rather than reconstructed annually. One number to call when an agent can't get into something on a Saturday, which is when it will happen.",
 		},
 		{
-			label: "Back office",
-			body: "Agent onboarding as a same-day process, and offboarding as a same-day process — the second one being the part that matters. Commission administration and payout records kept reconciled, and the licensing and registration documentation kept current rather than reconstructed annually.",
-		},
-		{
-			label: "Digital presence",
+			label: "Digital marketing",
 			body: "Farm-area campaigns and agent-profile pages that route enquiries to the right person automatically, so a lead doesn't sit in a general inbox while three agents assume someone else has it. Recruitment campaigns too, since for most brokerages agent acquisition is the harder of the two markets.",
 		},
 	]}

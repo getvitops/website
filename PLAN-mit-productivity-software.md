@@ -1,26 +1,29 @@
 ---
 page: /managed-it-services/productivity-software
-status: draft-v1 — keywords UNVERIFIED, pending Semrush pass
+status: verified — Semrush pass complete 2026-09-05
 priority: 11
 depends_on: [PLAN-managed-it-services]
 blocks: []
 target_geography: Ontario (primary), Canada-wide secondary
-primary_keywords_UNVERIFIED:
-  - candidates per master plan's Semrush query list: "microsoft 365 setup", "google workspace setup", "m365 migration", "google workspace vs microsoft 365", + Ottawa variants
-  - none of these have a confirmed CA volume yet — do not treat any figure below as real
+primary_keywords:
+  - "microsoft 365 setup" — 140 CA / 1,000 US, intent navigational+transactional, KD 68 CA / 48 US
+  - "google workspace vs microsoft 365" — 140 CA / 880 US, informational, KD 34/34
+  - "google workspace setup" — 50 CA / 390 US, informational, KD 0/53
+  - "m365 migration" — 20 CA / 140 US, KD 0/34 — low volume but near-zero competition and exact intent match
+  - "microsoft 365 setup ottawa" / "google workspace setup ottawa" — no distinct Semrush row (below reporting floor); don't force an Ottawa H2 for this subpage, the pillar's own Ottawa geo page already owns the city-modified intent
+  - Conclusion: none of these clear real volume — this subpage's job is topical completeness under the pillar, not head-term capture. Current category-style title ("Productivity software: M365 & Google Workspace") already fits better than chasing any single term above; no title change warranted.
 forbidden_terms: []
 title_prop: "Productivity software: Microsoft 365 & Google Workspace"
 title_char_count: 50
 rendered_title: "Productivity software: Microsoft 365 & Google Workspace — Vitops"
 rendered_char_count: 59
-note: "At the exact 60-char rendered limit-minus-1. Confirm once real keyword data picks the anchor term — this may need to shrink to fit whichever term wins."
+note: "Live page ships as 'Productivity software: M365 & Google Workspace' (abbreviated), which already fits under budget — no change needed post-Semrush."
 meta_description: "Microsoft 365, Google Workspace or Zoho Workplace, chosen, migrated and administered for Ontario small businesses — the tenant your whole team works in every day."
 meta_description_char_count: 162
 schema_types: [Service, BreadcrumbList]
 links_out: ["/managed-it-services (parent pillar)", "/pricing", "/contact"]
 links_in_needing_repoint: []
-open_questions:
-  - "BLOCKED: run the Semrush queries listed above before finalizing title/H1/keyword placement. This draft is voice/structure only."
+open_questions: []
 ---
 
 # PLAN — `/managed-it-services/productivity-software` (new page)

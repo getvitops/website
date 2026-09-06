@@ -1,13 +1,17 @@
 ---
 import IndustryPage from "../../components/page/IndustryPage.astro";
 
-export const prerender = false;
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" -- its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" -- so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
 ---
 
 <IndustryPage
 	slug="trades"
 	eyebrow="Trades and contractors"
-	title="IT, HR and marketing for Ontario trades and contractors"
+	title="IT & marketing for Ontario trades and contractors"
 	description="Field tablets that work without signal, same-day access for new crew, digital safety records that survive an inspection, and campaigns tuned to your season."
 	h1="The office should keep up with the crew, not the other way round."
 	heroLead="HVAC, electrical, plumbing, general and specialty contracting. The pattern is consistent: the field work runs well, and everything behind it — dispatch, timesheets, safety paperwork, getting a new hire onto the job — runs on somebody's evenings."
@@ -34,15 +38,11 @@ export const prerender = false;
 	]}
 	pillars={[
 		{
-			label: "Business software",
-			body: "Field service and dispatch software chosen for offline behaviour first, connected to accounting so job costs don't get retyped. Accounts and permissions run centrally, so a lost tablet is one login cut off, not a device to chase down. When a crew lead can't get into something at 7am, they call one number and we sort it.",
+			label: "Managed IT services",
+			body: "Field service and dispatch software chosen for offline behaviour first, connected to accounting so job costs don't get retyped. Accounts and permissions run centrally, so a lost tablet is one login cut off, not a device to chase down. Seasonal hiring handled the same way: accounts, safety orientation, and payroll software configured with the overtime and travel-time rules set correctly before the first shift, with offboarding that actually revokes access when the season ends and WSIB reporting kept current. One number to call when any of it breaks.",
 		},
 		{
-			label: "Back office",
-			body: "Seasonal hiring done as a repeatable process: accounts, safety orientation, and payroll set up before the first shift. Offboarding that actually revokes access when the season ends. Payroll with the overtime and travel-time rules configured properly, and WSIB reporting kept current.",
-		},
-		{
-			label: "Digital presence",
+			label: "Digital marketing",
 			body: "Emergency and same-day work is a search problem — Local Services Ads, map visibility, and a site that loads on a phone in a driveway. Campaigns weighted to your season rather than run flat all year, because nobody needs to be spending on furnace work in June.",
 		},
 	]}

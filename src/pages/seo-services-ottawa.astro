@@ -1,0 +1,125 @@
+---
+import PineLayout from "../layouts/PineLayout.astro";
+import PageHero from "../components/page/PageHero.astro";
+import SectionIntro from "../components/page/SectionIntro.astro";
+import Cards from "../components/page/Cards.astro";
+import Prose from "../components/page/Prose.astro";
+import Faq from "../components/page/Faq.astro";
+import PageCta from "../components/page/PageCta.astro";
+import Schema from "../components/page/Schema.astro";
+import { breadcrumb, service } from "../lib/schema";
+import { FUNDING_NOTE } from "../lib/copy";
+
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+// Anti-doorway split: this page owns SEARCH RANKING specifically (technical
+// SEO, local pack, GBP). /web-design-ottawa owns the build/design process;
+// /digital-marketing-agency-ottawa owns the full agency-replacement bundle.
+// Each has its own direct-answer paragraph and FAQ — no shared boilerplate
+// beyond the service-area line.
+const differences = [
+	{
+		heading: "Google Business Profile is half the work.",
+		body: "For a service-area or storefront business, the local pack often outperforms the organic result below it. Most Ottawa sites we look at have a claimed-but-unmanaged listing.",
+	},
+	{
+		heading: "Your competition is genuinely local.",
+		body: "You're not out-ranking a national brand; you're out-ranking three other Ottawa firms doing the same thing you do, which is a more winnable fight with the right technical foundation.",
+	},
+	{
+		heading: "Bilingual search exists here and most sites ignore it.",
+		body: "Ottawa has real English/French search volume. Whether that's worth building for depends on your client base — we'll tell you honestly if it isn't, rather than sell a French site nobody searches for.",
+	},
+];
+
+const faq = [
+	{
+		q: "Do you only work with Ottawa businesses?",
+		a: "No — Ottawa is where we're based and where local-pack work matters most, but the technical SEO and content work serves clients anywhere in Ontario.",
+	},
+	{
+		q: "How long before we rank in Ottawa specifically?",
+		a: "Local pack movement is often faster than organic ranking — weeks rather than months, once the Business Profile and citations are cleaned up. Organic content ranking still takes the usual several months.",
+	},
+	{
+		q: "Do you handle Google Business Profile suspensions or verification issues?",
+		a: "Yes — it's one of the more common things we untangle in a first month, particularly for service-area businesses without a public storefront.",
+	},
+];
+---
+
+<PineLayout
+	title="SEO services & SEO agency in Ottawa"
+	description="SEO services for Ottawa businesses: technical audits, local search and Google Business Profile, and answer-engine visibility — steered monthly, published pricing."
+>
+	<Schema
+		data={service(
+			"SEO services",
+			"Technical SEO, local search and Google Business Profile management for Ottawa businesses.",
+			"/seo-services-ottawa",
+		)}
+	/>
+	<Schema data={breadcrumb(["SEO services Ottawa", "/seo-services-ottawa"])} />
+
+	<PageHero
+		eyebrow="SEO services, Ottawa"
+		title="Findable in Ottawa, not just on the internet."
+		lead="Technical SEO, local search, and the answer-engine work that decides whether an AI assistant names you — for a business that actually wants Ottawa and the surrounding region to find it, not a national audience."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			SEO services in Ottawa means the same technical work as anywhere — site
+			speed, structure, schema, content that answers the question — plus the
+			local layer that makes the difference here specifically: a Google
+			Business Profile that's claimed, verified and consistent, citations
+			that agree across Google, Bing and Apple, and content that answers
+			"near me" and neighbourhood-level searches (Kanata, Barrhaven, Orleans,
+			the Glebe) the same way it answers the city-wide ones.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="What's different here"
+				title="Local ranking is a different game from national ranking."
+			/>
+			<Cards cards={differences} cols={3} />
+			<p class="font-caption follow-link">
+				The technical and content work itself is the same discipline
+				described in full on <a class="link" href="/digital-marketing"
+					>digital marketing</a
+				>, including the answer-engine optimization section — this page is
+				the Ottawa-specific entry point, not a separate service.
+			</p>
+		</div>
+	</section>
+
+	<Faq items={faq} title="Questions Ottawa businesses ask us." />
+
+	<PageCta
+		title="Send us your Google Business Profile."
+		lead="We'll tell you what's inconsistent, what's missing, and what we'd fix first — whether or not you hire us."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Digital marketing", href: "/digital-marketing" },
+			{ label: "Business health check", href: "/business-health-check" },
+			{ label: "Contact", href: "/contact" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.follow-link {
+		margin-top: 2rem;
+		color: var(--color-slate);
+	}
+</style>

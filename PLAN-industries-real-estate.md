@@ -7,7 +7,8 @@ depends_on: [PLAN-industries (shell fix)]
 blocks: []
 target_geography: Ontario (primary)
 primary_keywords:
-  - per ia.md's original targeting: agent onboarding/offboarding at roster speed, board tools, commission admin, farm-area campaigns — no volumes pulled, differentiator-driven
+  - per ia.md's original targeting: agent onboarding/offboarding at roster speed, board tools, commission admin, farm-area campaigns
+  - Semrush pass 2026-09-05 (CA): "real estate brokerage software" 40/mo, no volume/intent data (thin); "it support for real estate ontario" returns 0. Neither clears a real threshold — differentiator-driven copy stays correct, no head-term rewrite warranted. The stronger cross-sell is the existing `/managed-it-services/crm-software` link (CRM implementation itself has real CA/US volume — see that PLAN file).
 forbidden_terms: []
 title_prop: "IT, HR and marketing for Ontario real estate brokerages"
 title_char_count: 48

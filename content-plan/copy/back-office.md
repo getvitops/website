@@ -1,5 +1,12 @@
 # /back-office
 
+> **SUPERSEDED 2026-09-05.** `/back-office` no longer exists as its own pillar —
+> bookkeeping and payroll are no longer performed as services, only the software
+> they run on is administered, and that lives under
+> `/managed-it-services/bookkeeping-payroll-software` (see
+> `PLAN-mit-bookkeeping-payroll-software.md`). This file describes a service
+> offering that has been retired; kept for history, not as a source to re-import.
+
 **Title:** `Bookkeeping, payroll and back-office operations | Vitops`
 **Description:** `Bookkeeping kept current, managed payroll, benefits administration, and onboarding and offboarding handled end to end. Ontario SMEs, one partner on file.`
 **Schema:** `Organization`, `Service`, `FAQPage`, `BreadcrumbList`

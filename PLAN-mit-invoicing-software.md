@@ -1,12 +1,15 @@
 ---
 page: /managed-it-services/invoicing-software
-status: draft-v1 — keywords UNVERIFIED, pending Semrush pass
+status: verified — Semrush pass complete 2026-09-05
 priority: 15
 depends_on: [PLAN-managed-it-services]
 blocks: []
 target_geography: Ontario (primary), Canada-wide secondary
-primary_keywords_UNVERIFIED:
-  - candidates: "invoicing software setup", "zoho invoice", "jobber invoicing"
+primary_keywords:
+  - "invoicing software setup" — no data either database, below reporting floor
+  - "zoho invoice" — 4,400 CA / 18,100 US but intent is navigational+transactional (people searching for Zoho's own product/login), not implementer-service demand — high volume, wrong intent, do not chase
+  - "jobber invoicing" — 0 CA / 140 US, thin either way
+  - Conclusion: confirms this file's own suspicion — genuinely the smallest of the seven categories by real demand, none of it capturable. Already shipped as a standalone page; not worth the redirect/merge cost to fold into bookkeeping-payroll-software now, but if any subpage gets cut later, this is the one with the weakest data case for standing alone.
 forbidden_terms: []
 title_prop: "Invoicing software: Zoho Invoice & Jobber"
 title_char_count: 39

@@ -1,12 +1,15 @@
 ---
 page: /managed-it-services/hris-software
-status: draft-v1 — keywords UNVERIFIED, pending Semrush pass; vendor list RESOLVED (2026-09-05)
+status: verified — Semrush pass complete 2026-09-05; vendor list RESOLVED (2026-09-05)
 priority: 14
 depends_on: [PLAN-managed-it-services]
 blocks: []
 target_geography: Ontario (primary), Canada-wide secondary
-primary_keywords_UNVERIFIED:
-  - candidates: "hris implementation", "hr software small business", "employee onboarding software"
+primary_keywords:
+  - "employee onboarding software" — 260 CA / 4,400 US, informational, KD 35/36 — strongest term in this set, and it already matches the shipped title's "onboarding" anchor
+  - "hr software small business" — 140 CA / 880 US, KD 24/35 — solid secondary
+  - "hris implementation" — 50 CA / 390 US, KD 25/28 — lower volume, still real, good H2 anchor for the JML-trigger framing
+  - Conclusion: current title/H1 already lead with the right term ("onboarding"); no rename needed. Worth confirming "employee onboarding software" appears verbatim once in body copy, not just implied.
 forbidden_terms:
   - "we run your HR / payroll" as a performed service — this page is about the software layer only, matching the session's bookkeeping/payroll decision
 title_prop: "HRIS software: employee records & onboarding"
@@ -21,7 +24,7 @@ links_in_needing_repoint: []
 vendors: [Zoho People, Rippling, Collage HR, Rise People]
 open_questions:
   - "RESOLVED 2026-09-05: vendor list confirmed as Zoho People, Rippling, Collage HR, Rise People. Rippling also appears in KeyPartners.astro's site-wide logo strip and in other service-category subpages — confirmed HR/HRIS-relevant, not a device-management signal (see PLAN-managed-it-services.md's claim-strip notes, now resolved)."
-  - "Still BLOCKED: Semrush pass for keyword volumes."
+  - "RESOLVED 2026-09-05: Semrush pass run — see primary_keywords above."
 ---
 
 # PLAN — `/managed-it-services/hris-software` (new page)

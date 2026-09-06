@@ -7,7 +7,8 @@ depends_on: [PLAN-industries (shell fix)]
 blocks: []
 target_geography: Ontario (primary)
 primary_keywords:
-  - per ia.md's original targeting: PHIPA-aware access, EMR-adjacent work, recall campaigns — no volumes pulled, differentiator-driven
+  - per ia.md's original targeting: PHIPA-aware access, EMR-adjacent work, recall campaigns
+  - Semrush pass 2026-09-05 (CA): "medical practice management software" 110/mo, informational intent, KD 33 — real but moderate difficulty, and it's a software-category term (competes with EMR/PMS vendors), not an "IT support for clinics" phrase. "clinic software ontario", "dental practice software ontario" and "phipa compliant it" all return 0. Differentiator-driven copy stays the right call; no head-term rewrite warranted.
 forbidden_terms:
   - device/endpoint language — already claim-stripped this session (see below)
 title_prop: "IT, HR and digital presence for Ontario medical and dental clinics"

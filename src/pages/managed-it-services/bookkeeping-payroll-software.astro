@@ -1,0 +1,166 @@
+---
+import PineLayout from "../../layouts/PineLayout.astro";
+import PageHero from "../../components/page/PageHero.astro";
+import SectionIntro from "../../components/page/SectionIntro.astro";
+import Stats from "../../components/page/Stats.astro";
+import Prose from "../../components/page/Prose.astro";
+import Faq from "../../components/page/Faq.astro";
+import PageCta from "../../components/page/PageCta.astro";
+import Schema from "../../components/page/Schema.astro";
+import { breadcrumb, service } from "../../lib/schema";
+import { FUNDING_NOTE } from "../../lib/copy";
+
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+// Replaces /back-office (301 already wired in astro.config.mjs). Vitops
+// doesn't do the books or run payroll — this page is the software layer
+// only. Don't reintroduce "we code," "we reconcile," "we do the books," or
+// "we run payroll" here; that's the service framing this page replaced.
+const backOfficeStats = [
+	{
+		value: "~20 hours a week",
+		label: "What the average owner spends on accounting tasks — bookkeeping, invoicing, expense tracking, reporting. 1 in 5 spend 30+.",
+		sourceLabel: "Cornerstone Advisors survey, Q4 2023",
+		sourceUrl: "https://www.tight.com/blog/embedded-accounting-banks-reduce-smb-burden",
+	},
+	{
+		value: "~5 hours a pay period",
+		label: "Calculating, filing, and remitting payroll by hand — as much as 21 days a year for some owners.",
+		sourceLabel: "Intuit/QuickBooks via Kelton Global, reported by Bloomberg Tax, 2020",
+		sourceUrl: "https://news.bloombergtax.com/payroll/survey-small-business-owners-misjudge-time-to-prep-payroll",
+	},
+];
+
+const whatWeRun = [
+	"Platform selection — QuickBooks, Zoho Books, Payworks, ADP, or whatever you're already on, if it's sound.",
+	"Bank feed and integration setup — invoicing, payroll, and the CRM feeding the books automatically instead of by hand.",
+	"Ongoing administration — user access, permissions, and keeping the integrations alive as your other software changes.",
+];
+
+const faq = [
+	{
+		q: "Do you do our bookkeeping?",
+		a: "No — we select, connect and administer the software (QuickBooks, Zoho Books). The books themselves stay with you or your accountant.",
+	},
+	{
+		q: "Do you run our payroll?",
+		a: "We administer the system — Payworks, ADP, or whatever you're on — and keep it wired to your HRIS. You submit and approve every run.",
+	},
+	{
+		q: "Do you ever hold our money?",
+		a: "No. Every payment runs from your account through your own payroll provider. We don't operate a trust account and don't hold signing authority anywhere.",
+	},
+	{
+		q: "Who's the employer of record?",
+		a: "You are. We administer the software; we don't take on employment liability.",
+	},
+	{
+		q: "What accounting software do you use?",
+		a: "Whatever you're on, if it's working — usually QuickBooks or Zoho Books. If we also run your other software, we own the bank feeds and integrations into payroll and your CRM rather than working around whatever someone else configured.",
+	},
+];
+---
+
+<PineLayout
+	title="Bookkeeping & payroll software, administered"
+	description="QuickBooks, Zoho Books, Payworks or ADP — selected, connected and administered for Ontario small businesses. Your books, your accountant; your payroll runs, your approval."
+>
+	<Schema
+		data={service(
+			"Bookkeeping and payroll software",
+			"Selection, integration and administration of QuickBooks, Zoho Books, Payworks and ADP for Ontario small businesses.",
+			"/managed-it-services/bookkeeping-payroll-software",
+		)}
+	/>
+	<Schema
+		data={breadcrumb(
+			["Managed IT services", "/managed-it-services"],
+			["Bookkeeping and payroll software", "/managed-it-services/bookkeeping-payroll-software"],
+		)}
+	/>
+
+	<PageHero
+		eyebrow="Managed IT services / Bookkeeping & payroll software"
+		title="The books your accountant works from. The runs you approve."
+		lead="QuickBooks, Zoho Books, Payworks, or ADP — selected, connected to the rest of your stack, and kept running. The coding and the pay run stay with you or your accountant; we make sure the software they run on works."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			Bookkeeping and payroll software means the platforms your books and
+			pay runs actually live in — QuickBooks or Zoho Books for the former,
+			Payworks or ADP for the latter. We select the right one, connect it to
+			your invoicing and HR systems so nothing needs retyping, and administer
+			it on an ongoing basis. The books themselves stay with you or your
+			accountant; payroll runs stay something you submit and approve
+			yourself — we run the tenant, the same relationship we have with
+			Microsoft 365.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="What goes wrong"
+				title="The systems disagree, and somebody has to reconcile it by hand."
+				lead="Payroll thinks she's part-time, the HRIS thinks she's full-time, benefits has her on the old plan. Properly connected software prevents this; disconnected software is what creates the reconciliation nobody has time for."
+			/>
+		</div>
+	</section>
+
+	<Stats stats={backOfficeStats} cols={2} />
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="What we run" title="Selected, connected, administered." />
+			<ul class="list rhythm plain-list" role="list">
+				{whatWeRun.map((line) => <li class="font-body text-neutral-muted">{line}</li>)}
+			</ul>
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="What we don't do" title="The line, stated plainly." />
+			<div class="prose-inline">
+				<p class="font-body">
+					We don't do the books, and we don't run payroll. Your accountant
+					or bookkeeper codes transactions and reconciles accounts inside
+					the software we've set up. You submit and approve every payroll
+					run yourself. We never hold or move your money, and you remain
+					the employer of record throughout.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<Faq items={faq} />
+
+	<PageCta
+		title="Tell us what you're running today."
+		lead="QuickBooks, Zoho Books, Payworks, ADP, or a spreadsheet held together with hope — we'll tell you what we'd connect first."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Managed IT services", href: "/managed-it-services" },
+			{ label: "Pricing", href: "/pricing" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.plain-list {
+		max-width: 68ch;
+		gap: 1rem;
+	}
+	.prose-inline {
+		max-width: 68ch;
+		color: var(--color-mist);
+	}
+</style>

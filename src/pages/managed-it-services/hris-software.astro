@@ -1,0 +1,124 @@
+---
+import PineLayout from "../../layouts/PineLayout.astro";
+import PageHero from "../../components/page/PageHero.astro";
+import SectionIntro from "../../components/page/SectionIntro.astro";
+import Prose from "../../components/page/Prose.astro";
+import Faq from "../../components/page/Faq.astro";
+import PageCta from "../../components/page/PageCta.astro";
+import Schema from "../../components/page/Schema.astro";
+import { breadcrumb, service } from "../../lib/schema";
+import { FUNDING_NOTE } from "../../lib/copy";
+
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+// Vendor list confirmed 2026-09-05: Zoho People, Rippling, Collage HR, Rise
+// People. Rippling also does payroll and device management on its own
+// platform — this page only covers its HRIS/employee-record use; naming it
+// here is not a claim that we run its device-management module (that's not
+// offered anywhere on the site, see managed-it-services.astro's claim strip).
+const whatWeRun = [
+	"HRIS selection between Zoho People, Rippling, Collage HR and Rise People — based on how your team actually works, not brand preference.",
+	"Configuration — records, time off, policy acknowledgements.",
+	"The joiner/mover/leaver trigger — wired into the rest of your software stack, to the extent each application exposes the hooks (some SaaS tools don't; we'll tell you which ones have to be handled by hand).",
+	"Access review — the HRIS is also how we confirm nobody's access has quietly outlived their employment.",
+];
+
+const faq = [
+	{
+		q: "Does this include running payroll or benefits?",
+		a: "No — this page is about the employee-record software itself. Payroll and benefits administration software is its own category: see bookkeeping and payroll software.",
+	},
+	{
+		q: "What if our current HRIS doesn't support the joiner/leaver automation?",
+		a: "We'll tell you which parts don't reach and handle those manually rather than promise automation the platform can't actually do.",
+	},
+];
+---
+
+<PineLayout
+	title="HRIS software: employee records & onboarding"
+	description="HRIS software chosen and configured so a start date or termination drives accounts, licences and permissions automatically — for Ontario small businesses."
+>
+	<Schema
+		data={service(
+			"HRIS software",
+			"Selection and configuration of Zoho People, Rippling, Collage HR and Rise People for Ontario small businesses, wired as the joiner/mover/leaver trigger.",
+			"/managed-it-services/hris-software",
+		)}
+	/>
+	<Schema
+		data={breadcrumb(
+			["Managed IT services", "/managed-it-services"],
+			["HRIS software", "/managed-it-services/hris-software"],
+		)}
+	/>
+
+	<PageHero
+		eyebrow="Managed IT services / HRIS software"
+		title="The employee record that drives every other account."
+		lead="One system of record for who's on staff, what they're entitled to, and when that changes — wired so a start date or a termination provisions or revokes access everywhere else automatically."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			An HRIS is the system of record for employee data — who's employed,
+			their role, their start date, their status. Zoho People, Rippling,
+			Collage HR and Rise People cover most small-business cases in Canada.
+			It matters beyond HR because it's the trigger for everything else: when
+			it's wired to your other software, a new hire's accounts, licences and
+			permissions follow the record instead of a request going to us, and a
+			termination revokes access the same day rather than whenever someone
+			remembers.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="What we run" title="The record, and what it triggers." />
+			<ul class="list rhythm plain-list" role="list">
+				{whatWeRun.map((line) => <li class="font-body text-neutral-muted">{line}</li>)}
+			</ul>
+			<p class="font-caption follow-link">
+				Rippling also does payroll and device management on its own
+				platform. This page only covers its HRIS/employee-record use — see
+				<a class="link" href="/managed-it-services">managed IT services</a> for
+				the device-management boundary (not offered) and
+				<a class="link" href="/managed-it-services/bookkeeping-payroll-software"
+					>bookkeeping and payroll software</a
+				> for the payroll boundary (software administered, client submits and
+				approves runs).
+			</p>
+		</div>
+	</section>
+
+	<Faq items={faq} />
+
+	<PageCta
+		title="Tell us how a new hire gets set up today."
+		lead="Walk us through the last one — what took a phone call, what took a week. We'll tell you what we'd automate first."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Managed IT services", href: "/managed-it-services" },
+			{ label: "Pricing", href: "/pricing" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.plain-list {
+		max-width: 68ch;
+		gap: 1rem;
+	}
+	.follow-link {
+		margin-top: 2rem;
+		color: var(--color-slate);
+		max-width: 68ch;
+	}
+</style>

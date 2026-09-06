@@ -1,6 +1,6 @@
 ---
 page: /industries
-status: draft-v1
+status: verified — Semrush pass complete 2026-09-05 (confirms no head term for the hub; see each vertical's PLAN file)
 priority: 18
 depends_on: [PLAN-managed-it-services, PLAN-digital-marketing, four industry-vertical PLAN files]
 blocks:

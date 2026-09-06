@@ -1,0 +1,110 @@
+---
+import PineLayout from "../../layouts/PineLayout.astro";
+import PageHero from "../../components/page/PageHero.astro";
+import SectionIntro from "../../components/page/SectionIntro.astro";
+import Prose from "../../components/page/Prose.astro";
+import Faq from "../../components/page/Faq.astro";
+import PageCta from "../../components/page/PageCta.astro";
+import Schema from "../../components/page/Schema.astro";
+import { breadcrumb, service } from "../../lib/schema";
+import { FUNDING_NOTE } from "../../lib/copy";
+
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+const whatWeRun = [
+	"Platform selection based on your actual sales or job-tracking motion.",
+	"Configuration — pipelines, fields, automations that match how deals actually move.",
+	"Integration with accounting and marketing tools, so nothing needs retyping.",
+];
+
+const faq = [
+	{
+		q: "We already have a CRM nobody uses. Can you fix that instead of replacing it?",
+		a: "Often, yes — a CRM nobody uses is usually a configuration problem, not a platform problem. We'll tell you honestly which one it is before recommending a switch.",
+	},
+	{
+		q: "Does this connect to our marketing campaigns?",
+		a: "Yes, when you're also on a digital marketing plan — leads route into the CRM and trigger follow-up automatically. See digital marketing.",
+	},
+];
+---
+
+<PineLayout
+	title="CRM software: Zoho Bigin, HubSpot & Jobber"
+	description="Zoho Bigin, HubSpot or Jobber, selected and configured around how your team actually sells and follows up — for Ontario small businesses."
+>
+	<Schema
+		data={service(
+			"CRM software",
+			"Selection, configuration and integration of Zoho Bigin, HubSpot and Jobber for Ontario small businesses.",
+			"/managed-it-services/crm-software",
+		)}
+	/>
+	<Schema
+		data={breadcrumb(
+			["Managed IT services", "/managed-it-services"],
+			["CRM software", "/managed-it-services/crm-software"],
+		)}
+	/>
+
+	<PageHero
+		eyebrow="Managed IT services / CRM software"
+		title="The record of who you talk to, and what they bought."
+		lead="Zoho Bigin, HubSpot, or Jobber — chosen for how your team actually sells and follows up, not how the demo video does, and connected to the tools around it so a lead doesn't sit in three places at once."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			CRM software means the system of record for who you talk to, what
+			they've bought, and what happens next. Zoho Bigin, HubSpot and Jobber
+			cover most small-business cases — Bigin and HubSpot for a general sales
+			pipeline, Jobber where the work is field-service jobs rather than a
+			sales cycle. We choose based on how your team actually works,
+			configure it, and connect it to your accounting and marketing tools so
+			a lead's status doesn't have to be retyped in three places.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="What we run" title="Chosen, configured, connected." />
+			<ul class="list rhythm plain-list" role="list">
+				{whatWeRun.map((line) => <li class="font-body text-neutral-muted">{line}</li>)}
+			</ul>
+			<p class="font-caption follow-link">
+				CRM configuration is a named pain point for real estate teams — see
+				<a class="link" href="/industries/real-estate">real estate</a>.
+			</p>
+		</div>
+	</section>
+
+	<Faq items={faq} />
+
+	<PageCta
+		title="Tell us how a lead moves through your business today."
+		lead="From first contact to closed or booked. We'll tell you where it's getting lost."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Managed IT services", href: "/managed-it-services" },
+			{ label: "Pricing", href: "/pricing" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.plain-list {
+		max-width: 68ch;
+		gap: 1rem;
+	}
+	.follow-link {
+		margin-top: 2rem;
+		color: var(--color-slate);
+	}
+</style>

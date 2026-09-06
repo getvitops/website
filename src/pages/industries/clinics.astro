@@ -1,13 +1,17 @@
 ---
 import IndustryPage from "../../components/page/IndustryPage.astro";
 
-export const prerender = false;
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" -- its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" -- so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
 ---
 
 <IndustryPage
 	slug="clinics"
 	eyebrow="Clinics"
-	title="IT, HR and digital presence for Ontario medical and dental clinics"
+	title="IT & marketing for Ontario medical & dental clinics"
 	description="PHIPA-aware access, front-desk software that stays out of the way, staff onboarding that's ready for the first shift, and recall campaigns that fill the schedule."
 	h1="Nothing at the front desk can wait for IT."
 	heroLead="Dental and orthodontic practices, family medicine, specialty clinics, physio, chiro and allied health. The constraint that shapes everything: there is a patient in the chair, and whatever isn't working has to not be the reason they're waiting."
@@ -30,15 +34,11 @@ export const prerender = false;
 	]}
 	pillars={[
 		{
-			label: "Business software",
-			body: "The environment around the EMR: workstations, imaging, scheduling, payments, and the identity layer underneath. Individual logins that are fast enough that reception doesn't resent them. Backups that are actually verified — a backup nobody has restored from is a hope, not a backup.",
+			label: "Managed IT services",
+			body: "The environment around the EMR: workstations, imaging, scheduling, payments, and the identity layer underneath. Individual logins that are fast enough that reception doesn't resent them. Backups that are actually verified — a backup nobody has restored from is a hope, not a backup. Staff onboarding ready before the first shift, including the privacy training acknowledgement, so it's recorded rather than assumed, with permission changes that follow role changes. Payroll and benefits software configured for a mixed roster of full-time, part-time and casual staff, which is more complicated than it looks and where most clinic payroll errors originate.",
 		},
 		{
-			label: "Back office",
-			body: "Staff onboarding ready before the first shift, including the privacy training acknowledgement, so it's recorded rather than assumed. Permission changes that follow role changes. Payroll and benefits for a mixed roster of full-time, part-time and casual staff, which is more complicated than it looks and where most clinic payroll errors originate.",
-		},
-		{
-			label: "Digital presence",
+			label: "Digital marketing",
 			body: "A site that answers what a prospective patient actually asks — are you taking patients, where do I park, what does the first visit cost — with online booking that writes into your schedule. Recall campaigns that fill gaps without saying anything about anyone's treatment.",
 		},
 	]}

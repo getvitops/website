@@ -1,0 +1,106 @@
+---
+import PineLayout from "../../layouts/PineLayout.astro";
+import PageHero from "../../components/page/PageHero.astro";
+import SectionIntro from "../../components/page/SectionIntro.astro";
+import Prose from "../../components/page/Prose.astro";
+import Faq from "../../components/page/Faq.astro";
+import PageCta from "../../components/page/PageCta.astro";
+import Schema from "../../components/page/Schema.astro";
+import { breadcrumb, service } from "../../lib/schema";
+import { FUNDING_NOTE } from "../../lib/copy";
+
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+const whatWeRun = [
+	"Tenant setup and configuration — identity, groups, sharing defaults, retention.",
+	"Migration between platforms, when a switch genuinely pays for itself.",
+	"Licence tuning — the seat count almost never matches the login count.",
+	"MFA enforced on every account (part of the base plan, per managed IT services).",
+];
+
+const faq = [
+	{
+		q: "Do you help us decide between Microsoft 365 and Google Workspace?",
+		a: "Yes — on how your team actually works, not brand preference. Often the right call is keeping what you have and using more of it.",
+	},
+	{
+		q: "Can you migrate us from one to the other?",
+		a: "Yes, including the file/mail migration itself. We'll tell you honestly what a switch costs before recommending it.",
+	},
+	{
+		q: "Do you resell the licences?",
+		a: "No — see managed IT services' \"we don't resell software\" note. You keep your own licences at your own price; our fee is for making them work.",
+	},
+];
+---
+
+<PineLayout
+	title="Productivity software: M365 & Google Workspace"
+	description="Microsoft 365, Google Workspace or Zoho Workplace, chosen, migrated and administered for Ontario small businesses — the tenant your whole team works in every day."
+>
+	<Schema
+		data={service(
+			"Productivity software",
+			"Selection, migration and administration of Microsoft 365, Google Workspace and Zoho Workplace for Ontario small businesses.",
+			"/managed-it-services/productivity-software",
+		)}
+	/>
+	<Schema
+		data={breadcrumb(
+			["Managed IT services", "/managed-it-services"],
+			["Productivity software", "/managed-it-services/productivity-software"],
+		)}
+	/>
+
+	<PageHero
+		eyebrow="Managed IT services / Productivity software"
+		title="The tenant your whole team lives in, chosen and run."
+		lead="Microsoft 365, Google Workspace, or Zoho Workplace — whichever fits how your team actually works, migrated cleanly and administered so nobody's guessing who owns which licence."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			Productivity software is the platform email, files, and documents live
+			on — Microsoft 365, Google Workspace, or Zoho Workplace are the three
+			real options for a small business. We help choose between them on the
+			merits (often the answer is "keep what you have and use more of it"),
+			handle the migration if a switch is warranted, and administer licences
+			and access on an ongoing basis so seat count matches actual use.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="What we run" title="Chosen, migrated, kept current." />
+			<ul class="list rhythm plain-list" role="list">
+				{whatWeRun.map((line) => <li class="font-body text-neutral-muted">{line}</li>)}
+			</ul>
+		</div>
+	</section>
+
+	<Faq items={faq} />
+
+	<PageCta
+		title="Tell us what you're running today."
+		lead="Microsoft, Google, Zoho, or a mix — we'll tell you what's duplicated and what we'd change first."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Managed IT services", href: "/managed-it-services" },
+			{ label: "Pricing", href: "/pricing" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.plain-list {
+		max-width: 68ch;
+		gap: 1rem;
+	}
+</style>

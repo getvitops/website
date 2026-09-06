@@ -1,12 +1,17 @@
 ---
 page: /managed-it-services/crm-software
-status: draft-v1 — keywords UNVERIFIED, pending Semrush pass
+status: verified — Semrush pass complete 2026-09-05
 priority: 13
 depends_on: [PLAN-managed-it-services]
 blocks: []
 target_geography: Ontario (primary), Canada-wide secondary
-primary_keywords_UNVERIFIED:
-  - candidates: "crm implementation", "crm setup small business", "hubspot implementation", "jobber setup", "zoho crm consultant"
+primary_keywords:
+  - "crm implementation" — 320 CA / 2,400 US, informational, KD 30/35 — best term available, matches the page's "chosen and configured" framing
+  - "zoho crm consultant" — 90 CA / 210 US, KD 11/19 — low volume, low difficulty, good secondary
+  - "hubspot implementation" — 50 CA / 1,300 US, KD 23/24 — the US number is real, worth an H2 mention
+  - "jobber setup" — no CA data, 1,300 US, KD 32 — brand-adjacent, not worth a title claim
+  - "crm setup small business" — no data either side, drop from consideration
+  - Conclusion: current category title stands; "crm implementation" is the strongest H2/body anchor.
 forbidden_terms: []
 title_prop: "CRM software: Zoho Bigin, HubSpot & Jobber"
 title_char_count: 40
