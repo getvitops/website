@@ -3,6 +3,7 @@ import PineLayout from "../layouts/PineLayout.astro";
 import PageHero from "../components/page/PageHero.astro";
 import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 import Schema from "../components/page/Schema.astro";
+import HealthDashboard from "../components/HealthDashboard.astro";
 import { breadcrumb, service } from "../lib/schema";
 
 // Prerendered: no per-request data on this page. EmDash pins the site to
@@ -129,6 +130,11 @@ const softwareAddons = [
 ];
 
 // --- Digital Presence: priced per service -----------------------------------
+//
+// ⚠️ Email & review campaigns needs a CRM or email platform to run against —
+// same "we don't resell software" framing as the managed IT plan: the fee is
+// for running the sequences, the client (or we, pass-through) owns the
+// licence. Don't ship this line until that dependency is confirmed sellable.
 const presenceServices = [
 	{
 		name: "SEO & GEO optimization",
@@ -157,6 +163,16 @@ const presenceServices = [
 		period: "/ mo",
 		included: [
 			"Content calendar and posting across up to 3 platforms, kept on brand",
+		],
+	},
+	{
+		name: "Email & review campaigns",
+		price: "$200",
+		period: "/ mo",
+		included: [
+			"Sale, promo, and upsell sequences run against your CRM or email platform",
+			"Post-job Google review requests, triggered off job or payment completion",
+			"Monthly send report: opens, clicks, reviews collected",
 		],
 	},
 ];
@@ -216,7 +232,7 @@ const hostingTiers = [
 		price: "$39",
 		unit: "/ mo",
 		annual: "$34/mo annual",
-		setup: "$750 setup",
+		setup: "$500 setup",
 		features: [
 			"SEO- & AI-search (GEO) optimized at build: Core Web Vitals, structured data, sitemaps, llms.txt, FAQ schema",
 			"Uptime monitoring, SSL, backups, staging environment, security updates, basic analytics, and custom form submission handling",
@@ -229,12 +245,13 @@ const hostingTiers = [
 		price: "$89",
 		unit: "/ mo",
 		annual: "$79/mo annual",
-		setup: "$750 setup",
+		setup: "$500 setup",
 		tag: "Most popular",
 		features: [
 			"Everything in Essential, plus:",
 			"Server-side conversion tracking (Meta CAPI, Google enhanced conversions)",
-			"Qualified-lead alerts — a text, email, or call when a lead matches your rules, not every form fire",
+			"Monthly conversion & lead-source report",
+			"Quarterly 30-minute strategy call",
 			"4 edits / mo with priority turnaround",
 		],
 		highlighted: true,
@@ -244,11 +261,11 @@ const hostingTiers = [
 		price: "$229",
 		unit: "/ mo",
 		annual: "$199/mo annual",
-		setup: "$750 setup, +$500 tracking / rules config",
+		setup: "$500 setup, +$500 tracking / rules config",
 		features: [
 			"Everything in Signal, plus the managed layer:",
 			"Monthly A/B test cycle with plain-language results",
-			"Quarterly 30-minute strategy call",
+			"Monthly 30-minute strategy call",
 			"One landing page per quarter",
 			"6 edits / mo",
 		],
@@ -270,6 +287,13 @@ const digitalMarketingOffers = hostingTiers.map((t) => ({
 	price: Number(t.price.replace("$", "")),
 	unitText: "per month",
 }));
+
+// --- One-off / consulting -----------------------------------------------
+const generalConsulting = {
+	name: "General consulting",
+	price: "$80",
+	period: "/ hour",
+};
 
 const finePrint = [
 	"No long-term contracts — month-to-month by default, with an optional annual commitment that waives setup",
@@ -441,7 +465,6 @@ const finePrint = [
 				would be that it isn't real. Saying it plainly is the same move the
 				rest of the site makes ("we're the wrong shop", "we'll point you at
 				it"), and it costs less credibility than a tier we can't sell.
-			*/}
 			<div class="callout-solo">
 				<article class="card callout">
 					<span class="font-eyebrow callout-eyebrow callout-eyebrow--muted">
@@ -451,24 +474,22 @@ const finePrint = [
 						Managed detection and response isn't ours to promise.
 					</h3>
 					<p class="font-body callout-copy">
-						Endpoint detection and response, and device management, aren't things
-						we operate today. If that's what your insurer, your client or your
-						own risk appetite calls for right now, we'll tell you on the first
-						call and point you at someone who does it properly — rather than sell
-						you a plan and work it out afterwards.
+						We don't yet offer Endpoint detection and response (EDR), device management (MDM), or other related services.
 					</p>
 				</article>
 			</div>
+			*/}
 		</div>
 	</section>
 
+	{/*
 	<!-- PAYROLL & BENEFITS SOFTWARE (part of Managed IT services) -->
 	<section class="section centered" id="payroll-benefits-pricing">
 		<div class="spotlight">
 			<header class="section-intro">
 				<span class="font-eyebrow">Managed IT services / Payroll &amp; benefits software</span>
 				<h2 class="font-title">Take some or take all of them.</h2>
-				<p class="font-lead section-lead">
+				<p class="">
 					Your payroll and benefits software, administered — the pay schedule, the
 					remittance calendar, the enrolment changes — kept current by the same
 					partner that runs your systems. You submit and approve every pay run
@@ -507,6 +528,7 @@ const finePrint = [
 			</p>
 		</div>
 	</section>
+	*/}
 
 	<!-- DIGITAL MARKETING -->
 	<section class="section centered" id="digital-marketing-pricing">
@@ -630,6 +652,7 @@ const finePrint = [
 		</div>
 	</section>
 
+
 	<!-- BUNDLES -->
 	{/*
 		Each pricing block above sells one thing at one price — no service is
@@ -638,7 +661,6 @@ const finePrint = [
 		is deliberately about capability before discount: the integrations only
 		exist when the same partner runs both halves. That is the company's whole
 		thesis, so this section is where it gets made concretely.
-	*/}
 	<section class="section centered" id="pricing-bundles">
 		<div class="spotlight">
 			<header class="rhythm max-w-[60ch] mb-12">
@@ -649,13 +671,7 @@ const finePrint = [
 					open when two vendors own the halves — and the combined monthly total
 					drops <strong>15%</strong> from the second service on.
 				</p>
-				{/*
-					The carve-out became load-bearing when business software gained a
-					setup fee: without it, "15% off from the second service on" reads as
-					applying to the implementation fee too. Keep it adjacent to the claim
-					rather than in the terms strip, where nobody reads it at the moment it
-					matters.
-				*/}
+
 				<p class="font-caption bundle-fineprint">
 					Discount applies to recurring monthly service fees only — not setup
 					fees, one-time projects, hourly work, or ad spend.
@@ -690,54 +706,84 @@ const finePrint = [
 			</div>
 		</div>
 	</section>
+	*/}
 
-	<!-- CALLOUT: ONE-OFF -->
+	<!-- BUSINESS HEALTH DASHBOARD -->
+	{/*
+		The cross-sell argument made visually rather than in prose: every
+		onboarded service — either pillar, or both — feeds one dashboard.
+		Traffic/impressions/content timing come from digital marketing;
+		spend and licence utilization come from managed IT. Placed after both
+		pillars (so the reader has met what produces each number) and before
+		the one-off/consulting callout (a different kind of engagement
+		entirely, and shouldn't compete with this section's close).
+	*/}
+	<section class="section centered" id="pricing-business-health">
+		<div class="spotlight">
+			<header class="section-intro">
+				<span class="font-eyebrow">Business health</span>
+				<h2 class="font-title">Everything you onboard, in one dashboard.</h2>
+				<p class="font-body section-lead">
+					Managed IT and digital marketing both write to the same view: what
+					your site and social are doing, what it's converting into, what's
+					going out the door in software spend against what's coming in, when
+					content actually goes live, and which licences you're paying for but
+					not using.
+				</p>
+			</header>
+			<HealthDashboard />
+		</div>
+	</section>
+
+	<!-- ONE-OFF / GENERAL CONSULTING -->
 	<section class="section centered" id="pricing-callouts">
 		<div class="spotlight">
-			<div class="callout-solo">
-				<article class="card callout">
-					<span class="font-eyebrow callout-eyebrow callout-eyebrow--muted">
-						Something more one-off?
-					</span>
-					{/*
-						Heading and blurb must agree on the billing model. This block used
-						to say "billed hourly" and list implementation, while the plan
-						includes 4 hours/month and quotes larger implementations fixed —
-						the same work at two prices on one page. Both now say fixed quote,
-						and implementation appears only with the beyond-included-hours
-						qualifier. Don't reintroduce a bare "implementation" here.
-					*/}
-					<h3 class="font-heading callout-title">
-						Scoped and quoted before we start.
-					</h3>
-					<p class="font-body callout-copy">
-						Not everything fits a monthly plan. Consulting, migrations, security
-						reviews, systems rollouts, and custom integrations beyond your plan's
-						included hours — scoped and priced as fixed quotes before any work
-						begins.
-					</p>
-				</article>
+			<header class="section-intro">
+				<span class="font-eyebrow">Something more one-off?</span>
+				{/*
+					Heading and blurb must agree on the billing model. This block used
+					to say "billed hourly" and list implementation, while the plan
+					includes 4 hours/month and quotes larger implementations fixed —
+					the same work at two prices on one page. Both now say fixed quote,
+					and implementation appears only with the beyond-included-hours
+					qualifier. Don't reintroduce a bare "implementation" here.
+				*/}
+				<h2 class="font-title">Scoped and quoted before we start.</h2>
+			</header>
+
+			<div class="oneoff-tile grid grid-cols-1 @3xl:grid-cols-4 gap-8 items-center">
+				<p class="font-body section-lead @3xl:col-span-3">
+					Not everything fits a monthly plan. Consulting, migrations, security
+					reviews, systems rollouts, and custom integrations beyond your plan's
+					included hours — scoped and priced as fixed quotes before any work
+					begins. Need an hour of advice rather than a project? That's billed
+					straight, no quote required.
+				</p>
+
+				<div class="svc-table card @3xl:col-span-1">
+					<div class="svc-row svc-row--solo">
+						<div class="svc-head">
+							<h3 class="font-heading svc-name">{generalConsulting.name}</h3>
+							<p class="svc-price">
+								<span class="svc-price__amount">{generalConsulting.price}</span>
+								<span class="svc-price__period">{generalConsulting.period}</span>
+							</p>
+						</div>
+				</div>
 			</div>
+		</div>
 		</div>
 	</section>
 
 	{/* FUNDING: the price objection handler. This is where the cost question
-	     actually arises, which is why funding lives here rather than in the nav. */}
+	     actually arises, which is why funding lives here rather than in the nav.
 	<section class="section centered" id="pricing-funding">
-		<div class="spotlight">
+		<div>
 			<div class="card funding-block">
 				<span class="font-eyebrow">Funding</span>
 				<h2 class="font-heading funding-title">
 					Ontario may cover part of this.
 				</h2>
-				{/*
-					TDP was named here with "up to $50,000" until its 2026-08-10 close.
-					It has since closed with no replacement announced and its page was
-					removed (redirects to /funding). Pitching a grant nobody can still
-					apply for sets up a conversation that ends in disappointment, so the
-					headline number is DMAP's — which is open. If a comparable build
-					grant opens, name it here.
-				*/}
 				<p class="font-body funding-copy">
 					Eligible Ontario for-profit SMEs can offset the setup and project side
 					of this work through the province's Digital Competence Centre. As of
@@ -760,6 +806,7 @@ const finePrint = [
 			</div>
 		</div>
 	</section>
+	*/}
 
 	<!-- FINE PRINT + CTA -->
 	<section class="section centered pricing-close">
@@ -1126,6 +1173,15 @@ const finePrint = [
 		content: "—";
 		color: var(--color-pine);
 		flex: 0 0 auto;
+	}
+	/* Solo row (no included list) is the media half of the one-off tile —
+	   the two-column svc-row grid (name column + list column) has nothing
+	   to put in the second track, so collapse to one. */
+	.svc-row--solo {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 100%;
 	}
 
 	/* ---- Callouts ---- */

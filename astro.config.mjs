@@ -91,6 +91,7 @@ export default defineConfig({
       // deployed worker bundle).
       include: {
         ph: [
+          "article",
           "chart-bar",
           "check-circle",
           "clock",
@@ -103,6 +104,7 @@ export default defineConfig({
           "lifebuoy",
           "lightning",
           "lock",
+          "megaphone",
           "shield-check",
           "sparkle",
           "star",

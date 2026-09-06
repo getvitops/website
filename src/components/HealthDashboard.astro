@@ -1,0 +1,522 @@
+---
+// THE BUSINESS HEALTH DASHBOARD — a single graphic (not a multi-step story
+// like StackAnimation/PresenceAnimation) making one point: every onboarded
+// service feeds the same dashboard. Traffic and content live here because
+// digital marketing produces them; spend and licence waste live here because
+// managed IT produces them. Neither pillar shows the whole picture alone.
+//
+// Same chrome family as StackAnimation/PresenceAnimation (scoped custom
+// properties onto Pine tokens, scroll-triggered reveal, count-up numbers,
+// a Replay control) but laid out as one wide card rather than the
+// two-column .anim-step (there's no separate per-item blurb to sit beside
+// it — the page-level SectionIntro carries that).
+import { Icon } from "astro-iconset/components";
+
+// Content-release markers on the trend chart's x-axis, not a separate list —
+// same "one dashboard" point the rest of the graphic makes: publishing
+// timing sits on the same axis as the money it's meant to move.
+const POST_ICONS = ["article", "megaphone", "globe"];
+---
+
+<div class="health-dash">
+	<div class="hd-grid">
+		<div class="hd-card hd-metric">
+			<span class="hd-metric__label">Web + social impressions</span>
+			<span class="hd-metric__value" id="hdImpr">0</span>
+			<span class="hd-metric__delta" id="hdImprD">▲ 21%</span>
+		</div>
+		<div class="hd-card hd-metric">
+			<span class="hd-metric__label">Visits</span>
+			<span class="hd-metric__value" id="hdVisits">0</span>
+			<span class="hd-metric__delta" id="hdVisitsD">▲ 18%</span>
+		</div>
+		<div class="hd-card hd-metric">
+			<span class="hd-metric__label">Conversions</span>
+			<span class="hd-metric__value" id="hdConv">0</span>
+			<span class="hd-metric__delta" id="hdConvD">▲ 12%</span>
+		</div>
+	</div>
+
+	<div class="hd-row">
+		<div class="hd-card hd-money">
+			<span class="hd-card__head">Revenue vs. expenses</span>
+			<div class="hd-money__lines" id="hdMoney"></div>
+		</div>
+
+		<div class="hd-card hd-licenses">
+			<span class="hd-card__head">Licence utilization</span>
+			<ul class="hd-license-list" id="hdLicenses"></ul>
+		</div>
+	</div>
+
+	{/*
+	Chart commented out for now — line graph + content-release icons, see
+	HealthDashboard.astro history. The JS that builds/animates it below is
+	also skipped (guarded on hdTrendRevPath existing) so it doesn't run
+	against missing elements.
+	<div class="hd-card hd-trend">
+		<span class="hd-card__head">Cash flow &amp; content — last month</span>
+		<svg class="hd-trend__chart" viewBox="0 0 700 220" preserveAspectRatio="none">
+			<line class="hd-trend__axis" x1="20" y1="150" x2="680" y2="150" />
+			<path class="hd-trend__path hd-trend__path--rev" id="hdTrendRevPath" />
+			<path class="hd-trend__path hd-trend__path--exp" id="hdTrendExpPath" />
+			<g id="hdTrendPoints"></g>
+			<g id="hdTrendPosts"></g>
+		</svg>
+		<div class="hd-trend__legend">
+			<span class="hd-legend-item"><span class="hd-swatch hd-swatch--rev"></span>Revenue</span>
+			<span class="hd-legend-item"><span class="hd-swatch hd-swatch--exp"></span>Expenses</span>
+			<span class="hd-legend-item">
+				<span class="hd-legend-icon" aria-hidden="true"><Icon name="ph:article" /></span>Blog post
+			</span>
+			<span class="hd-legend-item">
+				<span class="hd-legend-icon" aria-hidden="true"><Icon name="ph:megaphone" /></span>Social post
+			</span>
+			<span class="hd-legend-item">
+				<span class="hd-legend-icon" aria-hidden="true"><Icon name="ph:globe" /></span>Website update
+			</span>
+		</div>
+	</div>
+	*/}
+
+	<button class="anim-replay hd-replay" type="button" data-replay="hd">
+		<span class="anim-replay__i">↻</span> Replay
+	</button>
+</div>
+
+{/*
+<div id="hd-icon-pool" hidden>
+	{POST_ICONS.map((slug) => (
+		<span data-icon={`ph:${slug}`}>
+			<Icon name={`ph:${slug}`} />
+		</span>
+	))}
+</div>
+*/}
+
+<style is:global>
+	.health-dash {
+		--hd-s1: var(--color-navy-d);
+		--hd-s2: var(--color-navy);
+		--hd-tp: var(--color-snow);
+		--hd-ts: var(--color-mist);
+		--hd-tm: var(--color-slate);
+		--hd-bd: var(--line-1);
+		--hd-ac: var(--color-pine);
+		--hd-ok: var(--color-pine-l);
+		--hd-okbg: rgba(74, 144, 117, 0.16);
+		--hd-wn: var(--color-amber);
+		--hd-wnbg: rgba(245, 185, 74, 0.14);
+		--hd-r: var(--br-control, 6px);
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		color: var(--hd-tp);
+		font-family: var(--font-sans);
+	}
+
+	.health-dash .hd-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+	}
+	.health-dash .hd-card {
+		background: var(--hd-s2);
+		border: 1px solid var(--hd-bd);
+		border-radius: 12px;
+		padding: 1.1rem 1.25rem;
+	}
+	.health-dash .hd-card__head {
+		display: block;
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--hd-tm);
+		margin-bottom: 0.9rem;
+	}
+
+	.health-dash .hd-metric {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+	}
+	.health-dash .hd-metric__label {
+		font-size: var(--text-s);
+		color: var(--hd-ts);
+	}
+	.health-dash .hd-metric__value {
+		font-family: var(--font-display);
+		font-size: var(--text-2xl);
+		font-weight: 700;
+		font-variant-numeric: tabular-nums;
+		letter-spacing: -0.01em;
+	}
+	.health-dash .hd-metric__delta {
+		width: fit-content;
+		font-size: var(--text-xs);
+		color: var(--hd-ok);
+		background: var(--hd-okbg);
+		padding: 0.15rem 0.5rem;
+		border-radius: 999px;
+		opacity: 0;
+		transition: opacity 0.5s ease;
+	}
+	.health-dash .hd-metric__delta.in {
+		opacity: 1;
+	}
+
+	.health-dash .hd-row {
+		display: grid;
+		grid-template-columns: 1.2fr 1fr;
+		gap: 1rem;
+	}
+
+	.health-dash .hd-money__lines {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+	.health-dash .hd-money__line {
+		display: grid;
+		grid-template-columns: 8rem 1fr auto;
+		align-items: center;
+		gap: 0.75rem;
+		font-size: var(--text-s);
+	}
+	.health-dash .hd-money__label {
+		color: var(--hd-ts);
+	}
+	.health-dash .hd-bar-track {
+		height: 8px;
+		border-radius: 4px;
+		background: var(--hd-s1);
+		overflow: hidden;
+	}
+	.health-dash .hd-bar-fill {
+		height: 100%;
+		width: 0;
+		border-radius: 4px;
+		transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+	.health-dash .hd-bar-fill--rev {
+		background: var(--hd-ac);
+	}
+	.health-dash .hd-bar-fill--exp {
+		background: var(--hd-wn);
+	}
+	.health-dash .hd-money__amt {
+		font-variant-numeric: tabular-nums;
+		color: var(--hd-tp);
+		font-weight: 500;
+		white-space: nowrap;
+	}
+
+	/* ---- Trend chart: two lines (revenue, expenses), deliberately no
+	   y-axis — the point is "revenue cleared expenses every week", not a
+	   precise figure a reader would need ticks to read off. Content-release
+	   icons sit on the x-axis at their actual publish position instead of a
+	   separate list, so timing and cash flow read off the same axis. ---- */
+	.health-dash .hd-trend__chart {
+		display: block;
+		width: 100%;
+		height: 220px;
+		overflow: visible;
+	}
+	.health-dash .hd-trend__axis {
+		stroke: var(--hd-bd);
+		stroke-width: 1;
+	}
+	.health-dash .hd-trend__path {
+		fill: none;
+		stroke-width: 3;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+	.health-dash .hd-trend__path--rev {
+		stroke: var(--hd-ac);
+	}
+	.health-dash .hd-trend__path--exp {
+		stroke: var(--hd-wn);
+	}
+	.health-dash .hd-trend__point {
+		opacity: 0;
+		transition: opacity 0.4s ease;
+	}
+	.health-dash .hd-trend__point.in {
+		opacity: 1;
+	}
+	.health-dash .hd-trend__post-tick {
+		stroke: var(--hd-bd);
+		stroke-width: 1;
+	}
+	.health-dash .hd-trend__post-icon {
+		color: var(--hd-tm);
+		opacity: 0;
+		transform: translateY(-4px);
+		transition: opacity 0.4s ease, transform 0.4s ease;
+	}
+	.health-dash .hd-trend__post-icon.in {
+		opacity: 1;
+		transform: none;
+	}
+	.health-dash .hd-trend__post-icon svg {
+		width: 100%;
+		height: 100%;
+	}
+	.health-dash .hd-trend__legend {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.1rem;
+		margin-top: 0.5rem;
+	}
+	.health-dash .hd-legend-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-size: var(--text-xs);
+		color: var(--hd-ts);
+	}
+	.health-dash .hd-legend-icon {
+		width: 0.9rem;
+		height: 0.9rem;
+		display: inline-flex;
+		color: var(--hd-tm);
+	}
+	.health-dash .hd-legend-icon svg {
+		width: 100%;
+		height: 100%;
+	}
+	.health-dash .hd-swatch {
+		width: 0.6rem;
+		height: 0.6rem;
+		border-radius: 2px;
+	}
+	.health-dash .hd-swatch--rev {
+		background: var(--hd-ac);
+	}
+	.health-dash .hd-swatch--exp {
+		background: var(--hd-wn);
+	}
+
+	.health-dash .hd-license-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+	.health-dash .hd-license-list li {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.75rem;
+		font-size: var(--text-s);
+		color: var(--hd-ts);
+	}
+	.health-dash .hd-license-list .hd-license__stat {
+		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
+	}
+	.health-dash .hd-license-list .hd-license__stat.hd-license__stat--idle {
+		color: var(--hd-wn);
+		background: var(--hd-wnbg);
+		padding: 0.1rem 0.5rem;
+		border-radius: 999px;
+	}
+
+	.health-dash .hd-replay {
+		align-self: flex-start;
+	}
+
+	@media (max-width: 720px) {
+		.health-dash .hd-grid {
+			grid-template-columns: 1fr;
+		}
+		.health-dash .hd-row {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<script is:inline>
+(function () {
+	const $ = (id) => document.getElementById(id);
+
+	const MONEY = [
+		{ id: "rev", n: "Revenue", amount: 18400, kind: "rev" },
+		{ id: "sw", n: "Software spend", amount: 2150, kind: "exp" },
+		{ id: "pr", n: "Payroll", amount: 9200, kind: "exp" },
+		{ id: "ot", n: "Other expenses", amount: 1400, kind: "exp" },
+	];
+	const MONEY_MAX = Math.max(...MONEY.map((m) => m.amount));
+	$("hdMoney").innerHTML = MONEY.map(
+		(m) =>
+			`<div class="hd-money__line"><span class="hd-money__label">${m.n}</span><div class="hd-bar-track"><div class="hd-bar-fill hd-bar-fill--${m.kind}" id="hdBar_${m.id}"></div></div><span class="hd-money__amt" id="hdAmt_${m.id}">$0</span></div>`,
+	).join("");
+
+	// astro-iconset build-time SVGs, read out of the hidden pool once —
+	// same pattern StackAnimation uses for its brand-logo marks.
+	const ICON_POOL = {};
+	document.querySelectorAll("#hd-icon-pool > [data-icon]").forEach((el) => {
+		ICON_POOL[el.getAttribute("data-icon")] = el.innerHTML;
+	});
+
+	// Illustrative week-over-week shape (% of chart height) — the point made
+	// is "revenue cleared expenses, and by a widening margin", not a precise
+	// figure, which is why there's no y-axis to read one off.
+	//
+	// Chart is commented out in the template for now — guarded on its root
+	// path element existing so this doesn't throw against missing nodes.
+	const CX0 = 20, CX1 = 680, CY0 = 20, CY1 = 150;
+	const REV = [42, 55, 60, 74, 86, 100];
+	const EXP = [30, 34, 37, 42, 46, 50];
+	const xAt = (i, n) => CX0 + (i / (n - 1)) * (CX1 - CX0);
+	const yAt = (v) => CY1 - (v / 100) * (CY1 - CY0);
+	const pathFor = (values) =>
+		"M " + values.map((v, i) => `${xAt(i, values.length)},${yAt(v)}`).join(" L ");
+
+	if ($("hdTrendRevPath")) {
+		$("hdTrendRevPath").setAttribute("d", pathFor(REV));
+		$("hdTrendExpPath").setAttribute("d", pathFor(EXP));
+		$("hdTrendPoints").innerHTML =
+			REV.map(
+				(v, i) =>
+					`<circle class="hd-trend__point" cx="${xAt(i, REV.length)}" cy="${yAt(v)}" r="4" fill="var(--hd-ac)" />`,
+			).join("") +
+			EXP.map(
+				(v, i) =>
+					`<circle class="hd-trend__point" cx="${xAt(i, EXP.length)}" cy="${yAt(v)}" r="4" fill="var(--hd-wn)" />`,
+			).join("");
+
+		// Content releases, placed at their real position along the month
+		// rather than snapped to a revenue/expense data point.
+		const POSTS = [
+			{ frac: 0.06, icon: "ph:article", label: "Blog: “Is your software stack outgrowing you?”" },
+			{ frac: 0.45, icon: "ph:megaphone", label: "Instagram: before/after project photos" },
+			{ frac: 0.86, icon: "ph:globe", label: "Website: pricing page refresh" },
+		];
+		$("hdTrendPosts").innerHTML = POSTS.map((p, i) => {
+			const x = CX0 + p.frac * (CX1 - CX0);
+			const svg = ICON_POOL[p.icon] || "";
+			return (
+				`<line class="hd-trend__post-tick" x1="${x}" y1="${CY1}" x2="${x}" y2="${CY1 + 12}" />` +
+				`<foreignObject class="hd-trend__post-icon" id="hdPost${i}" x="${x - 9}" y="${CY1 + 16}" width="18" height="18"><div xmlns="http://www.w3.org/1999/xhtml" title="${p.label}" style="width:18px;height:18px">${svg}</div></foreignObject>`
+			);
+		}).join("");
+	}
+
+	const LICENSES = [
+		{ n: "Google Workspace", stat: "14 / 22 seats used", idle: "8 idle · $67/mo" },
+		{ n: "Anthropic", stat: "5 / 6 seats used", idle: "1 idle · $55/mo" },
+		{ n: "Rippling", stat: "22 / 22 seats used", idle: null },
+	];
+	$("hdLicenses").innerHTML = LICENSES.map(
+		(l) =>
+			`<li><span>${l.n}<br><span style="color:var(--hd-tm);font-size:var(--text-xs)">${l.stat}</span></span>${
+				l.idle
+					? `<span class="hd-license__stat hd-license__stat--idle">${l.idle}</span>`
+					: `<span class="hd-license__stat">fully used</span>`
+			}</li>`,
+	).join("");
+
+	function countTo(el, to, prefix, dur) {
+		const steps = Math.max(1, Math.round(dur / 40));
+		let i = 0;
+		const id = setInterval(() => {
+			i++;
+			const v = Math.round(to * Math.min(1, i / steps));
+			el.textContent = (prefix || "") + v.toLocaleString();
+			if (i >= steps) clearInterval(id);
+		}, 40);
+		timers.push(id);
+	}
+
+	let timers = [];
+	const clr = () => {
+		timers.forEach((t) => {
+			clearTimeout(t);
+			clearInterval(t);
+		});
+		timers.length = 0;
+	};
+
+	function run() {
+		clr();
+		countTo($("hdImpr"), 84200, "", 1000);
+		countTo($("hdVisits"), 12480, "", 1000);
+		countTo($("hdConv"), 312, "", 900);
+		["hdImprD", "hdVisitsD", "hdConvD"].forEach((id, i) =>
+			timers.push(setTimeout(() => $(id).classList.add("in"), 900 + i * 120)),
+		);
+
+		MONEY.forEach((m, i) => {
+			const bar = $("hdBar_" + m.id);
+			const amt = $("hdAmt_" + m.id);
+			bar.style.width = "0%";
+			amt.textContent = "$0";
+			timers.push(
+				setTimeout(
+					() => {
+						bar.style.width = (m.amount / MONEY_MAX) * 100 + "%";
+						countTo(amt, m.amount, "$", 900);
+					},
+					200 + i * 150,
+				),
+			);
+		});
+
+		// Chart is commented out in the template for now.
+		if ($("hdTrendRevPath")) {
+			[$("hdTrendRevPath"), $("hdTrendExpPath")].forEach((path) => {
+				const len = path.getTotalLength();
+				path.style.transition = "none";
+				path.style.strokeDasharray = len;
+				path.style.strokeDashoffset = len;
+				// Force a reflow so the dash-offset reset above isn't coalesced
+				// with the animated value set below into a single paint.
+				path.getBoundingClientRect();
+				path.style.transition = "stroke-dashoffset 1.1s cubic-bezier(0.4, 0, 0.2, 1)";
+			});
+			timers.push(
+				setTimeout(() => {
+					$("hdTrendRevPath").style.strokeDashoffset = 0;
+					$("hdTrendExpPath").style.strokeDashoffset = 0;
+				}, 150),
+			);
+
+			const points = Array.from(document.querySelectorAll(".health-dash .hd-trend__point"));
+			points.forEach((p) => p.classList.remove("in"));
+			points.forEach((p, i) => timers.push(setTimeout(() => p.classList.add("in"), 250 + i * 80)));
+
+			const posts = Array.from(document.querySelectorAll(".health-dash .hd-trend__post-icon"));
+			posts.forEach((p) => p.classList.remove("in"));
+			posts.forEach((p, i) => timers.push(setTimeout(() => p.classList.add("in"), 700 + i * 280)));
+		}
+	}
+
+	const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+	const el = document.querySelector(".health-dash");
+	if (el && !reduceMotion && "IntersectionObserver" in window) {
+		let played = false;
+		const io = new IntersectionObserver(
+			(entries) => {
+				for (const e of entries) {
+					if (e.isIntersecting && !played) {
+						played = true;
+						run();
+					}
+				}
+			},
+			{ threshold: 0.4 },
+		);
+		io.observe(el);
+	} else {
+		run();
+	}
+
+	const replay = document.querySelector('[data-replay="hd"]');
+	if (replay) replay.onclick = run;
+})();
+</script>
