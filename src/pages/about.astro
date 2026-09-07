@@ -55,7 +55,7 @@ const values = [
 
 <PineLayout
 	title="About Vitops — our mission, values and how we work"
-	description="Vitops is an Ottawa operations partner running the digital presence a business is seen through and the software operations behind it. Our mission, what we've decided in advance, and who this suits."
+	description="Vitops is an Ottawa operations partner running the software a business operates on and the digital presence it's seen through. Our mission, what we've decided in advance, and who this suits."
 >
 	<Schema data={organizationGraph} />
 	<Schema data={breadcrumb(["About", "/about"])} />
@@ -63,7 +63,7 @@ const values = [
 	<PageHero
 		eyebrow="About"
 		title="One partner for all of it."
-		lead="Vitops runs the digital presence a business is seen through and the software operations behind it — including the accounts, HR systems and vendor relationships most owners would rather not think about — under one partner rather than two vendors. What we're for, what we're aiming at, and what we've decided in advance."
+		lead="Vitops runs the software a business operates on — including the accounts, licences, HR systems and vendor relationships most owners would rather not think about — and the digital presence it's seen through, under one partner rather than two vendors. What we're for, what we're aiming at, and what we've decided in advance."
 		secondaryLabel="See pricing"
 		secondaryHref="/pricing"
 	/>
@@ -72,12 +72,11 @@ const values = [
 		<p>
 			Vitops is an Ottawa-based operations partner for Ontario small businesses.
 			We run both halves of the work a growing company needs handled — the
-			digital presence it is seen through, and the software operations behind
-			it, including the accounts, HR systems and vendor relationships most
-			owners would rather not think about — under one partner rather than two
-			vendors. The company was founded by Justin Lang and Alex Gagnon, who had
-			each spent years running one of those halves for the same kind of
-			business.
+			software it operates on, including the accounts, HR systems and vendor
+			relationships most owners would rather not think about, and the digital
+			presence it is seen through — under one partner rather than two vendors.
+			The company was founded by Justin Lang and Alex Gagnon, who had each
+			spent years running one of those halves for the same kind of business.
 		</p>
 	</Prose>
 
@@ -88,12 +87,11 @@ const values = [
 				title="Run the work a small business can't justify hiring for."
 			/>
 			<p class="font-body text-neutral-muted">
-				Every growing business needs its software and devices, its books and
-				payroll, and its presence handled well. Almost none of them can justify
-				a hire for one of those, let alone three. Vitops exists to run all
-				three under one partner, at a published price, for businesses past the
-				point where the admin is a real cost and short of the point where a
-				dedicated hire pays for itself.
+				Every growing business needs its software stack handled well, and the
+				presence built on top of it. Almost none of them can justify a hire for
+				either. Vitops exists to run both under one partner, at a published
+				price, for businesses past the point where the admin is a real cost and
+				short of the point where a dedicated hire pays for itself.
 			</p>
 		</div>
 
@@ -107,10 +105,11 @@ const values = [
 				in the seam between them, which is exactly where nobody was accountable.
 			</p>
 			<p class="font-body text-neutral-muted">
-				So each account has one of us on it as the owner: the person who makes
-				the decisions, does the work, and picks up when something breaks. What
-				the second founder gives you is that the other half never becomes
-				somebody else's vendor.
+				So one of us owns the software stack and the presence built on it, and
+				the other owns operations — the accounts, the systems and the vendor
+				relationships behind them. Each half has one person who makes the
+				decisions, does the work, and picks up when something breaks, so
+				neither half ever becomes somebody else's vendor.
 			</p>
 		</div>
 	</section>
@@ -140,22 +139,11 @@ const values = [
 
 	<section class="section centered">
 		<div class="spotlight">
-			<SectionIntro eyebrow="Co-founders" title="Who runs it." />
+			<SectionIntro eyebrow="Leadership" title="Who runs it." />
 
 			<div class="split flex-col @md:flex-row gap-10">
 				<article class="rhythm">
-					<h3 class="font-heading">Justin Lang — CEO</h3>
-					<p class="font-body text-neutral-muted">
-						A PhD in Population Health and more than a decade spent on how
-						absence, disability and injury move through a business, then
-						running HR, payroll and benefits operations for small employers.
-						Owns the back office at Vitops: bookkeeping, payroll, benefits, HR
-						operations and the employee lifecycle.
-					</p>
-				</article>
-
-				<article class="rhythm">
-					<h3 class="font-heading">Alex Gagnon — CTO</h3>
+					<h3 class="font-heading">Alex Gagnon — Co-CEO, IT</h3>
 					<p class="font-body text-neutral-muted">
 						A Master of Computer Science focused on artificial intelligence,
 						and years building websites, search presence and the systems
@@ -163,6 +151,17 @@ const values = [
 						Solutions Architect Expert, and certified in Security, Compliance
 						and Identity. Owns the software stack and the digital presence at
 						Vitops.
+					</p>
+				</article>
+
+				<article class="rhythm">
+					<h3 class="font-heading">Justin Lang — Co-CEO, Operations</h3>
+					<p class="font-body text-neutral-muted">
+						A PhD in Population Health and more than a decade spent on how
+						absence, disability and injury move through a business, then
+						running HR, payroll and benefits operations for small employers.
+						Owns operations at Vitops: the HR, payroll and bookkeeping systems,
+						the employee lifecycle and the vendor relationships behind them.
 					</p>
 				</article>
 			</div>
@@ -176,9 +175,9 @@ const values = [
 				<article class="rhythm">
 					<h3 class="font-heading">Works well for</h3>
 					<p class="font-body text-neutral-muted">
-						Ontario businesses roughly between 5 and 150 people, at the size
-						where back-office admin has become a real cost but a dedicated hire
-						still can't be justified. <a class="link" href="/industries"
+						Small and Medium Businesses (SMBs) up to 150 people. At that size
+						the software, licence and account admin has become a real cost but
+						a dedicated hire still can't be justified. <a class="link" href="/industries"
 							>Trades, brokerages, professional firms and clinics</a
 						> are where we see that most.
 					</p>
@@ -186,18 +185,12 @@ const values = [
 				<article class="rhythm">
 					<h3 class="font-heading">Not a good fit</h3>
 					<p class="font-body text-neutral-muted">
-						Under about five people, where the admin isn't heavy enough yet.
-						Enterprise brand campaigns — a different discipline. Desk-side
-						hardware repair — that stays with whoever's physically on site;
-						we run the software, not the hardware. And anyone wanting a vendor
-						rather than a partner.
+						Small businesses under about five people who want to manage things themselves.
+						Enterprise brand campaigns, where specialists are required. 
+						Companies also looking to include hardware provisioning and repair.
 					</p>
 				</article>
 			</div>
-			<p class="font-caption text-neutral-x-muted mt-8">
-				Based in Ottawa, working throughout Ontario, and supporting businesses
-				elsewhere in Canada remotely.
-			</p>
 		</div>
 	</section>
 
@@ -206,11 +199,32 @@ const values = [
 		<p class="font-body text-neutral-muted">
 			We administer systems and operations. We're not your accountant, lawyer,
 			benefits broker or clinician — tax positions, legal opinions, plan design
-			and clinical decisions stay with the people qualified to make them. On
-			funding, approval and amounts are decided by OCI, not by us. And you remain
-			the employer of record for your staff: this is not a PEO arrangement and we
-			don't take on employment liability.
+			and clinical decisions stay with the people qualified to make them. We
+			administer the systems your books, payroll and HR records live in: we
+			don't do the bookkeeping, don't run the payroll, and don't make plan
+			decisions. On funding, approval and amounts are decided by OCI, not by us.
 		</p>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="Areas" title="Where we work." />
+			<p class="font-body text-neutral-muted">
+				Ontario is our primary market. Ottawa is home — where we're based and
+				where we show up in person, at local networking events and with local
+				clients — and we support businesses elsewhere in Canada remotely.
+			</p>
+			<p class="font-caption text-neutral-x-muted mt-4">
+				More on Ottawa:
+				<a class="link" href="/seo-services-ottawa">SEO services</a>,
+				<a class="link" href="/web-design-ottawa">web design</a>,
+				<a class="link" href="/digital-marketing-agency-ottawa"
+					>digital marketing agency</a
+				>, or <a class="link" href="/contact">contact us</a> directly.
+				<!-- /managed-it-services-ottawa exists as src/pages/_managed-it-services-ottawa.astro
+				     but is underscore-prefixed and not a live route — add it here once re-enabled. -->
+			</p>
+		</div>
 	</section>
 
 	<PageCta

@@ -277,10 +277,13 @@ const hostingTiers = [
 // per-user line. Website tiers and one-off/consulting work are quoted, not
 // published prices, so they're excluded rather than represented with a
 // placeholder.
+// Payroll and benefits administration are NOT in these offers — the pricing
+// section that describes them is commented out below (see the "PAYROLL &
+// BENEFITS SOFTWARE" block), so a live JSON-LD Offer for either would price a
+// service the page no longer shows. Add them back only when that section
+// returns.
 const managedItOffers = [
 	{ name: softwarePlan.name, price: 30, minPrice: 150, unitText: "per user per month" },
-	{ name: "Managed payroll", price: 30, minPrice: 150, unitText: "per user per month" },
-	{ name: "Benefits administration", price: 20, minPrice: 150, unitText: "per user per month" },
 ];
 const digitalMarketingOffers = hostingTiers.map((t) => ({
 	name: `Website — ${t.name}`,
@@ -305,7 +308,7 @@ const finePrint = [
 
 <PineLayout
 	title="Managed IT and digital marketing pricing, Ontario"
-	description="Two services, priced simply. Managed IT at $30 per user per month, HRIS included; payroll and benefits software administration per user; managed website plans from $39/mo. Month-to-month.">
+	description="Two services, priced simply. Managed IT at $30 per user per month, HRIS included; managed website plans from $39/mo. Month-to-month.">
 	<Schema
 		data={{
 			...service(
@@ -369,9 +372,7 @@ const finePrint = [
 					rather than a ladder — we'd rather sell one thing that means something
 					than three that need a chart. A user is anyone who needs accounts and
 					access — employees and contractors alike — so you're billed for the
-					people you actually set up, not your headcount. Payroll and benefits
-					software administration are
-					<a class="link" href="#payroll-benefits-pricing">priced separately</a>.
+					people you actually set up, not your headcount.
 				</p>
 			</header>
 
@@ -452,8 +453,9 @@ const finePrint = [
 				that price through; assume list until we've checked your particular
 				stack. Some features need a particular licence tier before we can switch
 				them on, and we'll tell you which on the first call rather than after
-				you've signed. Running something this plan doesn't cover? Ask us about
-				our other managed services.
+				you've signed. Running something this plan doesn't cover? See the
+				one-off consulting rate below, or ask and we'll tell you honestly if
+				it's not something we do.
 			</p>
 
 			{/*
@@ -753,11 +755,11 @@ const finePrint = [
 
 			<div class="oneoff-tile grid grid-cols-1 @3xl:grid-cols-4 gap-8 items-center">
 				<p class="font-body section-lead @3xl:col-span-3">
-					Not everything fits a monthly plan. Consulting, migrations, security
-					reviews, systems rollouts, and custom integrations beyond your plan's
-					included hours — scoped and priced as fixed quotes before any work
-					begins. Need an hour of advice rather than a project? That's billed
-					straight, no quote required.
+					Not everything fits a monthly plan. Consulting, migrations, access and
+					identity reviews, software rollouts, and custom integrations beyond
+					your plan's included hours — scoped and priced as fixed quotes before
+					any work begins. Need an hour of advice rather than a project? That's
+					billed straight, no quote required.
 				</p>
 
 				<div class="svc-table card @3xl:col-span-1">

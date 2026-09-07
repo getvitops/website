@@ -42,20 +42,19 @@ export const ORGANIZATION = {
     addressCountry: "CA",
   },
   description:
-    "Vitops runs the digital presence and the software, IT and back-office operations behind it for Ontario small businesses.",
+    "Vitops runs managed IT services and digital marketing for Ontario small businesses.",
   areaServed: ["Ottawa", "Ontario", "Canada"],
   founder: [
     {
       "@type": "Person",
       name: "Justin Lang",
-      jobTitle: "Co-founder",
+      jobTitle: "Co-CEO",
       alumniOf: { "@type": "EducationalOrganization", name: "PhD, Population Health" },
-      sameAs: "https://www.linkedin.com/in/justinl-viabilityhr",
     },
     {
       "@type": "Person",
       name: "Alex Gagnon",
-      jobTitle: "Co-founder",
+      jobTitle: "Co-CEO",
       alumniOf: {
         "@type": "EducationalOrganization",
         name: "Master of Computer Science",
@@ -66,7 +65,6 @@ export const ORGANIZATION = {
         cert("Microsoft Certified: Azure Administrator Associate"),
         cert("Microsoft Certified: Security, Compliance, and Identity Fundamentals"),
       ],
-      sameAs: "https://www.linkedin.com/in/alex-gagnon-658108189/",
     },
   ],
   sameAs: [
