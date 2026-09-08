@@ -54,7 +54,7 @@ const pageCtx = createPublicPageContext({
 	siteName: siteTitle,
 });
 
-// Two axes, two nav items. Services is what we do (the three pillars);
+// Two axes, two nav items. Services is what we do (the two pillars);
 // Industries is who for. Industries is deliberately NOT inside the Services
 // menu — it answers a different question, and nesting it collapses the
 // distinction.
@@ -68,11 +68,10 @@ const pageCtx = createPublicPageContext({
 const navLinks: { label: string; href: string; children?: { label: string; href: string }[] }[] = [
 	{
 		label: "Services",
-		href: "/business-software",
+		href: "/managed-it-services",
 		children: [
-			{ label: "Business software", href: "/business-software" },
-			{ label: "Back office", href: "/back-office" },
-			{ label: "Digital presence", href: "/digital-presence" },
+			{ label: "Managed IT services", href: "/managed-it-services" },
+			{ label: "Digital marketing", href: "/digital-marketing" },
 		],
 	},
 	{ label: "Industries", href: "/industries" },
@@ -282,8 +281,7 @@ const variant = Astro.locals.variant ?? "a";
 					<span class="brand-word">vitops</span>
 				</a>
 				<p class="font-caption footer-blurb">
-					Vitops runs the digital presence and the day to day IT and HR
-					operations for businesses that would rather spend their time on
+					Vitops manages the IT and digital marketing for businesses that would rather spend their time on
 					the work they are good at.
 				</p>
 
@@ -291,9 +289,8 @@ const variant = Astro.locals.variant ?? "a";
 					<div class="footer-col">
 						<h2 class="font-eyebrow footer-head">Services</h2>
 						<ul>
-							<li><a href="/business-software">Business software</a></li>
-							<li><a href="/back-office">Back office</a></li>
-							<li><a href="/digital-presence">Digital presence</a></li>
+							<li><a href="/managed-it-services">Managed IT services</a></li>
+							<li><a href="/digital-marketing">Digital marketing</a></li>
 							<li><a href="/industries">Industries</a></li>
 							<li><a href="/pricing">Pricing</a></li>
 						</ul>
@@ -303,7 +300,7 @@ const variant = Astro.locals.variant ?? "a";
 						<ul>
 							<li><a href="/funding">All programs</a></li>
 							<li><a href="/funding/dmap">DMAP</a></li>
-							<li><a href="/funding/tdp">TDP</a></li>
+							<li><a href="/funding/rmpg">RMPG</a></li>
 							<li><a href="/funding/bdc-lift">BDC LIFT</a></li>
 						</ul>
 					</div>
@@ -311,7 +308,7 @@ const variant = Astro.locals.variant ?? "a";
 						<h2 class="font-eyebrow footer-head">Company</h2>
 						<ul>
 							<li><a href="/about">About</a></li>
-							<li><a href="/#contact">Contact</a></li>
+							<li><a href="/contact">Contact</a></li>
 							<li><a href="mailto:hi@vitops.ca">hi@vitops.ca</a></li>
 							<li><a href="/privacy">Privacy policy</a></li>
 							<li><a href="/cookies">Cookie notice</a></li>

@@ -2,6 +2,9 @@
 import PineLayout from "../layouts/PineLayout.astro";
 import PageHero from "../components/page/PageHero.astro";
 import Subgrid from "@getvitops/astro/components/Subgrid.astro";
+import Schema from "../components/page/Schema.astro";
+import HealthDashboard from "../components/HealthDashboard.astro";
+import { breadcrumb, service } from "../lib/schema";
 
 // Prerendered: no per-request data on this page. EmDash pins the site to
 // output:"server" — its injected /_emdash/* dynamic routes would each need
@@ -127,6 +130,11 @@ const softwareAddons = [
 ];
 
 // --- Digital Presence: priced per service -----------------------------------
+//
+// ⚠️ Email & review campaigns needs a CRM or email platform to run against —
+// same "we don't resell software" framing as the managed IT plan: the fee is
+// for running the sequences, the client (or we, pass-through) owns the
+// licence. Don't ship this line until that dependency is confirmed sellable.
 const presenceServices = [
 	{
 		name: "SEO & GEO optimization",
@@ -157,63 +165,52 @@ const presenceServices = [
 			"Content calendar and posting across up to 3 platforms, kept on brand",
 		],
 	},
+	{
+		name: "Email & review campaigns",
+		price: "$200",
+		period: "/ mo",
+		included: [
+			"Sale, promo, and upsell sequences run against your CRM or email platform",
+			"Post-job Google review requests, triggered off job or payment completion",
+			"Monthly send report: opens, clicks, reviews collected",
+		],
+	},
 ];
 
 // --- Back Office ------------------------------------------------------------
 //
-// Bookkeeping's rate is confirmed. Payroll, benefits administration and HR
-// operations are still ⚠️ PLACEHOLDER figures — plausible Canadian SMB numbers
-// chosen so the structure could be reviewed. Confirm them before production.
+// Bookkeeping REMOVED as a standalone priced line (2026-09-05) — Vitops doesn't
+// perform bookkeeping itself; a white-label bookkeeping arrangement (internally
+// "DoYo") is under consideration but unresolved, and pricing a service we might
+// route through a third party isn't ours to publish yet. Software-side
+// administration of QuickBooks/Zoho Books is still covered — see
+// PLAN-mit-bookkeeping-payroll-software.md — just not as its own billed line
+// until DoYo is settled. Don't reintroduce a bookkeeping price here without
+// that decision made first.
 //
-// Payroll $30 and benefits $20 PEPM are decided, not derived — both sit at the
-// service-level comparables in the market benchmark (payroll's bureau row, not
-// its software row), so the per-user line is the all-in price of serving one
-// person. No base fee sits on top of any of the three: at an all-in rate a base
-// double-counts the same work. A monthly minimum carries the small end instead,
-// which is how these are actually sold — the benchmark notes minimums bind.
+// Payroll and benefits administration are re-scoped the same day: Vitops
+// administers the SOFTWARE (Payworks, ADP, whatever the client is on) rather
+// than running pay or processing enrolments itself. The client submits and
+// approves every payroll run. Prices ($30 / $20 PEPM) are unchanged from the
+// prior full-service framing — they were decided figures, not derived from a
+// cost model, so there's no benchmark to re-run; only what's delivered changed.
 //
-// The HRIS is no longer a back-office line. It sits in the business software
-// plan instead — it's the system of record joiner/mover/leaver runs against,
-// and JML is in that plan too, so splitting the two across pillars priced a
-// dependency away from the thing that depends on it. Nothing on this page
-// charges separately for it now; it's inside the per-user plan price. Don't
-// reintroduce an "HR operations" line without deciding what it contains beyond
-// the HRIS.
+// Both $150 minimums stand (CONFIRMED 2026-08-01, a decided floor, not
+// benchmarked) — they're the reason the small end doesn't run at a loss under
+// either framing.
 //
-// Both $150 minimums are CONFIRMED (2026-08-01). They aren't benchmarked — the
-// source PEPM table has no minimum or base column — they're a decided floor.
-// At $30 payroll that's ~5 users and at $20 benefits ~8, which is where the
-// fixed per-client work (the pay-run calendar, the enrolment setup) stops being
-// covered by headcount alone. They're the reason the small end doesn't run at a
-// loss, so don't drop them to win a five-person client.
-//
-// Bookkeeping is the one genuine exception and stays banded: it scales with
-// transaction volume and entity count, so a 12-person contractor with three
-// entities and heavy AP is more work than a 40-person firm with clean books,
-// and $/user misprices both ends. Do NOT reintroduce a blanket "priced per
-// service, not per seat" claim — three of the four lines now disprove it.
-//
-// Joiner/mover/leaver is intentionally absent — it spans both halves and is
-// already priced inside the business software plan. Don't double-charge it.
+// The HRIS is not a back-office line — it's in the business software plan,
+// priced there because JML runs against it. Joiner/mover/leaver is
+// intentionally absent here for the same reason; don't double-charge it.
 const backOfficeServices = [
-	{
-		name: "Bookkeeping",
-		price: "$300–800",
-		period: "/ mo",
-		included: [
-			"Transaction coding, bank and credit card reconciliations, and a monthly close — the books kept current rather than rebuilt at year-end",
-			"Banded by transaction volume and number of entities — we quote after a look at your last quarter",
-			"Accounts payable and receivable, job costing and inventory tracking are priced on top of the band",
-		],
-	},
 	{
 		name: "Managed payroll",
 		price: "$30",
 		period: "/ user / mo · $150 minimum",
 		included: [
-			"Pay runs prepared and submitted, direct deposits and CRA remittances scheduled from your account, T4s and ROEs filed to schedule",
-			"Year-end filing and audit-ready documentation",
-			"Funded from your account — we never hold client funds",
+			"Payroll software administered — pay schedule, remittance calendar and filing dates configured and kept current",
+			"You submit and approve every pay run yourself; funded from your account — we never hold or move payroll funds",
+			"T4s, ROEs and year-end filing kept audit-ready in the software",
 		],
 	},
 	{
@@ -221,9 +218,9 @@ const backOfficeServices = [
 		price: "$20",
 		period: "/ user / mo · $150 minimum",
 		included: [
-			"Enrolments, life events, terminations, and payroll deduction sync",
-			"Employee questions handled directly, so they don't come to you",
-			"Your broker keeps the plan — we run the daily administration of it",
+			"Benefits software configured for enrolments, life events and terminations",
+			"Payroll deduction sync kept accurate as the plan changes",
+			"Your broker keeps the plan — we administer the software it runs on, and handle employee questions about it so they don't come to you",
 		],
 	},
 ];
@@ -235,7 +232,7 @@ const hostingTiers = [
 		price: "$39",
 		unit: "/ mo",
 		annual: "$34/mo annual",
-		setup: "$750 setup",
+		setup: "$500 setup",
 		features: [
 			"SEO- & AI-search (GEO) optimized at build: Core Web Vitals, structured data, sitemaps, llms.txt, FAQ schema",
 			"Uptime monitoring, SSL, backups, staging environment, security updates, basic analytics, and custom form submission handling",
@@ -248,12 +245,13 @@ const hostingTiers = [
 		price: "$89",
 		unit: "/ mo",
 		annual: "$79/mo annual",
-		setup: "$750 setup",
+		setup: "$500 setup",
 		tag: "Most popular",
 		features: [
 			"Everything in Essential, plus:",
 			"Server-side conversion tracking (Meta CAPI, Google enhanced conversions)",
-			"Qualified-lead alerts — a text, email, or call when a lead matches your rules, not every form fire",
+			"Monthly conversion & lead-source report",
+			"Quarterly 30-minute strategy call",
 			"4 edits / mo with priority turnaround",
 		],
 		highlighted: true,
@@ -263,17 +261,42 @@ const hostingTiers = [
 		price: "$229",
 		unit: "/ mo",
 		annual: "$199/mo annual",
-		setup: "$750 setup, +$500 tracking / rules config",
+		setup: "$500 setup, +$500 tracking / rules config",
 		features: [
 			"Everything in Signal, plus the managed layer:",
 			"Monthly A/B test cycle with plain-language results",
-			"Quarterly 30-minute strategy call",
+			"Monthly 30-minute strategy call",
 			"One landing page per quarter",
 			"6 edits / mo",
 		],
 		highlighted: false,
 	},
 ];
+
+// Offer/PriceSpecification schema — one UnitPriceSpecification per recurring,
+// per-user line. Website tiers and one-off/consulting work are quoted, not
+// published prices, so they're excluded rather than represented with a
+// placeholder.
+// Payroll and benefits administration are NOT in these offers — the pricing
+// section that describes them is commented out below (see the "PAYROLL &
+// BENEFITS SOFTWARE" block), so a live JSON-LD Offer for either would price a
+// service the page no longer shows. Add them back only when that section
+// returns.
+const managedItOffers = [
+	{ name: softwarePlan.name, price: 30, minPrice: 150, unitText: "per user per month" },
+];
+const digitalMarketingOffers = hostingTiers.map((t) => ({
+	name: `Website — ${t.name}`,
+	price: Number(t.price.replace("$", "")),
+	unitText: "per month",
+}));
+
+// --- One-off / consulting -----------------------------------------------
+const generalConsulting = {
+	name: "General consulting",
+	price: "$80",
+	period: "/ hour",
+};
 
 const finePrint = [
 	"No long-term contracts — month-to-month by default, with an optional annual commitment that waives setup",
@@ -284,22 +307,62 @@ const finePrint = [
 ---
 
 <PineLayout
-	title="Pricing"
-	description="Three services, priced simply. Software operations at $30 per user per month, HRIS included; bookkeeping banded by volume, payroll and benefits administration per user; managed website plans from $39/mo. Month-to-month.">
+	title="Managed IT and digital marketing pricing, Ontario"
+	description="Two services, priced simply. Managed IT at $30 per user per month, HRIS included; managed website plans from $39/mo. Month-to-month.">
+	<Schema
+		data={{
+			...service(
+				"Managed IT services",
+				"Software selection, implementation, integration, licence and vendor management, identity and access, AI enablement and day-to-day IT support for Ontario small businesses.",
+				"/managed-it-services",
+			),
+			offers: managedItOffers.map((o) => ({
+				"@type": "Offer",
+				name: o.name,
+				priceSpecification: {
+					"@type": "UnitPriceSpecification",
+					price: o.price,
+					priceCurrency: "CAD",
+					unitText: o.unitText,
+					...(o.minPrice ? { minPrice: o.minPrice } : {}),
+				},
+			})),
+		}}
+	/>
+	<Schema
+		data={{
+			...service(
+				"Digital marketing",
+				"Websites, SEO and answer-engine optimization, paid campaigns, social and business listings for Ontario small businesses.",
+				"/digital-marketing",
+			),
+			offers: digitalMarketingOffers.map((o) => ({
+				"@type": "Offer",
+				name: o.name,
+				priceSpecification: {
+					"@type": "UnitPriceSpecification",
+					price: o.price,
+					priceCurrency: "CAD",
+					unitText: o.unitText,
+				},
+			})),
+		}}
+	/>
+	<Schema data={breadcrumb(["Pricing", "/pricing"])} />
 	<!-- PAGE INTRO -->
 	<PageHero
 		eyebrow="Pricing"
-		title="Three services, priced simply."
-		lead="Month-to-month by default — cancel with 30 days' notice. Business software carries a one-time setup, waived on an annual commitment; website plans include a one-time build & setup. These prices are a starting point for planning; your actual quote depends on team size and scope."
+		title="Two services, priced simply."
+		lead="Month-to-month by default — cancel with 30 days' notice. Managed IT services carries a one-time setup, waived on an annual commitment; website plans include a one-time build & setup. These prices are a starting point for planning; your actual quote depends on team size and scope."
 		secondaryLabel="See what funding covers"
 		secondaryHref="#pricing-funding"
 	/>
 
-	<!-- BUSINESS SOFTWARE -->
-	<section class="section centered" id="it-hr-pricing">
+	<!-- MANAGED IT SERVICES -->
+	<section class="section centered" id="managed-it-pricing">
 		<div class="spotlight">
 			<header class="section-intro">
-				<span class="font-eyebrow">Business software</span>
+				<span class="font-eyebrow">Managed IT services</span>
 				<h2 class="font-title">
 					One rate per user, per month — so the price fits your size.
 				</h2>
@@ -309,9 +372,7 @@ const finePrint = [
 					rather than a ladder — we'd rather sell one thing that means something
 					than three that need a chart. A user is anyone who needs accounts and
 					access — employees and contractors alike — so you're billed for the
-					people you actually set up, not your headcount. Bookkeeping, payroll and
-					benefits administration are
-					<a class="link" href="#back-office-pricing">priced separately</a>.
+					people you actually set up, not your headcount.
 				</p>
 			</header>
 
@@ -392,55 +453,51 @@ const finePrint = [
 				that price through; assume list until we've checked your particular
 				stack. Some features need a particular licence tier before we can switch
 				them on, and we'll tell you which on the first call rather than after
-				you've signed. Running something this plan doesn't cover? Ask us about
-				our other managed services.
+				you've signed. Running something this plan doesn't cover? See the
+				one-off consulting rate below, or ask and we'll tell you honestly if
+				it's not something we do.
 			</p>
 
 			{/*
 				The honest-gap note, in place of the pulled top tier. Managed detection and
-				response isn't something we run yet, so it isn't on the page — not
+				response isn't something we run, so it isn't on the page — not
 				greyed out, not "coming soon". A disabled price card still occupies
 				the comparison row and still sets an expectation, and the reader who
 				wants MDR is the strongest lead here; the first thing they'd learn
 				would be that it isn't real. Saying it plainly is the same move the
 				rest of the site makes ("we're the wrong shop", "we'll point you at
 				it"), and it costs less credibility than a tier we can't sell.
-			*/}
 			<div class="callout-solo">
 				<article class="card callout">
 					<span class="font-eyebrow callout-eyebrow callout-eyebrow--muted">
-						What we don't run yet
+						What we don't run
 					</span>
 					<h3 class="font-heading callout-title">
 						Managed detection and response isn't ours to promise.
 					</h3>
 					<p class="font-body callout-copy">
-						Endpoint detection and response, and device management, aren't things
-						we operate today. If that's what your insurer, your client or your
-						own risk appetite calls for right now, we'll tell you on the first
-						call and point you at someone who does it properly — rather than sell
-						you a plan and work it out afterwards.
+						We don't yet offer Endpoint detection and response (EDR), device management (MDM), or other related services.
 					</p>
 				</article>
 			</div>
+			*/}
 		</div>
 	</section>
 
-	<!-- BACK OFFICE -->
-	<section class="section centered" id="back-office-pricing">
+	{/*
+	<!-- PAYROLL & BENEFITS SOFTWARE (part of Managed IT services) -->
+	<section class="section centered" id="payroll-benefits-pricing">
 		<div class="spotlight">
 			<header class="section-intro">
-				<span class="font-eyebrow">Back office</span>
+				<span class="font-eyebrow">Managed IT services / Payroll &amp; benefits software</span>
 				<h2 class="font-title">Take some or take all of them.</h2>
-				<p class="font-lead section-lead">
-					The books, the pay runs, the benefits changes and the employee records
-					— run to schedule by the same partner that runs your systems.
-					Payroll and benefits administration are priced per user, because every
-					pay slip and every enrolment genuinely is one more person. Bookkeeping
-					is the exception — it's banded by transaction volume and entity count,
-					since that's what actually drives the work.
-					Take one, take all of them, or combine them with the other two
-					services for{" "}
+				<p class="">
+					Your payroll and benefits software, administered — the pay schedule, the
+					remittance calendar, the enrolment changes — kept current by the same
+					partner that runs your systems. You submit and approve every pay run
+					yourself; we never hold or move funds. Priced per user, because every
+					pay slip and every enrolment genuinely is one more person.
+					Take one or both, or combine them with the other services for{" "}
 					<a class="link" href="#pricing-bundles">a bundle discount</a>.
 				</p>
 			</header>
@@ -469,16 +526,17 @@ const finePrint = [
 			<p class="section-note breakout">
 				Onboarding and offboarding isn't listed here — it spans both halves and
 				is already in every{" "}
-				<a class="link" href="#it-hr-pricing">business software</a> plan.
+				<a class="link" href="#managed-it-pricing">managed IT services</a> plan.
 			</p>
 		</div>
 	</section>
+	*/}
 
-	<!-- DIGITAL PRESENCE -->
-	<section class="section centered" id="digital-presence-pricing">
+	<!-- DIGITAL MARKETING -->
+	<section class="section centered" id="digital-marketing-pricing">
 		<div class="spotlight">
 			<header class="section-intro">
-				<span class="font-eyebrow">Digital Presence</span>
+				<span class="font-eyebrow">Digital marketing</span>
 				<h2 class="font-title">One managed website plan. Pick your tier.</h2>
 				<p class="font-lead section-lead">
 					Build, hosting, and care in a single monthly price — pick one tier,
@@ -596,6 +654,7 @@ const finePrint = [
 		</div>
 	</section>
 
+
 	<!-- BUNDLES -->
 	{/*
 		Each pricing block above sells one thing at one price — no service is
@@ -604,7 +663,6 @@ const finePrint = [
 		is deliberately about capability before discount: the integrations only
 		exist when the same partner runs both halves. That is the company's whole
 		thesis, so this section is where it gets made concretely.
-	*/}
 	<section class="section centered" id="pricing-bundles">
 		<div class="spotlight">
 			<header class="rhythm max-w-[60ch] mb-12">
@@ -615,108 +673,123 @@ const finePrint = [
 					open when two vendors own the halves — and the combined monthly total
 					drops <strong>15%</strong> from the second service on.
 				</p>
-				{/*
-					The carve-out became load-bearing when business software gained a
-					setup fee: without it, "15% off from the second service on" reads as
-					applying to the implementation fee too. Keep it adjacent to the claim
-					rather than in the terms strip, where nobody reads it at the moment it
-					matters.
-				*/}
+
 				<p class="font-caption bundle-fineprint">
 					Discount applies to recurring monthly service fees only — not setup
 					fees, one-time projects, hourly work, or ad spend.
 				</p>
 			</header>
 
-			<div class="grid gap-6 @md:grid-cols-3">
+			<div class="grid gap-6 @md:grid-cols-2">
 				<article class="card rhythm">
-					<span class="font-eyebrow text-brand-primary">Software + Back office</span>
+					<span class="font-eyebrow text-brand-primary">Managed IT services</span>
 					<h3 class="font-heading">Onboarding stops being a handoff.</h3>
 					<p class="font-body text-neutral-muted">
 						The employee record that provisions a new hire's accounts is the
-						same one that sets up their pay and their benefits enrolment, so a
-						start date gets entered once and everything downstream follows. Split
-						across two vendors, the HRIS and the payroll system drift apart, and
-						somebody reconciles them by hand every time a detail changes.
+						same one that drives their payroll and benefits software setup, so
+						a start date gets entered once and everything downstream follows.
+						Split across two vendors, the HRIS and the payroll system drift
+						apart, and somebody reconciles them by hand every time a detail
+						changes.
 					</p>
 				</article>
 
 				<article class="card rhythm">
-					<span class="font-eyebrow text-brand-primary">Software + Digital presence</span>
-					<h3 class="font-heading">The lead lands somewhere that works.</h3>
-					<p class="font-body text-neutral-muted">
-						Enquiries go into a CRM we configured, route to a named person, and
-						trigger a follow-up whether or not anyone's at a desk. When the site
-						and the systems behind it belong to different vendors, this is
-						exactly where leads go quiet.
-					</p>
-				</article>
-
-				<article class="card rhythm">
-					<span class="font-eyebrow text-brand-primary">All three</span>
+					<span class="font-eyebrow text-brand-primary">Managed IT + Digital marketing</span>
 					<h3 class="font-heading">One operator, one bill, one number.</h3>
 					<p class="font-body text-neutral-muted">
-						Nobody establishes whose fault something is. One quarterly review
-						covers the software, the books and the campaigns together, so the
-						spend and the results are read side by side rather than in three
-						separate reports.
+						Enquiries go into a CRM we configured, route to a named person, and
+						trigger a follow-up whether or not anyone's at a desk — instead of
+						going quiet at the seam between the site and the systems behind it.
+						Nobody establishes whose fault something is, and the spend and the
+						results are read side by side rather than reconciled by hand.
 					</p>
 				</article>
 			</div>
 		</div>
 	</section>
+	*/}
 
-	<!-- CALLOUT: ONE-OFF -->
+	<!-- BUSINESS HEALTH DASHBOARD -->
+	{/*
+		The cross-sell argument made visually rather than in prose: every
+		onboarded service — either pillar, or both — feeds one dashboard.
+		Traffic/impressions/content timing come from digital marketing;
+		spend and licence utilization come from managed IT. Placed after both
+		pillars (so the reader has met what produces each number) and before
+		the one-off/consulting callout (a different kind of engagement
+		entirely, and shouldn't compete with this section's close).
+	*/}
+	<section class="section centered" id="pricing-business-health">
+		<div class="spotlight">
+			<header class="section-intro">
+				<span class="font-eyebrow">Business health</span>
+				<h2 class="font-title">Everything you onboard, in one dashboard.</h2>
+				<p class="font-body section-lead">
+					Managed IT and digital marketing both write to the same view: what
+					your site and social are doing, what it's converting into, what's
+					going out the door in software spend against what's coming in, when
+					content actually goes live, and which licences you're paying for but
+					not using.
+				</p>
+			</header>
+			<HealthDashboard />
+		</div>
+	</section>
+
+	<!-- ONE-OFF / GENERAL CONSULTING -->
 	<section class="section centered" id="pricing-callouts">
 		<div class="spotlight">
-			<div class="callout-solo">
-				<article class="card callout">
-					<span class="font-eyebrow callout-eyebrow callout-eyebrow--muted">
-						Something more one-off?
-					</span>
-					{/*
-						Heading and blurb must agree on the billing model. This block used
-						to say "billed hourly" and list implementation, while the plan
-						includes 4 hours/month and quotes larger implementations fixed —
-						the same work at two prices on one page. Both now say fixed quote,
-						and implementation appears only with the beyond-included-hours
-						qualifier. Don't reintroduce a bare "implementation" here.
-					*/}
-					<h3 class="font-heading callout-title">
-						Scoped and quoted before we start.
-					</h3>
-					<p class="font-body callout-copy">
-						Not everything fits a monthly plan. Consulting, migrations, security
-						reviews, systems rollouts, and custom integrations beyond your plan's
-						included hours — scoped and priced as fixed quotes before any work
-						begins.
-					</p>
-				</article>
+			<header class="section-intro">
+				<span class="font-eyebrow">Something more one-off?</span>
+				{/*
+					Heading and blurb must agree on the billing model. This block used
+					to say "billed hourly" and list implementation, while the plan
+					includes 4 hours/month and quotes larger implementations fixed —
+					the same work at two prices on one page. Both now say fixed quote,
+					and implementation appears only with the beyond-included-hours
+					qualifier. Don't reintroduce a bare "implementation" here.
+				*/}
+				<h2 class="font-title">Scoped and quoted before we start.</h2>
+			</header>
+
+			<div class="oneoff-tile grid grid-cols-1 @3xl:grid-cols-4 gap-8 items-center">
+				<p class="font-body section-lead @3xl:col-span-3">
+					Not everything fits a monthly plan. Consulting, migrations, access and
+					identity reviews, software rollouts, and custom integrations beyond
+					your plan's included hours — scoped and priced as fixed quotes before
+					any work begins. Need an hour of advice rather than a project? That's
+					billed straight, no quote required.
+				</p>
+
+				<div class="svc-table card @3xl:col-span-1">
+					<div class="svc-row svc-row--solo">
+						<div class="svc-head">
+							<h3 class="font-heading svc-name">{generalConsulting.name}</h3>
+							<p class="svc-price">
+								<span class="svc-price__amount">{generalConsulting.price}</span>
+								<span class="svc-price__period">{generalConsulting.period}</span>
+							</p>
+						</div>
+				</div>
 			</div>
+		</div>
 		</div>
 	</section>
 
 	{/* FUNDING: the price objection handler. This is where the cost question
-	     actually arises, which is why funding lives here rather than in the nav. */}
+	     actually arises, which is why funding lives here rather than in the nav.
 	<section class="section centered" id="pricing-funding">
-		<div class="spotlight">
+		<div>
 			<div class="card funding-block">
 				<span class="font-eyebrow">Funding</span>
 				<h2 class="font-heading funding-title">
 					Ontario may cover part of this.
 				</h2>
-				{/*
-					TDP was named here with "up to $50,000" until its 2026-08-10 close
-					came inside two weeks. Pitching a grant nobody can still apply for
-					sets up a conversation that ends in disappointment, so the headline
-					number is DMAP's — which is open — and TDP is left to /funding,
-					where it's covered with its dates and its revenue floor.
-					If a comparable build grant opens, name it here.
-				*/}
 				<p class="font-body funding-copy">
 					Eligible Ontario for-profit SMEs can offset the setup and project side
 					of this work through the province's Digital Competence Centre. As of
-					August 2026, <strong>DMAP covers up to $15,000</strong> of planning.
+					September 2026, <strong>DMAP covers up to $15,000</strong> of planning.
 					Other programs open and close through the year, and which ones you can
 					use depends on your revenue and sector. Ongoing monthly service isn't
 					grant-funded.
@@ -735,6 +808,7 @@ const finePrint = [
 			</div>
 		</div>
 	</section>
+	*/}
 
 	<!-- FINE PRINT + CTA -->
 	<section class="section centered pricing-close">
@@ -1101,6 +1175,15 @@ const finePrint = [
 		content: "—";
 		color: var(--color-pine);
 		flex: 0 0 auto;
+	}
+	/* Solo row (no included list) is the media half of the one-off tile —
+	   the two-column svc-row grid (name column + list column) has nothing
+	   to put in the second track, so collapse to one. */
+	.svc-row--solo {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 100%;
 	}
 
 	/* ---- Callouts ---- */

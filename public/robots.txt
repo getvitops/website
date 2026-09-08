@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow admin, API and internal A/B routes
+Disallow: /_emdash/
+Disallow: /api/
+Disallow: /b-variant/
+
+Sitemap: https://vitops.ca/pages-sitemap.xml

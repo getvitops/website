@@ -1,6 +1,6 @@
 # Funding brief
 
-**Verified 2026-07-30** against each program's administering body. Aggregator and
+**Verified 2026-09-05** against each program's administering body. Aggregator and
 grant-consultant sites were consistently wrong on amounts and status and were not used
 as sources.
 
@@ -27,29 +27,6 @@ what wins AI answer citations. `funding-watch.md` is the standing check.
 
 This is the one that matters most to Vitops: DMAP funds exactly the work of the first
 engagement — auditing the stack and producing a roadmap.
-
-### TDP — Technology Demonstration Program
-
-|                     |                                                                                                              |
-| ------------------- | ------------------------------------------------------------------------------------------------------------ |
-| **Administered by** | OCI, via the Digital Competence Centre                                                                       |
-| **Amount**          | Up to **$50,000**                                                                                            |
-| **Eligibility**     | Ontario for-profit SME, 1–499 employees, **minimum $750K annual revenue** in one of the last three tax years |
-| **What it funds**   | Purchasing and implementing the technology identified in a completed DMAP                                    |
-| **Status**          | Listed **open until August 10, 2026**                                                                        |
-| **Prerequisite**    | **A completed DMAP project is required**                                                                     |
-| **Source**          | https://www.oc-innovation.ca/programs/digital-competence-centre/                                             |
-
-Three things the delivered copy gets wrong about TDP, all of which need correcting:
-
-- It advertises "up to $50K" as if directly available. **It isn't** — DMAP first.
-- It never mentions the **$750K revenue floor**, which excludes a meaningful share of the
-  target market.
-- It never mentions the **August 10, 2026 deadline** — the strongest urgency hook in the
-  whole plan, unused.
-
-The DMAP → TDP sequence is also a natural engagement shape: plan with us, then build with
-us, with both partly funded. Say that plainly.
 
 ### RMPG — Retail Modernization Project Grant
 
@@ -106,11 +83,12 @@ financing digital work through LIFT can spend it here.
 
 ### Programs to track, not publish
 
-| Program                             | Amount              | Status (2026-07-30)                                                                                                                                                                                                              |
-| ----------------------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **COJG** — Canada-Ontario Job Grant | up to $10K/employee | **Paused for redesign** as of May 2026; delivery-site Transfer Payment Agreements winding down. Some Employment Ontario providers still accepting, others not. Perfect fit for AI-adoption and software training when it returns |
-| **Digital Main Street DTG**         | $2,500              | **Not accepting**; vendor directory under review                                                                                                                                                                                 |
-| **CDAP**                            | —                   | **Dead.** Do not reference. LIFT is effectively its successor                                                                                                                                                                    |
+| Program                                    | Amount                                                         | Status (2026-07-30)                                                                                                                                                                                                                                             |
+| ------------------------------------------ | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **TDP** — Technology Demonstration Program | up to $50K                                                     | **Closed 2026-08-10.** No replacement announced. OCI's own page still reads "open to eligible applications until August 10, 2026" — the wording was never updated, so don't trust program pages' present-tense phrasing without checking the date against today |
+| **Ontario Job Grant** (replaced COJG)      | up to $10K/trainee ($15K for a previously-unemployed new hire) | **Open, year-round intake**, live since 2026-05-01. Excludes training by a vendor on their own product and business consulting — narrow fit for our work, but a real fit for third-party software/AI training                                                   |
+| **Digital Main Street DTG**                | $2,500                                                         | **Not accepting**; vendor directory under review                                                                                                                                                                                                                |
+| **CDAP**                                   | —                                                              | **Dead.** Do not reference. LIFT is effectively its successor                                                                                                                                                                                                   |
 
 CDAP still appears across the wider web as though live. If a prospect asks about it, the
 answer is that it ended and here's what replaced it — that exchange is itself a

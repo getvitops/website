@@ -1,7 +1,7 @@
 # /industries/clinics
 
 **Title:** `IT, HR and digital presence for Ontario medical and dental clinics | Vitops`
-**Description:** `PHIPA-aware access, endpoints that stay out of the way at the front desk, staff onboarding that's ready for the first shift, and recall campaigns that fill the schedule.`
+**Description:** `PHIPA-aware access, front-desk software that stays out of the way, staff onboarding that's ready for the first shift, and recall campaigns that fill the schedule.`
 **Schema:** `Organization`, `Service` (audience, areaServed), `FAQPage`, `BreadcrumbList`
 
 ---

@@ -1,0 +1,122 @@
+---
+import PineLayout from "../layouts/PineLayout.astro";
+import PageHero from "../components/page/PageHero.astro";
+import SectionIntro from "../components/page/SectionIntro.astro";
+import Cards from "../components/page/Cards.astro";
+import Prose from "../components/page/Prose.astro";
+import Faq from "../components/page/Faq.astro";
+import PageCta from "../components/page/PageCta.astro";
+import Schema from "../components/page/Schema.astro";
+import { breadcrumb, service } from "../lib/schema";
+import { FUNDING_NOTE } from "../lib/copy";
+
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+// Only Ottawa page under the managed-IT pillar — the other three geo pages
+// sit under digital-marketing, so there's no sibling-overlap risk to design
+// around here.
+const proximity = [
+	{
+		heading: "On-site when it matters.",
+		body: "Most software and identity work is remote regardless of where a provider sits. The exceptions — a new office network, a hardware refresh, an in-person walkthrough — are where an Ottawa-based partner actually matters.",
+	},
+	{
+		heading: "We know the local vendor landscape.",
+		body: "Which ISPs hold up, which don't, which telecom providers are worth the switch — we've already made these calls for other Ottawa clients.",
+	},
+	{
+		heading: "Same partner, same number, whether it's remote or on-site.",
+		body: "No handoff between a remote helpdesk and a local dispatch team; it's the same person either way.",
+	},
+];
+
+const faq = [
+	{
+		q: "Do you offer on-site support in Ottawa?",
+		a: "Yes, for the things that genuinely need it — network setup, hardware refresh walkthroughs, in-person onboarding. Most day-to-day work is remote, same as any managed IT relationship; being Ottawa-based just means on-site isn't a special trip.",
+	},
+	{
+		q: "Do you work with businesses in Kanata, Barrhaven, or Orleans specifically?",
+		a: "Yes — the whole city and the surrounding region. Nearly all the work is remote-first regardless of neighbourhood.",
+	},
+	{
+		q: "How is this different from a national MSP with an Ottawa office?",
+		a: "Most people call this an MSP. The difference is who answers: a named partner, not a regional branch of a larger ticketing system. See the fuller answer on managed IT services.",
+	},
+];
+---
+
+<PineLayout
+	title="Managed IT services & IT support, Ottawa"
+	description="Managed IT services and IT support for Ottawa businesses: software, licences, identity and vendor management — one local partner, one number to call."
+>
+	<Schema
+		data={service(
+			"Managed IT services, Ottawa",
+			"Software selection, identity and access, and vendor management for Ottawa small businesses, with local on-site support.",
+			"/managed-it-services-ottawa",
+		)}
+	/>
+	<Schema data={breadcrumb(["Managed IT services Ottawa", "/managed-it-services-ottawa"])} />
+
+	<PageHero
+		eyebrow="Managed IT services, Ottawa"
+		title="IT support that already knows Ottawa."
+		lead="Software chosen, wired together, and run — with a partner close enough to show up when something needs a physical presence, not just a ticket number."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			Managed IT services in Ottawa means the same core work as anywhere —
+			software selection, identity and access, vendor management, one number
+			to call — plus what proximity actually buys: faster on-site response
+			when a physical presence is what's needed, and a partner who already
+			knows which local ISPs and telecom providers are reliable in this
+			market, because we use them too.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="What being local changes"
+				title="Most of this is remote either way — some of it isn't."
+			/>
+			<Cards cards={proximity} cols={3} />
+			<p class="font-caption follow-link">
+				The full breakdown of what's included — software selection, identity
+				and access, vendor management, the seven software categories we
+				administer — lives on <a class="link" href="/managed-it-services"
+					>managed IT services</a
+				>. This page is the Ottawa entry point, not a separate service tier.
+			</p>
+		</div>
+	</section>
+
+	<Faq items={faq} title="Questions Ottawa businesses ask us." />
+
+	<PageCta
+		title="Tell us what you're running in Ottawa."
+		lead="Software, vendors, whatever's currently somebody's evenings-and-weekends job. We'll tell you what we'd take on and what it would cost."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Managed IT services", href: "/managed-it-services" },
+			{ label: "See pricing", href: "/pricing" },
+			{ label: "Contact", href: "/contact" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.follow-link {
+		margin-top: 2rem;
+		color: var(--color-slate);
+	}
+</style>

@@ -1,13 +1,17 @@
 ---
 import IndustryPage from "../../components/page/IndustryPage.astro";
 
-export const prerender = false;
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" -- its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" -- so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
 ---
 
 <IndustryPage
 	slug="professional-services"
 	eyebrow="Professional firms"
-	title="IT, HR and digital presence for Ontario law and accounting firms"
+	title="IT & marketing for Ontario law and accounting firms"
 	description="Matter-based permissions, conflict-checked onboarding, retention that holds up, and the software operations behind a boutique or mid-size professional firm."
 	h1="Access control is a professional obligation here, not an IT preference."
 	heroLead="Boutique and mid-size law firms, notaries, paralegal practices, accounting and tax practices. Everywhere else, over-permissioned files are untidy. In a professional firm they're a conflict, a privilege problem, or a regulator's question."
@@ -30,15 +34,11 @@ export const prerender = false;
 	]}
 	pillars={[
 		{
-			label: "Business software",
-			body: "Practice or matter management chosen and configured so permissions follow matters, with document storage structured to match. Time and billing connected to accounting. Where AI is used, it's constrained to what the individual user is already entitled to see — which is the whole question in a firm, and the one most AI rollouts get wrong.",
+			label: "Managed IT services",
+			body: "Practice or matter management chosen and configured so permissions follow matters, with document storage structured to match. Time and billing connected to accounting. Where AI is used, it's constrained to what the individual user is already entitled to see — which is the whole question in a firm, and the one most AI rollouts get wrong. Onboarding is sequenced so the conflict check precedes access, and permission changes follow people as they move between matters rather than accumulating over a career. Offboarding closes access cleanly and preserves the record; payroll and benefits software run to schedule alongside it.",
 		},
 		{
-			label: "Back office",
-			body: "Onboarding sequenced so the conflict check precedes access. Permission changes that follow people as they move between matters rather than accumulating over a career. Offboarding that closes access cleanly and preserves the record. Payroll and benefits run to schedule alongside it.",
-		},
-		{
-			label: "Digital presence",
+			label: "Digital marketing",
 			body: "Practice-area pages that answer the question a prospective client is actually asking, with intake that routes to the right person and doesn't create a conflict problem before anyone has checked. Professional, quiet, and fast — the register your clients expect.",
 		},
 	]}

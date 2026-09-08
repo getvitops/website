@@ -1,0 +1,118 @@
+---
+import PineLayout from "../layouts/PineLayout.astro";
+import PageHero from "../components/page/PageHero.astro";
+import SectionIntro from "../components/page/SectionIntro.astro";
+import Prose from "../components/page/Prose.astro";
+import Faq from "../components/page/Faq.astro";
+import PageCta from "../components/page/PageCta.astro";
+import Schema from "../components/page/Schema.astro";
+import { breadcrumb, service } from "../lib/schema";
+import { FUNDING_NOTE } from "../lib/copy";
+
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+// Anti-doorway split: see seo-services-ottawa.astro's comment. This page
+// owns the BUILD/DESIGN process and the published website plans specifically
+// — not ranking, not the full agency bundle.
+const included = [
+	"Design and build on Core Web Vitals from day one — the technical foundation ranking and answer-engine visibility both depend on.",
+	"Hosting, uptime monitoring, SSL, backups and a staging environment included in every tier — see the three published plans on pricing.",
+	"A monthly edit allowance, so small changes don't wait on a quote — 2 to 6 edits a month depending on tier.",
+];
+
+const localConsiderations = [
+	"Built for how Ottawa searches, not generic templates. Local pack visibility, service-area pages if you cover more than one neighbourhood, and forms that route to a named person rather than a shared inbox.",
+	"We'll tell you when your current site is worth keeping. Older page-builder sites are usually the ones where performance can't be recovered without pulling the theme out; newer or well-built sites often just need the technical layer fixed, not a rebuild.",
+];
+
+const faq = [
+	{
+		q: "Do I own the site, or is it locked to your hosting?",
+		a: "Managed on our infrastructure by default — that's what the monthly plan includes — or handed over on open standards if you'd rather own and host it yourself. We'll say which makes sense for you.",
+	},
+	{
+		q: "Can you redesign our existing site instead of a full rebuild?",
+		a: "Often, yes — see \"we'll tell you when your current site is worth keeping\" above. We'll be specific about which is cheaper for your particular site.",
+	},
+];
+---
+
+<PineLayout
+	title="Website design for Ottawa businesses"
+	description="Website design and build for Ottawa businesses: fast, accessible sites on published monthly plans — hosting, edits and care included, from $39/mo."
+>
+	<Schema
+		data={service(
+			"Website design",
+			"Website design and managed build for Ottawa businesses, on published monthly plans.",
+			"/web-design-ottawa",
+		)}
+	/>
+	<Schema data={breadcrumb(["Website design Ottawa", "/web-design-ottawa"])} />
+
+	<PageHero
+		eyebrow="Website design, Ottawa"
+		title="A site built to load fast and answer the question."
+		lead="Not a portfolio piece — a site built for speed, clarity, and forms that go somewhere specific, on a published monthly plan with hosting, edits and care included."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			Website design for a small business means a site that loads in under
+			two seconds on a phone, states plainly what you do and where you are,
+			and sends every enquiry somewhere a person actually watches. For an
+			Ottawa business that usually means design decisions built around local
+			search and a service area, not a national audience — and a build cost
+			that's a fraction of what "custom design" implies once it's on a
+			managed monthly plan instead of a one-off invoice.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="What's included"
+				title="Design and build, on a plan — not a one-off invoice you outgrow."
+			/>
+			<ul class="list rhythm plain-list" role="list">
+				{included.map((line) => <li class="font-body text-neutral-muted">{line}</li>)}
+			</ul>
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="Local build considerations" title="What being Ottawa-specific actually changes." />
+			<ul class="list rhythm plain-list" role="list">
+				{localConsiderations.map((line) => <li class="font-body text-neutral-muted">{line}</li>)}
+			</ul>
+		</div>
+	</section>
+
+	<Faq items={faq} title="Questions about a build in Ottawa." />
+
+	<PageCta
+		title="Send us your current site."
+		lead="We'll tell you what's slow, what's missing, and whether a rebuild or a repair is the right call — whether or not you hire us."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "See pricing", href: "/pricing" },
+			{ label: "Digital marketing", href: "/digital-marketing" },
+			{ label: "Contact", href: "/contact" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.plain-list {
+		max-width: 68ch;
+		gap: 1rem;
+	}
+</style>

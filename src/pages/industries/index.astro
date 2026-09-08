@@ -41,18 +41,10 @@ const profile = [
 	},
 ];
 
-// Descriptive only — these deliberately do NOT link to their own pages. The
-// four per-industry pages (industries/_trades.astro and siblings) are parked
-// behind an underscore prefix because their copy commits us to sector-specific
-// delivery we can't stand behind yet. The copy is good and the pages are
-// intact; drop the underscore and restore the hrefs when the delivery exists.
-// Until then this hub carries the positioning on its own.
-//
-// The ItemList below still needs a real, dereferenceable `item.url` per
-// Google's carousel spec — a bare `name` fails validation (no `item`, no
-// `url`). Rather than link to a parked page, each card gets an `id` and the
-// schema points at this page plus that anchor (the "all-in-one page" format).
-// Swap in the real per-industry URL when a page is unparked.
+// Un-parked 2026-09-05 — the four per-industry pages now exist for real
+// (industries/trades.astro and siblings, no more underscore prefix), so each
+// card below links to its own page and the ItemList schema's `item.url`
+// points at that real, dereferenceable URL rather than a same-page anchor.
 const industries = [
 	{
 		slug: "trades",
@@ -86,7 +78,7 @@ const listSchema = {
 		item: {
 			"@type": "Thing",
 			name: i.name,
-			url: `${SITE_URL}/industries#${i.slug}`,
+			url: `${SITE_URL}/industries/${i.slug}`,
 			description: i.body,
 		},
 	})),
@@ -94,8 +86,8 @@ const listSchema = {
 ---
 
 <PineLayout
-	title="Who we work with — Ontario small and mid-size businesses"
-	description="Vitops works with Ontario businesses at the size where administration turns into a real cost. Trades, brokerages, professional firms and clinics are where we see it most."
+	title="Who we work with — Ontario businesses by industry"
+	description="Vitops works with Ontario businesses at the size where administration turns into a real cost — trades, real estate, professional firms and clinics most often."
 >
 	<Schema data={listSchema} />
 	<Schema data={breadcrumb(["Industries", "/industries"])} />
@@ -110,14 +102,18 @@ const listSchema = {
 		<div class="spotlight">
 			<SectionIntro
 				eyebrow="Where it shows up most"
-				title="Industries that benefit most from what we do."
+				title="Four kinds of business where administration has become a measurable cost, not a rounding error."
 				lead="We know these sectors well enough to be useful in the first week — the tools, the rules, and what urgent means at four in the afternoon. If you're somewhere else, the service is the same; it just takes us a little longer to learn your particulars, and we'll say so rather than pretend otherwise."
 			/>
 			<Subgrid class="industry-grid">
 				{
 					industries.map((i) => (
 						<li class="card subgrid-card industry-card" id={i.slug}>
-							<h3 class="font-heading">{i.name}</h3>
+							<h3 class="font-heading">
+								<a class="link stretched-link" href={`/industries/${i.slug}`}>
+									{i.name}
+								</a>
+							</h3>
 							<p class="font-body card-copy">{i.body}</p>
 						</li>
 					))
@@ -151,9 +147,8 @@ const listSchema = {
 		title="Tell us what you run."
 		lead="Whether or not it's one of the sectors above. We'll tell you honestly how much of your situation we already understand."
 		links={[
-			{ label: "Business software", href: "/business-software" },
-			{ label: "Back office", href: "/back-office" },
-			{ label: "Digital presence", href: "/digital-presence" },
+			{ label: "Managed IT services", href: "/managed-it-services" },
+			{ label: "Digital marketing", href: "/digital-marketing" },
 			{ label: "Pricing", href: "/pricing" },
 			{ label: "Funding", href: "/funding" },
 		]}
@@ -169,11 +164,13 @@ const listSchema = {
 		                           own grid-row wins the cascade over .subgrid's */
 		--subgrid-gap: 1.5rem;
 	}
-	/* Not a link while the per-industry pages are parked, so no hover lift and
-	   no affordance suggesting there's somewhere to go. */
 	.industry-card {
 		gap: 0.85rem;
 		padding: 2rem;
+		transition: border-color 0.15s ease;
+	}
+	.industry-card:hover {
+		border-color: var(--color-pine);
 	}
 	.card-copy {
 		color: var(--color-mist);

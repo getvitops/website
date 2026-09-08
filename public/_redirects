@@ -1,0 +1,6 @@
+# Cloudflare Workers static assets redirects.
+#
+# /funding/tdp deleted 2026-09: the Technology Demonstration Program closed
+# 10 August 2026 with no replacement announced. 301 rather than 404 — the page
+# ranked for "TDP Ontario", and the hub answers the question the searcher has.
+/funding/tdp /funding 301

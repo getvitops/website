@@ -1,5 +1,15 @@
 # Information architecture
 
+> **PARTIALLY SUPERSEDED 2026-09-05.** A Semrush pass found the geo-term cut below was
+> bad data, not a small market (`seo services ottawa` alone clears 1,000/mo CA), and the
+> three-pillar sitemap is now two pillars (`digital-presence`/`business-software` merged
+> into `/digital-marketing`/`/managed-it-services`, `back-office` folded into a subpage).
+> See `/home/alex/.claude/plans/we-are-updating-the-idempotent-barto.md` and the
+> `PLAN-*.md` files at the repo root for the current architecture and keyword map. The
+> device/endpoint lines at the bottom of this file are also stale — see
+> `PLAN-managed-it-services.md`'s claim-strip notes. Kept for the phase-1/phase-2
+> reasoning, which still holds; don't rebuild the geo-term or 3-pillar sections from here.
+
 Settles the slug scheme, the nav, per-page targeting, and the phase 1 / phase 2 split.
 
 None of the SEO plan's URLs were ever published — the live site is `/` and `/pricing`
@@ -189,7 +199,7 @@ business ontario`, `HR outsourcing small business`, `benefits administration ser
 - **`/industries/professional-services`** — matter-based permissions, conflict checks,
   retention rules, document hygiene (law, notary, paralegal, accounting)
 - **`/industries/clinics`** — PHIPA-aware access, EMR-adjacent work, recall campaigns,
-  clean endpoints
+  front-desk software that stays out of the way
 - **Each page:** the vertical's specific operational reality → how the three pillars land
   in it → one funding callout → FAQ → CTA. **Cross-links to all three pillars** — this is
   the second axis of the matrix, and its whole job is routing.

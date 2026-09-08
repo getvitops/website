@@ -1,0 +1,168 @@
+---
+import PineLayout from "../layouts/PineLayout.astro";
+import PageHero from "../components/page/PageHero.astro";
+import SectionIntro from "../components/page/SectionIntro.astro";
+import Prose from "../components/page/Prose.astro";
+import Faq from "../components/page/Faq.astro";
+import PageCta from "../components/page/PageCta.astro";
+import Schema from "../components/page/Schema.astro";
+import { breadcrumb, service } from "../lib/schema";
+import { FUNDING_NOTE } from "../lib/copy";
+
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+// Anti-doorway split: the broadest-intent of the three digital-marketing
+// Ottawa pages — someone searching "agency" wants a team, not a single
+// service line, so this page argues the agency-replacement case rather than
+// duplicating /seo-services-ottawa or /web-design-ottawa.
+const included = [
+	{
+		heading: "Websites.",
+		body: "See web design in Ottawa for the build specifics.",
+		href: "/web-design-ottawa",
+	},
+	{
+		heading: "SEO and answer-engine visibility.",
+		body: "See SEO services in Ottawa for the ranking specifics.",
+		href: "/seo-services-ottawa",
+	},
+	{
+		heading: "Paid campaigns.",
+		body: "Google Search, Local Services Ads, and paid social where the audience is actually there, steered monthly against booked work.",
+	},
+	{
+		heading: "Social media management.",
+		body: "Enough presence that you look active when someone checks, on brand, without pretending it's a content operation.",
+	},
+];
+
+const faq = [
+	{
+		q: "How is this different from a traditional agency?",
+		a: "An agency is measured on what it can control, usually clicks. We also run the systems the lead lands in, so we can follow it to a booked job and tell you which campaigns produced revenue rather than traffic.",
+	},
+	{
+		q: "Do you handle all our social platforms?",
+		a: "Content calendar and posting across up to three platforms, kept on brand — see pricing for the published rate.",
+	},
+	{
+		q: "Can we start with just one service instead of the whole bundle?",
+		a: "Yes — SEO, ads, social and the website are each priced and sold separately. Combining them is where the operational argument above actually pays off, but nothing requires taking all of it.",
+	},
+];
+---
+
+<PineLayout
+	title="Digital marketing agency in Ottawa"
+	description="A digital marketing agency in Ottawa that also runs the systems your leads land in — websites, SEO, ads, and social, steered monthly and reported honestly."
+>
+	<Schema
+		data={service(
+			"Digital marketing agency, Ottawa",
+			"Websites, SEO, paid campaigns and social media management for Ottawa businesses, plus the systems leads land in.",
+			"/digital-marketing-agency-ottawa",
+		)}
+	/>
+	<Schema
+		data={breadcrumb([
+			"Digital marketing agency Ottawa",
+			"/digital-marketing-agency-ottawa",
+		])}
+	/>
+
+	<PageHero
+		eyebrow="Digital marketing agency, Ottawa"
+		title="An agency that also runs what happens after the click."
+		lead="Websites, SEO, ads and social — plus the systems the lead actually lands in, which is the part most Ottawa agencies hand off to somebody else."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			A digital marketing agency in Ottawa typically runs your website, SEO,
+			ad campaigns and social accounts. We do the same work, with one
+			structural difference: we also run the systems a lead lands in — the
+			CRM, the form routing, the follow-up — so we can follow a campaign to a
+			booked job rather than stopping at a click, and we're accountable when
+			the handoff between marketing and operations is where a lead actually
+			goes cold.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="What's included" title="The whole surface, one team." />
+			<ul class="list rhythm plain-list" role="list">
+				{
+					included.map((item) => (
+						<li class="font-body text-neutral-muted">
+							<strong class="font-heading">{item.heading}</strong>{" "}
+							{item.body}
+							{item.href && (
+								<>
+									{" "}
+									<a class="link" href={item.href}>
+										→
+									</a>
+								</>
+							)}
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="Why an agency and operations"
+				title="Not just an agency."
+			/>
+			<div class="prose-inline">
+				<p class="font-body">
+					Most agencies are measured on what they control — clicks,
+					impressions, posts. When the systems those campaigns feed into (the
+					CRM, the site, the form) belong to a different vendor, nobody owns
+					the whole path from ad to booked job, and that seam is where leads
+					quietly go cold. We're accountable for both halves.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<Faq items={faq} title="Questions about the agency bundle." />
+
+	<PageCta
+		title="Tell us what's not converting."
+		lead="The campaign, the site, or the follow-up — we'll tell you which one, and what we'd fix first."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Digital marketing", href: "/digital-marketing" },
+			{ label: "See pricing", href: "/pricing" },
+			{ label: "Contact", href: "/contact" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.plain-list {
+		max-width: 68ch;
+		gap: 1rem;
+	}
+	.plain-list strong {
+		display: block;
+		margin-bottom: 0.15rem;
+		color: var(--color-snow);
+	}
+	.prose-inline {
+		max-width: 68ch;
+		color: var(--color-mist);
+	}
+</style>

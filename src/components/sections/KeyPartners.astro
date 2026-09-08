@@ -4,7 +4,7 @@
 // "whc" is a local icon (src/icons/whc.svg) — Web Hosting Canada isn't in
 // simple-icons.
 //
-// Rendered on the homepage and on /business-software, so the footnote link is
+// Rendered on the homepage and on /managed-it-services, so the footnote link is
 // root-relative (`/#contact`): the anchor lives in Contact.astro, which only the
 // homepage renders. A bare `#contact` would resolve against the current page and
 // dangle everywhere else. Matches PineLayout's own CTAs.
@@ -27,15 +27,15 @@ const partners = [
 ---
 
 <!-- KEY PARTNERS -->
-<section class="partners-section section centered" id="partners">
+<section class="partners-section section centered anim-slow" id="partners">
 	<div class="spotlight">
 		<header class="section-intro">
 			<span class="font-eyebrow">Key partners</span>
 		</header>
-		<ul class="partner-strip">
+		<ul class="partner-strip stagger">
 			{
 				partners.map((p) => (
-					<li class="partner flex items-center">
+					<li class="partner flex items-center fade-in animate-view">
 						<Icon name={p.icon} />
 						<span class="partner-name">{p.name}</span>
 					</li>
@@ -55,6 +55,13 @@ const partners = [
 		margin-bottom: 2rem;
 	}
 
+	/* Slower, earlier-starting entrance for every .animate-view descendant —
+	   see the identical rule + rationale in Pain.astro. */
+	.anim-slow {
+		--anim-start: -8vh;
+		--anim-end: 40vh;
+	}
+
 	/* A repeat() grid, not `.subgrid`/`.grid-auto`: each item is an icon + a
 	   single name, with no head/body/footer tranches for `.subgrid` to align,
 	   and the fixed 2-col/4-col breakpoints are a deliberate "12 logos, N even
@@ -70,6 +77,11 @@ const partners = [
 		grid-template-columns: repeat(2, 1fr);
 		align-items: center;
 		gap: 1.5rem 3rem;
+		/* 12 logos: the default 5vh range-step would spread the last item's
+		   entry window ~55vh past the first's. Tightened so the whole strip
+		   settles within a readable scroll distance. */
+		--stagger-range-step: 1.25vh;
+		--stagger-amount: 0.05s;
 	}
 	.partner {
 		gap: 0.65rem;

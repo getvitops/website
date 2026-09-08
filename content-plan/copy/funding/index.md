@@ -1,7 +1,7 @@
 # /funding
 
 **Title:** `Ontario digital adoption funding for small businesses | Vitops`
-**Description:** `DMAP, TDP, RMPG and BDC LIFT explained plainly — what each covers, who qualifies, and what disqualifies you. Verified July 2026.`
+**Description:** `DMAP, RMPG and BDC LIFT explained plainly — what each covers, who qualifies, and what disqualifies you. Verified September 2026.`
 **Schema:** `Organization`, `FAQPage`, `BreadcrumbList`; cite OCI and BDC with `dateModified`
 
 **The strategy in one line:** every competing page is a grant consultant selling
@@ -19,8 +19,8 @@ book a call.
 
 **Lead:**
 There is real money available for digital modernisation, and there is a lot of confident
-writing about it that's out of date. Here's what exists as of July 2026, what each program
-genuinely covers, and — the part usually left out — who doesn't qualify.
+writing about it that's out of date. Here's what exists as of September 2026, what each
+program genuinely covers, and — the part usually left out — who doesn't qualify.
 
 ---
 
@@ -28,12 +28,13 @@ genuinely covers, and — the part usually left out — who doesn't qualify.
 
 _Quotable standing alone._
 
-As of July 2026, the main funding available to Ontario for-profit SMEs for digital
+As of September 2026, the main funding available to Ontario for-profit SMEs for digital
 adoption comes through the province's Digital Competence Centre, administered by the
-Ontario Centre of Innovation: DMAP covers up to $15,000 for planning, TDP up to $50,000
-for implementation once a DMAP is complete, and RMPG up to $5,000 for retail businesses.
-Federally, BDC's LIFT program offers advisory support and financing — a loan, not a grant
-— for AI and automation projects. The Canada Digital Adoption Program has ended.
+Ontario Centre of Innovation: DMAP covers up to $15,000 for planning, and RMPG up to
+$5,000 for retail businesses. The Technology Demonstration Program, which funded
+implementation, closed 10 August 2026 with no replacement announced. Federally, BDC's
+LIFT program offers advisory support and financing — a loan, not a grant — for AI and
+automation projects. The Canada Digital Adoption Program has ended.
 
 ---
 
@@ -41,24 +42,19 @@ Federally, BDC's LIFT program offers advisory support and financing — a loan, 
 
 **Eyebrow:** What exists
 
-**H2:** Four programs, in the order most businesses meet them.
+**H2:** Three programs, in the order most businesses meet them.
 
 **01 · DMAP — up to $15,000, matched**
 Funds the plan: assessing what your technology should be and documenting how to get there.
 Ontario for-profit SMEs, 1–499 employees. First come, first served, while funds last. This
 is the entry point and the one most of our clients use. [Details →](/funding/dmap)
 
-**02 · TDP — up to $50,000**
-Funds building what the DMAP described. **Requires a completed DMAP first**, and a minimum
-$750,000 in annual revenue in one of the last three tax years. Listed open until
-**August 10, 2026**. [Details →](/funding/tdp)
-
-**03 · RMPG — up to $5,000, matched**
+**02 · RMPG — up to $5,000, matched**
 For retailers with a physical location open to the public. Point of sale, online payments,
 inventory, CRM, cybersecurity, AI tools. **You can apply to DMAP or RMPG — not both.**
 [Details →](/funding/rmpg)
 
-**04 · BDC LIFT — financing, not a grant**
+**03 · BDC LIFT — financing, not a grant**
 Federal. Advisory support plus lending for AI, digital transformation and automation
 projects. Minimum $1M revenue for the AI path. The technology has to come from Canadian
 suppliers. [Details →](/funding/bdc-lift)
@@ -75,23 +71,22 @@ suppliers. [Details →](/funding/bdc-lift)
 These are the four facts that most often turn a promising funding conversation into a dead
 end. Better to know now.
 
-**TDP is not directly available.**
-Every page advertising "up to $50,000" is describing something you cannot apply for
-directly. You need a completed DMAP first. Plan for two steps and a gap between them.
-
-**TDP has a revenue floor of $750,000.**
-In one of the last three tax years. A genuinely small business can complete a DMAP and
-still be unable to use the implementation funding it points to.
-
 **DMAP and RMPG are mutually exclusive.**
-A retailer who takes the $5,000 RMPG has spent their DMAP eligibility — and with it, the
-path to TDP. For most retailers with meaningful modernisation ahead of them, that's the
-wrong trade. Decide deliberately.
+A retailer who takes the $5,000 RMPG has spent their DMAP eligibility. For most retailers
+with meaningful modernisation ahead of them, the $15,000 DMAP is the better trade.
 
 **LIFT is a loan.**
 It's frequently listed alongside grants, and it isn't one. It's advisory plus financing,
 with a revenue floor and a Canadian-supplier requirement. Useful for the right project;
 not free money.
+
+**The Ontario Job Grant won't pay for vendor training.**
+It excludes training by a vendor on their own product, and business consulting. It funds
+third-party training — a real thing worth having, and not what we sell.
+
+**DMAP is first-come while funds last.**
+An intake can close without an announcement. OCI's Digital Adoption Consultant roster and
+vendor database are currently closed to new applicants.
 
 ---
 
@@ -142,9 +137,15 @@ No. We'll assess fit and document the plan as part of the engagement. We're paid
 work the funding supports, not for the paperwork around it.
 
 **What about training grants?**
-The Canada-Ontario Job Grant covered up to $10,000 per employee for third-party training —
-a good fit for software and AI adoption. As of May 2026 it's paused while Ontario redesigns
-it. We're tracking it and will say so here when that changes.
+The Canada-Ontario Job Grant was replaced in May 2026 by the Ontario Job Grant — open
+year-round, up to $10,000 per trainee ($15,000 for a previously unemployed new hire). Read
+the exclusions before counting on it: it won't cover training by a vendor on their own
+product, or business consulting, which rules out a lot of software-adoption work.
+
+**What happened to the $50,000 TDP grant?**
+It closed 10 August 2026. OCI's own program page still describes it as "open to eligible
+applications until August 10, 2026" — the wording simply wasn't updated once the date
+passed. Nothing has replaced it. If a comparable build grant opens, we'll publish it here.
 
 **Is Ontario's $5 million announcement a new program?**
 No — it's additional money into the Digital Competence Centre itself, announced May 2026
@@ -168,6 +169,6 @@ you which program fits, or that none of them do.
 
 ## Maintenance
 
-Every figure on this page and its four children carries an as-of date and a source link.
-`funding-watch.md` is the standing check — monthly, weekly through early August 2026 while
-the TDP deadline is live. **A stale grant figure is worse than no funding page.**
+Every figure on this page and its three children carries an as-of date and a source link.
+`funding-watch.md` is the standing check — monthly. **A stale grant figure is worse than no
+funding page.**

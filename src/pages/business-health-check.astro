@@ -1,0 +1,166 @@
+---
+import PineLayout from "../layouts/PineLayout.astro";
+import PageHero from "../components/page/PageHero.astro";
+import FundingCallout from "../components/page/FundingCallout.astro";
+import SectionIntro from "../components/page/SectionIntro.astro";
+import Cards from "../components/page/Cards.astro";
+import Stats from "../components/page/Stats.astro";
+import Prose from "../components/page/Prose.astro";
+import Faq from "../components/page/Faq.astro";
+import PageCta from "../components/page/PageCta.astro";
+import Schema from "../components/page/Schema.astro";
+import { breadcrumb, service } from "../lib/schema";
+import { FUNDING_CALLOUT, FUNDING_NOTE } from "../lib/copy";
+
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+const checks = [
+	{
+		heading: "Website and SEO audit.",
+		body: "Whether your site loads fast, whether it answers what people actually search, and where you rank against who's currently ahead of you locally.",
+	},
+	{
+		heading: "AI visibility check.",
+		body: "Whether an AI assistant would name you when someone asks who to use for this in Ottawa — and if not, what's missing.",
+	},
+	{
+		heading: "Software and licence spend review.",
+		body: "What you're paying for, what's actually used, and what a right-sized stack would cost — including your bookkeeping and payroll software, reviewed the same way as everything else in the stack.",
+	},
+];
+
+// Reused, already-sourced figures — see content-plan/time-savings-statistics.md.
+// No new sourcing for a first pass; every stat needs sourceLabel + sourceUrl
+// per Stats.astro's own header-comment rule.
+const healthStats = [
+	{
+		value: "11 hours a week",
+		label: "Owners spend almost twice as long on admin and finance as they do on sales and growing the business.",
+		sourceLabel: "American Express SME Business Barometer, 2026",
+		sourceUrl:
+			"https://retailtimes.co.uk/amex-sme-barometer-small-business-owners-spend-nearly-twice-the-time-on-admin-than-growing-their-business/",
+	},
+	{
+		value: "45% of licences",
+		label: "The share of purchased software seats actually used regularly. The rest is a standing bill for empty seats.",
+		sourceLabel: "Productiv, State of SaaS Sprawl, 2021",
+		sourceUrl:
+			"https://productiv.com/wp-content/uploads/2021/09/productiv-the-state-of-saas-sprawl-in-2021.pdf",
+	},
+];
+
+const faq = [
+	{
+		q: "Is this the same as your monthly reporting?",
+		a: "No — this is a one-time, written assessment. What ongoing reporting looks like for clients on a plan is a separate thing, not sold or described here.",
+	},
+	{
+		q: "Do I have to hire you afterwards?",
+		a: "No. You keep the document either way. Most of our clients who start here go on to take one or both services, but the assessment stands on its own.",
+	},
+	{
+		q: "Can DMAP actually fund this?",
+		a: "For eligible Ontario for-profit SMEs, yes — up to $15,000, matched, through the province's Digital Competence Centre. Approval and amounts are OCI's call, not ours; see what DMAP covers.",
+	},
+];
+---
+
+<PineLayout
+	title="Business health check — SEO, AI & software audit"
+	description="A read on where your operation stands: website and SEO audit, AI-visibility check, and software and licence spend review. DMAP can fund up to $15,000 of it."
+>
+	<Schema
+		data={service(
+			"Business health check",
+			"A one-time assessment of search and AI visibility, software and licence spend, and bookkeeping and payroll system currency for Ontario small businesses.",
+			"/business-health-check",
+		)}
+	/>
+	<Schema data={breadcrumb(["Business health check", "/business-health-check"])} />
+
+	<FundingCallout text={FUNDING_CALLOUT} />
+
+	<PageHero
+		eyebrow="Business health check"
+		title="A read on where your operation actually stands."
+		lead="One engagement, three questions answered: how findable you are in search and in AI answers, what your software actually costs against what it's worth, and whether your books and pay runs are current. You keep the findings either way."
+		secondaryLabel="See what funding covers"
+		secondaryHref="/funding/dmap"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			A business health check is a one-time, written assessment of three
+			things: how findable your business is in search and in AI-assistant
+			answers, what your software and licences actually cost against what you
+			use, and whether your bookkeeping and payroll systems are current or
+			reconstructed after the fact. For most Ontario businesses under 150
+			people, DMAP covers up to $15,000 of it, matched — you keep the
+			document whether or not you act on any of it.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="What we check"
+				title="Three questions, answered plainly."
+			/>
+			<Cards cards={checks} cols={3} />
+			<p class="font-caption check-links">
+				Full detail on the AI-visibility check: <a class="link" href="/digital-marketing"
+					>see digital marketing</a
+				>. Full detail on the software review: <a class="link" href="/managed-it-services"
+					>see managed IT services</a
+				>.
+			</p>
+		</div>
+	</section>
+
+	<Stats stats={healthStats} cols={2} />
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="What you get" title="A document, not a sales deck." />
+			<div class="prose-inline">
+				<p class="font-body">
+					A written document: what's findable and what isn't, what your
+					software costs per seat against what's used, and where your books
+					and pay runs stand. Not a sales deck — an assessment you keep,
+					whether or not you hire us to act on any of it.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<Faq items={faq} />
+
+	<PageCta
+		title="Find out where you actually stand."
+		lead="Send us what you're running today. We'll come back with the read — findable or not, overpaying or not, current or not — and what DMAP would cover if you're eligible."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Managed IT services", href: "/managed-it-services" },
+			{ label: "Digital marketing", href: "/digital-marketing" },
+			{ label: "DMAP funding", href: "/funding/dmap" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.prose-inline {
+		max-width: 68ch;
+		color: var(--color-mist);
+		display: grid;
+		gap: 1.1rem;
+	}
+	.check-links {
+		margin-top: 2rem;
+		color: var(--color-slate);
+	}
+</style>

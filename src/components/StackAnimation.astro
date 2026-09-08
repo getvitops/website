@@ -4,7 +4,7 @@
 // Each step animates when it scrolls into view and can be replayed. Ported
 // and restyled from saas-stack-animation.html onto the Pine framework tokens.
 //
-// `steps` renders a subset: /business-software shows the whole sequence, the
+// `steps` renders a subset: /managed-it-services shows the whole sequence, the
 // home page shows only step 04 (`steps={[3]}`) so the home stays a summary.
 // The client script guards every container lookup, so an omitted step's setup
 // is simply skipped.
@@ -397,14 +397,14 @@ const TIX=[
  {t:'Offboarding, Support',src:'Rippling',v:WS,q:[14,8]},
  {t:'Promoted, needs Standard',src:'Rippling',v:WS,q:[13,9]},
  {t:'Payroll run',v:QB},
- {t:'Updated website',v:'astro',vis:1120,conv:38},
- {t:'AI-tuned social media post',v:[CL,HS],soc:2300,conv:62},
+ {t:'Updated website',v:['astro',CL],vis:1120,conv:38},
+ {t:'Social media post',v:[CL,HS],soc:2300,conv:62},
  {t:'Helpdesk error, escalated',v:ZD},
  // Closing ticket: an audit touches everything, so every vendor chip lights up.
  {t:'Audited access permissions',v:SEL.map(p=>p.i).concat('astro')}];
 // `src` no longer renders a badge on the ticket — it only marks which tickets
 // originate in the HRIS, so the Rippling chip in the vendor row lights up below.
-fill('tix',TIX.map((t,i)=>`<div class="tk flex items-center" id="tk${i}"><span style="flex:1">${t.t}</span><span id="tc${i}" style="opacity:0;font-size:11px">✓</span></div>`).join(''));
+fill('tix',TIX.map((t,i)=>`<div class="tk flex items-center" id="tk${i}"><span style="flex:1">${t.t}</span><span id="tc${i}" style="opacity:0;font-size:11px;margin-left:6px">✓</span></div>`).join(''));
 
 fill('g4',SEL.map(p=>`<div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:10px 12px"><div style="display:flex;align-items:center;gap:12px"><div style="width:22px;height:22px">${mark(p)}</div><div style="flex:1;font-size:14px">${p.n}</div><span style="font-size:12px;color:var(--ts)">${TOT(p)} seats</span></div>${p.sk.map(s=>`<div style="display:flex;gap:12px;padding:6px 0 0 34px;font-size:12px;color:var(--tm)"><span style="flex:1">${s.k}</span><span>${s.q} seats</span><span style="width:66px;text-align:right;color:${s.d>0?'var(--ok)':s.d<0?'var(--wn)':'var(--tm)'}">${s.d?'('+(s.d>0?'+':'')+s.d+')':''}</span></div>`).join('')}</div>`).join(''));
 

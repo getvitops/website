@@ -1,0 +1,105 @@
+---
+import PineLayout from "../../layouts/PineLayout.astro";
+import PageHero from "../../components/page/PageHero.astro";
+import SectionIntro from "../../components/page/SectionIntro.astro";
+import Prose from "../../components/page/Prose.astro";
+import Faq from "../../components/page/Faq.astro";
+import PageCta from "../../components/page/PageCta.astro";
+import Schema from "../../components/page/Schema.astro";
+import { breadcrumb, service } from "../../lib/schema";
+import { FUNDING_NOTE } from "../../lib/copy";
+
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+// Scope: chat + meeting platforms only. Business phone/VoIP systems are a
+// separate discipline we don't provision — see the FAQ answer below. Don't
+// widen this without an owner confirming telephony is actually delivered.
+const whatWeRun = [
+	"Platform selection, tied to your existing productivity suite where that's the simpler path.",
+	"Configuration — channels, groups, guest access, meeting policies.",
+	"Identity integration — same MFA, same joiner/leaver trigger as every other account.",
+];
+
+const faq = [
+	{
+		q: "Do you set up our business phone system too?",
+		a: "No — business phone and VoIP systems are a separate discipline from chat and meeting platforms, and we don't provision them today. We'll tell you plainly rather than imply coverage that isn't there.",
+	},
+	{
+		q: "Can you migrate us from Slack to Teams (or the reverse)?",
+		a: "Yes — the platform switch and the message/file history migration where the vendor supports it.",
+	},
+];
+---
+
+<PineLayout
+	title="Communication software: Teams, Slack & Zoho Cliq"
+	description="Microsoft Teams, Slack or Zoho Cliq set up and administered so calls, chat and meetings run on one identity — for Ontario small businesses."
+>
+	<Schema
+		data={service(
+			"Communication software",
+			"Selection, configuration and identity integration of Microsoft Teams, Slack and Zoho Cliq for Ontario small businesses.",
+			"/managed-it-services/communication-software",
+		)}
+	/>
+	<Schema
+		data={breadcrumb(
+			["Managed IT services", "/managed-it-services"],
+			["Communication software", "/managed-it-services/communication-software"],
+		)}
+	/>
+
+	<PageHero
+		eyebrow="Managed IT services / Communication software"
+		title="Chat and meetings, on one identity."
+		lead="Microsoft Teams, Slack, or Zoho Cliq — chosen for how your team actually communicates, and tied into the same identity and access controls as everything else in the stack."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			Communication software is the platform for chat, calls and meetings —
+			Microsoft Teams, Slack, and Zoho Cliq are the common options for a
+			small business, and the right one usually depends on what your
+			productivity suite already is (Teams pairs with Microsoft 365, Cliq
+			with Zoho Workplace). We choose, configure, and keep it on the same
+			identity and MFA policy as the rest of the stack, so a leaver's access
+			revokes everywhere at once rather than in one system and not another.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="What we run" title="Chosen, configured, tied into identity." />
+			<ul class="list rhythm plain-list" role="list">
+				{whatWeRun.map((line) => <li class="font-body text-neutral-muted">{line}</li>)}
+			</ul>
+		</div>
+	</section>
+
+	<Faq items={faq} />
+
+	<PageCta
+		title="Tell us how your team actually communicates."
+		lead="We'll tell you whether your current setup is worth keeping or worth switching."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Managed IT services", href: "/managed-it-services" },
+			{ label: "Pricing", href: "/pricing" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.plain-list {
+		max-width: 68ch;
+		gap: 1rem;
+	}
+</style>

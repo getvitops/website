@@ -1,9 +1,8 @@
 # Funding watch — standing agent prompt
 
-Paste into Claude Cowork as a scheduled task. **Monthly**, moving to **weekly through
-early August 2026** while the TDP deadline is live.
+Paste into Claude Cowork as a scheduled task. **Monthly.**
 
-Baseline figures are as verified 2026-07-30 (`funding.md`). When something changes, update
+Baseline figures are as verified 2026-09-05 (`funding.md`). When something changes, update
 `funding.md` and the affected `/funding/*` page in the same pass, and bump the "as of"
 date on the figure — not on the whole page.
 
@@ -17,22 +16,22 @@ since the baseline below.
 Check each program against its official source — not aggregator/grant-consultant
 blogs, which are consistently stale and often wrong on amounts:
 
-1. Canada-Ontario Job Grant (COJG) — ontario.ca/page/canada-ontario-job-grant
-   BASELINE: paused for redesign as of May 2026; Transfer Payment Agreements with
-   delivery sites winding down 2026-03-31; some Employment Ontario providers still
-   accepting, others not. WATCHING FOR: relaunch, replacement program, new funding
-   cap, or confirmation of permanent closure. Also flag whether AI-adoption /
-   software training from a third-party provider is named as eligible — that is the
-   specific use we care about.
+1. Ontario Job Grant (replaced COJG) — ontario.ca/page/ontario-job-grant
+   BASELINE: live since 2026-05-01, year-round intake. Up to $10K/trainee ($15K for
+   a previously-unemployed new hire at an employer under 100). Employers under 100
+   pay at least 1/6 of cost. Excludes training by a vendor on their own product, and
+   business consulting. WATCHING FOR: eligibility changes, whether the vendor-training
+   exclusion narrows (that's the specific use we care about), funding cap changes.
 
 2. Ontario Digital Competence Centre — oc-innovation.ca/programs/digital-competence-centre/
    BASELINE: DMAP up to $15K matched, 1-499 employees, first-come while funds last.
-   TDP up to $50K, requires completed DMAP, min $750K revenue in one of last three
-   tax years, listed open until 2026-08-10. RMPG up to $5K, retail, 1-50 FT, physical
-   location, 1+ year operating, $100K+ revenue; DMAP and RMPG are mutually exclusive.
-   WATCHING FOR: the TDP deadline moving or passing, any intake closing "funds
-   exhausted", eligibility or amount changes, new streams from the May 2026 $5M
-   expansion.
+   TDP closed 2026-08-10 with no replacement (OCI's own page has not been reworded
+   to reflect this — verify by date, not by the page's stated tense). RMPG up to
+   $5K, retail, 1-50 FT, physical location, 1+ year operating, $100K+ revenue; DMAP
+   and RMPG are mutually exclusive. Vendor database and DAC roster applications
+   temporarily closed to new entrants. WATCHING FOR: any TDP successor, DMAP intake
+   closing "funds exhausted", eligibility or amount changes, new streams from the
+   May 2026 $5M expansion.
 
 3. BDC LIFT — bdc.ca/en/solutions/lift
    BASELINE: consulting + financing (a LOAN, not a grant). Min $1M revenue for the
@@ -72,5 +71,12 @@ specific, dated, checkable numbers. That's also what makes them the fastest-deca
 content on the site. A stale grant figure is worse than no grant page — it's the kind of
 error a prospect finds at exactly the wrong moment in the sales conversation.
 
-Two facts are already time-bombed: the **TDP August 10, 2026 deadline**, and the DCC's
-first-come-while-funds-last intake, which can close without an announcement.
+One time bomb already went off: the **TDP August 10, 2026 deadline** passed with the site
+still describing it as "closing" in the present tense — caught by this check, but only
+because the check ran and read the date, not because OCI's own page changed its wording
+(it hadn't, as of 2026-09-05). Lesson: a program's official page going stale is not a
+signal by itself — the calendar has to be checked directly against every published
+deadline, every run, regardless of what the source page currently says.
+
+The DCC's first-come-while-funds-last intake remains time-bombed: it can close without an
+announcement.

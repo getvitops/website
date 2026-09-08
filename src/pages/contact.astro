@@ -1,0 +1,113 @@
+---
+import PineLayout from "../layouts/PineLayout.astro";
+import PageHero from "../components/page/PageHero.astro";
+import Contact from "../components/sections/Contact.astro";
+import Faq from "../components/page/Faq.astro";
+import PageCta from "../components/page/PageCta.astro";
+import Schema from "../components/page/Schema.astro";
+import { breadcrumb, organizationGraph } from "../lib/schema";
+import { FUNDING_NOTE } from "../lib/copy";
+
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+// This is additive, not a replacement — the homepage's #contact anchor and
+// <Contact /> section stay (src/middleware.ts and the nav both depend on it,
+// per content-plan/ia.md). This page promotes contact to a real, indexable
+// route carrying the NAP block the Ottawa geo pages link to for local-pack
+// credibility.
+const faq = [
+	{
+		q: "What's your service area?",
+		a: "Ottawa first, then the rest of Ontario, then Canada-wide for anything that works remotely — most of what we do does.",
+	},
+	{
+		q: "How fast do you respond?",
+		a: "A partner replies personally, usually the same or next business day. There's no ticket queue at this stage of a relationship.",
+	},
+	{
+		q: "Do you work with businesses outside Ottawa?",
+		a: "Yes — all the work itself is remote, regardless of where you are. If you'd rather talk it through in person first, we're in Ottawa and happy to meet.",
+	},
+	{
+		q: "Can I just call instead of filling out the form?",
+		a: "Yes — the phone number above reaches a partner directly.",
+	},
+];
+---
+
+<PineLayout
+	title="Contact us — Ottawa, Ontario"
+	description="Reach Vitops by phone, email or the form below. Based in Ottawa, working across Ontario, and serving clients remotely across Canada."
+>
+	<Schema data={organizationGraph} />
+	<Schema data={breadcrumb(["Contact", "/contact"])} />
+
+	<PageHero
+		eyebrow="Contact"
+		title="Talk to the people who'd actually do the work."
+		lead="One partner, based in Ottawa, working across Ontario. Call, email, or send a note below — a partner answers, not a queue."
+		ctaHref="#contact"
+		note={FUNDING_NOTE}
+	/>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<dl class="nap">
+				<div class="nap-row">
+					<dt class="font-caption">Phone</dt>
+					<dd class="font-body">
+						<a class="link" href="tel:+16135187984">+1 613-518-7984</a>
+					</dd>
+				</div>
+				<div class="nap-row">
+					<dt class="font-caption">Email</dt>
+					<dd class="font-body">
+						<a class="link" href="mailto:hi@vitops.ca">hi@vitops.ca</a>
+					</dd>
+				</div>
+				<div class="nap-row">
+					<dt class="font-caption">Service area</dt>
+					<dd class="font-body">
+						Ottawa, Ontario — working throughout Ontario, and supporting
+						businesses elsewhere in Canada remotely.
+					</dd>
+				</div>
+			</dl>
+		</div>
+	</section>
+
+	<Contact />
+
+	<Faq items={faq} title="Questions about reaching us." />
+
+	<PageCta
+		title="Not sure where to start?"
+		lead="Tell us what you're running today, on the software side or the marketing side, and we'll tell you what we'd look at first."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Managed IT services", href: "/managed-it-services" },
+			{ label: "Digital marketing", href: "/digital-marketing" },
+			{ label: "Pricing", href: "/pricing" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.nap {
+		display: grid;
+		gap: 1.5rem;
+		max-width: 42ch;
+	}
+	.nap-row dt {
+		color: var(--color-slate);
+		margin-bottom: 0.25rem;
+	}
+	.nap-row dd {
+		margin: 0;
+		color: var(--color-snow);
+	}
+</style>

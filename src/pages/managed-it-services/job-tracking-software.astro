@@ -1,0 +1,112 @@
+---
+import PineLayout from "../../layouts/PineLayout.astro";
+import PageHero from "../../components/page/PageHero.astro";
+import SectionIntro from "../../components/page/SectionIntro.astro";
+import Prose from "../../components/page/Prose.astro";
+import Faq from "../../components/page/Faq.astro";
+import PageCta from "../../components/page/PageCta.astro";
+import Schema from "../../components/page/Schema.astro";
+import { breadcrumb, service } from "../../lib/schema";
+import { FUNDING_NOTE } from "../../lib/copy";
+
+// Prerendered: no per-request data on this page. EmDash pins the site to
+// output:"server" — its injected /_emdash/* dynamic routes would each need
+// getStaticPaths() under output:"static" — so prerendering is opted into
+// per page. Only /api/contact and the A/B dispatcher stay on-demand.
+export const prerender = true;
+
+const whatWeRun = [
+	"Platform selection — field-service dispatch vs. general project management is a real fork, and the wrong choice shows up fast.",
+	"Configuration — job templates, scheduling, and offline behaviour for field crews.",
+	"Integration with invoicing and accounting, so completed work becomes billed work automatically.",
+];
+
+const faq = [
+	{
+		q: "We're a trades business — is this the same as dispatch software?",
+		a: "Yes, for field-service businesses this is the dispatch/job-tracking layer. See trades for the field-specific detail (offline behaviour, device considerations, seasonal crews).",
+	},
+	{
+		q: "Does this replace our invoicing software?",
+		a: "No — it feeds it. See invoicing software for that half.",
+	},
+];
+---
+
+<PineLayout
+	title="Job & project tracking software"
+	description="Jobber or Zoho Projects, set up and connected to invoicing and accounting, so what's promised and what's actually done stay in the same record."
+>
+	<Schema
+		data={service(
+			"Job and project tracking software",
+			"Selection, configuration and invoicing integration of Jobber and Zoho Projects for Ontario small businesses.",
+			"/managed-it-services/job-tracking-software",
+		)}
+	/>
+	<Schema
+		data={breadcrumb(
+			["Managed IT services", "/managed-it-services"],
+			["Job and project tracking software", "/managed-it-services/job-tracking-software"],
+		)}
+	/>
+
+	<PageHero
+		eyebrow="Managed IT services / Job & project tracking software"
+		title="What's promised, and what's actually done."
+		lead="Jobber for field-service work, Zoho Projects for a more general project shape — chosen for how work actually moves through your business, and connected to invoicing so a completed job turns into a paid one without re-entering anything."
+		secondaryLabel="See pricing"
+		secondaryHref="/pricing"
+		note={FUNDING_NOTE}
+	/>
+
+	<Prose lead>
+		<p>
+			Job and project tracking software is the record of what's been
+			promised, scheduled, and completed — Jobber for
+			dispatch-and-field-service businesses, Zoho Projects for a more
+			general project shape. The value is in the connections: a completed
+			job in Jobber should generate the invoice, not require someone to
+			re-enter it, and a project's time tracking should feed what actually
+			gets billed.
+		</p>
+	</Prose>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro eyebrow="What we run" title="Chosen, configured, connected to billing." />
+			<ul class="list rhythm plain-list" role="list">
+				{whatWeRun.map((line) => <li class="font-body text-neutral-muted">{line}</li>)}
+			</ul>
+			<p class="font-caption follow-link">
+				See <a class="link" href="/industries/trades">trades</a> for the field-specific
+				version of this problem, and
+				<a class="link" href="/managed-it-services/invoicing-software">invoicing software</a>
+				for the billing half.
+			</p>
+		</div>
+	</section>
+
+	<Faq items={faq} />
+
+	<PageCta
+		title="Tell us how a job or project moves through your business."
+		lead="From the point it's booked to the point it's paid. We'll tell you where it's getting re-entered that shouldn't be."
+		note={FUNDING_NOTE}
+		links={[
+			{ label: "Managed IT services", href: "/managed-it-services" },
+			{ label: "Pricing", href: "/pricing" },
+		]}
+	/>
+</PineLayout>
+
+<style>
+	.plain-list {
+		max-width: 68ch;
+		gap: 1rem;
+	}
+	.follow-link {
+		margin-top: 2rem;
+		color: var(--color-slate);
+	}
+</style>

@@ -1,5 +1,12 @@
 # /back-office
 
+> **SUPERSEDED 2026-09-05.** `/back-office` no longer exists as its own pillar —
+> bookkeeping and payroll are no longer performed as services, only the software
+> they run on is administered, and that lives under
+> `/managed-it-services/bookkeeping-payroll-software` (see
+> `PLAN-mit-bookkeeping-payroll-software.md`). This file describes a service
+> offering that has been retired; kept for history, not as a source to re-import.
+
 **Title:** `Bookkeeping, payroll and back-office operations | Vitops`
 **Description:** `Bookkeeping kept current, managed payroll, benefits administration, and onboarding and offboarding handled end to end. Ontario SMEs, one partner on file.`
 **Schema:** `Organization`, `Service`, `FAQPage`, `BreadcrumbList`
@@ -225,9 +232,8 @@ otherwise is overselling.
 
 **Can government funding cover this?**
 The systems work often qualifies. DMAP covers up to $15,000 of planning for eligible
-Ontario for-profit SMEs, and TDP up to $50,000 of implementation after a completed DMAP.
-Ongoing administration isn't grant-funded. We'll tell you which parts of your project
-plausibly qualify before you apply. [More on funding →](/funding)
+Ontario for-profit SMEs. Ongoing administration isn't grant-funded. We'll tell you which
+parts of your project plausibly qualify before you apply. [More on funding →](/funding)
 
 ---
 

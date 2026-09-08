@@ -4,6 +4,7 @@ import PageHero from "../components/page/PageHero.astro";
 import FundingCallout from "../components/page/FundingCallout.astro";
 import SectionIntro from "../components/page/SectionIntro.astro";
 import Cards from "../components/page/Cards.astro";
+import Stats from "../components/page/Stats.astro";
 import Prose from "../components/page/Prose.astro";
 import Faq from "../components/page/Faq.astro";
 import PageCta from "../components/page/PageCta.astro";
@@ -38,6 +39,23 @@ const problems = [
 	},
 ];
 
+// Sourced figures — see content-plan/time-savings-statistics.md.
+const presenceStats = [
+	{
+		value: "15+ hours a week",
+		label: "What social media takes a full-time specialist — content, analytics, strategy, replies. Doing it solo, on top of everything else, is a part-time job.",
+		sourceLabel: "Sprout Social, Social Media Productivity Report, 2023",
+		sourceUrl: "https://sproutsocial.com/insights/social-media-statistics/",
+	},
+	{
+		value: "56% have an hour a day, or less",
+		label: "To spend on marketing overall — and 73% of owners aren't confident it's working in the first place.",
+		sourceLabel: "Constant Contact / Ascend2, Small Business Now, 2024",
+		sourceUrl:
+			"https://news.constantcontact.com/2024-04-23-New-Research-from-Constant-Contact-Reveals-Small-Businesses-Struggle-to-Market-Effectively-Due-to-Low-Confidence,-Limited-Time,-and-Lack-of-Knowledge",
+	},
+];
+
 const faq = [
 	{
 		q: "Do we have to buy the website to get the campaigns?",
@@ -49,7 +67,7 @@ const faq = [
 	},
 	{
 		q: "What is GEO, and does it matter yet?",
-		a: "It's optimising to be the source an AI assistant quotes when someone asks it a question, rather than a blue link they click. It matters now for research-heavy and comparison queries — the ones where a buyer asks who they should use for something in Ottawa — and the work is different: structured facts, dated claims, direct answers, clean schema. We build it in rather than selling it separately.",
+		a: "Generative engine optimization — see answer engine optimization above for the full explanation. Short version: it matters now for research-heavy and comparison queries, the ones where a buyer asks an assistant who to use for something in Ottawa, and we build it in rather than selling it separately.",
 	},
 	{
 		q: "Do you lock us into a contract?",
@@ -67,24 +85,24 @@ const faq = [
 ---
 
 <PineLayout
-	title="Websites, ads, SEO and social for Ontario businesses"
-	description="A fast, findable website plus the ad campaigns, social and listings around it — built and steered monthly by the same partner that runs your systems."
+	title="Digital marketing agency for Ontario businesses"
+	description="Digital marketing for Ontario businesses: websites, SEO, answer-engine optimization, paid ads and social — steered monthly by the partner that runs your systems."
 >
 	<Schema
 		data={service(
-			"Digital presence",
-			"Websites, search and answer-engine optimization, paid campaigns, social and business listings for Ontario small businesses.",
-			"/digital-presence",
+			"Digital marketing",
+			"Websites, SEO and answer-engine optimization, paid campaigns, social and business listings for Ontario small businesses.",
+			"/digital-marketing",
 		)}
 	/>
-	<Schema data={breadcrumb(["Digital presence", "/digital-presence"])} />
+	<Schema data={breadcrumb(["Digital marketing", "/digital-marketing"])} />
 
 	<FundingCallout
 		text={FUNDING_CALLOUT}
 	/>
 
 	<PageHero
-		eyebrow="Digital presence"
+		eyebrow="Digital marketing"
 		title="Everywhere your buyers look, handled."
 		lead="A website, the campaigns pointed at it, the social accounts beside it, and the listings people check before any of that. One team keeps the whole thing consistent, which is mostly what presence means in practice."
 		secondaryLabel="See pricing"
@@ -114,6 +132,8 @@ const faq = [
 		</div>
 	</section>
 
+	<Stats stats={presenceStats} cols={2} />
+
 	<!--
 		This replaces the "What we do" card grid that used to sit above it — the
 		animation covers the same four surfaces with more in each. Moved here from
@@ -127,6 +147,33 @@ const faq = [
 				lead="A site built to perform, found where buyers look, campaigns that compound, and social that shows up — in the order a buyer meets them."
 			/>
 			<PresenceAnimation />
+		</div>
+	</section>
+
+	<section class="section centered">
+		<div class="spotlight">
+			<SectionIntro
+				eyebrow="Answer engines"
+				title="Answer engine optimization: being the source the AI quotes."
+				lead="When someone asks an assistant which business to use for something in Ottawa, it names one. We optimise for that the way we optimise for search — structured facts, dated claims, direct answers, clean schema — so the source it quotes is you."
+			/>
+			<div class="prose-inline">
+				<p class="font-body">
+					This is different work from ranking, not the same work with a new
+					name. A search engine returns a list a person scans; an answer
+					engine picks one and states it. Getting picked means the page has to
+					answer the question in a sentence that can stand on its own — which
+					is also, not coincidentally, what makes a page fast to read and
+					easy to trust.
+				</p>
+				<p class="font-body">
+					We build this in as part of the same work that gets a site found in
+					search, rather than selling it as a separate line: schema markup
+					that says who you are consistently across every page, FAQ content
+					in the phrasing people actually ask, and a site structure an answer
+					engine can parse without guessing.
+				</p>
+			</div>
 		</div>
 	</section>
 
@@ -171,12 +218,12 @@ const faq = [
 
 	<PageCta
 		title="Send us your site."
-		lead="We'll come back with what's slow, what's missing, and what we'd change first — whether or not you hire us."
+		lead="We'll come back with what's slow, what's missing, and what we'd change first — whether or not you hire us. Once we run it, visits, impressions, and quotes given and won get reported the same way every month — one part of your business's health, run by us."
 		note={FUNDING_NOTE}
 		links={[
-			{ label: "Business software", href: "/business-software" },
-			{ label: "Back office", href: "/back-office" },
+			{ label: "Managed IT services", href: "/managed-it-services" },
 			{ label: "Pricing", href: "/pricing" },
+			{ label: "Industries", href: "/industries" },
 		]}
 	/>
 </PineLayout>
