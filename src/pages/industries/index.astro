@@ -7,6 +7,7 @@ import Prose from "../../components/page/Prose.astro";
 import PageCta from "../../components/page/PageCta.astro";
 import Schema from "../../components/page/Schema.astro";
 import { breadcrumb, SITE_URL } from "../../lib/schema";
+import { INDUSTRIES } from "../../lib/industries";
 import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 
 // Prerendered: no per-request data on this page. EmDash pins the site to
@@ -45,28 +46,10 @@ const profile = [
 // (industries/trades.astro and siblings, no more underscore prefix), so each
 // card below links to its own page and the ItemList schema's `item.url`
 // points at that real, dereferenceable URL rather than a same-page anchor.
-const industries = [
-	{
-		slug: "trades",
-		name: "Trades and contractors",
-		body: "Crews on sites, tablets that need to work without signal, a dispatch process that can't wait for head office. Plus safety documentation that has to survive an inspection.",
-	},
-	{
-		slug: "real-estate",
-		name: "Real estate brokerages",
-		body: "A roster that turns over faster than anything else we work with, board-connected tools that don't integrate cleanly, and commission administration that has to be exactly right.",
-	},
-	{
-		slug: "professional-services",
-		name: "Legal, accounting and professional firms",
-		body: "Matter-based permissions, conflict checks, and retention rules where the consequence of getting access wrong is professional rather than merely awkward.",
-	},
-	{
-		slug: "clinics",
-		name: "Medical and dental clinics",
-		body: "PHIPA obligations, an EMR that dictates a lot of the environment, and front-desk staff who cannot be waiting on IT while patients are in the room.",
-	},
-];
+//
+// The list itself lives in src/lib/industries.ts, shared with IndustryPage.astro
+// so it can link each vertical to its three siblings.
+const industries = INDUSTRIES;
 
 const listSchema = {
 	"@context": "https://schema.org",

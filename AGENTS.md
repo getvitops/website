@@ -207,7 +207,10 @@ things forced that shape, and all three are worth knowing before "simplifying" i
 
 The route list is derived from the filesystem, never written out — a hand-kept
 list drifts silently and a new page is simply never submitted. `/404`,
-`/b-variant/*` and `_`-prefixed partials are filtered.
+`/b-variant/*` and `_`-prefixed partials are filtered. That derivation
+(`isPublicRoute`, `publicRoutes`) lives in `scripts/routes.mjs`, shared with
+`scripts/llms.mjs` below — so the sitemap and `llms.txt` can't silently list
+different URLs.
 
 **Both deploy workflows set `fetch-depth: 0`.** The default shallow clone has one
 commit, so every `<lastmod>` would claim the deploy date — plausible and wrong,
@@ -241,6 +244,47 @@ by any of this — CI keeps using its own credential.
 > A `<script>` body in an `.astro` file is **raw text, not JSX**. Wrapping it in
 > `{`...`}` emits the braces and backticks verbatim, producing a block that
 > evaluates a string and silently does nothing. Write plain JS.
+
+## AI discovery (llms.txt)
+
+`scripts/llms.mjs` writes `llms.txt` (the [llmstxt.org](https://llmstxt.org)
+format) at `astro:build:done`, wired in `astro.config.mjs`. No first-party
+support exists for this: Astro core has none, EmDash has none, and Cloudflare's
+AI Crawl Control auto-generates managed **robots.txt** only, not llms.txt.
+Third-party Astro integrations all derive from markdown or content
+collections; this site has neither (every page is a hand-authored `.astro`
+file), so they'd emit nothing — the same failure mode that already ruled out
+`@astrojs/sitemap` above.
+
+**`build:done`, not `build:start` like the sitemap.** Title and description are
+not reliably readable from a page's own source: `/industries/*` and
+`/funding/*` pass them as props through wrapper components
+(`IndustryPage.astro`, `ProgramPage.astro`), and `PineLayout.astro` appends a
+site title read from D1 at render time. Reading the built HTML instead — the
+`dir` a `build:done` hook receives — means `llms.txt` quotes whatever the page
+actually serves and cannot disagree with it. Consequence: `/llms.txt` 404s
+under `astro dev` (which serves `public/`, not `dist/`); check it with
+`astro preview` instead.
+
+Serving works the same way `public/robots.txt` already beats EmDash's own
+injected `/robots.txt` route: Workers Assets matches a static file before the
+Worker runs at all (no `run_worker_first` in `wrangler.jsonc`), so a file
+written into `dir` (`dist/client/`, the Cloudflare adapter's asset root) is
+served ahead of any route EmDash or Astro might also claim at that path.
+
+**`scripts/llms.mjs` is a prototype staged for `@getvitops/astro`.** It is
+deliberately site-agnostic — no `site.json` import, no hardcoded origin, name,
+or route pattern. Every Vitops-specific fact (origin, site name, the blurb, the
+seven section predicates) is passed in from `astro.config.mjs`. Promoting it to
+the package should be a file move plus one changed import; don't let Vitops
+specifics leak into the generator itself; keep the site's own wiring to the
+single integration registration. This is expected to be deleted outright, not
+extended, once EmDash ships llms.txt support or Cloudflare's AI Index reaches
+GA.
+
+`llms-full.txt` (full page bodies as markdown) is a deliberate non-goal — it
+would mean maintaining a markdown rendition of every marketing page, none of
+which has markdown source.
 
 ## A/B testing (3 layers) — retained, currently dormant
 

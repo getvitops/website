@@ -11,6 +11,7 @@ import PageCta from "./PageCta.astro";
 import Schema from "./Schema.astro";
 import { breadcrumb, service } from "../../lib/schema";
 import { FUNDING_NOTE } from "../../lib/copy";
+import { INDUSTRIES } from "../../lib/industries";
 
 // Shared shell for the four industry pages. The structure is identical by
 // design; the substance is not — see content-plan/teardown.md §5 on why the
@@ -53,6 +54,11 @@ const {
 } = Astro.props;
 
 const path = `/industries/${slug}`;
+
+// The other three verticals — before this, each industry page was reachable
+// only from /industries and from the pillar-links nav above, one incoming
+// link deep. Siblings give every vertical three more.
+const siblingIndustries = INDUSTRIES.filter((i) => i.slug !== slug);
 ---
 
 <PineLayout title={title} description={description}>
@@ -117,6 +123,7 @@ const path = `/industries/${slug}`;
 			{ label: "Managed IT services", href: "/managed-it-services" },
 			{ label: "Digital marketing", href: "/digital-marketing" },
 			{ label: "Pricing", href: "/pricing" },
+			...siblingIndustries.map((i) => ({ label: i.name, href: `/industries/${i.slug}` })),
 		]}
 	/>
 </PineLayout>

@@ -24,11 +24,13 @@ const included = [
 		heading: "Websites.",
 		body: "See web design in Ottawa for the build specifics.",
 		href: "/web-design-ottawa",
+		linkLabel: "Web design in Ottawa",
 	},
 	{
 		heading: "SEO and answer-engine visibility.",
 		body: "See SEO services in Ottawa for the ranking specifics.",
 		href: "/seo-services-ottawa",
+		linkLabel: "SEO services in Ottawa",
 	},
 	{
 		heading: "Paid campaigns.",
@@ -108,7 +110,7 @@ const faq = [
 								<>
 									{" "}
 									<a class="link" href={item.href}>
-										→
+										{item.linkLabel} →
 									</a>
 								</>
 							)}
