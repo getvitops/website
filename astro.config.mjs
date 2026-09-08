@@ -12,6 +12,8 @@ import { vitopsEmdash } from "@getvitops/emdash";
 // Since toolchain 3.0 the file is a three-section `Config` — designSystem /
 // organization / site — so the site-level facts are one level down.
 import config from "./site.json" with { type: "json" };
+import { llmsTxt } from "./scripts/llms.mjs";
+import { publicRoutes } from "./scripts/routes.mjs";
 import { writeSitemap } from "./scripts/sitemap.mjs";
 
 /**
@@ -30,6 +32,58 @@ const sitemap = {
     },
   },
 };
+
+/**
+ * Writes <dist client dir>/llms.txt at astro:build:done, once the prerendered
+ * HTML exists to read — see scripts/llms.mjs for why build:done rather than
+ * build:start (title/description are not reliably readable from source for
+ * every route here, e.g. the /industries/* and /funding/* pages pass them as
+ * props through wrapper components, and PineLayout appends a site title read
+ * from D1 at render time).
+ *
+ * scripts/llms.mjs is a PROTOTYPE staged for `@getvitops/astro` — it is
+ * site-agnostic and takes every Vitops-specific fact as an option below.
+ * Promoting it later should be a file move plus changing the import above;
+ * don't let Vitops specifics leak into scripts/llms.mjs itself.
+ *
+ * Section rules are ordered predicates, first match wins, mirroring
+ * scripts/routes.mjs's "derive, don't enumerate" approach: prefix rules for
+ * the three families of subpages so a new one files itself, explicit sets
+ * only for the two groups that genuinely are one ("Start here", "Optional").
+ */
+const START_HERE = new Set(["/", "/about", "/pricing", "/contact", "/business-health-check"]);
+const LEGAL = new Set(["/privacy", "/cookies", "/terms"]);
+const OTTAWA_PAGE = /^\/[a-z0-9-]+-ottawa$/;
+
+const llms = llmsTxt({
+  origin: config.site.domains.canonical,
+  siteName: config.organization.name,
+  blurb:
+    "Vitops is based in Ottawa, Ontario and works with businesses across Ontario " +
+    "and Canada. Contact: hi@vitops.ca.",
+  publicRoutes,
+  sections: [
+    { heading: "Start here", match: (r) => START_HERE.has(r) },
+    {
+      heading: "Services",
+      match: (r) => r === "/managed-it-services" || r === "/digital-marketing",
+    },
+    {
+      heading: "Managed IT — software we run",
+      match: (r) => r.startsWith("/managed-it-services/"),
+    },
+    {
+      heading: "Industries",
+      match: (r) => r === "/industries" || r.startsWith("/industries/"),
+    },
+    {
+      heading: "Government funding",
+      match: (r) => r === "/funding" || r.startsWith("/funding/"),
+    },
+    { heading: "Ottawa", match: (r) => OTTAWA_PAGE.test(r) },
+    { heading: "Optional", match: (r) => LEGAL.has(r) },
+  ],
+});
 
 export default defineConfig({
   // Required for prerendering: a prerendered page has no request to derive an
@@ -84,6 +138,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap,
+    llms,
     react(),
     icon({
       // Only ship the Phosphor icons actually referenced in templates,

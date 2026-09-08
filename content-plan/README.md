@@ -16,6 +16,8 @@ Verified 2026-07-30.
 | [`funding.md`](funding.md)             | Verified brief on DMAP, TDP, RMPG, LIFT + the corrections the delivered copy needs                                                          |
 | [`geo.md`](geo.md)                     | Answer-engine layer — schema, `llms.txt`, direct-answer structure, comparison pages                                                         |
 | [`funding-watch.md`](funding-watch.md) | Standing Claude Cowork prompt keeping the funding figures true                                                                              |
+| [`keywords.md`](keywords.md)           | Site-wide keyword source of truth — global + per-location sets, per-page ownership, exclusions with reasons                                 |
+| [`tracking/`](tracking/)               | Semrush Position Tracking setup — paste-ready keyword lists (`ottawa.txt`, `canada.txt`) + manual runbook (`SETUP.md`)                      |
 | [`copy/`](copy/)                       | Publishable page copy, in the site's voice                                                                                                  |
 
 ## Copy inventory

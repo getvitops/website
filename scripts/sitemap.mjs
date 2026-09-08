@@ -1,9 +1,9 @@
-import { readdir, writeFile } from "node:fs/promises";
-import { relative, resolve } from "node:path";
+import { writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
 
-import { gitLastmod, routeFromPage } from "@getvitops/astro";
+import { gitLastmod } from "@getvitops/astro";
 
-import config from "../site.json" with { type: "json" };
+import { CANONICAL_ORIGIN, publicRoutes } from "./routes.mjs";
 
 /**
  * Writes `public/pages-sitemap.xml` — the sitemap for this site's hand-authored
@@ -36,43 +36,12 @@ import config from "../site.json" with { type: "json" };
  *   verified by prerendering the markdown-rendering legal pages — so it is not a
  *   reason to avoid prerendering anything.)
  *
- * The route list is derived from the filesystem rather than written out, because
- * a hand-maintained list drifts silently — a new page is simply never submitted
- * and nothing fails.
+ * Route derivation (the filesystem walk, the `/404`/`_`/`b-variant` filtering)
+ * lives in `scripts/routes.mjs`, shared with `scripts/llms.mjs` so the two
+ * documents can't silently list different URLs.
  */
 
-/**
- * Read from the config rather than restated, because `site.seo.indexing.sitemapUrl`
- * — the URL `vitops search notify` fetches — is built on the same origin. A second
- * copy here could disagree with it, and the symptom would be a sitemap full of
- * URLs the notifier never looks at.
- */
-const CANONICAL_ORIGIN = config.site.domains.canonical;
-
-const PAGES_DIR = "src/pages";
 const OUT = "public/pages-sitemap.xml";
-
-async function pageFiles(root) {
-  const dir = resolve(root, PAGES_DIR);
-  const entries = await readdir(dir, { recursive: true, withFileTypes: true });
-  return entries
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".astro"))
-    .map((entry) => `/${relative(root, resolve(entry.parentPath, entry.name))}`);
-}
-
-/**
- * Routes that exist but must not be indexed.
- *
- * `/404` is an error page. `/b-variant/*` is the A/B layer-3 dispatcher, which
- * 404s on a direct hit and must never be linked (see CLAUDE.md). A leading
- * underscore on any segment means Astro does not route the file at all — the
- * `src/pages/industries/_*.astro` partials — but a filesystem walk still finds
- * them, so they are filtered here rather than assumed away.
- */
-function isPublicRoute(route) {
-  if (route === "/404") return false;
-  return !route.split("/").some((segment) => segment.startsWith("_") || segment === "b-variant");
-}
 
 function escapeXml(value) {
   return value
@@ -90,11 +59,7 @@ export async function writeSitemap({ root = process.cwd(), log = console.log } =
     onWarn: (message) => log(`[sitemap] ${message}`),
   });
 
-  const routes = (await pageFiles(root))
-    .map(routeFromPage)
-    .filter((route) => route !== undefined)
-    .filter(isPublicRoute)
-    .sort();
+  const routes = await publicRoutes({ root });
 
   const entries = routes.map((route) => stamp({ url: new URL(route, CANONICAL_ORIGIN).href }));
 
