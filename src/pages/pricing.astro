@@ -1035,9 +1035,9 @@ const finePrint = [
 
 	/* ---- The single software plan ----
 	   Not a tier card: with no siblings to compare against, a narrow column
-	   would just be a tall list. Laid out wide instead — name and price on one
-	   row, features in two columns once there's room — so the plan reads as one
-	   complete thing rather than as the survivor of a ladder. It borrows
+	   would just be a tall list. Laid out wide instead — features in two
+	   columns once there's room — so the plan reads as one complete thing
+	   rather than as the survivor of a ladder. It borrows
 	   .pricing-tier--featured for the accent border, since it is by definition
 	   the highlighted option. */
 	.plan-solo {
@@ -1045,12 +1045,14 @@ const finePrint = [
 		display: grid;
 		gap: 1.75rem;
 	}
+	/* Name, then price block, stacked — not side by side. With the blurb gone
+	   .plan-identity is just the name now, narrow enough that a flex row would
+	   put it beside the price block instead of forcing a wrap. */
 	.plan-head {
 		display: flex;
-		flex-wrap: wrap;
+		flex-direction: column;
 		align-items: start;
-		justify-content: space-between;
-		gap: 1rem 2rem;
+		gap: 1rem;
 		padding-bottom: 1.5rem;
 		border-bottom: 1px solid var(--line-1);
 	}
