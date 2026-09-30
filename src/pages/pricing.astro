@@ -90,11 +90,11 @@ const softwarePlan = {
 	price: "$15",
 	unit: "/ user / mo · $100 minimum",
 	minimum: "$100",
+	userDefinition:
+		"A user is anyone assigned one or more paid software licences — many teams have employees who use no software at all, and they aren't on the bill.",
 	allowance:
 		"Covers 2 paid software licences per user — typically a productivity suite plus your HRIS — pooled across the team · $5 / licence / mo beyond that",
 	setup: "$500 implementation fee · waived with annual commitment",
-	blurb:
-		"The whole software side of the business, run by one team — chosen, wired, kept current, and answered for.",
 	example:
 		"8-person trades company, only the owner and office admin use software: 2 users, 4 licences covered — pays the $100 minimum. 12 users on 30 paid licences: 24 are covered and 6 are extra, so $180 + $30 = $210 / mo.",
 	features: [
@@ -423,13 +423,13 @@ const finePrint = [
 				<div class="plan-head">
 					<div class="plan-identity">
 						<h3 class="font-heading tier-name">{softwarePlan.name}</h3>
-						<p class="font-body tier-blurb">{softwarePlan.blurb}</p>
 					</div>
 					<div class="plan-price-block">
 						<p class="tier-price">
 							<span class="tier-price__amount">{softwarePlan.price}</span>
 							<span class="tier-price__unit">{softwarePlan.unit}</span>
 						</p>
+						<p class="tier-sub">{softwarePlan.userDefinition}</p>
 						<p class="tier-sub">{softwarePlan.allowance}</p>
 						<p class="tier-sub">{softwarePlan.setup}</p>
 					</div>
@@ -1057,9 +1057,6 @@ const finePrint = [
 	.plan-identity {
 		max-width: 46ch;
 	}
-	.plan-identity .tier-blurb {
-		margin-top: 0.5rem;
-	}
 	.plan-price-block {
 		display: grid;
 		gap: 0.4rem;
@@ -1243,11 +1240,6 @@ const finePrint = [
 		padding: 0.25rem 0.6rem;
 		border-radius: var(--br-pill, 999px);
 		white-space: nowrap;
-	}
-	.tier-blurb {
-		margin-top: 0.75rem;
-		font-size: var(--text-s);
-		color: var(--color-mist);
 	}
 	.tier-price {
 		margin: 0;
