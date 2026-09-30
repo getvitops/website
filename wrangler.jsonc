@@ -18,7 +18,9 @@
       "binding": "DB",
       "database_name": "vitops",
       "migrations_dir": "../../../../migrations",
-      "database_id": "2a948eed-4119-4710-9dc0-3147ad0f254c",
+      // MIGRATION: new database created in admin@monad.media. Old id (still
+      // live on alex@vitops.ca until decommission): 2a948eed-4119-4710-9dc0-3147ad0f254c
+      "database_id": "24d9b695-b79f-4a1b-938a-4cadc0b2a5e4",
     },
   ],
   "r2_buckets": [
