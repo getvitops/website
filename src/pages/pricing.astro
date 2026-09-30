@@ -48,36 +48,55 @@ export const prerender = true;
 // app supports, which is why the copy says "driven by your HRIS" rather than
 // promising zero-touch across an arbitrary stack.
 //
-// PER USER, PER MONTH WITH A FLOOR — the same shape as payroll and benefits
-// administration below, and for the same reason: at an all-in per-user rate a
-// separate base fee double-counts the fixed work, and a monthly minimum carries
-// the small end instead. This replaced a $450 base + $29/user split; keeping one
-// shape across all four recurring lines is worth more than the precision the
-// split bought, because a reader compares them side by side on this page.
+// PER USER, PER MONTH, WITH A POOLED LICENCE ALLOWANCE AND A FLOOR (2026-09
+// repricing). $15/user buys a pool of 2 paid software licences per user,
+// shared across the whole team — not fenced per person — so a heavy user
+// (five apps) and a light one (one app) average out. Every paid licence past
+// that pool is $5/mo, billed on the pool total, not per head. A "licence"
+// means a paid seat in one app for one person; free-tier accounts don't
+// count, because we aren't provisioning, renewing or removing anything for
+// them.
 //
-// $30/user with a $150 minimum means the floor binds below 5 users, which is
-// where the fixed per-client work (stack selection, the HRIS, keeping
-// integrations alive, the monthly report) stops being covered by headcount
-// alone. Don't drop the minimum to win a three-person client — it's the reason
-// the small end doesn't run at a loss. The implementation fee is what carries
-// the onboarding project itself.
+// WHY 2: the median user we set up carries a productivity-suite seat
+// (Microsoft 365 or Google Workspace) plus an HRIS seat (Rippling, ADP,
+// whatever they're on) — that's the floor most clients land on before adding
+// anything role-specific. Pricing the pool at exactly that median means most
+// clients never see the overage line; it only bites once a user's stack goes
+// past what's typical.
 //
-// There is deliberately no example-totals table here any more. It existed to
-// show the effective per-user rate falling as the team grows, which was a real
-// property of the base + per-seat split and is not a property of a flat rate —
-// $30 × users is arithmetic a reader can do, and the only non-obvious part (the
-// floor) is stated in the price line itself.
+// This replaced a flat $30/user/mo with no licence accounting. The fee now
+// tracks what actually drives our labour — every paid seat is something we
+// select, wire up, renew and eventually deprovision — rather than a number
+// that was the same whether a user ran one app or ten.
+//
+// $100 is a floor on the WHOLE BILL (base plus any overage), same shape as
+// the old plan: at an all-in rate a separate base fee double-counts the fixed
+// work, so a minimum carries the small end instead. With no overage it binds
+// at 6 users or fewer ($90); it climbs sooner for a team running licences
+// past its pool. Don't drop it to win a small client — it's the reason the
+// small end doesn't run at a loss. The implementation fee is what carries the
+// onboarding project itself.
+//
+// A worked example is back on the page (see `example` below), unlike the flat
+// rate this replaced. "$30 × users" was arithmetic a reader could do in their
+// head; a pool plus per-licence overage isn't, so the page now shows the
+// arithmetic rather than asking the reader to trust the price line.
 //
 // The HRIS sits here rather than in back office because JML runs against it; a
 // system of record priced in a different pillar from the workflow that depends
 // on it was a dependency sold away from its dependant.
 const softwarePlan = {
 	name: "Business software operations",
-	price: "$30",
-	unit: "/ user / mo · $150 minimum",
+	price: "$15",
+	unit: "/ user / mo · $100 minimum",
+	minimum: "$100",
+	allowance:
+		"Covers 2 paid software licences per user — typically a productivity suite plus your HRIS — pooled across the team · $5 / licence / mo beyond that",
 	setup: "$500 implementation fee · waived with annual commitment",
 	blurb:
 		"The whole software side of the business, run by one team — chosen, wired, kept current, and answered for.",
+	example:
+		"8-person trades company, only the owner and office admin use software: 2 users, 4 licences covered — pays the $100 minimum. 12 users on 30 paid licences: 24 are covered and 6 are extra, so $180 + $30 = $210 / mo.",
 	features: [
 		"Vendor-neutral software selection and roadmap",
 		"Onboarding, offboarding, and role changes (JML), driven by your HRIS — licence and access changes follow the record",
@@ -283,7 +302,12 @@ const hostingTiers = [
 // service the page no longer shows. Add them back only when that section
 // returns.
 const managedItOffers = [
-	{ name: softwarePlan.name, price: 30, minPrice: 150, unitText: "per user per month" },
+	{ name: softwarePlan.name, price: 15, minPrice: 100, unitText: "per user per month" },
+	{
+		name: `${softwarePlan.name} — additional licence`,
+		price: 5,
+		unitText: "per licence per month, beyond 2 per user",
+	},
 ];
 const digitalMarketingOffers = hostingTiers.map((t) => ({
 	name: `Website — ${t.name}`,
@@ -308,7 +332,7 @@ const finePrint = [
 
 <PineLayout
 	title="Managed IT and digital marketing pricing, Ontario"
-	description="Two services, priced simply. Managed IT at $30 per user per month, HRIS included; managed website plans from $39/mo. Month-to-month.">
+	description="Two services, priced simply. Managed IT (HRIS included), and managed digital marketing.">
 	<Schema
 		data={{
 			...service(
@@ -364,15 +388,15 @@ const finePrint = [
 			<header class="section-intro">
 				<span class="font-eyebrow">Managed IT services</span>
 				<h2 class="font-title">
-					One rate per user, per month — so the price fits your size.
+					Priced to fit your size.
 				</h2>
 				<p class="font-body section-lead">
 					The software your business runs on: selection, integration, the HRIS,
 					joiners and leavers, multi-factor authentication, and support. One plan
 					rather than a ladder — we'd rather sell one thing that means something
-					than three that need a chart. A user is anyone who needs accounts and
-					access — employees and contractors alike — so you're billed for the
-					people you actually set up, not your headcount.
+					than three that need a chart. A user is anyone we set software up for —
+					employees and contractors alike — so people who never log in to
+					anything aren't on the bill.
 				</p>
 			</header>
 
@@ -385,8 +409,9 @@ const finePrint = [
 			*/}
 			<p class="font-lead neutrality-note">
 				<strong>We don't resell software.</strong> Your licences stay yours, at
-				your price. Our fee is for making them work — which means we make money
-				when your software bill goes down, not up.
+				your price. Our fee is for making them work, never a margin on what you
+				pay vendors — which is why cutting licences nobody uses is the first
+				thing we look for.
 			</p>
 
 			{/*
@@ -405,6 +430,7 @@ const finePrint = [
 							<span class="tier-price__amount">{softwarePlan.price}</span>
 							<span class="tier-price__unit">{softwarePlan.unit}</span>
 						</p>
+						<p class="tier-sub">{softwarePlan.allowance}</p>
 						<p class="tier-sub">{softwarePlan.setup}</p>
 					</div>
 				</div>
@@ -437,6 +463,60 @@ const finePrint = [
 						</div>
 					))
 				}
+			</div>
+
+			{/*
+				Below the add-ons, not the plan card, because it now totals the
+				add-ons in too — a reader needs to have met Managed backup and
+				Priority response before a checkbox for either means anything.
+				A pool plus per-licence overage isn't arithmetic most readers will
+				do in their head the way flat $30 × users was, so the worked
+				example moved in here with it instead of sitting under the price.
+				Plain range inputs and checkboxes, not a form: nothing here
+				submits, so native range/checkbox inputs with a live total beat
+				a component import for four values and a change handler. Values
+				are clamped
+				and the total re-floored on every input, so the display can never
+				show a number the real invoice wouldn't.
+			*/}
+			<div class="price-calc" id="price-calc">
+				<h3 class="font-heading price-calc__title">Estimate your monthly cost</h3>
+				<p class="font-body price-calc__example">{softwarePlan.example}</p>
+				<div class="price-calc__row">
+					<label for="calc-users">Users</label>
+					<input type="range" id="calc-users" min="1" max="50" value="10" />
+					<output for="calc-users" id="calc-users-out">10</output>
+				</div>
+				<div class="price-calc__row">
+					<label for="calc-extra" id="calc-extra-label">
+						Licences (beyond the included 20)
+					</label>
+					<input type="range" id="calc-extra" min="0" max="100" value="0" />
+					<output for="calc-extra" id="calc-extra-out">0</output>
+				</div>
+				<div class="price-calc__addons">
+					{
+						softwareAddons.map((svc) => (
+							<label class="price-calc__addon">
+								<input
+									type="checkbox"
+									class="calc-addon"
+									data-addon-price={svc.price.replace("$", "")}
+								/>
+								<span>
+									{svc.name} — {svc.price} {svc.period}
+								</span>
+							</label>
+						))
+					}
+				</div>
+				<p class="price-calc__total">
+					<span id="calc-total">$150</span><span class="price-calc__unit"> / mo</span>
+				</p>
+				<p class="price-calc__note">
+					{softwarePlan.price} / user, {softwarePlan.minimum} minimum, plus $5 / mo per
+					licence beyond the pooled allowance, plus any add-ons checked above.
+				</p>
 			</div>
 
 			{/*
@@ -720,6 +800,7 @@ const finePrint = [
 		the one-off/consulting callout (a different kind of engagement
 		entirely, and shouldn't compete with this section's close).
 	*/}
+	{/*
 	<section class="section centered" id="pricing-business-health">
 		<div class="spotlight">
 			<header class="section-intro">
@@ -736,6 +817,7 @@ const finePrint = [
 			<HealthDashboard />
 		</div>
 	</section>
+	 */}
 
 	<!-- ONE-OFF / GENERAL CONSULTING -->
 	<section class="section centered" id="pricing-callouts">
@@ -833,6 +915,54 @@ const finePrint = [
 			</div>
 		</div>
 	</section>
+
+{/*
+	Plain script tag, not JSX — a body wrapped in a curly-brace template
+	literal emits the braces and backticks verbatim and silently does
+	nothing (see CLAUDE.md). is:inline because the calculator has to work
+	with no hydration: this is a prerendered page, Subgrid and the rest of
+	it are plain markup, and pulling in a framework island for two range
+	inputs would be the tail wagging the dog. Placed before the layout's
+	closing tag, not after — PineLayout renders the full HTML document, so
+	anything placed after its closing tag in this file would land after the
+	document's own closing tag in the output.
+*/}
+<script is:inline>
+(function () {
+	const RATE = 15;
+	const OVERAGE_RATE = 5;
+	const MINIMUM = 100;
+	const POOL_PER_USER = 2;
+	const usersInput = document.getElementById("calc-users");
+	const extraInput = document.getElementById("calc-extra");
+	const usersOut = document.getElementById("calc-users-out");
+	const extraOut = document.getElementById("calc-extra-out");
+	const extraLabel = document.getElementById("calc-extra-label");
+	const totalOut = document.getElementById("calc-total");
+	const addonInputs = Array.from(document.querySelectorAll(".calc-addon"));
+	if (!usersInput || !extraInput || !usersOut || !extraOut || !extraLabel || !totalOut) return;
+
+	function render() {
+		const users = Number(usersInput.value);
+		const extra = Number(extraInput.value);
+		const included = users * POOL_PER_USER;
+		usersOut.textContent = String(users);
+		extraOut.textContent = String(extra);
+		extraLabel.textContent = "Licences (beyond the included " + included + ")";
+		const base = Math.max(MINIMUM, users * RATE + extra * OVERAGE_RATE);
+		const addons = addonInputs.reduce(
+			(sum, el) => sum + (el.checked ? Number(el.dataset.addonPrice) * users : 0),
+			0,
+		);
+		totalOut.textContent = "$" + (base + addons).toLocaleString("en-CA");
+	}
+
+	usersInput.addEventListener("input", render);
+	extraInput.addEventListener("input", render);
+	addonInputs.forEach((el) => el.addEventListener("change", render));
+	render();
+})();
+</script>
 </PineLayout>
 
 <style>
@@ -934,6 +1064,104 @@ const finePrint = [
 		display: grid;
 		gap: 0.4rem;
 		justify-items: start;
+	}
+
+	/* ---- Cost estimator ----
+	   Below the add-ons table, not inside the plan card — it totals the
+	   add-ons in, so a reader has to have met Managed backup and Priority
+	   response first. A block of its own rather than folded into the plan,
+	   because it's an interactive aside rather than part of the stated price —
+	   the plan reads correctly with JS disabled or before the script runs
+	   (the numbers hardcoded in the markup are the same values the script
+	   computes for its own defaults). */
+	.price-calc {
+		margin-top: 2.5rem;
+		background: var(--color-navy);
+		border: 1px solid var(--line-1);
+		border-radius: var(--br-control, 6px);
+		padding: 1.25rem 1.5rem;
+		display: grid;
+		gap: 0.9rem;
+	}
+	.price-calc__title {
+		margin: 0;
+		font-size: var(--text-m);
+		color: var(--color-snow);
+	}
+	/* The worked example, folded in here from the plan card — it belongs with
+	   the sliders it's explaining rather than sitting under the price. */
+	.price-calc__example {
+		margin: -0.4rem 0 0;
+		font-size: var(--text-s);
+		color: var(--color-mist);
+		max-width: 75ch;
+	}
+	.price-calc__row {
+		display: grid;
+		grid-template-columns: minmax(11rem, 1fr) 2fr 3rem;
+		align-items: center;
+		gap: 1rem;
+	}
+	.price-calc__row label {
+		font-size: var(--text-s);
+		color: var(--color-mist);
+	}
+	.price-calc__row input[type="range"] {
+		width: 100%;
+		accent-color: var(--color-pine);
+	}
+	.price-calc__row output {
+		font-variant-numeric: tabular-nums;
+		text-align: right;
+		color: var(--color-snow);
+	}
+	.price-calc__addons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem 1.75rem;
+	}
+	.price-calc__addon {
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		font-size: var(--text-s);
+		color: var(--color-mist);
+	}
+	.price-calc__addon input[type="checkbox"] {
+		accent-color: var(--color-pine);
+		width: 1.1rem;
+		height: 1.1rem;
+	}
+	.price-calc__total {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: var(--text-2xl);
+		font-weight: 700;
+		color: var(--color-snow);
+	}
+	.price-calc__unit {
+		font-family: var(--font-sans);
+		font-size: var(--text-s);
+		font-weight: 400;
+		color: var(--color-slate);
+	}
+	.price-calc__note {
+		margin: 0;
+		font-size: var(--text-xs);
+		color: var(--color-slate);
+	}
+	@media (max-width: 560px) {
+		.price-calc__row {
+			grid-template-columns: 1fr;
+			gap: 0.35rem;
+		}
+		.price-calc__row output {
+			text-align: left;
+		}
+		.price-calc__addons {
+			flex-direction: column;
+			gap: 0.6rem;
+		}
 	}
 
 	/* Lead-in above the plan card. Accent rule rather than a box: it's a stated
