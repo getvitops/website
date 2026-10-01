@@ -44,6 +44,9 @@ export interface Industry {
   faq?: unknown;
   cta_title?: string;
   cta_lead?: string;
+  card_title?: string;
+  card_body?: string;
+  sort_order?: number;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;

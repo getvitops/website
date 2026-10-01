@@ -56,5 +56,8 @@
     }
   ],
   "cta_title": "Tell us what breaks at the front desk.",
-  "cta_lead": "The recurring one — the thing that goes wrong often enough that staff have a workaround for it. That's usually where we'd start."
+  "cta_lead": "The recurring one — the thing that goes wrong often enough that staff have a workaround for it. That's usually where we'd start.",
+  "card_title": "Medical and dental clinics",
+  "card_body": "PHIPA obligations, an EMR that dictates a lot of the environment, and front-desk staff who cannot be waiting on IT while patients are in the room.",
+  "sort_order": 4
 }

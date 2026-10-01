@@ -106,6 +106,7 @@ export default defineConfig({
   routeRules: {
     "/[...slug]": { maxAge: 604800, swr: 86400 },
     "/managed-it-services/[slug]": { maxAge: 604800, swr: 86400 },
+    "/industries": { maxAge: 604800, swr: 86400 },
     "/industries/[slug]": { maxAge: 604800, swr: 86400 },
     "/funding/[slug]": { maxAge: 604800, swr: 86400 },
   },

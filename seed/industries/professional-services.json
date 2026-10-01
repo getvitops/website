@@ -56,5 +56,8 @@
     }
   ],
   "cta_title": "Tell us how a matter gets set up.",
-  "cta_lead": "Who gets access, when, and who decides. That conversation surfaces most of what we'd want to change."
+  "cta_lead": "Who gets access, when, and who decides. That conversation surfaces most of what we'd want to change.",
+  "card_title": "Legal, accounting and professional firms",
+  "card_body": "Matter-based permissions, conflict checks, and retention rules where the consequence of getting access wrong is professional rather than merely awkward.",
+  "sort_order": 3
 }

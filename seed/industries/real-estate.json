@@ -52,5 +52,8 @@
     }
   ],
   "cta_title": "Tell us what happens when an agent signs.",
-  "cta_lead": "Walk us through the last one. Everything they needed, and how long each piece took. That conversation usually finds the problem in ten minutes."
+  "cta_lead": "Walk us through the last one. Everything they needed, and how long each piece took. That conversation usually finds the problem in ten minutes.",
+  "card_title": "Real estate brokerages",
+  "card_body": "A roster that turns over faster than anything else we work with, board-connected tools that don't integrate cleanly, and commission administration that has to be exactly right.",
+  "sort_order": 2
 }

@@ -1,12 +1,15 @@
+import { getEmDashCollection } from "emdash";
+
 /**
- * The four industry verticals, shared between `src/pages/industries/index.astro`
- * (the routing/grid page) and `IndustryPage.astro` (the shared shell each
- * `src/pages/industries/*.astro` page renders through).
+ * The industry verticals, read from the `industries` collection and shared
+ * between `src/pages/industries/index.astro` (the routing/grid page) and
+ * `IndustryPage.astro` (which links each vertical to its siblings).
  *
- * Centralised so `IndustryPage` can link each vertical to its three siblings —
- * before this, the four pages were reachable only from the index and from
- * each other's `pillar-links` nav, one incoming link deep. A hand-kept second
- * copy of this list would drift from the first silently; this is the one copy.
+ * One query, one copy: a hand-kept second list would drift from the entries
+ * silently. `card_title`/`card_body` are the grid-card copy; `sort_order`
+ * fixes the order. `cacheHint` is returned so the calling page can tag its
+ * cached response — publishing any industry then purges every page that lists
+ * it.
  */
 export interface Industry {
   slug: string;
@@ -14,25 +17,14 @@ export interface Industry {
   body: string;
 }
 
-export const INDUSTRIES: Industry[] = [
-  {
-    slug: "trades",
-    name: "Trades and contractors",
-    body: "Crews on sites, tablets that need to work without signal, a dispatch process that can't wait for head office. Plus safety documentation that has to survive an inspection.",
-  },
-  {
-    slug: "real-estate",
-    name: "Real estate brokerages",
-    body: "A roster that turns over faster than anything else we work with, board-connected tools that don't integrate cleanly, and commission administration that has to be exactly right.",
-  },
-  {
-    slug: "professional-services",
-    name: "Legal, accounting and professional firms",
-    body: "Matter-based permissions, conflict checks, and retention rules where the consequence of getting access wrong is professional rather than merely awkward.",
-  },
-  {
-    slug: "clinics",
-    name: "Medical and dental clinics",
-    body: "PHIPA obligations, an EMR that dictates a lot of the environment, and front-desk staff who cannot be waiting on IT while patients are in the room.",
-  },
-];
+export async function getIndustries() {
+  const { entries, cacheHint } = await getEmDashCollection("industries", {
+    orderBy: { sort_order: "asc" },
+  });
+  const industries: Industry[] = entries.map((entry) => ({
+    slug: entry.id,
+    name: entry.data.card_title ?? entry.data.eyebrow ?? entry.id,
+    body: entry.data.card_body ?? "",
+  }));
+  return { industries, cacheHint };
+}

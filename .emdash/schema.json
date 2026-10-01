@@ -4,11 +4,7 @@
       "slug": "funding_programs",
       "label": "Funding programs",
       "labelSingular": "Funding program",
-      "supports": [
-        "drafts",
-        "revisions",
-        "seo"
-      ],
+      "supports": ["drafts", "revisions", "seo"],
       "hidden": false,
       "fields": [
         {
@@ -94,11 +90,7 @@
       "slug": "industries",
       "label": "Industries",
       "labelSingular": "Industry",
-      "supports": [
-        "drafts",
-        "revisions",
-        "seo"
-      ],
+      "supports": ["drafts", "revisions", "seo"],
       "hidden": false,
       "fields": [
         {
@@ -184,6 +176,27 @@
           "type": "text",
           "required": false,
           "unique": false
+        },
+        {
+          "slug": "card_title",
+          "label": "Card title",
+          "type": "string",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "card_body",
+          "label": "Card body",
+          "type": "text",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "sort_order",
+          "label": "Sort order",
+          "type": "integer",
+          "required": false,
+          "unique": false
         }
       ]
     },
@@ -191,11 +204,7 @@
       "slug": "managed_it_services",
       "label": "Managed IT services",
       "labelSingular": "Managed IT service",
-      "supports": [
-        "drafts",
-        "revisions",
-        "seo"
-      ],
+      "supports": ["drafts", "revisions", "seo"],
       "hidden": false,
       "fields": [
         {
@@ -253,11 +262,7 @@
       "slug": "pages",
       "label": "Pages",
       "labelSingular": "Page",
-      "supports": [
-        "drafts",
-        "revisions",
-        "seo"
-      ],
+      "supports": ["drafts", "revisions", "seo"],
       "hidden": false,
       "fields": [
         {
@@ -319,5 +324,5 @@
       ]
     }
   ],
-  "version": "ea558d8ecb77efe6"
+  "version": "10821e1bfe37df17"
 }

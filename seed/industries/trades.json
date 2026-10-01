@@ -56,5 +56,8 @@
     }
   ],
   "cta_title": "Tell us how a job actually flows.",
-  "cta_lead": "From the call coming in to the invoice going out. We'll tell you where it's breaking and what we'd fix first."
+  "cta_lead": "From the call coming in to the invoice going out. We'll tell you where it's breaking and what we'd fix first.",
+  "card_title": "Trades and contractors",
+  "card_body": "Crews on sites, tablets that need to work without signal, a dispatch process that can't wait for head office. Plus safety documentation that has to survive an inspection.",
+  "sort_order": 1
 }

@@ -153,22 +153,32 @@ export async function writeLlmsTxt(options, { dir, log = console.log, publicRout
     throw new Error("[llms] zero public routes — refusing to publish an empty llms.txt");
   }
 
-  const pages = await Promise.all(
-    routes.map(async (route) => {
-      const file = htmlFileFor(route, dir);
-      let html;
-      try {
-        html = await readFile(file, "utf8");
-      } catch (error) {
-        throw new Error(
-          `[llms] ${route}: expected prerendered HTML at ${file} — was \`export const prerender = true\` removed?`,
-          { cause: error },
-        );
-      }
-      const { title, description } = pageMeta(html, route, siteName);
-      return { route, title, description, url: new URL(route, origin).href };
-    }),
-  );
+  const skipped = [];
+  const pages = (
+    await Promise.all(
+      routes.map(async (route) => {
+        const file = htmlFileFor(route, dir);
+        let html;
+        try {
+          html = await readFile(file, "utf8");
+        } catch (error) {
+          // An on-demand route (`prerender = false`, e.g. one backed by a CMS
+          // collection) has no built HTML to read a title from. Skip it, loudly —
+          // but only for a missing file; any other read error is a real failure.
+          if (error?.code !== "ENOENT") throw error;
+          skipped.push(route);
+          return null;
+        }
+        const { title, description } = pageMeta(html, route, siteName);
+        return { route, title, description, url: new URL(route, origin).href };
+      }),
+    )
+  ).filter(Boolean);
+  if (skipped.length) {
+    log(
+      `[llms] skipped ${skipped.length} route(s) with no prerendered HTML (on-demand, so no title/description at build time): ${skipped.join(", ")}`,
+    );
+  }
 
   const homepage = pages.find((p) => p.route === "/");
   const summary = options.summary ?? homepage?.description;

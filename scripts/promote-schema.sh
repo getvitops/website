@@ -55,7 +55,8 @@ ensure_collection industries Industries Industry "/industries/{slug}"
 field industries title:string:Title eyebrow:string:Eyebrow h1:string:H1 hero_lead:text:"Hero lead" \
   funding_text:text:"Funding callout" direct_answer:text:"Direct answer" \
   differences_title:string:"Differences title" differences:json:Differences pillars:json:Pillars \
-  faq:json:FAQ cta_title:string:"CTA title" cta_lead:text:"CTA lead"
+  faq:json:FAQ cta_title:string:"CTA title" cta_lead:text:"CTA lead" \
+  card_title:string:"Card title" card_body:text:"Card body" sort_order:integer:"Sort order"
 
 ensure_collection funding_programs "Funding programs" "Funding program" "/funding/{slug}"
 field funding_programs title:string:Title eyebrow:string:Eyebrow h1:string:H1 direct_answer:text:"Direct answer" \

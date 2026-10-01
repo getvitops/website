@@ -42,11 +42,7 @@
       "label": "Managed IT services",
       "labelSingular": "Managed IT service",
       "urlPattern": "/managed-it-services/{slug}",
-      "supports": [
-        "drafts",
-        "revisions",
-        "seo"
-      ],
+      "supports": ["drafts", "revisions", "seo"],
       "fields": [
         {
           "slug": "title",
@@ -91,11 +87,7 @@
       "label": "Industries",
       "labelSingular": "Industry",
       "urlPattern": "/industries/{slug}",
-      "supports": [
-        "drafts",
-        "revisions",
-        "seo"
-      ],
+      "supports": ["drafts", "revisions", "seo"],
       "fields": [
         {
           "slug": "title",
@@ -157,6 +149,21 @@
           "slug": "cta_lead",
           "label": "CTA lead",
           "type": "text"
+        },
+        {
+          "slug": "card_title",
+          "label": "Card title",
+          "type": "string"
+        },
+        {
+          "slug": "card_body",
+          "label": "Card body",
+          "type": "text"
+        },
+        {
+          "slug": "sort_order",
+          "label": "Sort order",
+          "type": "integer"
         }
       ]
     },
@@ -165,11 +172,7 @@
       "label": "Funding programs",
       "labelSingular": "Funding program",
       "urlPattern": "/funding/{slug}",
-      "supports": [
-        "drafts",
-        "revisions",
-        "seo"
-      ],
+      "supports": ["drafts", "revisions", "seo"],
       "fields": [
         {
           "slug": "title",
