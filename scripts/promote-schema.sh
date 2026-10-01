@@ -24,6 +24,10 @@ api() { # api <METHOD> <path> <json> — prints the response body on failure
   code=$(curl -sS -o "$out" -w '%{http_code}' -X "$1" "${URL}/_emdash/api/$2" \
     -H "authorization: Bearer ${EMDASH_TOKEN}" -H "content-type: application/json" \
     -H "x-emdash-request: 1" -d "$3") || code=000
+  if [[ "$code" == 409 ]]; then
+    echo "  $1 $2: already exists — ok" >&2
+    rm -f "$out"; return 0
+  fi
   if [[ "$code" != 2* ]]; then
     echo "  $1 $2 -> HTTP $code: $(head -c 400 "$out")" >&2
     rm -f "$out"; return 1
@@ -38,7 +42,11 @@ field() { # field <collection> <slug>:<type>:<label> ...
   local c="$1"; shift
   for f in "$@"; do
     IFS=: read -r s t l <<<"$f"
-    npx emdash schema add-field "$c" "$s" --type "$t" --label "$l" --url "$URL" >/dev/null 2>&1 || true
+    # Adding a field that already exists fails; that is the idempotent case.
+    # Anything else (auth, validation) is surfaced rather than swallowed.
+    if ! msg=$(npx emdash schema add-field "$c" "$s" --type "$t" --label "$l" --url "$URL" 2>&1); then
+      if grep -qi 'exist' <<<"$msg"; then :; else echo "  $c.$s: $msg" >&2; fi
+    fi
   done
 }
 
