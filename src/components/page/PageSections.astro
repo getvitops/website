@@ -12,8 +12,11 @@
 //            an item is a string, or { heading, body, href?, linkLabel? } for a bold lead-in line
 //   stats    { stats[{ value, label, sourceLabel, sourceUrl }], cols?, eyebrow?, lead? }
 //   faq      { items[{ q, a }], title?, eyebrow? }
+//   facts    { items[{ term, value }] }   (a name/address/phone style term list)
+//   contact  {}   (the enquiry form section — a fixed component, not editable copy)
 import Cards from "./Cards.astro";
 import Faq from "./Faq.astro";
+import Contact from "../sections/Contact.astro";
 import Stats from "./Stats.astro";
 import Prose from "./Prose.astro";
 import SectionIntro from "./SectionIntro.astro";
@@ -26,7 +29,7 @@ export interface ListItem {
 	linkLabel?: string;
 }
 export interface Section {
-	type: "lead" | "text" | "cards" | "columns" | "list" | "stats" | "faq";
+	type: "lead" | "text" | "cards" | "columns" | "list" | "stats" | "faq" | "facts" | "contact";
 	lead?: string;
 	items?: any[];
 	stats?: any[];
@@ -146,6 +149,23 @@ const { sections = [] } = Astro.props;
 				return <Stats stats={s.stats ?? []} cols={s.cols} eyebrow={s.eyebrow} lead={s.lead} />;
 			case "faq":
 				return <Faq items={s.items ?? []} title={s.title} eyebrow={s.eyebrow} />;
+			case "facts":
+				return (
+					<section class="section centered">
+						<div class="spotlight">
+							<dl class="nap">
+								{(s.items ?? []).map((i: { term: string; value: string }) => (
+									<div class="nap-row">
+										<dt class="font-caption">{i.term}</dt>
+										<dd class="font-body" set:html={inline(i.value)} />
+									</div>
+								))}
+							</dl>
+						</div>
+					</section>
+				);
+			case "contact":
+				return <Contact />;
 			default:
 				return null;
 		}
@@ -160,6 +180,19 @@ const { sections = [] } = Astro.props;
 	.plain-list strong {
 		display: block;
 		margin-bottom: 0.15rem;
+		color: var(--color-snow);
+	}
+	.nap {
+		display: grid;
+		gap: 1.5rem;
+		max-width: 42ch;
+	}
+	.nap-row dt {
+		color: var(--color-slate);
+		margin-bottom: 0.25rem;
+	}
+	.nap-row dd {
+		margin: 0;
 		color: var(--color-snow);
 	}
 	.section-links {

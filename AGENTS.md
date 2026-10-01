@@ -86,11 +86,11 @@ route):
 
 - **A static `src/pages/<route>.astro` beats these routes**, so a page is "in
   EmDash" only when its own file is deleted. Index pages (`/managed-it-services`,
-  `/industries`), `/`, `/pricing`, `/contact`, `/digital-marketing`
+  `/industries` — its grid is read from the collection), `/`, `/pricing`, `/digital-marketing`
   and the legal pages are still hand-written.
 - **Entry shape** (`pages`, `managed_it_services`): `hero`, `callout`, `sections`
   (typed array: lead / text / cards / columns / list / stats / faq — documented on
-  `PageSections.astro`), `cta`, `breadcrumb`, `schema`; SEO description is the
+  `PageSections.astro`; also `facts` and `contact` — the enquiry form component), `cta`, `breadcrumb`, `schema`; SEO description is the
   collection's SEO field. Copy fields take `[label](/href)` inline links
   (`src/lib/inline.ts`; escaped, so editors can't inject HTML).
 - **Content lives in the database, not git.** `seed/<collection>/*.json` is the

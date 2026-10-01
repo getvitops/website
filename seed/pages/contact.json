@@ -1,0 +1,80 @@
+{
+  "title": "Contact us — Ottawa, Ontario",
+  "seo": {
+    "description": "Reach Vitops by phone, email or the form below. Based in Ottawa, working across Ontario, and serving clients remotely across Canada."
+  },
+  "schema": {
+    "graph": "organization"
+  },
+  "breadcrumb": [["Contact", "/contact"]],
+  "hero": {
+    "eyebrow": "Contact",
+    "title": "Talk to the people who'd actually do the work.",
+    "lead": "One partner, based in Ottawa, working across Ontario. Call, email, or send a note below — a partner answers, not a queue.",
+    "ctaHref": "#contact",
+    "note": "Ask us if [funding](/funding) might be available."
+  },
+  "sections": [
+    {
+      "type": "facts",
+      "items": [
+        {
+          "term": "Phone",
+          "value": "[+1 613-518-7984](tel:+16135187984)"
+        },
+        {
+          "term": "Email",
+          "value": "[hi@vitops.ca](mailto:hi@vitops.ca)"
+        },
+        {
+          "term": "Service area",
+          "value": "Ottawa, Ontario — working throughout Ontario, and supporting businesses elsewhere in Canada remotely."
+        }
+      ]
+    },
+    {
+      "type": "contact"
+    },
+    {
+      "type": "faq",
+      "title": "Questions about reaching us.",
+      "items": [
+        {
+          "q": "What's your service area?",
+          "a": "Ottawa first, then the rest of Ontario, then Canada-wide for anything that works remotely — most of what we do does."
+        },
+        {
+          "q": "How fast do you respond?",
+          "a": "A partner replies personally, usually the same or next business day. There's no ticket queue at this stage of a relationship."
+        },
+        {
+          "q": "Do you work with businesses outside Ottawa?",
+          "a": "Yes — all the work itself is remote, regardless of where you are. If you'd rather talk it through in person first, we're in Ottawa and happy to meet."
+        },
+        {
+          "q": "Can I just call instead of filling out the form?",
+          "a": "Yes — the phone number above reaches a partner directly."
+        }
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Not sure where to start?",
+    "lead": "Tell us what you're running today, on the software side or the marketing side, and we'll tell you what we'd look at first.",
+    "note": "Ask us if [funding](/funding) might be available.",
+    "links": [
+      {
+        "label": "Managed IT services",
+        "href": "/managed-it-services"
+      },
+      {
+        "label": "Digital marketing",
+        "href": "/digital-marketing"
+      },
+      {
+        "label": "Pricing",
+        "href": "/pricing"
+      }
+    ]
+  }
+}
