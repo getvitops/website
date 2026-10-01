@@ -16,7 +16,9 @@ Astro.cache.set(cacheHint);
 
 // A bodiless 404 makes Astro serve src/pages/404.astro. (Astro.rewrite("/404")
 // throws: an on-demand route cannot rewrite to the prerendered 404.)
-if (!entry) return new Response(null, { status: 404 });
+// no-store: a cached 404 carries no entry tag, so publishing the page later
+// would not purge it.
+if (!entry) return new Response(null, { status: 404, headers: { "cache-control": "private, no-store" } });
 ---
 
 <CmsPage data={entry.data} path={`/managed-it-services/${slug}`} />

@@ -12,7 +12,9 @@ const { entry, cacheHint } = await getEmDashEntry("industries", slug);
 Astro.cache.set(cacheHint);
 
 // A bodiless 404 makes Astro serve src/pages/404.astro.
-if (!entry) return new Response(null, { status: 404 });
+// no-store: a cached 404 carries no entry tag, so publishing the page later
+// would not purge it.
+if (!entry) return new Response(null, { status: 404, headers: { "cache-control": "private, no-store" } });
 
 const d = entry.data;
 ---

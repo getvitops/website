@@ -77,16 +77,16 @@ pages. Routes (`prerender = false`, `Astro.cache.set(cacheHint)`, bodiless `404`
 when the entry is missing — `Astro.rewrite("/404")` throws from an on-demand
 route):
 
-| Route | Collection | Rendered by |
-| --- | --- | --- |
-| `src/pages/[...slug].astro` → `/<slug>` | `pages` | `CmsPage.astro` |
-| `src/pages/managed-it-services/[slug].astro` | `managed_it_services` | `CmsPage.astro` |
-| `src/pages/industries/[slug].astro` | `industries` | `IndustryPage.astro` (props = fields) |
-| `src/pages/funding/[slug].astro` | `funding_programs` | `ProgramPage.astro` (props = fields) |
+| Route                                                      | Collection            | Rendered by                           |
+| ---------------------------------------------------------- | --------------------- | ------------------------------------- |
+| `src/pages/[...slug].astro` → `/<slug>` (incl. `/funding`) | `pages`               | `CmsPage.astro`                       |
+| `src/pages/managed-it-services/[slug].astro`               | `managed_it_services` | `CmsPage.astro`                       |
+| `src/pages/industries/[slug].astro`                        | `industries`          | `IndustryPage.astro` (props = fields) |
+| `src/pages/funding/[slug].astro`                           | `funding_programs`    | `ProgramPage.astro` (props = fields)  |
 
 - **A static `src/pages/<route>.astro` beats these routes**, so a page is "in
   EmDash" only when its own file is deleted. Index pages (`/managed-it-services`,
-  `/industries`, `/funding`), `/`, `/pricing`, `/contact`, `/digital-marketing`
+  `/industries`), `/`, `/pricing`, `/contact`, `/digital-marketing`
   and the legal pages are still hand-written.
 - **Entry shape** (`pages`, `managed_it_services`): `hero`, `callout`, `sections`
   (typed array: lead / text / cards / columns / list / stats / faq — documented on
@@ -104,6 +104,17 @@ route):
   `/` in a slug (`a%2Fb`), so `managed-it-services/x` is a `managed_it_services`
   entry with `urlPattern: /managed-it-services/{slug}`, never a `pages` slug with
   a slash.
+- **Edge caching (Workers Cache).** `astro.config.mjs` sets
+  `cache: { provider: cacheCloudflare() }` and `routeRules` (1 week + 1 day SWR)
+  for these four routes. Each route passes its query's `cacheHint` to
+  `Astro.cache.set()`, so the response is tagged with its collection/entry and a
+  publish purges exactly the affected pages — a page is served from the edge
+  until it next changes. Rules: keep `Astro.cache.set(cacheHint)` on every
+  CMS-backed route (without it a page never invalidates); a missing entry must
+  return `private, no-store` (a cached 404 has no tag to purge); and a signed-in
+  editor may be served the cached anonymous page. Cloudflare's `Vary` support is
+  not the mechanism — it caches alternate representations of one URL, not
+  "until changed".
 - **Sitemap / llms.txt:** `/sitemap.xml` (EmDash) indexes the CMS-backed pages;
   `pages-sitemap.xml` and `llms.txt` are derived from the filesystem and from
   built HTML, so they **no longer list migrated pages** (`robots.txt` names
@@ -354,4 +365,3 @@ the very page being measured.
 (`plausibleDomain`) once Plausible is adopted; `<Analytics />` then attaches the
 assignment to the pageview. Until then a launched test is not attributed in
 analytics, so don't launch one before Plausible is wired.
-

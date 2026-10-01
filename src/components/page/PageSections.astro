@@ -6,7 +6,7 @@
 // Shapes (all copy fields accept `[label](/href)` inline links — see lib/inline.ts):
 //   lead     { paragraphs[] }
 //   text     { eyebrow?, title, lead?, paragraphs[], more?[], note?, spotlight? = true }
-//   cards    { eyebrow?, title, lead?, cards[{ heading, body }], cols?, note? }
+//   cards    { eyebrow?, title, lead?, cards[{ tag?, heading, body }], cols?, note?, links?[{ label, href }] }
 //   columns  { eyebrow?, title, columns[{ heading, paragraphs[] }], gap? = 10 }
 //   list     { eyebrow?, title, lead?, items[], note? }
 //            an item is a string, or { heading, body, href?, linkLabel? } for a bold lead-in line
@@ -36,7 +36,8 @@ export interface Section {
 	more?: string[];
 	note?: string;
 	spotlight?: boolean;
-	cards?: { heading: string; body: string }[];
+	cards?: { tag?: string; heading: string; body: string }[];
+	links?: { label: string; href: string }[];
 	cols?: 2 | 3;
 	columns?: { heading: string; paragraphs: string[] }[];
 	gap?: number;
@@ -87,6 +88,11 @@ const { sections = [] } = Astro.props;
 						<div class="spotlight">
 							<SectionIntro eyebrow={s.eyebrow} title={s.title ?? ""} lead={s.lead} />
 							<Cards cards={s.cards ?? []} cols={s.cols} />
+							{s.links?.length ? (
+								<nav class="section-links" aria-label={s.title}>
+									{s.links.map((l) => <a class="link" href={l.href}>{l.label}</a>)}
+								</nav>
+							) : null}
 							{s.note && <p class="font-caption follow-link" set:html={inline(s.note)} />}
 						</div>
 					</section>
@@ -155,6 +161,13 @@ const { sections = [] } = Astro.props;
 		display: block;
 		margin-bottom: 0.15rem;
 		color: var(--color-snow);
+	}
+	.section-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.5rem;
+		margin-top: 2rem;
+		font-size: var(--text-s);
 	}
 	.follow-link {
 		margin-top: 2rem;
