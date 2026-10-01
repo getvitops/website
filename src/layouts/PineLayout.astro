@@ -99,7 +99,6 @@ const year = new Date().getFullYear();
 // writes, silently. Keep that invariant if consent ever gates something else
 // (an embed, A/B assignment).
 const analyticsEnabled = clarityEnabled(Astro.originPathname);
-const variant = Astro.locals.variant ?? "a";
 ---
 
 <!doctype html>
@@ -131,7 +130,6 @@ const variant = Astro.locals.variant ?? "a";
 		     request to Microsoft at all. `enabled` is the production-STAGE gate,
 		     baked in at build time — inert in every non-prod build. -->
 		<Analytics enabled={analyticsEnabled} />
-		{analyticsEnabled && <meta name="clarity-ab-variant" content={variant} />}
 		<!-- Ad-click attribution: captures a click ID / UTMs off the landing URL
 		     into the first-party `_ac` cookie, which /api/contact reads back. In
 		     <head> because the capture must run before the visitor can navigate
@@ -691,21 +689,6 @@ const variant = Astro.locals.variant ?? "a";
 							// delegates a document click listener to `[data-consent-open]`
 							// itself, which is why the footer button carries that attribute
 							// and nothing here binds it.
-
-							// Segment recordings/heatmaps by A/B arm. Clarity does not
-							// exist until consent is granted and the gated tag has run, so
-							// this waits on the consent event rather than firing at parse
-							// time. Dormant today (every visitor gets "a"), but a launched
-							// test is then already attributed without a second deploy.
-							const meta = document.querySelector('meta[name="clarity-ab-variant"]');
-							if (!meta) return;
-							const tag = () => {
-								if (window.vitopsConsent?.granted?.("analytics") && window.clarity) {
-									window.clarity("set", "ab_variant", meta.content);
-								}
-							};
-							document.addEventListener("vitops:consent", tag);
-							tag();
 						})();
 					</script>
 				</Fragment>

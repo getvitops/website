@@ -39,15 +39,14 @@ async function pageFiles(root) {
 /**
  * Routes that exist but must not be indexed.
  *
- * `/404` is an error page. `/b-variant/*` is the A/B layer-3 dispatcher, which
- * 404s on a direct hit and must never be linked (see CLAUDE.md). A leading
+ * `/404` is an error page. A leading
  * underscore on any segment means Astro does not route the file at all — the
  * `src/pages/industries/_*.astro` partials — but a filesystem walk still finds
  * them, so they are filtered here rather than assumed away.
  */
 export function isPublicRoute(route) {
   if (route === "/404") return false;
-  return !route.split("/").some((segment) => segment.startsWith("_") || segment === "b-variant");
+  return !route.split("/").some((segment) => segment.startsWith("_") || segment.includes("["));
 }
 
 /**

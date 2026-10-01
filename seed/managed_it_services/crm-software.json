@@ -1,0 +1,67 @@
+{
+  "title": "CRM software: Zoho Bigin, HubSpot & Jobber",
+  "seo": {
+    "description": "Zoho Bigin, HubSpot or Jobber, selected and configured around how your team actually sells and follows up — for Ontario small businesses."
+  },
+  "schema": {
+    "service": {
+      "name": "CRM software",
+      "description": "Selection, configuration and integration of Zoho Bigin, HubSpot and Jobber for Ontario small businesses."
+    }
+  },
+  "breadcrumb": [
+    ["Managed IT services", "/managed-it-services"],
+    ["CRM software", "/managed-it-services/crm-software"]
+  ],
+  "hero": {
+    "eyebrow": "Managed IT services / CRM software",
+    "title": "The record of who you talk to, and what they bought.",
+    "lead": "Zoho Bigin, HubSpot, or Jobber — chosen for how your team actually sells and follows up, not how the demo video does, and connected to the tools around it so a lead doesn't sit in three places at once.",
+    "secondaryLabel": "See pricing",
+    "secondaryHref": "/pricing",
+    "note": "Ask us if [funding](/funding) might be available."
+  },
+  "sections": [
+    {
+      "type": "lead",
+      "paragraphs": [
+        "CRM software means the system of record for who you talk to, what they've bought, and what happens next. Zoho Bigin, HubSpot and Jobber cover most small-business cases — Bigin and HubSpot for a general sales pipeline, Jobber where the work is field-service jobs rather than a sales cycle. We choose based on how your team actually works, configure it, and connect it to your accounting and marketing tools so a lead's status doesn't have to be retyped in three places."
+      ]
+    },
+    {
+      "type": "list",
+      "eyebrow": "What we run",
+      "title": "Chosen, configured, connected.",
+      "items": [
+        "Platform selection based on your actual sales or job-tracking motion.",
+        "Configuration — pipelines, fields, automations that match how deals actually move.",
+        "Integration with accounting and marketing tools, so nothing needs retyping."
+      ],
+      "note": "CRM configuration is a named pain point for real estate teams — see [real estate](/industries/real-estate)."
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "We already have a CRM nobody uses. Can you fix that instead of replacing it?",
+          "a": "Often, yes — a CRM nobody uses is usually a configuration problem, not a platform problem. We'll tell you honestly which one it is before recommending a switch."
+        },
+        {
+          "q": "Does this connect to our marketing campaigns?",
+          "a": "Yes, when you're also on a digital marketing plan — leads route into the CRM and trigger follow-up automatically. See digital marketing."
+        }
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Tell us how a lead moves through your business today.",
+    "lead": "From first contact to closed or booked. We'll tell you where it's getting lost.",
+    "note": "Ask us if [funding](/funding) might be available.",
+    "links": [
+      { "label": "Managed IT services", "href": "/managed-it-services" },
+      { "label": "Invoicing software", "href": "/managed-it-services/invoicing-software" },
+      { "label": "Job & project tracking", "href": "/managed-it-services/job-tracking-software" },
+      { "label": "Pricing", "href": "/pricing" }
+    ]
+  }
+}

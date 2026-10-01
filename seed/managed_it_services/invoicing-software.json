@@ -1,0 +1,67 @@
+{
+  "title": "Invoicing software: Zoho Invoice & Jobber",
+  "seo": {
+    "description": "Zoho Invoice or Jobber, set up and connected to your bookkeeping so what goes out gets paid and lands coded correctly — for Ontario small businesses."
+  },
+  "schema": {
+    "service": {
+      "name": "Invoicing software",
+      "description": "Selection, setup and bookkeeping integration of Zoho Invoice and Jobber invoicing for Ontario small businesses."
+    }
+  },
+  "breadcrumb": [
+    ["Managed IT services", "/managed-it-services"],
+    ["Invoicing software", "/managed-it-services/invoicing-software"]
+  ],
+  "hero": {
+    "eyebrow": "Managed IT services / Invoicing software",
+    "title": "What goes out, coded correctly when it comes back.",
+    "lead": "Zoho Invoice or Jobber, connected to your bookkeeping so an invoice doesn't need to be re-entered by hand once it's paid.",
+    "secondaryLabel": "See pricing",
+    "secondaryHref": "/pricing",
+    "note": "Ask us if [funding](/funding) might be available."
+  },
+  "sections": [
+    {
+      "type": "lead",
+      "paragraphs": [
+        "Invoicing software is what generates and tracks what you bill clients — Zoho Invoice for a general services business, Jobber where invoicing follows a job. The point of configuring it properly is that it feeds your bookkeeping directly: a paid invoice lands coded correctly instead of as a lump your bookkeeper has to unpick by hand."
+      ]
+    },
+    {
+      "type": "list",
+      "eyebrow": "What we run",
+      "title": "Set up once, feeds the books automatically.",
+      "items": [
+        "Platform selection and setup, tied to how billing actually happens in your business.",
+        "Integration with your bookkeeping software, so nothing gets retyped.",
+        "Templates, payment terms, and automated reminders configured once, not per-invoice."
+      ],
+      "note": "See [bookkeeping and payroll software](/managed-it-services/bookkeeping-payroll-software) for the half this feeds into."
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Does this replace our bookkeeper?",
+          "a": "No — this is the software that feeds your books. Whoever does your bookkeeping (you or your accountant) still works from what it produces."
+        },
+        {
+          "q": "Can clients pay directly through the invoice?",
+          "a": "Yes, where the platform supports it — online payment links are part of the setup."
+        }
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Tell us how billing works today.",
+    "lead": "We'll tell you what's manual that shouldn't be.",
+    "note": "Ask us if [funding](/funding) might be available.",
+    "links": [
+      { "label": "Managed IT services", "href": "/managed-it-services" },
+      { "label": "Bookkeeping & payroll software", "href": "/managed-it-services/bookkeeping-payroll-software" },
+      { "label": "CRM software", "href": "/managed-it-services/crm-software" },
+      { "label": "Pricing", "href": "/pricing" }
+    ]
+  }
+}

@@ -1,0 +1,323 @@
+{
+  "collections": [
+    {
+      "slug": "funding_programs",
+      "label": "Funding programs",
+      "labelSingular": "Funding program",
+      "supports": [
+        "drafts",
+        "revisions",
+        "seo"
+      ],
+      "hidden": false,
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "unique": false
+        },
+        {
+          "slug": "eyebrow",
+          "label": "Eyebrow",
+          "type": "string",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "h1",
+          "label": "H1",
+          "type": "string",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "direct_answer",
+          "label": "Direct answer",
+          "type": "text",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "verified",
+          "label": "Verified",
+          "type": "string",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "source_url",
+          "label": "Source URL",
+          "type": "string",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "source_label",
+          "label": "Source label",
+          "type": "string",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "facts",
+          "label": "Facts",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "sections",
+          "label": "Sections",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "faq",
+          "label": "FAQ",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "related_links",
+          "label": "Related links",
+          "type": "json",
+          "required": false,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "slug": "industries",
+      "label": "Industries",
+      "labelSingular": "Industry",
+      "supports": [
+        "drafts",
+        "revisions",
+        "seo"
+      ],
+      "hidden": false,
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "unique": false
+        },
+        {
+          "slug": "eyebrow",
+          "label": "Eyebrow",
+          "type": "string",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "h1",
+          "label": "H1",
+          "type": "string",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "hero_lead",
+          "label": "Hero lead",
+          "type": "text",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "funding_text",
+          "label": "Funding callout",
+          "type": "text",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "direct_answer",
+          "label": "Direct answer",
+          "type": "text",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "differences_title",
+          "label": "Differences title",
+          "type": "string",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "differences",
+          "label": "Differences",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "pillars",
+          "label": "Pillars",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "faq",
+          "label": "FAQ",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "cta_title",
+          "label": "CTA title",
+          "type": "string",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "cta_lead",
+          "label": "CTA lead",
+          "type": "text",
+          "required": false,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "slug": "managed_it_services",
+      "label": "Managed IT services",
+      "labelSingular": "Managed IT service",
+      "supports": [
+        "drafts",
+        "revisions",
+        "seo"
+      ],
+      "hidden": false,
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "unique": false
+        },
+        {
+          "slug": "hero",
+          "label": "Hero",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "sections",
+          "label": "Sections",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "cta",
+          "label": "Closing CTA",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "callout",
+          "label": "Funding callout",
+          "type": "text",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "schema",
+          "label": "Schema.org JSON-LD",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "breadcrumb",
+          "label": "Breadcrumb trail",
+          "type": "json",
+          "required": false,
+          "unique": false
+        }
+      ]
+    },
+    {
+      "slug": "pages",
+      "label": "Pages",
+      "labelSingular": "Page",
+      "supports": [
+        "drafts",
+        "revisions",
+        "seo"
+      ],
+      "hidden": false,
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "unique": false
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "hero",
+          "label": "Hero",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "sections",
+          "label": "Sections",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "cta",
+          "label": "Closing CTA",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "schema",
+          "label": "Schema.org JSON-LD",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "breadcrumb",
+          "label": "Breadcrumb trail",
+          "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "callout",
+          "label": "Funding callout",
+          "type": "text",
+          "required": false,
+          "unique": false
+        }
+      ]
+    }
+  ],
+  "version": "ea558d8ecb77efe6"
+}

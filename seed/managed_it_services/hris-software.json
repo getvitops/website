@@ -1,0 +1,62 @@
+{
+  "title": "HRIS software: employee records & onboarding",
+  "seo": {
+    "description": "HRIS software chosen and configured so a start date or termination drives accounts, licences and permissions automatically — for Ontario small businesses."
+  },
+  "schema": {
+    "service": {
+      "name": "HRIS software",
+      "description": "Selection and configuration of Zoho People, Rippling, Collage HR and Rise People for Ontario small businesses, wired as the joiner/mover/leaver trigger."
+    }
+  },
+  "breadcrumb": [
+    ["Managed IT services", "/managed-it-services"],
+    ["HRIS software", "/managed-it-services/hris-software"]
+  ],
+  "hero": {
+    "eyebrow": "Managed IT services / HRIS software",
+    "title": "The employee record that drives every other account.",
+    "lead": "One system of record for who's on staff, what they're entitled to, and when that changes — wired so a start date or a termination provisions or revokes access everywhere else automatically.",
+    "secondaryLabel": "See pricing",
+    "secondaryHref": "/pricing",
+    "note": "Ask us if [funding](/funding) might be available."
+  },
+  "sections": [
+    {
+      "type": "lead",
+      "paragraphs": [
+        "An HRIS is the system of record for employee data — who's employed, their role, their start date, their status. Zoho People, Rippling, Collage HR and Rise People cover most small-business cases in Canada. It matters beyond HR because it's the trigger for everything else: when it's wired to your other software, a new hire's accounts, licences and permissions follow the record instead of a request going to us, and a termination revokes access the same day rather than whenever someone remembers."
+      ]
+    },
+    {
+      "type": "list",
+      "eyebrow": "What we run",
+      "title": "The record, and what it triggers.",
+      "items": [
+        "HRIS selection between Zoho People, Rippling, Collage HR and Rise People — based on how your team actually works, not brand preference.",
+        "Configuration — records, time off, policy acknowledgements.",
+        "The joiner/mover/leaver trigger — wired into the rest of your software stack, to the extent each application exposes the hooks (some SaaS tools don't; we'll tell you which ones have to be handled by hand).",
+        "Access review — the HRIS is also how we confirm nobody's access has quietly outlived their employment."
+      ],
+      "note": "Rippling also does payroll and device management on its own platform. This page only covers its HRIS/employee-record use — see [managed IT services](/managed-it-services) for the device-management boundary (not offered) and [bookkeeping and payroll software](/managed-it-services/bookkeeping-payroll-software) for the payroll boundary (software administered, client submits and approves runs)."
+    },
+    {
+      "type": "faq",
+      "items": [
+        { "q": "Does this include running payroll or benefits?", "a": "No — this page is about the employee-record software itself. Payroll and benefits administration software is its own category: see bookkeeping and payroll software." },
+        { "q": "What if our current HRIS doesn't support the joiner/leaver automation?", "a": "We'll tell you which parts don't reach and handle those manually rather than promise automation the platform can't actually do." }
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Tell us how a new hire gets set up today.",
+    "lead": "Walk us through the last one — what took a phone call, what took a week. We'll tell you what we'd automate first.",
+    "note": "Ask us if [funding](/funding) might be available.",
+    "links": [
+      { "label": "Managed IT services", "href": "/managed-it-services" },
+      { "label": "Bookkeeping & payroll software", "href": "/managed-it-services/bookkeeping-payroll-software" },
+      { "label": "Productivity software", "href": "/managed-it-services/productivity-software" },
+      { "label": "Pricing", "href": "/pricing" }
+    ]
+  }
+}

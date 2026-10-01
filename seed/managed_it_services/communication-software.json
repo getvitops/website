@@ -1,0 +1,60 @@
+{
+  "title": "Communication software: Teams, Slack & Zoho Cliq",
+  "seo": {
+    "description": "Microsoft Teams, Slack or Zoho Cliq set up and administered so calls, chat and meetings run on one identity — for Ontario small businesses."
+  },
+  "schema": {
+    "service": {
+      "name": "Communication software",
+      "description": "Selection, configuration and identity integration of Microsoft Teams, Slack and Zoho Cliq for Ontario small businesses."
+    }
+  },
+  "breadcrumb": [
+    ["Managed IT services", "/managed-it-services"],
+    ["Communication software", "/managed-it-services/communication-software"]
+  ],
+  "hero": {
+    "eyebrow": "Managed IT services / Communication software",
+    "title": "Chat and meetings, on one identity.",
+    "lead": "Microsoft Teams, Slack, or Zoho Cliq — chosen for how your team actually communicates, and tied into the same identity and access controls as everything else in the stack.",
+    "secondaryLabel": "See pricing",
+    "secondaryHref": "/pricing",
+    "note": "Ask us if [funding](/funding) might be available."
+  },
+  "sections": [
+    {
+      "type": "lead",
+      "paragraphs": [
+        "Communication software is the platform for chat, calls and meetings — Microsoft Teams, Slack, and Zoho Cliq are the common options for a small business, and the right one usually depends on what your productivity suite already is (Teams pairs with Microsoft 365, Cliq with Zoho Workplace). We choose, configure, and keep it on the same identity and MFA policy as the rest of the stack, so a leaver's access revokes everywhere at once rather than in one system and not another."
+      ]
+    },
+    {
+      "type": "list",
+      "eyebrow": "What we run",
+      "title": "Chosen, configured, tied into identity.",
+      "items": [
+        "Platform selection, tied to your existing productivity suite where that's the simpler path.",
+        "Configuration — channels, groups, guest access, meeting policies.",
+        "Identity integration — same MFA, same joiner/leaver trigger as every other account."
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        { "q": "Do you set up our business phone system too?", "a": "No — business phone and VoIP systems are a separate discipline from chat and meeting platforms, and we don't provision them today. We'll tell you plainly rather than imply coverage that isn't there." },
+        { "q": "Can you migrate us from Slack to Teams (or the reverse)?", "a": "Yes — the platform switch and the message/file history migration where the vendor supports it." }
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Tell us how your team actually communicates.",
+    "lead": "We'll tell you whether your current setup is worth keeping or worth switching.",
+    "note": "Ask us if [funding](/funding) might be available.",
+    "links": [
+      { "label": "Managed IT services", "href": "/managed-it-services" },
+      { "label": "Productivity software", "href": "/managed-it-services/productivity-software" },
+      { "label": "CRM software", "href": "/managed-it-services/crm-software" },
+      { "label": "Pricing", "href": "/pricing" }
+    ]
+  }
+}

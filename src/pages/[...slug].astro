@@ -1,0 +1,21 @@
+---
+// EmDash-backed pages: every entry in the `pages` collection is served at
+// `/<slug>`. On-demand (`prerender = false`) so an editor's publish is live
+// immediately — the opposite trade from the hand-written, prerendered pages.
+// Astro prefers a static route over this one, so a page only moves here once its
+// own `src/pages/<slug>.astro` is deleted. Rendering lives in CmsPage.astro.
+import { getEmDashEntry } from "emdash";
+import CmsPage from "../components/page/CmsPage.astro";
+
+export const prerender = false;
+
+const slug = Astro.params.slug ?? "";
+const { entry, cacheHint } = await getEmDashEntry("pages", slug);
+Astro.cache.set(cacheHint);
+
+// A bodiless 404 makes Astro serve src/pages/404.astro. (Astro.rewrite("/404")
+// throws: an on-demand route cannot rewrite to the prerendered 404.)
+if (!entry) return new Response(null, { status: 404 });
+---
+
+<CmsPage data={entry.data} path={`/${slug}`} />

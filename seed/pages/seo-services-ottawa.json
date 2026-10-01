@@ -1,0 +1,60 @@
+{
+  "title": "SEO services & SEO agency in Ottawa",
+  "seo": {
+    "description": "SEO services for Ottawa businesses: technical audits, local search and Google Business Profile, and answer-engine visibility — steered monthly, published pricing."
+  },
+  "schema": {
+    "service": {
+      "name": "SEO services",
+      "description": "Technical SEO, local search and Google Business Profile management for Ottawa businesses."
+    }
+  },
+  "breadcrumb": [["SEO services Ottawa", "/seo-services-ottawa"]],
+  "hero": {
+    "eyebrow": "SEO services, Ottawa",
+    "title": "Findable in Ottawa, not just on the internet.",
+    "lead": "Technical SEO, local search, and the answer-engine work that decides whether an AI assistant names you — for a business that actually wants Ottawa and the surrounding region to find it, not a national audience.",
+    "secondaryLabel": "See pricing",
+    "secondaryHref": "/pricing",
+    "note": "Ask us if [funding](/funding) might be available."
+  },
+  "sections": [
+    {
+      "type": "lead",
+      "paragraphs": [
+        "SEO services in Ottawa means the same technical work as anywhere — site speed, structure, schema, content that answers the question — plus the local layer that makes the difference here specifically: a Google Business Profile that's claimed, verified and consistent, citations that agree across Google, Bing and Apple, and content that answers \"near me\" and neighbourhood-level searches (Kanata, Barrhaven, Orleans, the Glebe) the same way it answers the city-wide ones."
+      ]
+    },
+    {
+      "type": "cards",
+      "eyebrow": "What's different here",
+      "title": "Local ranking is a different game from national ranking.",
+      "cols": 3,
+      "cards": [
+        { "heading": "Google Business Profile is half the work.", "body": "For a service-area or storefront business, the local pack often outperforms the organic result below it. Most Ottawa sites we look at have a claimed-but-unmanaged listing." },
+        { "heading": "Your competition is genuinely local.", "body": "You're not out-ranking a national brand; you're out-ranking three other Ottawa firms doing the same thing you do, which is a more winnable fight with the right technical foundation." },
+        { "heading": "Bilingual search exists here and most sites ignore it.", "body": "Ottawa has real English/French search volume. Whether that's worth building for depends on your client base — we'll tell you honestly if it isn't, rather than sell a French site nobody searches for." }
+      ],
+      "note": "The technical and content work itself is the same discipline described in full on [digital marketing](/digital-marketing), including the answer-engine optimization section — this page is the Ottawa-specific entry point, not a separate service."
+    },
+    {
+      "type": "faq",
+      "title": "Questions Ottawa businesses ask us.",
+      "items": [
+        { "q": "Do you only work with Ottawa businesses?", "a": "No — Ottawa is where we're based and where local-pack work matters most, but the technical SEO and content work serves clients anywhere in Ontario." },
+        { "q": "How long before we rank in Ottawa specifically?", "a": "Local pack movement is often faster than organic ranking — weeks rather than months, once the Business Profile and citations are cleaned up. Organic content ranking still takes the usual several months." },
+        { "q": "Do you handle Google Business Profile suspensions or verification issues?", "a": "Yes — it's one of the more common things we untangle in a first month, particularly for service-area businesses without a public storefront." }
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Send us your Google Business Profile.",
+    "lead": "We'll tell you what's inconsistent, what's missing, and what we'd fix first — whether or not you hire us.",
+    "note": "Ask us if [funding](/funding) might be available.",
+    "links": [
+      { "label": "Digital marketing", "href": "/digital-marketing" },
+      { "label": "Business health check", "href": "/business-health-check" },
+      { "label": "Contact", "href": "/contact" }
+    ]
+  }
+}

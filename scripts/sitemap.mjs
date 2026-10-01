@@ -36,7 +36,7 @@ import { CANONICAL_ORIGIN, publicRoutes } from "./routes.mjs";
  *   verified by prerendering the markdown-rendering legal pages — so it is not a
  *   reason to avoid prerendering anything.)
  *
- * Route derivation (the filesystem walk, the `/404`/`_`/`b-variant` filtering)
+ * Route derivation (the filesystem walk, the `/404`/`_` filtering)
  * lives in `scripts/routes.mjs`, shared with `scripts/llms.mjs` so the two
  * documents can't silently list different URLs.
  */

@@ -1,0 +1,22 @@
+---
+// EmDash-backed managed-IT software pages (`managed_it_services` collection) at
+// `/managed-it-services/<slug>`. On-demand so a publish is live immediately.
+// It is its own collection, not `pages` entries with a `/` in the slug, because
+// EmDash's sitemap percent-encodes a slash in a slug (`a%2Fb`) and lists the
+// wrong URL. `managed-it-services.astro` (the index) stays a static page.
+// Rendering lives in CmsPage.astro.
+import { getEmDashEntry } from "emdash";
+import CmsPage from "../../components/page/CmsPage.astro";
+
+export const prerender = false;
+
+const slug = Astro.params.slug ?? "";
+const { entry, cacheHint } = await getEmDashEntry("managed_it_services", slug);
+Astro.cache.set(cacheHint);
+
+// A bodiless 404 makes Astro serve src/pages/404.astro. (Astro.rewrite("/404")
+// throws: an on-demand route cannot rewrite to the prerendered 404.)
+if (!entry) return new Response(null, { status: 404 });
+---
+
+<CmsPage data={entry.data} path={`/managed-it-services/${slug}`} />

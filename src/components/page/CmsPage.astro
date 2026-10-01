@@ -1,0 +1,71 @@
+---
+// Renders an EmDash page-shaped entry (hero / callout / sections / cta, plus
+// breadcrumb and schema). Shared by every route backed by such a collection —
+// `pages` at `/<slug>` and `managed_it_services` at `/managed-it-services/<slug>`
+// — so they cannot drift apart.
+//
+// Entry shape is documented on PageSections.astro (sections) and below:
+//   hero        { eyebrow, title, lead, ctaLabel?, ctaHref?, secondaryLabel?, secondaryHref?, note? }
+//   cta         { title, lead?, ctaLabel?, ctaHref?, note?, links?[{ label, href }] }
+//   callout     string — the slim funding band above the hero (plain text)
+//   breadcrumb  [[label, href], ...]   (default: the hero eyebrow → this page)
+//   schema      { graph: "organization" } | { service: { name, description } }
+// `note` fields take `[label](/href)` inline links (lib/inline.ts).
+import PineLayout from "../../layouts/PineLayout.astro";
+import FundingCallout from "./FundingCallout.astro";
+import PageHero from "./PageHero.astro";
+import PageSections from "./PageSections.astro";
+import PageCta from "./PageCta.astro";
+import Schema from "./Schema.astro";
+import { inline } from "../../lib/inline";
+import { breadcrumb, organizationGraph, service } from "../../lib/schema";
+
+interface Props {
+	/** `entry.data` of the page-shaped entry. */
+	data: Record<string, any>;
+	/** Public path, e.g. `/about`. */
+	path: string;
+}
+const { data, path } = Astro.props;
+
+const { title, hero, sections, cta, schema, callout, breadcrumb: trail } = data;
+const description = data.seo?.description ?? undefined;
+const crumbs = (trail?.length ? trail : [[hero?.eyebrow ?? title, path]]) as [string, string][];
+---
+<PineLayout title={title} description={description}>
+	{schema?.graph === "organization" && <Schema data={organizationGraph} />}
+	{schema?.service && <Schema data={service(schema.service.name, schema.service.description, path)} />}
+	<Schema data={breadcrumb(...crumbs)} />
+
+	{callout && <FundingCallout text={callout} />}
+
+	{
+		hero && (
+			<PageHero
+				eyebrow={hero.eyebrow}
+				title={hero.title}
+				lead={hero.lead}
+				ctaLabel={hero.ctaLabel}
+				ctaHref={hero.ctaHref}
+				secondaryLabel={hero.secondaryLabel}
+				secondaryHref={hero.secondaryHref}
+				note={hero.note && inline(hero.note)}
+			/>
+		)
+	}
+
+	<PageSections sections={sections ?? []} />
+
+	{
+		cta && (
+			<PageCta
+				title={cta.title}
+				lead={cta.lead}
+				ctaLabel={cta.ctaLabel}
+				ctaHref={cta.ctaHref}
+				note={cta.note && inline(cta.note)}
+				links={cta.links}
+			/>
+		)
+	}
+</PineLayout>

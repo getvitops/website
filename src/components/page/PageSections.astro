@@ -1,0 +1,163 @@
+---
+// Renders the `sections` JSON array on an EmDash `pages` entry. One component
+// per section `type`, mapped onto the same page primitives the hand-written
+// pages use, so a migrated page comes out structurally identical.
+//
+// Shapes (all copy fields accept `[label](/href)` inline links — see lib/inline.ts):
+//   lead     { paragraphs[] }
+//   text     { eyebrow?, title, lead?, paragraphs[], more?[], note?, spotlight? = true }
+//   cards    { eyebrow?, title, lead?, cards[{ heading, body }], cols?, note? }
+//   columns  { eyebrow?, title, columns[{ heading, paragraphs[] }], gap? = 10 }
+//   list     { eyebrow?, title, lead?, items[], note? }
+//            an item is a string, or { heading, body, href?, linkLabel? } for a bold lead-in line
+//   stats    { stats[{ value, label, sourceLabel, sourceUrl }], cols?, eyebrow?, lead? }
+//   faq      { items[{ q, a }], title?, eyebrow? }
+import Cards from "./Cards.astro";
+import Faq from "./Faq.astro";
+import Stats from "./Stats.astro";
+import Prose from "./Prose.astro";
+import SectionIntro from "./SectionIntro.astro";
+import { inline } from "../../lib/inline";
+
+export interface ListItem {
+	heading: string;
+	body: string;
+	href?: string;
+	linkLabel?: string;
+}
+export interface Section {
+	type: "lead" | "text" | "cards" | "columns" | "list" | "stats" | "faq";
+	lead?: string;
+	items?: any[];
+	stats?: any[];
+	eyebrow?: string;
+	title?: string;
+	paragraphs?: string[];
+	more?: string[];
+	note?: string;
+	spotlight?: boolean;
+	cards?: { heading: string; body: string }[];
+	cols?: 2 | 3;
+	columns?: { heading: string; paragraphs: string[] }[];
+	gap?: number;
+}
+interface Props {
+	sections: Section[];
+}
+const { sections = [] } = Astro.props;
+---
+
+{
+	sections.map((s) => {
+		switch (s.type) {
+			case "lead":
+				return (
+					<Prose lead>
+						{(s.paragraphs ?? []).map((p) => (
+							<p set:html={inline(p)} />
+						))}
+					</Prose>
+				);
+			case "text": {
+				const body = (
+					<Fragment>
+						<SectionIntro eyebrow={s.eyebrow} title={s.title ?? ""} lead={s.lead} />
+						{(s.paragraphs ?? []).map((p) => (
+							<p class="font-body text-neutral-muted" set:html={inline(p)} />
+						))}
+						{s.note && <p class="font-caption text-neutral-x-muted mt-4" set:html={inline(s.note)} />}
+					</Fragment>
+				);
+				return (
+					<section class="section centered">
+						{s.spotlight === false ? body : <div class="spotlight">{body}</div>}
+						{s.more?.length ? (
+							<div class="rhythm mt-12 pt-8 border-t border-neutral">
+								{s.more.map((p) => (
+									<p class="font-body text-neutral-muted" set:html={inline(p)} />
+								))}
+							</div>
+						) : null}
+					</section>
+				);
+			}
+			case "cards":
+				return (
+					<section class="section centered">
+						<div class="spotlight">
+							<SectionIntro eyebrow={s.eyebrow} title={s.title ?? ""} lead={s.lead} />
+							<Cards cards={s.cards ?? []} cols={s.cols} />
+							{s.note && <p class="font-caption follow-link" set:html={inline(s.note)} />}
+						</div>
+					</section>
+				);
+			case "columns":
+				return (
+					<section class="section centered">
+						<div class="spotlight">
+							<SectionIntro eyebrow={s.eyebrow} title={s.title ?? ""} lead={s.lead} />
+							<div class={`split flex-col @md:flex-row gap-${s.gap ?? 10}`}>
+								{(s.columns ?? []).map((c) => (
+									<article class="rhythm">
+										<h3 class="font-heading">{c.heading}</h3>
+										{c.paragraphs.map((p) => (
+											<p class="font-body text-neutral-muted" set:html={inline(p)} />
+										))}
+									</article>
+								))}
+							</div>
+						</div>
+					</section>
+				);
+			case "list":
+				return (
+					<section class="section centered">
+						<div class="spotlight">
+							<SectionIntro eyebrow={s.eyebrow} title={s.title ?? ""} lead={s.lead} />
+							<ul class="list rhythm plain-list" role="list">
+								{(s.items ?? []).map((item: string | ListItem) =>
+									typeof item === "string" ? (
+										<li class="font-body text-neutral-muted" set:html={inline(item)} />
+									) : (
+										<li class="font-body text-neutral-muted">
+											<strong class="font-heading">{item.heading}</strong>{" "}
+											<Fragment set:html={inline(item.body)} />
+											{item.href && (
+												<>
+													{" "}
+													<a class="link" href={item.href}>{item.linkLabel} →</a>
+												</>
+											)}
+										</li>
+									),
+								)}
+							</ul>
+							{s.note && <p class="font-caption follow-link" set:html={inline(s.note)} />}
+						</div>
+					</section>
+				);
+			case "stats":
+				return <Stats stats={s.stats ?? []} cols={s.cols} eyebrow={s.eyebrow} lead={s.lead} />;
+			case "faq":
+				return <Faq items={s.items ?? []} title={s.title} eyebrow={s.eyebrow} />;
+			default:
+				return null;
+		}
+	})
+}
+
+<style>
+	.plain-list {
+		max-width: 68ch;
+		gap: 1rem;
+	}
+	.plain-list strong {
+		display: block;
+		margin-bottom: 0.15rem;
+		color: var(--color-snow);
+	}
+	.follow-link {
+		margin-top: 2rem;
+		color: var(--color-slate);
+	}
+</style>

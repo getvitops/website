@@ -1,0 +1,35 @@
+---
+// EmDash-backed funding program pages (`funding_programs` collection) rendered
+// through the same ProgramPage shell the hand-written ones used. On-demand so a
+// publish (e.g. a program closing) is live immediately. `funding/index.astro`
+// stays a static page.
+import { getEmDashEntry } from "emdash";
+import ProgramPage from "../../components/page/ProgramPage.astro";
+
+export const prerender = false;
+
+const slug = Astro.params.slug ?? "";
+const { entry, cacheHint } = await getEmDashEntry("funding_programs", slug);
+Astro.cache.set(cacheHint);
+
+// A bodiless 404 makes Astro serve src/pages/404.astro.
+if (!entry) return new Response(null, { status: 404 });
+
+const d = entry.data;
+---
+
+<ProgramPage
+	slug={slug}
+	title={d.title}
+	description={d.seo?.description ?? ""}
+	eyebrow={d.eyebrow}
+	h1={d.h1}
+	directAnswer={d.direct_answer}
+	verified={d.verified}
+	sourceUrl={d.source_url}
+	sourceLabel={d.source_label}
+	facts={d.facts}
+	sections={d.sections}
+	faq={d.faq}
+	relatedLinks={d.related_links}
+/>

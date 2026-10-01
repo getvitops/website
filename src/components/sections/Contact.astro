@@ -163,6 +163,11 @@
 				if (res.ok && body.ok) {
 					status.classList.add("ok");
 					status.textContent = body.message || "Thanks. A partner will be in touch shortly.";
+					// No-op until site.ads carries a `form` conversion label. The helper is
+					// idempotent per element, so clear its marker to let a second real
+					// submission from the same page count too.
+					(window as { vitopsFormConversion?: (f: HTMLFormElement) => void }).vitopsFormConversion?.(form);
+					form.removeAttribute("data-vitops-converted");
 					form.reset();
 				} else {
 					status.classList.add("err");

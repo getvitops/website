@@ -1,0 +1,151 @@
+{
+  "title": "About Vitops — our mission, values and how we work",
+  "seo": {
+    "description": "Vitops is an Ottawa operations partner running the software a business operates on and the digital presence it's seen through. Our mission, what we've decided in advance, and who this suits."
+  },
+  "hero": {
+    "eyebrow": "About",
+    "title": "One partner for all of it.",
+    "lead": "Vitops runs the software a business operates on — including the accounts, licences, HR systems and vendor relationships most owners would rather not think about — and the digital presence it's seen through, under one partner rather than two vendors. What we're for, what we're aiming at, and what we've decided in advance.",
+    "secondaryLabel": "See pricing",
+    "secondaryHref": "/pricing"
+  },
+  "sections": [
+    {
+      "type": "lead",
+      "paragraphs": [
+        "Vitops is an Ottawa-based operations partner for Ontario small businesses. We run both halves of the work a growing company needs handled — the software it operates on, including the accounts, HR systems and vendor relationships most owners would rather not think about, and the digital presence it is seen through — under one partner rather than two vendors. The company was founded by Justin Lang and Alex Gagnon, who had each spent years running one of those halves for the same kind of business."
+      ]
+    },
+    {
+      "type": "text",
+      "eyebrow": "Mission",
+      "title": "Run the work a small business can't justify hiring for.",
+      "paragraphs": [
+        "Every growing business needs its software stack handled well, and the presence built on top of it. Almost none of them can justify a hire for either. Vitops exists to run both under one partner, at a published price, for businesses past the point where the admin is a real cost and short of the point where a dedicated hire pays for itself."
+      ],
+      "more": [
+        "Working the same market from opposite ends, we kept hitting the same wall from different sides. One of us would fix an onboarding process and then wait days on whoever handled IT to create the accounts. The other would build a site that generated leads for a business with no process to answer them. Neither problem sat inside either discipline — both sat in the seam between them, which is exactly where nobody was accountable.",
+        "So one of us owns the software stack and the presence built on it, and the other owns operations — the accounts, the systems and the vendor relationships behind them. Each half has one person who makes the decisions, does the work, and picks up when something breaks, so neither half ever becomes somebody else's vendor."
+      ]
+    },
+    {
+      "type": "text",
+      "eyebrow": "Vision",
+      "title": "One contact for whole of business operations instead of many.",
+      "paragraphs": [
+        "The gap in efficiency is trying to juggle multiple vendors and extract meaningful insights from them. We want the ordinary state of an Ontario small business to be that each team member can focus on what they do best instead of wasting time and money on administrative tasks, freeing up time and money for the organization to work at it's best."
+      ]
+    },
+    {
+      "type": "cards",
+      "eyebrow": "Values",
+      "title": "Key aspects that set us apart.",
+      "cards": [
+        {
+          "heading": "We publish our prices.",
+          "body": "Per seat, on the pricing page. Not “contact us for a quote”, which usually means the number depends on what you look like you can pay."
+        },
+        {
+          "heading": "Month to month, 30 days' notice.",
+          "body": "No annual lock-in on either service. We'd rather earn it monthly than hold it contractually."
+        },
+        {
+          "heading": "You own what we build.",
+          "body": "Websites on open standards, systems in your tenants, records in accounts with your name on them. If you leave, you leave with everything."
+        },
+        {
+          "heading": "We'll tell you not to buy things.",
+          "body": "The first pass on a new account usually finds duplicate tools and licences nobody has opened in months. Saying so is a better first month than selling you something else."
+        }
+      ]
+    },
+    {
+      "type": "columns",
+      "eyebrow": "Leadership",
+      "title": "Who runs it.",
+      "columns": [
+        {
+          "heading": "Alex Gagnon — Co-CEO, IT",
+          "paragraphs": [
+            "A Master of Computer Science focused on artificial intelligence, and years building websites, search presence and the systems underneath them for small businesses. Microsoft Certified: Azure Solutions Architect Expert, and certified in Security, Compliance and Identity. Owns the software stack and the digital presence at Vitops."
+          ]
+        },
+        {
+          "heading": "Justin Lang — Co-CEO, Operations",
+          "paragraphs": [
+            "A PhD in Population Health, with 10+ years turning big data into a clearer picture to inform decision making. At Vitops, he uses data analytics to help small businesses identify gaps and find room to gain efficiency and productivity. He owns operations at Vitops — and the data behind them — drawing insight from the HR, payroll and bookkeeping systems, the employee lifecycle and the vendor relationships behind them."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "columns",
+      "eyebrow": "Fit",
+      "title": "Who this works for, and who it doesn't.",
+      "gap": 8,
+      "columns": [
+        {
+          "heading": "Works well for",
+          "paragraphs": [
+            "Small and Medium Businesses (SMBs) up to 150 people. At that size the software, licence and account admin has become a real cost but a dedicated hire still can't be justified. [Trades, brokerages, professional firms and clinics](/industries) are where we see that most."
+          ]
+        },
+        {
+          "heading": "Not a good fit",
+          "paragraphs": [
+            "Small businesses under about five people who want to manage things themselves. Enterprise brand campaigns, where specialists are required. Companies also looking to include hardware provisioning and repair."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "spotlight": false,
+      "eyebrow": "Scope",
+      "title": "The boundaries.",
+      "paragraphs": [
+        "We administer systems and operations. We're not your accountant, lawyer, benefits broker or clinician — tax positions, legal opinions, plan design and clinical decisions stay with the people qualified to make them. We administer the systems your books, payroll and HR records live in: we don't do the bookkeeping, don't run the payroll, and don't make plan decisions. On funding, approval and amounts are decided by OCI, not by us."
+      ]
+    },
+    {
+      "type": "text",
+      "eyebrow": "Areas",
+      "title": "Where we work.",
+      "paragraphs": [
+        "Ontario is our primary market. Ottawa is home — where we're based and where we show up in person, at local networking events and with local clients — and we support businesses elsewhere in Canada remotely."
+      ],
+      "note": "More on Ottawa: [SEO services](/seo-services-ottawa), [web design](/web-design-ottawa), [digital marketing agency](/digital-marketing-agency-ottawa), or [contact us](/contact) directly."
+    }
+  ],
+  "cta": {
+    "title": "Tell us what you're running.",
+    "links": [
+      {
+        "label": "Managed IT services",
+        "href": "/managed-it-services"
+      },
+      {
+        "label": "Digital marketing",
+        "href": "/digital-marketing"
+      },
+      {
+        "label": "Pricing",
+        "href": "/pricing"
+      },
+      {
+        "label": "Business health check",
+        "href": "/business-health-check"
+      }
+    ]
+  },
+  "schema": {
+    "graph": "organization"
+  },
+  "breadcrumb": [
+    [
+      "About",
+      "/about"
+    ]
+  ]
+}

@@ -1,0 +1,35 @@
+---
+// EmDash-backed industry pages (`industries` collection) rendered through the
+// same IndustryPage shell the hand-written ones used. On-demand so a publish is
+// live immediately. `industries/index.astro` stays a static page.
+import { getEmDashEntry } from "emdash";
+import IndustryPage from "../../components/page/IndustryPage.astro";
+
+export const prerender = false;
+
+const slug = Astro.params.slug ?? "";
+const { entry, cacheHint } = await getEmDashEntry("industries", slug);
+Astro.cache.set(cacheHint);
+
+// A bodiless 404 makes Astro serve src/pages/404.astro.
+if (!entry) return new Response(null, { status: 404 });
+
+const d = entry.data;
+---
+
+<IndustryPage
+	slug={slug}
+	title={d.title}
+	description={d.seo?.description ?? ""}
+	eyebrow={d.eyebrow}
+	h1={d.h1}
+	heroLead={d.hero_lead}
+	fundingText={d.funding_text}
+	directAnswer={d.direct_answer}
+	differencesTitle={d.differences_title}
+	differences={d.differences}
+	pillars={d.pillars}
+	faq={d.faq}
+	ctaTitle={d.cta_title}
+	ctaLead={d.cta_lead}
+/>

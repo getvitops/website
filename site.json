@@ -54,6 +54,7 @@
     "analytics": {
       "clarityId": "xp2ujotyhg"
     },
+    "plan": { "key": "internal", "addons": ["server_side_tracking"] },
     "tracking": {
       "enabled": true,
       "category": "marketing"

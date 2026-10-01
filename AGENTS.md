@@ -46,10 +46,11 @@ This template ships with `.mcp.json`, `.cursor/mcp.json`, and `.vscode/mcp.json`
 
 ## Rendering model
 
-**Public pages are static HTML on Cloudflare's edge; the Worker handles only the
-dynamic remainder.** Each page carries `export const prerender = true`, and only
-two routes stay on-demand: `src/pages/api/contact.ts` (needs the `EMAIL` binding)
-and `src/pages/b-variant/[...path].astro` (the A/B dispatcher). Measured locally,
+**Hand-written public pages are static HTML on Cloudflare's edge; the Worker
+handles the dynamic remainder.** Each hand-written page carries
+`export const prerender = true`. On-demand: `src/pages/api/{contact,track}.ts`
+(need the `EMAIL` binding) and the EmDash-backed routes in "CMS-backed pages"
+below. Measured locally,
 TTFB drops from ~10.5ms to ~4.8ms, and — the bigger win — HTML becomes CDN
 cacheable at all, which middleware's blanket `private, no-store` previously
 forbade.
@@ -64,10 +65,50 @@ EmDash is ever removed, `output: "static"` becomes available and they collapse t
 the two exceptions.
 
 `getStaticPaths()` is how you'd prerender CMS content — one static file per entry
-on a `[slug].astro` route. Nothing here uses it: every page is hand-authored, and
-no page queries CMS content. Note the trade if that changes: prerendered CMS
-content **does not update until a rebuild**, so a route that must reflect
-publishing immediately should stay `prerender = false`.
+on a `[slug].astro` route. The CMS-backed routes below deliberately do not: they
+are `prerender = false` so a publish is live immediately. (Prerendered CMS
+content **does not update until a rebuild**.)
+
+### CMS-backed pages (performance/feature experiment)
+
+Most marketing pages live in EmDash as entries, rendered on demand — an
+experiment to exercise EmDash and measure what it costs against the prerendered
+pages. Routes (`prerender = false`, `Astro.cache.set(cacheHint)`, bodiless `404`
+when the entry is missing — `Astro.rewrite("/404")` throws from an on-demand
+route):
+
+| Route | Collection | Rendered by |
+| --- | --- | --- |
+| `src/pages/[...slug].astro` → `/<slug>` | `pages` | `CmsPage.astro` |
+| `src/pages/managed-it-services/[slug].astro` | `managed_it_services` | `CmsPage.astro` |
+| `src/pages/industries/[slug].astro` | `industries` | `IndustryPage.astro` (props = fields) |
+| `src/pages/funding/[slug].astro` | `funding_programs` | `ProgramPage.astro` (props = fields) |
+
+- **A static `src/pages/<route>.astro` beats these routes**, so a page is "in
+  EmDash" only when its own file is deleted. Index pages (`/managed-it-services`,
+  `/industries`, `/funding`), `/`, `/pricing`, `/contact`, `/digital-marketing`
+  and the legal pages are still hand-written.
+- **Entry shape** (`pages`, `managed_it_services`): `hero`, `callout`, `sections`
+  (typed array: lead / text / cards / columns / list / stats / faq — documented on
+  `PageSections.astro`), `cta`, `breadcrumb`, `schema`; SEO description is the
+  collection's SEO field. Copy fields take `[label](/href)` inline links
+  (`src/lib/inline.ts`; escaped, so editors can't inject HTML).
+- **Content lives in the database, not git.** `seed/<collection>/*.json` is the
+  reviewable source; `node scripts/sync-pages.mjs` upserts it into a running
+  instance (dev bypass locally, `EMDASH_TOKEN` remotely). Schema is in
+  `seed/seed.json` and, for an existing database, goes through `emdash schema` /
+  the REST API (the CLI cannot set `urlPattern` or SEO — use
+  `PUT /_emdash/api/schema/collections/<slug>`). Promotion across environments
+  follows docs/RUNBOOK.md.
+- **A nested path needs its own collection.** EmDash's sitemap percent-encodes a
+  `/` in a slug (`a%2Fb`), so `managed-it-services/x` is a `managed_it_services`
+  entry with `urlPattern: /managed-it-services/{slug}`, never a `pages` slug with
+  a slash.
+- **Sitemap / llms.txt:** `/sitemap.xml` (EmDash) indexes the CMS-backed pages;
+  `pages-sitemap.xml` and `llms.txt` are derived from the filesystem and from
+  built HTML, so they **no longer list migrated pages** (`robots.txt` names
+  both sitemaps; `site.seo.indexing.sitemapUrl` still points only at the
+  filesystem one, so `vitops search notify` does not see CMS pages).
 
 Three things follow from prerendering, all of which failed silently before being
 fixed — keep them in mind when adding a page:
@@ -174,12 +215,15 @@ The `createConversionRoute()` factory is deliberately **not** used: `contact.ts`
 owns validation and the `send.vitops.ca` sender constraints, which is exactly the
 split the factory documents.
 
-**No `src/pages/api/track.ts`, deliberately.** The build warns that `tracking`
-is on with no route answering `/api/track` — that route only ever receives the
-capture script's `tel:`-click beacon, and this site has no `tel:` link
-anywhere, so the warning is accurate about the wiring and describes no lost
-conversion. Add the route (`createConversionRoute()` from
-`@getvitops/astro/routes`) if a phone number is ever linked.
+**`src/pages/api/track.ts` answers the `tel:`-click beacon.** `contact.astro` links
+a phone number, and `<Tracking />`'s capture script beacons `/api/track` on every
+`tel:` tap; the route is a thin `createConversionRoute()` wrapper. Remove it and
+the build warns that `tracking` is on with no route answering — and those
+conversions are lost silently.
+
+**`site.plan.addons` must list `server_side_tracking`.** `site.tracking.enabled`
+is rejected at validate/build time without it (toolchain 8.2). `"internal"` is a
+placeholder plan key; a portal-managed config will write the real one.
 
 ## Sitemap and search indexing
 
@@ -207,7 +251,7 @@ things forced that shape, and all three are worth knowing before "simplifying" i
 
 The route list is derived from the filesystem, never written out — a hand-kept
 list drifts silently and a new page is simply never submitted. `/404`,
-`/b-variant/*` and `_`-prefixed partials are filtered. That derivation
+`_`-prefixed partials and `[param]` routes are filtered. That derivation
 (`isPublicRoute`, `publicRoutes`) lives in `scripts/routes.mjs`, shared with
 `scripts/llms.mjs` below — so the sitemap and `llms.txt` can't silently list
 different URLs.
@@ -286,49 +330,28 @@ GA.
 would mean maintaining a markdown rendition of every marketing page, none of
 which has markdown source.
 
-## A/B testing (3 layers) — retained, currently dormant
+## A/B testing — toolchain-native, currently dormant
 
-The system is intact; there is **no B content** right now. `DEFAULT_SPLIT_B` is `0`
-(`src/lib/variant.ts`), so every visitor gets A. `?variant=b` still forces B for
-review at any time, independent of the split.
+A/B is `vitopsAbTesting()` (`@getvitops/astro/middleware`), wired in
+`src/middleware.ts` and driven by `site.experiments` in `site.json`. **No
+experiment is defined**, so it assigns nothing. (The earlier bespoke system —
+`src/_b/`, `b-variant`, `pick()` — was deleted; do not recreate it.)
 
-Variant is resolved per request in `src/middleware.ts` (`?variant=a|b` override >
-sticky `ab_variant` cookie > split) and exposed as `Astro.locals.variant`.
-`/_emdash/*` is pinned to `a`. Responses carry `x-ab-variant` for analytics.
+An experiment is an entry under `site.experiments.<key>`: `enabled`, `category`
+(consent category its cookie waits on), `splitRatio` (fraction sent to
+`variants[1]`; `0` = nobody auto-assigned, but `?_ab_<key>=<variant>` still
+forces it — a review link), `cookieName` (default `_ab_<key>`) and exactly two
+`variants`. The middleware pins the visitor by cookie; **the page** reads
+`Astro.cookies.get(cookieName)?.value` and renders the matching one of its two
+hand-written blocks. The CMS surface (`/_emdash/*`) is excluded.
 
-- **Layer 1 — values.** Copy/numbers/images: `pick(aValue, bValue, Astro.locals.variant)`
-  from `src/lib/variant.ts`, inline where the value is used. **Cheapest layer — prefer it.**
-- **Layer 2 — one component.** The B override mirrors the A path under `src/_b/`
-  (e.g. `src/components/sections/Hero.astro` → `src/_b/sections/Hero.astro`);
-  the page imports both and `pick()`s. Use when the page structure is shared.
-- **Layer 3 — whole page.** Self-contained full page at `src/_b/pages/<route>.astro`
-  (`/` → `index.astro`, `/pricing` → `pricing.astro`). When it exists and the
-  visitor is variant `b`, `src/middleware.ts` internally rewrites — via
-  `next(payload)`, NEVER `context.rewrite()`, which would re-run the EmDash
-  middleware chain — to the `src/pages/b-variant/[...path].astro` dispatcher.
-  The public URL never changes; direct hits to `/b-variant/*` 404.
+**A page under test must set `prerender = false`.** The cookie is read per
+request, and a prerendered page bakes one variant at build time. Revert the line
+when the test ends. Don't swap client-side instead — flicker and layout shift on
+the very page being measured.
 
-**To launch a test:** add the B content under `src/_b/`, set `prerender = false`
-on the route under test, then set `DEFAULT_SPLIT_B` above 0. Nothing else needs
-wiring.
+**Reporting is Plausible, not Clarity** — configured via `site.analytics`
+(`plausibleDomain`) once Plausible is adopted; `<Analytics />` then attaches the
+assignment to the pageview. Until then a launched test is not attributed in
+analytics, so don't launch one before Plausible is wired.
 
-That middle step is what makes A/B work alongside static rendering. Variant is
-resolved per request, and a prerendered page can only bake one variant — layers 1
-and 2 read `Astro.locals.variant` at render time, so on a static page they would
-silently freeze at whatever the build produced. Opting _one_ route out of
-prerendering restores the whole system for it while the other ~15 stay static.
-Revert the line when the test ends. Don't reach for a client-side variant swap
-instead: it reintroduces flicker and layout shift on precisely the page being
-measured, which is the opposite of what prerendering bought.
-
-Rules: never link to `/b-variant/*`; in shared layouts/components use
-`Astro.originPathname`, not `Astro.url.pathname` (`Astro.url` is the internal
-path during a layer-3 render); B pages set their own title/description; home
-sections live in `src/components/sections/` so a structural B home is a
-recomposition, not a fork.
-
-**Layer 3 costs more than it looks.** A whole-page fork means every copy edit has
-to be made twice, and the miss is silent. Both previous B pages drifted from A
-that way — a pricing block existed in one and not the other, and a CTA still said
-"See both services" after A moved to three. Prefer layer 1, and diff both paths
-before calling a change live.

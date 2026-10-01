@@ -9,9 +9,8 @@ the operational reference.
 - **Stage** = git branch → environment. `dev` → `dev.vitops.ca` (worker
   `vitops-dev`, isolated D1+R2). Protected `main` → `vitops.ca` (worker `vitops`,
   prod D1+R2). Claude works off `dev`; prod only advances via promotion.
-- **Variant (A/B)** = one codebase, cookie-selected. Variant B's differing files
-  live under `src/_b/`; middleware sets `Astro.locals.variant` and pages render A
-  or B. Both variants read the same content DB — design-only A/B.
+- **Experiment (A/B)** = `site.experiments` in `site.json`, run by the toolchain's
+  `vitopsAbTesting()` middleware (cookie-pinned, per visitor). None defined today.
 
 **Critical:** content **and** schema live in the database, not git. A
 `wrangler deploy` never changes them. So "promote dev→prod" is three separate
@@ -75,7 +74,7 @@ the clone above (or the **Refresh dev from prod** workflow), not by the seed fil
 1. Claude Code remote opens a PR into `dev` (code) and/or edits content/schema on
    dev via the EmDash MCP server (`https://dev.vitops.ca/_emdash/api/mcp`).
 2. Merge to `dev` → **deploy-dev** ships `dev.vitops.ca`.
-3. Review on `dev.vitops.ca` (force a variant with `?variant=a|b`).
+3. Review on `dev.vitops.ca` (force an experiment variant with `?_ab_<key>=<variant>`).
 4. Approve → run **Promote dev → main** → prod deploys.
 
 ## Promotion (dev → prod)
@@ -94,17 +93,9 @@ tables). R2 media sync is a TODO (see that workflow's comment).
 
 ## A/B testing
 
-- **Add a challenger:** drop the differing component(s) under `src/_b/…` and
-  resolve them in the page via `pick(A, B, Astro.locals.variant)` from
-  `src/lib/variant.ts`. Unchanged files stay shared from `src/`. See
-  `src/components/sections/Hero.astro` (A) + `src/_b/sections/Hero.astro` (B).
-- **Split:** `DEFAULT_SPLIT_B` in `src/lib/variant.ts` (fraction to B).
-- **Review a variant:** append `?variant=a` or `?variant=b` (sticks via cookie),
-  or send header `x-ab-variant: b`.
-- **Attribution:** every response carries `x-ab-variant`; key your analytics on
-  it (or on the `ab_variant` cookie client-side).
-- `/_emdash/*` is always variant A and never gets the cookie — the CMS is not
-  part of the experiment.
+Dormant — no experiment is defined. See AGENTS.md, "A/B testing", for how to add
+one (`site.experiments`, per-page `prerender = false`, branch on the cookie).
+Reporting goes to Plausible once it is configured; don't launch a test before.
 
 ## Gotchas
 
@@ -120,9 +111,9 @@ tables). R2 media sync is a TODO (see that workflow's comment).
 - **Email sends from `send.vitops.ca`** on every env, including dev — the dev
   contact form sends real mail unless you gate it. (Apex `vitops.ca` is Zoho MX;
   don't change the `send_email` domain — see the memory note.)
-- **Cache-keying:** middleware currently marks A/B HTML `private, no-store`. If
-  you enable shared/CDN caching, the cache key **must** include `ab_variant`
-  (and locale, if i18n is ever turned on), or B visitors can get cached A HTML.
+- **Cache-keying:** a page under experiment is on-demand and varies by its
+  `_ab_<key>` cookie. If it is ever put behind a shared/CDN cache, the key
+  **must** include that cookie, or B visitors can get cached A HTML.
 - **Middleware + Astro v7:** GitHub OAuth needed a pnpm patch for the
   `locals.runtime.env` change — respect it when touching middleware.
 
@@ -130,10 +121,7 @@ tables). R2 media sync is a TODO (see that workflow's comment).
 
 | Concern | Path |
 |---|---|
-| Variant resolution (pure) | `src/lib/variant.ts` |
-| Variant + noindex middleware | `src/middleware.ts` |
-| Variant A component(s) | `src/components/…` |
-| Variant B overrides | `src/_b/…` |
+| A/B + noindex middleware | `src/middleware.ts` |
 | Dev flat-config generator | `scripts/build-dev-wrangler.mjs` |
 | Schema promotion template | `scripts/promote-schema.sh` |
 | CI | `.github/workflows/{deploy-dev,deploy-prod,promote,promote-schema,refresh-dev}.yml` |

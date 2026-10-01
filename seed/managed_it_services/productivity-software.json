@@ -1,0 +1,71 @@
+{
+  "title": "Productivity software: M365 & Google Workspace",
+  "seo": {
+    "description": "Microsoft 365, Google Workspace or Zoho Workplace, chosen, migrated and administered for Ontario small businesses — the tenant your whole team works in every day."
+  },
+  "schema": {
+    "service": {
+      "name": "Productivity software",
+      "description": "Selection, migration and administration of Microsoft 365, Google Workspace and Zoho Workplace for Ontario small businesses."
+    }
+  },
+  "breadcrumb": [
+    ["Managed IT services", "/managed-it-services"],
+    ["Productivity software", "/managed-it-services/productivity-software"]
+  ],
+  "hero": {
+    "eyebrow": "Managed IT services / Productivity software",
+    "title": "The tenant your whole team lives in, chosen and run.",
+    "lead": "Microsoft 365, Google Workspace, or Zoho Workplace — whichever fits how your team actually works, migrated cleanly and administered so nobody's guessing who owns which licence.",
+    "secondaryLabel": "See pricing",
+    "secondaryHref": "/pricing",
+    "note": "Ask us if [funding](/funding) might be available."
+  },
+  "sections": [
+    {
+      "type": "lead",
+      "paragraphs": [
+        "Productivity software is the platform email, files, and documents live on — Microsoft 365, Google Workspace, or Zoho Workplace are the three real options for a small business. We help choose between them on the merits (often the answer is \"keep what you have and use more of it\"), handle the migration if a switch is warranted, and administer licences and access on an ongoing basis so seat count matches actual use."
+      ]
+    },
+    {
+      "type": "list",
+      "eyebrow": "What we run",
+      "title": "Chosen, migrated, kept current.",
+      "items": [
+        "Tenant setup and configuration — identity, groups, sharing defaults, retention.",
+        "Migration between platforms, when a switch genuinely pays for itself.",
+        "Licence tuning — the seat count almost never matches the login count.",
+        "MFA enforced on every account (part of the base plan, per managed IT services)."
+      ]
+    },
+    {
+      "type": "faq",
+      "items": [
+        {
+          "q": "Do you help us decide between Microsoft 365 and Google Workspace?",
+          "a": "Yes — on how your team actually works, not brand preference. Often the right call is keeping what you have and using more of it."
+        },
+        {
+          "q": "Can you migrate us from one to the other?",
+          "a": "Yes, including the file/mail migration itself. We'll tell you honestly what a switch costs before recommending it."
+        },
+        {
+          "q": "Do you resell the licences?",
+          "a": "No — see managed IT services' \"we don't resell software\" note. You keep your own licences at your own price; our fee is for making them work."
+        }
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Tell us what you're running today.",
+    "lead": "Microsoft, Google, Zoho, or a mix — we'll tell you what's duplicated and what we'd change first.",
+    "note": "Ask us if [funding](/funding) might be available.",
+    "links": [
+      { "label": "Managed IT services", "href": "/managed-it-services" },
+      { "label": "Communication software", "href": "/managed-it-services/communication-software" },
+      { "label": "CRM software", "href": "/managed-it-services/crm-software" },
+      { "label": "Pricing", "href": "/pricing" }
+    ]
+  }
+}
