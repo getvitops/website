@@ -240,6 +240,17 @@ TODO:
 - **Promote to prod:** apply schema (`scripts/promote-schema.sh`) and content
   (`scripts/sync-pages.mjs`) to vitops.ca _before_ the code deploy, or the 20 migrated
   URLs 404.
+- **Perf measurement:** `node scripts/perf-compare.mjs --host https://dev.vitops.ca` (TTFB median/p95 + cache outcome per path).
 - **Search/AI discovery:** `llms.txt` and `pages-sitemap.xml` no longer list migrated
   pages; `site.seo.indexing.sitemapUrl` does not see CMS pages.
 - **Plausible** for experiment reporting (not yet configured).
+- **llms.txt design decision.** It is generated from built HTML, so on-demand pages are
+  skipped (now 7 routes, down from 29). Options: derive CMS entries from `seed/<collection>`
+  at build (drifts silently after admin edits), or serve `/llms.txt` from an on-demand route
+  that queries the collections (accurate, needs the hand-written sections merged in).
+- **Nav and footer links stay hard-coded in `PineLayout.astro`, on purpose.** An EmDash menu
+  would only update the on-demand pages: the hand-written prerendered pages bake the layout
+  at build time, so a menu edit would show on some pages and not others. Revisit if every
+  page is moved on-demand, or if the layout is rendered client-side.
+- **Still hand-written:** `/`, `/pricing`, `/digital-marketing`, `/managed-it-services`
+  (need blocks for `StackAnimation`/`PresenceAnimation`/`KeyPartners`, plan step 0).

@@ -226,7 +226,7 @@ The `createConversionRoute()` factory is deliberately **not** used: `contact.ts`
 owns validation and the `send.vitops.ca` sender constraints, which is exactly the
 split the factory documents.
 
-**`src/pages/api/track.ts` answers the `tel:`-click beacon.** `contact.astro` links
+**`src/pages/api/track.ts` answers the `tel:`-click beacon.** the contact page (`seed/pages/contact.json`) links
 a phone number, and `<Tracking />`'s capture script beacons `/api/track` on every
 `tel:` tap; the route is a thin `createConversionRoute()` wrapper. Remove it and
 the build warns that `tracking` is on with no route answering — and those
