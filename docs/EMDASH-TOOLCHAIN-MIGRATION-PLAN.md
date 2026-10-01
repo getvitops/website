@@ -223,3 +223,23 @@ plan). Nothing to do here until that lands. When it does:
    collection). Industries/funding/SEO-landing-page families follow once that pattern holds.
 7. Once the portal's publish provider exists: import this site's config into the portal and
    begin portal-managed `site.json`, in whatever order its own editors ship.
+
+## Status and open items (2026-09-30)
+
+Done: toolchain upgrade to 8.2.0-alpha + emdash 1.x; bespoke A/B system replaced by
+`vitopsAbTesting()`; 20 pages moved into EmDash collections (see AGENTS.md, "CMS-backed
+pages"); Workers Cache with purge-on-publish verified on dev.vitops.ca.
+
+TODO:
+
+- **Scheduled publishing vs the edge cache.** Verified that an immediate publish purges the
+  cached page. Not verified: an entry published by schedule (`scheduledAt`) may only appear
+  when the cache lifetime (1 week + 1 day SWR) lapses, if no purge fires at the scheduled
+  time. Test on dev before relying on scheduled publishing; if it does not purge, either
+  lower `routeRules` maxAge or purge from the scheduler hook.
+- **Promote to prod:** apply schema (`scripts/promote-schema.sh`) and content
+  (`scripts/sync-pages.mjs`) to vitops.ca _before_ the code deploy, or the 20 migrated
+  URLs 404.
+- **Search/AI discovery:** `llms.txt` and `pages-sitemap.xml` no longer list migrated
+  pages; `site.seo.indexing.sitemapUrl` does not see CMS pages.
+- **Plausible** for experiment reporting (not yet configured).
