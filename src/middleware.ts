@@ -13,8 +13,19 @@ import { PROD_HOST } from "./lib/site";
  * the page (see CLAUDE.md, "A/B testing").
  */
 
+// `site.experiments` is optional and absent from site.json today, so the JSON
+// import's inferred type has no such key — name the shape we read.
+type ExperimentConfig = {
+  enabled?: boolean;
+  cookieName?: string;
+  cookieMaxAge?: number;
+  splitRatio?: number;
+  variants: readonly [string, string];
+};
+const configured = (config.site as { experiments?: Record<string, ExperimentConfig> }).experiments;
+
 const experiments = Object.fromEntries(
-  Object.entries(config.site.experiments ?? {})
+  Object.entries(configured ?? {})
     .filter(([, experiment]) => experiment.enabled)
     .map(([key, experiment]) => [
       key,
@@ -26,10 +37,24 @@ const abTesting = vitopsAbTesting({ experiments });
 
 // The CMS surface (admin, API, auth, MCP) is never part of an experiment.
 const publicAbTesting = defineMiddleware((context, next) =>
-  new URL(context.request.url).pathname.startsWith("/_emdash/")
-    ? next()
-    : abTesting(context, next),
+  new URL(context.request.url).pathname.startsWith("/_emdash/") ? next() : abTesting(context, next),
 );
+
+// Workers Cache sits in front of the Worker (astro.config.mjs) and stores any
+// response without a Cache-Control header using default freshness — including
+// the admin's 302 to the login page, which then loops every visitor, signed in
+// or not, back to /login. The CMS surface and our own API are never cacheable.
+const noStoreDynamic = defineMiddleware(async (context, next) => {
+  const response = await next();
+  const { pathname } = new URL(context.request.url);
+  if (
+    (pathname.startsWith("/_emdash/") || pathname.startsWith("/api/")) &&
+    !response.headers.has("cache-control")
+  ) {
+    response.headers.set("cache-control", "private, no-store");
+  }
+  return response;
+});
 
 // Keep every non-prod host out of search indexes. Only reaches on-demand
 // routes — prerendered pages carry a build-time <meta> instead.
@@ -41,4 +66,4 @@ const noindexOffProd = defineMiddleware(async (context, next) => {
   return response;
 });
 
-export const onRequest = sequence(publicAbTesting, noindexOffProd);
+export const onRequest = sequence(noStoreDynamic, publicAbTesting, noindexOffProd);

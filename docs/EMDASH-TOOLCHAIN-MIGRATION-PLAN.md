@@ -254,3 +254,7 @@ TODO:
   page is moved on-demand, or if the layout is rendered client-side.
 - **Still hand-written:** `/`, `/pricing`, `/digital-marketing`, `/managed-it-services`
   (need blocks for `StackAnimation`/`PresenceAnimation`/`KeyPartners`, plan step 0).
+- **Purge the edge cache on deploy.** A deploy does not purge Workers Cache, so template
+  changes are invisible on cached CMS pages for up to a week. Add a purge-everything step
+  to `deploy-dev.yml` / `deploy-prod.yml` (zone cache purge API, or an authenticated
+  Worker endpoint that calls `cache.purge()`).

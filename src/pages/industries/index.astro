@@ -13,6 +13,8 @@ import Subgrid from "@getvitops/astro/components/Subgrid.astro";
 // On-demand: the card grid and the ItemList schema are read from the
 // `industries` collection, so a new or edited industry shows up (and is purged
 // from the edge cache) on publish. Copy on the rest of the page is hand-written.
+import { CMS_PAGE_CACHE } from "../../lib/cache";
+
 export const prerender = false;
 
 // Routing page, and the fit page. Pillars are service-shaped; buyers are
@@ -50,6 +52,7 @@ const profile = [
 // so it can link each vertical to its three siblings.
 const { industries, cacheHint } = await getIndustries();
 Astro.cache.set(cacheHint);
+Astro.cache.set(CMS_PAGE_CACHE);
 
 const listSchema = {
 	"@context": "https://schema.org",

@@ -95,21 +95,16 @@ export default defineConfig({
   output: "server",
   adapter: cloudflare(),
   // Workers Cache in front of the Worker for the CMS-backed (on-demand) pages.
+  // Lifetimes are set per route (src/lib/cache.ts), deliberately NOT via
+  // `routeRules`, which match the request path and would also cache /_emdash/*.
   // Each of those routes calls `Astro.cache.set(cacheHint)`, which tags the
   // response with its collection/entry, so a publish purges exactly the affected
   // pages (`cache.purge({ tags })`, no REST credentials). That is what makes a
   // long lifetime safe: a page is served from the edge until it next changes.
   // Hand-written pages are prerendered and served by Workers Assets, not this.
-  // Do NOT shorten these to "fix" staleness without checking that publish
+  // Do NOT shorten the lifetime to "fix" staleness without checking that publish
   // actually purges — see AGENTS.md, "CMS-backed pages".
   cache: { provider: cacheCloudflare() },
-  routeRules: {
-    "/[...slug]": { maxAge: 604800, swr: 86400 },
-    "/managed-it-services/[slug]": { maxAge: 604800, swr: 86400 },
-    "/industries": { maxAge: 604800, swr: 86400 },
-    "/industries/[slug]": { maxAge: 604800, swr: 86400 },
-    "/funding/[slug]": { maxAge: 604800, swr: 86400 },
-  },
   // 301s for the 2026-09 pillar rename (business-software → managed-it-services,
   // digital-presence → digital-marketing, back-office folded into a subpage under
   // managed-it-services). Astro's string-form `redirects` are permanent (301) and,

@@ -5,6 +5,8 @@
 import { getEmDashEntry } from "emdash";
 import IndustryPage from "../../components/page/IndustryPage.astro";
 
+import { CMS_PAGE_CACHE } from "../../lib/cache";
+
 export const prerender = false;
 
 const slug = Astro.params.slug ?? "";
@@ -15,6 +17,7 @@ Astro.cache.set(cacheHint);
 // no-store: a cached 404 carries no entry tag, so publishing the page later
 // would not purge it.
 if (!entry) return new Response(null, { status: 404, headers: { "cache-control": "private, no-store" } });
+Astro.cache.set(CMS_PAGE_CACHE); // after the 404 return: a missing entry must not get a lifetime
 
 const d = entry.data;
 ---

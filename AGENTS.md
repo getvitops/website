@@ -105,16 +105,25 @@ route):
   entry with `urlPattern: /managed-it-services/{slug}`, never a `pages` slug with
   a slash.
 - **Edge caching (Workers Cache).** `astro.config.mjs` sets
-  `cache: { provider: cacheCloudflare() }` and `routeRules` (1 week + 1 day SWR)
-  for these four routes. Each route passes its query's `cacheHint` to
-  `Astro.cache.set()`, so the response is tagged with its collection/entry and a
-  publish purges exactly the affected pages — a page is served from the edge
-  until it next changes. Rules: keep `Astro.cache.set(cacheHint)` on every
-  CMS-backed route (without it a page never invalidates); a missing entry must
-  return `private, no-store` (a cached 404 has no tag to purge); and a signed-in
-  editor may be served the cached anonymous page. Cloudflare's `Vary` support is
-  not the mechanism — it caches alternate representations of one URL, not
-  "until changed".
+  `cache: { provider: cacheCloudflare() }`; each CMS route then calls
+  `Astro.cache.set(cacheHint)` (tags the response with its collection/entry, so a
+  publish purges exactly the affected pages) and `Astro.cache.set(CMS_PAGE_CACHE)`
+  (1 week + 1 day SWR, `src/lib/cache.ts`) — a page is served from the edge until
+  it next changes. Rules:
+  - **Never use `routeRules` for this.** They match the request _path_, so a
+    catch-all like `/[...slug]` also matches `/_emdash/*` and `/api/*` and caches
+    the admin's 302 to `/login` — every visitor, signed in or not, then loops back
+    to the login screen.
+  - Keep `Astro.cache.set(cacheHint)` on every CMS-backed route (without it a page
+    never invalidates), and call `Astro.cache.set(CMS_PAGE_CACHE)` only _after_ the
+    missing-entry 404 return; that 404 must be `private, no-store` (a cached 404
+    has no tag to purge).
+  - **A deploy does not purge the edge cache**, so changed templates keep serving
+    old HTML until an entry is next published or the cache is purged (dashboard:
+    Caching → Purge, or `cache.purge()` from Worker code).
+  - A signed-in editor may be served the cached anonymous page.
+  - Cloudflare's `Vary` support is not the mechanism — it caches alternate
+    representations of one URL, not "until changed".
 - **Sitemap / llms.txt:** `/sitemap.xml` (EmDash) indexes the CMS-backed pages;
   `pages-sitemap.xml` and `llms.txt` are derived from the filesystem and from
   built HTML, so they **no longer list migrated pages** (`robots.txt` names
