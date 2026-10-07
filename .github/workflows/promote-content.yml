@@ -1,0 +1,91 @@
+# Promote staging content to prod: published pages, industries, funding programs
+# and menus, from dev.vitops.ca to vitops.ca.
+#
+# dev.vitops.ca is where pages and menus are edited; prod is only ever written
+# by this workflow (and by editors for blog posts, which this never touches).
+# Always dry-run first: leave `apply` off, read the plan in the log, then re-run
+# with it on.
+#
+# Ordering for a release (docs/RUNBOOK.md): code deploy and Promote schema first,
+# then this. The target must already have the collection fields and block types.
+#
+# After a real promotion the workflow snapshots prod's published content into
+# seed/ and opens a PR, so git keeps a reviewable history of what went live and
+# a rollback source. The snapshot is a record, not the source of truth.
+#
+# Required repo secrets:
+#   EMDASH_TOKEN_DEV  — EmDash API token (admin scope) for dev.vitops.ca
+#   EMDASH_TOKEN_PROD — EmDash API token (admin scope) for vitops.ca
+name: Promote content
+
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "Space-separated: menus, a collection (pages), or collection:slug. Blank = everything."
+        type: string
+        default: ""
+      apply:
+        description: Write to prod. Off = dry run (prints the plan only).
+        type: boolean
+        default: false
+      force:
+        description: Overwrite entries that were edited on prod after they were edited on dev.
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Promote dev → prod
+        env:
+          EMDASH_TOKEN_FROM: ${{ secrets.EMDASH_TOKEN_DEV }}
+          EMDASH_TOKEN_TO: ${{ secrets.EMDASH_TOKEN_PROD }}
+        run: |
+          set -euo pipefail
+          FLAGS=""
+          [ "${{ inputs.apply }}" = "true" ] && FLAGS="$FLAGS --apply"
+          [ "${{ inputs.force }}" = "true" ] && FLAGS="$FLAGS --force"
+          # shellcheck disable=SC2086
+          node scripts/promote-content.mjs --from https://dev.vitops.ca --to https://vitops.ca $FLAGS ${{ inputs.scope }}
+
+      - name: Snapshot prod content into seed/
+        if: ${{ inputs.apply }}
+        env:
+          EMDASH_TOKEN: ${{ secrets.EMDASH_TOKEN_PROD }}
+        run: node scripts/export-content.mjs https://vitops.ca
+
+      - name: Open a PR with the snapshot
+        if: ${{ inputs.apply }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- seed; then
+            echo "Snapshot matches what is already in git."
+            exit 0
+          fi
+          BRANCH="content-snapshot-$(date +%Y%m%d-%H%M%S)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add seed
+          git commit -m "Snapshot prod content after promotion"
+          git push origin "$BRANCH"
+          gh pr create --base dev --head "$BRANCH" \
+            --title "Snapshot prod content after promotion" \
+            --body "Published content and menus as live on vitops.ca after a Promote content run. A record for history and rollback; the database is the source of truth."

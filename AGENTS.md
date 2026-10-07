@@ -11,15 +11,15 @@ The admin UI is at `http://localhost:4321/_emdash/admin`.
 
 ## Key Files
 
-| File                     | Purpose                                                                            |
-| ------------------------ | ---------------------------------------------------------------------------------- |
-| `astro.config.mjs`       | Astro config with `emdash()` integration, database, and storage                    |
-| `site.json`              | Vitops site config: design system, locales, environments, analytics, legal facts   |
-| `src/live.config.ts`     | EmDash loader registration (boilerplate -- don't modify)                           |
-| `seed/seed.json`         | Schema definition + demo content (collections, fields, taxonomies, menus, widgets) |
-| `emdash-env.d.ts`        | Generated types for collections (auto-regenerated on dev server start)             |
-| `src/layouts/Base.astro` | Base layout with EmDash wiring (menus, search, page contributions)                 |
-| `src/pages/`             | Astro pages -- public pages prerendered, see "Rendering model"                     |
+| File                           | Purpose                                                                                                                         |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `astro.config.mjs`             | Astro config with `emdash()` integration, database, and storage                                                                 |
+| `site.json`                    | Vitops site config: design system, locales, environments, analytics, legal facts                                                |
+| `src/live.config.ts`           | EmDash loader registration (boilerplate -- don't modify)                                                                        |
+| `seed/seed.json`               | Schema bootstrap for a fresh DB (collections, block types, menus) — block types and menus are generated, see "CMS-backed pages" |
+| `emdash-env.d.ts`              | Generated types for collections (auto-regenerated on dev server start)                                                          |
+| `src/layouts/PineLayout.astro` | The one layout: head, nav/footer from EmDash menus (`src/lib/chrome.ts`)                                                        |
+| `src/pages/`                   | Astro pages -- on-demand and edge-cached, see "Rendering model"                                                                 |
 
 ## Skills
 
@@ -37,23 +37,28 @@ This template ships with `.mcp.json`, `.cursor/mcp.json`, and `.vscode/mcp.json`
 
 ## Rules
 
-- Public pages are prerendered (`export const prerender = true`); see "Rendering model". A page that reads per-request data must opt out with `prerender = false`.
+- Pages are rendered on demand and edge-cached (`prerender = false` + `Astro.cache.set(CMS_PAGE_CACHE)`), because nav and footer come from EmDash menus; see "Rendering model". Only a page with nothing EmDash-driven in it may be `prerender = true`.
 - Image fields are objects (`{ src, alt }`), not strings. Use `<Image image={...} />` from `"emdash/ui"`.
 - `entry.id` is the slug (for URLs). `entry.data.id` is the database ULID (for API calls like `getEntryTerms`).
 - Always call `Astro.cache.set(cacheHint)` on pages that query content.
 - Taxonomy names in queries must match the seed's `"name"` field exactly (e.g., `"category"` not `"categories"`).
-- When authoring a `<Subgrid>` card with `.subgrid-card` (`pricing.astro`, `blocks/Features.astro`, `blocks/Pricing.astro`, `blocks/Testimonials.astro`, `sections/Pain.astro`, `sections/Services.astro`, `industries/index.astro`), set `--subgrid-card-rows` to the SAME value as `--subgrid-row-span` on the container. `.subgrid-card`'s own `grid-row` (same specificity, later in the stylesheet) wins the cascade over `.subgrid`'s, so `--subgrid-row-span` alone is silently ignored on any element that also carries `.subgrid-card` — the card spans the wrong number of row tracks with no build error.
+- When authoring a `<Subgrid>` card with `.subgrid-card` (`pricing.astro`, `sections/Pain.astro`, `sections/Services.astro`, `industries/index.astro`), set `--subgrid-card-rows` to the SAME value as `--subgrid-row-span` on the container. `.subgrid-card`'s own `grid-row` (same specificity, later in the stylesheet) wins the cascade over `.subgrid`'s, so `--subgrid-row-span` alone is silently ignored on any element that also carries `.subgrid-card` — the card spans the wrong number of row tracks with no build error.
 
 ## Rendering model
 
-**Hand-written public pages are static HTML on Cloudflare's edge; the Worker
-handles the dynamic remainder.** Each hand-written page carries
-`export const prerender = true`. On-demand: `src/pages/api/{contact,track}.ts`
-(need the `EMAIL` binding) and the EmDash-backed routes in "CMS-backed pages"
-below. Measured locally,
-TTFB drops from ~10.5ms to ~4.8ms, and — the bigger win — HTML becomes CDN
-cacheable at all, which middleware's blanket `private, no-store` previously
-forbade.
+**Everything public renders on demand and is edge-cached until something
+changes; the editors' content lives in EmDash.** The header nav, header button
+and footer columns are EmDash menus (see "Menus"), read by `PineLayout`, so every
+page that uses the layout is `prerender = false` — a prerendered page would bake
+the menus at build and a menu edit would not reach it until the next deploy. Each
+page calls `Astro.cache.set(CMS_PAGE_CACHE)` (1 week + 1 day SWR,
+`src/lib/cache.ts`); the layout tags the response with the menus it read, so
+editing a menu purges every page. A page that previously prerendered
+(`/`, `/pricing`, `/digital-marketing`, `/managed-it-services`, the legal pages)
+is now served by the Worker on a cache miss. `/404` is on-demand with **no**
+lifetime — every unknown URL lands there and each would otherwise become its own
+week-long edge entry. `src/pages/api/{contact,track}.ts` need the `EMAIL`
+binding.
 
 **`output` stays `"server"`. Do not change it to `"static"`.** It looks like the
 tidier way to express this (flip the default, annotate the exceptions) and it
@@ -65,9 +70,8 @@ EmDash is ever removed, `output: "static"` becomes available and they collapse t
 the two exceptions.
 
 `getStaticPaths()` is how you'd prerender CMS content — one static file per entry
-on a `[slug].astro` route. The CMS-backed routes below deliberately do not: they
-are `prerender = false` so a publish is live immediately. (Prerendered CMS
-content **does not update until a rebuild**.)
+on a `[slug].astro` route. Nothing here does: prerendered content **does not
+update until a rebuild**, and a publish (or menu edit) must be live immediately.
 
 ### CMS-backed pages (performance/feature experiment)
 
@@ -85,21 +89,65 @@ route):
 | `src/pages/funding/[slug].astro`                           | `funding_programs`    | `ProgramPage.astro` (props = fields)  |
 
 - **A static `src/pages/<route>.astro` beats these routes**, so a page is "in
-  EmDash" only when its own file is deleted. Index pages (`/managed-it-services`,
-  `/industries` — its grid is read from the collection), `/`, `/pricing`, `/digital-marketing`
-  and the legal pages are still hand-written.
-- **Entry shape** (`pages`, `managed_it_services`): `hero`, `callout`, `sections`
-  (typed array: lead / text / cards / columns / list / stats / faq — documented on
-  `PageSections.astro`; also `facts` and `contact` — the enquiry form component), `cta`, `breadcrumb`, `schema`; SEO description is the
-  collection's SEO field. Copy fields take `[label](/href)` inline links
-  (`src/lib/inline.ts`; escaped, so editors can't inject HTML).
-- **Content lives in the database, not git.** `seed/<collection>/*.json` is the
-  reviewable source; `node scripts/sync-pages.mjs` upserts it into a running
-  instance (dev bypass locally, `EMDASH_TOKEN` remotely). Schema is in
-  `seed/seed.json` and, for an existing database, goes through `emdash schema` /
-  the REST API (the CLI cannot set `urlPattern` or SEO — use
-  `PUT /_emdash/api/schema/collections/<slug>`). Promotion across environments
-  follows docs/RUNBOOK.md.
+  EmDash" only when its own file is deleted. Still hand-written (copy edited in
+  git, deployed): `/`, `/pricing`, `/digital-marketing`, `/managed-it-services`,
+  the legal pages (generated from `site.json`), and the `/industries` index (its
+  grid is read from the collection).
+- **Pages are a `layout` blocks field** (`pages`, `managed_it_services`): an
+  ordered list of typed blocks that editors add, reorder and fill in as real
+  forms in the admin — `hero`, `callout`, `lead`, `text`, `cards`, `columns`,
+  `list`, `stats`, `faq`, `facts`, `contact_form`, `cta`. Beside it: `crumbs`
+  (breadcrumb repeater), `schema_type` (none / organization / service) with
+  `service_name` and `service_description`; the SEO description is the
+  collection's SEO field. Copy fields take `[label](/href)` inline links and
+  `**bold**` (`src/lib/inline.ts`; escaped, so editors can't inject HTML); a
+  multi-paragraph `text` field splits on a blank line.
+  - **To add a block type:** define it in `scripts/lib/block-types.mjs` (the one
+    source: `node scripts/lib/block-types.mjs` regenerates `seed/seed.json`'s
+    `blockTypes`, and `scripts/promote-blocks.mjs` — called by
+    `promote-schema.sh` — applies it to a running site), add an adapter in
+    `src/components/page/blocks/` mapping the stored snake_case value onto the
+    page primitive, and add one line to `PageBlocks.astro`
+    (`defineBlockComponents` fails the type-check if a type has no renderer).
+    Run `npx emdash types` for the generated `PageLayoutBlock` union.
+  - **Changing a block's fields:** adding an optional field is compatible
+    (in place). Removing a field, changing its type or adding a required one is a
+    breaking change — a new numbered version; read "Build pages with blocks" in
+    the EmDash docs first. Ship the renderer before enabling a type.
+  - EmDash will not change a field's type in place (`json` → `repeater` is
+    refused), which is why `industries` and `funding_programs` gained new
+    `*_items` repeaters next to their old json fields.
+  - `CmsPage.astro` still renders the legacy `hero` / `sections` / `cta` fields
+    when `layout` is empty, and the industry/funding routes still fall back to the
+    old json fields. Remove those fallbacks, and the legacy fields, once every
+    environment is migrated (docs/EMDASH-TOOLCHAIN-MIGRATION-PLAN.md).
+- **Editing happens on dev.vitops.ca (staging), then is promoted.** Content lives
+  in the database, not git. Editors change pages and menus in the dev admin;
+  `Promote content` (`.github/workflows/promote-content.yml`,
+  `scripts/promote-content.mjs`) copies what is _published_ on dev to prod —
+  dry-run first — and a snapshot PR records it under `seed/`. Prod is written
+  only by that workflow, apart from blog posts (not yet built), which are edited
+  on prod and never touched by it. `seed/<collection>/*.json` and
+  `seed/menus.json` are snapshots and the bootstrap for a fresh database
+  (`node scripts/sync-pages.mjs`, `node scripts/sync-menus.mjs <url>` — both
+  **overwrite** what is on the target), not the source of truth.
+  `node scripts/export-content.mjs <url>` regenerates them from a live site.
+  Schema is in `seed/seed.json` and, for an existing database, goes through
+  `scripts/promote-schema.sh` (REST for block types and fields; the CLI cannot
+  set `urlPattern` or SEO). Order for a release: code → schema → content
+  (docs/RUNBOOK.md). Refreshing dev from prod replaces dev's database, so only do
+  it when dev has no unpromoted work.
+- **Menus.** `src/lib/chrome.ts` reads `primary`, `header_cta`, `footer_services`,
+  `footer_funding` and `footer_company` with `getMenuWithCacheHint()` and returns
+  their tags (`PineLayout` passes them to `Astro.cache.set`, so editing a menu
+  purges every page). _Which menu an item is in decides how it looks_ — the admin's
+  menu editor has no CSS-class field: `primary` items are nav links (an item's
+  children are its dropdown), `header_cta` items render as the `.cta` button,
+  each `footer_*` menu is a footer column headed by the menu's label.
+  `cssClasses` / `target` are still passed through when set via the API or
+  seed — a developer escape hatch. A missing or empty menu falls back to the
+  defaults in `chrome.ts`, so a fresh database still renders navigation. A new
+  footer column needs a menu name added there.
 - **A nested path needs its own collection.** EmDash's sitemap percent-encodes a
   `/` in a slug (`a%2Fb`), so `managed-it-services/x` is a `managed_it_services`
   entry with `urlPattern: /managed-it-services/{slug}`, never a `pages` slug with
@@ -117,7 +165,8 @@ route):
   - Keep `Astro.cache.set(cacheHint)` on every CMS-backed route (without it a page
     never invalidates), and call `Astro.cache.set(CMS_PAGE_CACHE)` only _after_ the
     missing-entry 404 return; that 404 must be `private, no-store` (a cached 404
-    has no tag to purge).
+    has no tag to purge). Pages that only use the layout tag themselves with the
+    menu tags and set `CMS_PAGE_CACHE` at the top of their frontmatter.
   - **A deploy does not purge the edge cache**, so changed templates keep serving
     old HTML until an entry is next published or the cache is purged (dashboard:
     Caching → Purge, or `cache.purge()` from Worker code).
@@ -125,13 +174,16 @@ route):
   - Cloudflare's `Vary` support is not the mechanism — it caches alternate
     representations of one URL, not "until changed".
 - **Sitemap / llms.txt:** `/sitemap.xml` (EmDash) indexes the CMS-backed pages;
-  `pages-sitemap.xml` and `llms.txt` are derived from the filesystem and from
-  built HTML, so they **no longer list migrated pages** (`robots.txt` names
-  both sitemaps; `site.seo.indexing.sitemapUrl` still points only at the
-  filesystem one, so `vitops search notify` does not see CMS pages).
+  `pages-sitemap.xml` is derived from the filesystem and git history, so it lists
+  the hand-written pages only (`robots.txt` names both;
+  `site.seo.indexing.sitemapUrl` still points only at the filesystem one, so
+  `vitops search notify` does not see CMS pages). `/llms.txt` is a live route —
+  see "AI discovery".
 
-Three things follow from prerendering, all of which failed silently before being
-fixed — keep them in mind when adding a page:
+Three things came with prerendering, all of which failed silently before being
+fixed. Prerendering is no longer how pages are served, but the first and last
+still bite anything that ever is prerendered again, and the middle one explains
+why `noindex` is a `<meta>` tag as well as a header:
 
 - **`site:` in `astro.config.mjs` is load-bearing.** A prerendered page has no
   request to derive an origin from, so without it every canonical and `og:url`
@@ -272,9 +324,9 @@ things forced that shape, and all three are worth knowing before "simplifying" i
 The route list is derived from the filesystem, never written out — a hand-kept
 list drifts silently and a new page is simply never submitted. `/404`,
 `_`-prefixed partials and `[param]` routes are filtered. That derivation
-(`isPublicRoute`, `publicRoutes`) lives in `scripts/routes.mjs`, shared with
-`scripts/llms.mjs` below — so the sitemap and `llms.txt` can't silently list
-different URLs.
+(`isPublicRoute`, `publicRoutes`) lives in `scripts/routes.mjs`;
+`src/pages/llms.txt.ts` applies the same rule at runtime, so keep the two in step
+or the sitemap and `llms.txt` will silently list different URLs.
 
 **Both deploy workflows set `fetch-depth: 0`.** The default shallow clone has one
 commit, so every `<lastmod>` would claim the deploy date — plausible and wrong,
@@ -311,40 +363,31 @@ by any of this — CI keeps using its own credential.
 
 ## AI discovery (llms.txt)
 
-`scripts/llms.mjs` writes `llms.txt` (the [llmstxt.org](https://llmstxt.org)
-format) at `astro:build:done`, wired in `astro.config.mjs`. No first-party
-support exists for this: Astro core has none, EmDash has none, and Cloudflare's
-AI Crawl Control auto-generates managed **robots.txt** only, not llms.txt.
-Third-party Astro integrations all derive from markdown or content
-collections; this site has neither (every page is a hand-authored `.astro`
-file), so they'd emit nothing — the same failure mode that already ruled out
-`@astrojs/sitemap` above.
+`/llms.txt` (the [llmstxt.org](https://llmstxt.org) format) is a **live route**,
+`src/pages/llms.txt.ts`, rendered by `src/lib/llms.ts`. No first-party support
+exists for this: Astro core has none, EmDash has none, and Cloudflare's AI Crawl
+Control auto-generates managed **robots.txt** only, not llms.txt.
 
-**`build:done`, not `build:start` like the sitemap.** Title and description are
-not reliably readable from a page's own source: `/industries/*` and
-`/funding/*` pass them as props through wrapper components
-(`IndustryPage.astro`, `ProgramPage.astro`), and `PineLayout.astro` appends a
-site title read from D1 at render time. Reading the built HTML instead — the
-`dir` a `build:done` hook receives — means `llms.txt` quotes whatever the page
-actually serves and cannot disagree with it. Consequence: `/llms.txt` 404s
-under `astro dev` (which serves `public/`, not `dist/`); check it with
-`astro preview` instead.
+It was a build-time file written from the prerendered HTML. With nothing
+prerendered any more there is no HTML at build, so the route builds the list per
+request, then is edge-cached for a week and tagged with the four collections, so
+a publish refreshes it:
 
-Serving works the same way `public/robots.txt` already beats EmDash's own
-injected `/robots.txt` route: Workers Assets matches a static file before the
-Worker runs at all (no `run_worker_first` in `wrangler.jsonc`), so a file
-written into `dir` (`dist/client/`, the Cloudflare adapter's asset root) is
-served ahead of any route EmDash or Astro might also claim at that path.
+- **CMS entries** (`pages`, `managed_it_services`, `industries`,
+  `funding_programs`): title and SEO description are read per entry with
+  `getEmDashEntry` — the collection query omits SEO. An entry with no title or no
+  SEO description is left out.
+- **Hand-written pages**: found with `import.meta.glob("./**/*.astro")` (the same
+  rule as `scripts/routes.mjs`: no `/404`, no `_` or `[param]` segments), each
+  fetched from this same site and its own `<head>` read, so `llms.txt` quotes what
+  the page actually serves and cannot disagree with it. A page that doesn't answer
+  is left out rather than failing the file. These aren't tagged, so a deploy that
+  changes one's title shows up after the cache expires or is purged.
 
-**`scripts/llms.mjs` is a prototype staged for `@getvitops/astro`.** It is
-deliberately site-agnostic — no `site.json` import, no hardcoded origin, name,
-or route pattern. Every Vitops-specific fact (origin, site name, the blurb, the
-seven section predicates) is passed in from `astro.config.mjs`. Promoting it to
-the package should be a file move plus one changed import; don't let Vitops
-specifics leak into the generator itself; keep the site's own wiring to the
-single integration registration. This is expected to be deleted outright, not
-extended, once EmDash ships llms.txt support or Cloudflare's AI Index reaches
-GA.
+Section rules (the seven predicates) live in `llms.txt.ts`; `src/lib/llms.ts` is
+deliberately site-agnostic (no `site.json`, no route patterns) so it can move into
+`@getvitops/astro` unchanged, and be deleted outright once EmDash ships llms.txt
+support or Cloudflare's AI Index reaches GA.
 
 `llms-full.txt` (full page bodies as markdown) is a deliberate non-goal — it
 would mean maintaining a markdown rendition of every marketing page, none of

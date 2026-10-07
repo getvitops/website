@@ -14,28 +14,39 @@ the operational reference.
 
 **Critical:** content **and** schema live in the database, not git. A
 `wrangler deploy` never changes them. So "promote dev→prod" is three separate
-operations (code / schema / content) — see [Promotion](#promotion). **Prod is the
-source of truth for content**; full DB copies only ever run prod→dev.
+operations (code / schema / content) — see [Promotion](#promotion).
+
+**Staging-first for pages and menus.** Editors change pages, industries, funding
+programs and menus on **dev.vitops.ca**; the **Promote content** workflow copies
+what is _published_ there to prod. Prod is written by that workflow only, except
+for blog posts (not built yet), which are edited on prod and never touched by it.
+A full DB copy (**Refresh dev from prod**) replaces dev's database, so only run it
+when dev has no unpromoted work.
 
 ## One-time setup
 
 ### 1. GitHub
+
 ```bash
 git remote add origin git@github.com:<org>/vitops-website.git
 git push -u origin main
 git push -u origin dev
 ```
+
 Then in repo settings: protect `main` (require PR + review, no direct pushes).
 Point Claude Code remote at the repo, working branch `dev`.
 
 ### 2. Cloudflare resources (need your account — run via `! wrangler ...`)
+
 Prod (`vitops` D1 + R2) already exists. Create the isolated dev pair:
+
 ```bash
 wrangler d1 create vitops-dev          # copy the returned database id
 wrangler r2 bucket create vitops-dev
 ```
 
 ### 3. Worker runtime secrets (set on BOTH `vitops` and `vitops-dev`)
+
 ```bash
 wrangler secret put EMDASH_OAUTH_GITHUB_CLIENT_ID
 wrangler secret put EMDASH_OAUTH_GITHUB_CLIENT_SECRET
@@ -43,19 +54,23 @@ wrangler secret put EMDASH_ENCRYPTION_KEY
 wrangler secret put EMDASH_PREVIEW_SECRET        # pin so preview tokens verify
 # repeat each with:  --config dist/server/wrangler.dev.json   for the dev worker
 ```
+
 Rotate the values currently in `.dev.vars` / `.env` before first push — treat
 them as exposed.
 
 ### 4. GitHub Actions secrets (Settings → Secrets → Actions)
-| Secret | Used by | Notes |
-|---|---|---|
-| `CLOUDFLARE_API_TOKEN` | all deploys | Workers + D1 + R2 edit |
-| `CLOUDFLARE_ACCOUNT_ID` | all deploys | |
-| `VITOPS_DEV_D1_ID` | deploy-dev | from step 2; build hard-fails without it |
-| `EMDASH_TOKEN` | promote-schema | admin API token (Settings → API Tokens) |
-| `PROMOTE_TOKEN` | promote *(optional)* | PAT/App token to auto-merge into `main` |
+
+| Secret                                  | Used by              | Notes                                                         |
+| --------------------------------------- | -------------------- | ------------------------------------------------------------- |
+| `CLOUDFLARE_API_TOKEN`                  | all deploys          | Workers + D1 + R2 edit                                        |
+| `CLOUDFLARE_ACCOUNT_ID`                 | all deploys          |                                                               |
+| `VITOPS_DEV_D1_ID`                      | deploy-dev           | from step 2; build hard-fails without it                      |
+| `EMDASH_TOKEN`                          | promote-schema       | admin API token (Settings → API Tokens)                       |
+| `EMDASH_TOKEN_DEV`, `EMDASH_TOKEN_PROD` | promote-content      | admin API tokens for dev.vitops.ca and vitops.ca respectively |
+| `PROMOTE_TOKEN`                         | promote _(optional)_ | PAT/App token to auto-merge into `main`                       |
 
 ### 5. First deploys + seed dev from prod
+
 ```bash
 # prod (if not already live)
 pnpm run deploy
@@ -66,7 +81,8 @@ pnpm run deploy:dev
 wrangler d1 export vitops --remote --output=./prod.sql
 wrangler d1 execute vitops-dev --remote --file=./prod.sql
 ```
-`.emdash/seed.json` only bootstraps an *empty* DB — a running dev DB is seeded by
+
+`.emdash/seed.json` only bootstraps an _empty_ DB — a running dev DB is seeded by
 the clone above (or the **Refresh dev from prod** workflow), not by the seed file.
 
 ## Everyday workflow
@@ -81,15 +97,30 @@ the clone above (or the **Refresh dev from prod** workflow), not by the seed fil
 
 Three layers, three mechanisms:
 
-| Layer | How |
-|---|---|
-| **Code** | **Promote dev → main** workflow (opens PR, auto-merge → deploy-prod) |
-| **Schema** | **Promote schema** workflow → `scripts/promote-schema.sh`. Run against `dev` to rehearse, then `prod`. Edit the script per release to add `emdash schema` calls; regen types after. Ordering: additive changes *before* the code that uses them; removals *after*. |
-| **Content** | **Prod is source of truth** — editors edit prod live. Only *dev-owned* seed/demo content promotes, via scripted `emdash content` ops. **Never** dump dev→prod (it would clobber live content, users, revisions, form submissions). |
+| Layer       | How                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Code**    | **Promote dev → main** workflow (opens PR, auto-merge → deploy-prod)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| **Schema**  | **Promote schema** workflow → `scripts/promote-schema.sh`. Run against `dev` to rehearse, then `prod`. Edit the script per release to add `emdash schema` calls; regen types after. Ordering: additive changes _before_ the code that uses them; removals _after_.                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Content** | **Promote content** workflow → `scripts/promote-content.mjs`: copies _published_ pages, industries, funding programs and menus from dev to prod over REST (the API purges the edge cache tags it touches). **Dry-run first** (the `apply` input is off by default; read the plan in the log), then re-run with it on. Skips an entry edited on prod after dev (`force` overrides). Never touches `posts` or any other collection. After a real run it opens a PR snapshotting prod's content into `seed/` — a record for history and rollback, not the source. Needs repo secrets `EMDASH_TOKEN_DEV` and `EMDASH_TOKEN_PROD`. Uploaded media isn't copied yet: an entry that references an image is refused until that's built. |
 
-Refresh the dev sandbox from prod anytime with the **Refresh dev from prod**
-workflow (clones prod D1 → dev D1; recreate `vitops-dev` first if it already has
-tables). R2 media sync is a TODO (see that workflow's comment).
+**Release order, per environment:** deploy the code (it renders both the old and
+new content shapes) → **Promote schema** (adds block types and fields; idempotent)
+→ **Promote content** → purge the edge cache (a deploy does not). Dev first.
+Removing legacy fields is a separate, later step, after the code that stops using
+them has shipped everywhere.
+
+**Bootstrapping a fresh database** (no staging to copy from):
+`node scripts/promote-blocks.mjs <url>` is already part of `promote-schema.sh`;
+then `node scripts/sync-pages.mjs --url <url>` and
+`node scripts/sync-menus.mjs <url>` load the checked-in seeds. Both **overwrite**
+what is there. `node scripts/export-content.mjs <url>` goes the other way,
+regenerating `seed/` from a live site.
+
+Refresh the dev sandbox from prod with the **Refresh dev from prod** workflow
+(clones prod D1 → dev D1; recreate `vitops-dev` first if it already has tables).
+**It discards everything on dev**, including pages and menu changes not yet
+promoted — promote or export first. R2 media sync is a TODO (see that workflow's
+comment).
 
 ## A/B testing
 
@@ -119,9 +150,10 @@ Reporting goes to Plausible once it is configured; don't launch a test before.
 
 ## File map
 
-| Concern | Path |
-|---|---|
-| A/B + noindex middleware | `src/middleware.ts` |
-| Dev flat-config generator | `scripts/build-dev-wrangler.mjs` |
-| Schema promotion template | `scripts/promote-schema.sh` |
-| CI | `.github/workflows/{deploy-dev,deploy-prod,promote,promote-schema,refresh-dev}.yml` |
+| Concern                      | Path                                                                                                |
+| ---------------------------- | --------------------------------------------------------------------------------------------------- |
+| A/B + noindex middleware     | `src/middleware.ts`                                                                                 |
+| Dev flat-config generator    | `scripts/build-dev-wrangler.mjs`                                                                    |
+| Schema promotion template    | `scripts/promote-schema.sh` (+ `scripts/promote-blocks.mjs`, `scripts/lib/block-types.mjs`)         |
+| Content promotion / snapshot | `scripts/promote-content.mjs`, `scripts/export-content.mjs`                                         |
+| CI                           | `.github/workflows/{deploy-dev,deploy-prod,promote,promote-schema,promote-content,refresh-dev}.yml` |

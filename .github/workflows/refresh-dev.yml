@@ -1,6 +1,10 @@
-# Refresh the dev environment from prod (prod is the source of truth for content).
-# Clones the prod D1 database into vitops-dev so Claude's sandbox has realistic
-# content. This is the ONLY direction a full DB copy ever runs — never dev→prod.
+# Refresh the dev environment from prod. Clones the prod D1 database into
+# vitops-dev so the sandbox has realistic content. This is the ONLY direction a
+# full DB copy ever runs — never dev→prod.
+#
+# WARNING: dev is the editing/staging environment for pages and menus
+# (docs/RUNBOOK.md). This REPLACES its database, discarding any page or menu edit
+# not yet promoted with the Promote content workflow. Promote or export first.
 #
 # NOTE: `d1 execute --file` replays a full dump; run it against a FRESH/empty
 # vitops-dev (recreate it first if it already has tables), otherwise the insert
