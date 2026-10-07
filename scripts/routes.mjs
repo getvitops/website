@@ -6,16 +6,12 @@ import { routeFromPage } from "@getvitops/astro";
 import config from "../site.json" with { type: "json" };
 
 /**
- * Shared route derivation for `scripts/sitemap.mjs` and `scripts/llms.mjs`.
- *
- * Split out so both documents list the same 29 URLs by construction — two
- * independent walks of `src/pages` would eventually disagree, silently.
+ * Route derivation for `scripts/sitemap.mjs`.
  *
  * `isPublicRoute` and `publicRoutes` are generic (they're the same
- * filesystem-walk primitive `routeFromPage` already serves) and are meant to
- * follow `scripts/llms.mjs` into `@getvitops/astro` once that generator is
- * promoted. `CANONICAL_ORIGIN` is the one site-specific value here and stays
- * behind in this file.
+ * filesystem-walk primitive `routeFromPage` already serves). `CANONICAL_ORIGIN`
+ * is the one site-specific value here. `src/pages/llms.txt.ts` applies the same
+ * route rule at runtime (via `import.meta.glob`), so keep the two in step.
  */
 
 /**

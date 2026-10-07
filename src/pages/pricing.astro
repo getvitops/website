@@ -1,4 +1,5 @@
 ---
+import { CMS_PAGE_CACHE } from "../lib/cache";
 import PineLayout from "../layouts/PineLayout.astro";
 import PageHero from "../components/page/PageHero.astro";
 import Subgrid from "@getvitops/astro/components/Subgrid.astro";
@@ -6,11 +7,13 @@ import Schema from "../components/page/Schema.astro";
 import HealthDashboard from "../components/HealthDashboard.astro";
 import { breadcrumb, service } from "../lib/schema";
 
-// Prerendered: no per-request data on this page. EmDash pins the site to
-// output:"server" — its injected /_emdash/* dynamic routes would each need
-// getStaticPaths() under output:"static" — so prerendering is opted into
-// per page. Only /api/contact and the A/B dispatcher stay on-demand.
-export const prerender = true;
+// On-demand, edge-cached until a publish: the header, footer and nav come from
+// EmDash menus (src/lib/chrome.ts), so a menu edit must reach this page without
+// a rebuild. PineLayout tags the response with the menus it read; editing one
+// purges it. (Hand-written copy is still deployed, not edited — a deploy does
+// not purge the edge cache, see AGENTS.md "CMS-backed pages".)
+export const prerender = false;
+Astro.cache.set(CMS_PAGE_CACHE);
 
 // --- IT & HR Operations: priced per user, per month -------------------------
 //
@@ -920,7 +923,7 @@ const finePrint = [
 	Plain script tag, not JSX — a body wrapped in a curly-brace template
 	literal emits the braces and backticks verbatim and silently does
 	nothing (see CLAUDE.md). is:inline because the calculator has to work
-	with no hydration: this is a prerendered page, Subgrid and the rest of
+	with no hydration: this is a server-rendered page, Subgrid and the rest of
 	it are plain markup, and pulling in a framework island for two range
 	inputs would be the tail wagging the dog. Placed before the layout's
 	closing tag, not after — PineLayout renders the full HTML document, so

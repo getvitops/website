@@ -1119,12 +1119,29 @@
   "menus": [
     {
       "name": "primary",
-      "label": "Primary Navigation",
+      "label": "Primary navigation",
       "items": [
         {
           "type": "custom",
-          "label": "Features",
-          "url": "/#features"
+          "label": "Services",
+          "url": "/managed-it-services",
+          "children": [
+            {
+              "type": "custom",
+              "label": "Managed IT services",
+              "url": "/managed-it-services"
+            },
+            {
+              "type": "custom",
+              "label": "Digital marketing",
+              "url": "/digital-marketing"
+            }
+          ]
+        },
+        {
+          "type": "custom",
+          "label": "Industries",
+          "url": "/industries"
         },
         {
           "type": "custom",
@@ -1133,35 +1150,77 @@
         },
         {
           "type": "custom",
-          "label": "Contact",
-          "url": "/contact"
+          "label": "About",
+          "url": "/about"
         }
       ]
     },
     {
-      "name": "footer_product",
-      "label": "Footer: Product",
+      "name": "header_cta",
+      "label": "Header button",
       "items": [
         {
           "type": "custom",
-          "label": "Features",
-          "url": "/#features"
+          "label": "Talk to us",
+          "url": "/#contact"
+        }
+      ]
+    },
+    {
+      "name": "footer_services",
+      "label": "Services",
+      "items": [
+        {
+          "type": "custom",
+          "label": "Managed IT services",
+          "url": "/managed-it-services"
+        },
+        {
+          "type": "custom",
+          "label": "Digital marketing",
+          "url": "/digital-marketing"
+        },
+        {
+          "type": "custom",
+          "label": "Industries",
+          "url": "/industries"
         },
         {
           "type": "custom",
           "label": "Pricing",
           "url": "/pricing"
+        }
+      ]
+    },
+    {
+      "name": "footer_funding",
+      "label": "Funding",
+      "items": [
+        {
+          "type": "custom",
+          "label": "All programs",
+          "url": "/funding"
         },
         {
           "type": "custom",
-          "label": "Changelog",
-          "url": "/changelog"
+          "label": "DMAP",
+          "url": "/funding/dmap"
+        },
+        {
+          "type": "custom",
+          "label": "RMPG",
+          "url": "/funding/rmpg"
+        },
+        {
+          "type": "custom",
+          "label": "BDC LIFT",
+          "url": "/funding/bdc-lift"
         }
       ]
     },
     {
       "name": "footer_company",
-      "label": "Footer: Company",
+      "label": "Company",
       "items": [
         {
           "type": "custom",
@@ -1170,34 +1229,28 @@
         },
         {
           "type": "custom",
-          "label": "Blog",
-          "url": "/blog"
-        },
-        {
-          "type": "custom",
-          "label": "Careers",
-          "url": "/careers"
-        }
-      ]
-    },
-    {
-      "name": "footer_support",
-      "label": "Footer: Support",
-      "items": [
-        {
-          "type": "custom",
-          "label": "Documentation",
-          "url": "/docs"
-        },
-        {
-          "type": "custom",
           "label": "Contact",
           "url": "/contact"
         },
         {
           "type": "custom",
-          "label": "Status",
-          "url": "/status"
+          "label": "hi@vitops.ca",
+          "url": "mailto:hi@vitops.ca"
+        },
+        {
+          "type": "custom",
+          "label": "Privacy policy",
+          "url": "/privacy"
+        },
+        {
+          "type": "custom",
+          "label": "Cookie notice",
+          "url": "/cookies"
+        },
+        {
+          "type": "custom",
+          "label": "Terms of service",
+          "url": "/terms"
         }
       ]
     }

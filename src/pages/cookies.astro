@@ -1,9 +1,12 @@
 ---
-// Prerendered: no per-request data on this page. EmDash pins the site to
-// output:"server" — its injected /_emdash/* dynamic routes would each need
-// getStaticPaths() under output:"static" — so prerendering is opted into
-// per page. Only /api/contact and the A/B dispatcher stay on-demand.
-export const prerender = true;
+import { CMS_PAGE_CACHE } from "../lib/cache";
+// On-demand, edge-cached until a publish: the header, footer and nav come from
+// EmDash menus (src/lib/chrome.ts), so a menu edit must reach this page without
+// a rebuild. PineLayout tags the response with the menus it read; editing one
+// purges it. (Hand-written copy is still deployed, not edited — a deploy does
+// not purge the edge cache, see AGENTS.md "CMS-backed pages".)
+export const prerender = false;
+Astro.cache.set(CMS_PAGE_CACHE);
 
 import LegalDoc from "../components/page/LegalDoc.astro";
 

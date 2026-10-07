@@ -292,6 +292,19 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       else c.fields.push(f);
     }
   }
+  // Menus: seed/menus.json is the source; seed.json carries them for fresh DBs.
+  const menuDefs = JSON.parse(readFileSync("seed/menus.json", "utf8"));
+  const toSeedItem = ({ label, url, children }) => ({
+    type: "custom",
+    label,
+    url,
+    ...(children && { children: children.map(toSeedItem) }),
+  });
+  rest.menus = Object.entries(menuDefs).map(([name, m]) => ({
+    name,
+    label: m.label,
+    items: m.items.map(toSeedItem),
+  }));
   const out = {};
   for (const [k, v] of Object.entries(rest)) {
     out[k] = v;

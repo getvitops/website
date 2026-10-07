@@ -1,0 +1,51 @@
+{
+  "primary": {
+    "label": "Primary navigation",
+    "items": [
+      {
+        "label": "Services",
+        "url": "/managed-it-services",
+        "children": [
+          { "label": "Managed IT services", "url": "/managed-it-services" },
+          { "label": "Digital marketing", "url": "/digital-marketing" }
+        ]
+      },
+      { "label": "Industries", "url": "/industries" },
+      { "label": "Pricing", "url": "/pricing" },
+      { "label": "About", "url": "/about" }
+    ]
+  },
+  "header_cta": {
+    "label": "Header button",
+    "items": [{ "label": "Talk to us", "url": "/#contact" }]
+  },
+  "footer_services": {
+    "label": "Services",
+    "items": [
+      { "label": "Managed IT services", "url": "/managed-it-services" },
+      { "label": "Digital marketing", "url": "/digital-marketing" },
+      { "label": "Industries", "url": "/industries" },
+      { "label": "Pricing", "url": "/pricing" }
+    ]
+  },
+  "footer_funding": {
+    "label": "Funding",
+    "items": [
+      { "label": "All programs", "url": "/funding" },
+      { "label": "DMAP", "url": "/funding/dmap" },
+      { "label": "RMPG", "url": "/funding/rmpg" },
+      { "label": "BDC LIFT", "url": "/funding/bdc-lift" }
+    ]
+  },
+  "footer_company": {
+    "label": "Company",
+    "items": [
+      { "label": "About", "url": "/about" },
+      { "label": "Contact", "url": "/contact" },
+      { "label": "hi@vitops.ca", "url": "mailto:hi@vitops.ca" },
+      { "label": "Privacy policy", "url": "/privacy" },
+      { "label": "Cookie notice", "url": "/cookies" },
+      { "label": "Terms of service", "url": "/terms" }
+    ]
+  }
+}

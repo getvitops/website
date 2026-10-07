@@ -38,23 +38,34 @@ const cli = (...a) =>
 async function authHeaders() {
   if (process.env.EMDASH_TOKEN) return { authorization: `Bearer ${process.env.EMDASH_TOKEN}` };
   const res = await fetch(new URL("/_emdash/api/auth/dev-bypass", base), { redirect: "manual" });
-  const cookie = res.headers.getSetCookie().map((c) => c.split(";")[0]).join("; ");
+  const cookie = res.headers
+    .getSetCookie()
+    .map((c) => c.split(";")[0])
+    .join("; ");
   if (!cookie) throw new Error("no EMDASH_TOKEN and the dev bypass issued no session");
   return { cookie };
 }
 
-const headers = { "content-type": "application/json", "x-emdash-request": "1", ...(await authHeaders()) };
+const headers = {
+  "content-type": "application/json",
+  "x-emdash-request": "1",
+  ...(await authHeaders()),
+};
 
 for (const [collection, slug] of entries) {
   const name = slug;
-  const { seo, ...data } = JSON.parse(readFileSync(join("seed", collection, `${name}.json`), "utf8"));
+  const { seo, ...data } = JSON.parse(
+    readFileSync(join("seed", collection, `${name}.json`), "utf8"),
+  );
   const file = join(tmpdir(), `sync-${collection}-${name}.json`);
   writeFileSync(file, JSON.stringify(data));
 
   let entry;
   try {
     const current = JSON.parse(cli("content", "get", collection, slug));
-    entry = JSON.parse(cli("content", "update", collection, current.id, "--rev", current._rev, "--file", file));
+    entry = JSON.parse(
+      cli("content", "update", collection, current.id, "--rev", current._rev, "--file", file),
+    );
     console.log(`updated  ${collection}/${slug}`);
   } catch {
     entry = JSON.parse(cli("content", "create", collection, "--slug", slug, "--file", file));
@@ -67,7 +78,8 @@ for (const [collection, slug] of entries) {
       headers,
       body: JSON.stringify({ seo }),
     });
-    if (!res.ok) throw new Error(`seo update for ${collection}/${slug}: ${res.status} ${await res.text()}`);
+    if (!res.ok)
+      throw new Error(`seo update for ${collection}/${slug}: ${res.status} ${await res.text()}`);
     console.log(`  seo set`);
   }
 }

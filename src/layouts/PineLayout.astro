@@ -8,6 +8,7 @@ import { getSiteSettings } from "emdash";
 import { EmDashHead } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
 import { clarityEnabled, isProdStage } from "../lib/analytics";
+import { getChrome } from "../lib/chrome";
 // Design-system CSS, layout-scoped (getvitops css.inject: false): only pages
 // rendered through PineLayout get it — keeps it out of /_emdash/admin, while
 // EmDash previews (rendered through this layout) keep it.
@@ -54,35 +55,25 @@ const pageCtx = createPublicPageContext({
 	siteName: siteTitle,
 });
 
-// Two axes, two nav items. Services is what we do (the two pillars);
-// Industries is who for. Industries is deliberately NOT inside the Services
-// menu — it answers a different question, and nesting it collapses the
-// distinction.
+// Nav, header button and footer columns come from EmDash menus (Menus in the
+// admin) via src/lib/chrome.ts, which also holds the structure rules: `primary`
+// is the nav (an item's children are its dropdown), `header_cta` the button,
+// `footer_*` one column each. Editorial intent that used to live here:
 //
-// Funding is deliberately NOT in the nav. It's a price objection handler, not a
-// pillar: search traffic lands on /funding/* directly, and on-site readers meet
-// it via the callout band, the CTA lines and the block on /pricing — all at the
-// moment the cost question actually arises. A "Funding" nav item also reads like
-// we're a grant consultancy, which we aren't. Footer keeps the links.
-// See content-plan/ia.md.
-const navLinks: { label: string; href: string; children?: { label: string; href: string }[] }[] = [
-	{
-		label: "Services",
-		href: "/managed-it-services",
-		children: [
-			{ label: "Managed IT services", href: "/managed-it-services" },
-			{ label: "Digital marketing", href: "/digital-marketing" },
-		],
-	},
-	{ label: "Industries", href: "/industries" },
-	{ label: "Pricing", href: "/pricing" },
-	{ label: "About", href: "/about" },
-];
+// - Two axes, two nav items. Services is what we do (the two pillars);
+//   Industries is who for, and is deliberately NOT inside Services — nesting it
+//   collapses the distinction.
+// - Funding is deliberately NOT in the nav. It's a price objection handler, not
+//   a pillar: search traffic lands on /funding/* directly, and on-site readers
+//   meet it via the callout band, the CTA lines and the block on /pricing. A
+//   "Funding" nav item reads like we're a grant consultancy. The footer keeps
+//   the links. See content-plan/ia.md.
+const chrome = await getChrome();
+// Editing a menu purges every page that rendered it.
+Astro.cache.set(chrome.cacheHint);
 
 // Flattened for the drawer, where a nested disclosure buys nothing.
-const drawerLinks = navLinks.flatMap((l) =>
-	l.children ? l.children : [l],
-);
+const drawerLinks = chrome.primary.flatMap((l) => (l.children.length ? l.children : [l]));
 const year = new Date().getFullYear();
 
 // Whether this page gets analytics at all. Decided at BUILD time: public pages
@@ -158,9 +149,9 @@ const analyticsEnabled = clarityEnabled(Astro.originPathname);
 				<nav aria-label="Primary">
 					<ul class="nav-items justify-center" role="list">
 						{
-							navLinks.map((link) =>
-								link.children ? (
-									<li class="has-menu">
+							chrome.primary.map((link) =>
+								link.children.length ? (
+									<li class:list={["has-menu", link.classes]}>
 										<button
 											type="button"
 											class="menu-trigger"
@@ -174,15 +165,19 @@ const analyticsEnabled = clarityEnabled(Astro.originPathname);
 										</button>
 										<ul class="submenu">
 											{link.children.map((child) => (
-												<li>
-													<a href={child.href}>{child.label}</a>
+												<li class={child.classes}>
+													<a href={child.href} target={child.target}>
+														{child.label}
+													</a>
 												</li>
 											))}
 										</ul>
 									</li>
 								) : (
-									<li>
-										<a href={link.href}>{link.label}</a>
+									<li class={link.classes}>
+										<a href={link.href} target={link.target}>
+											{link.label}
+										</a>
 									</li>
 								),
 							)
@@ -191,9 +186,13 @@ const analyticsEnabled = clarityEnabled(Astro.originPathname);
 				</nav>
 
 				<div class="nav-actions">
-					<a class="cta" href="/#contact"
-						>Talk to us <span class="arrow"></span></a
-					>
+					{
+						chrome.cta.map((item) => (
+							<a class:list={["cta", item.classes]} href={item.href} target={item.target}>
+								{item.label} <span class="arrow" />
+							</a>
+						))
+					}
 					<button
 						class="drawer-open"
 						type="button"
@@ -251,17 +250,23 @@ const analyticsEnabled = clarityEnabled(Astro.originPathname);
 				<ul class="nav-items" role="list">
 					{
 						drawerLinks.map((link) => (
-							<li>
-								<a href={link.href}>{link.label}</a>
+							<li class={link.classes}>
+								<a href={link.href} target={link.target}>
+									{link.label}
+								</a>
 							</li>
 						))
 					}
 				</ul>
 			</nav>
 			<div class="nav-actions">
-				<a class="cta" href="/#contact"
-					>Talk to us <span class="arrow"></span></a
-				>
+				{
+					chrome.cta.map((item) => (
+						<a class:list={["cta", item.classes]} href={item.href} target={item.target}>
+							{item.label} <span class="arrow" />
+						</a>
+					))
+				}
 			</div>
 		</div>
 
@@ -284,35 +289,22 @@ const analyticsEnabled = clarityEnabled(Astro.originPathname);
 				</p>
 
 				<nav class="footer-nav" aria-label="Footer">
-					<div class="footer-col">
-						<h2 class="font-eyebrow footer-head">Services</h2>
-						<ul>
-							<li><a href="/managed-it-services">Managed IT services</a></li>
-							<li><a href="/digital-marketing">Digital marketing</a></li>
-							<li><a href="/industries">Industries</a></li>
-							<li><a href="/pricing">Pricing</a></li>
-						</ul>
-					</div>
-					<div class="footer-col">
-						<h2 class="font-eyebrow footer-head">Funding</h2>
-						<ul>
-							<li><a href="/funding">All programs</a></li>
-							<li><a href="/funding/dmap">DMAP</a></li>
-							<li><a href="/funding/rmpg">RMPG</a></li>
-							<li><a href="/funding/bdc-lift">BDC LIFT</a></li>
-						</ul>
-					</div>
-					<div class="footer-col">
-						<h2 class="font-eyebrow footer-head">Company</h2>
-						<ul>
-							<li><a href="/about">About</a></li>
-							<li><a href="/contact">Contact</a></li>
-							<li><a href="mailto:hi@vitops.ca">hi@vitops.ca</a></li>
-							<li><a href="/privacy">Privacy policy</a></li>
-							<li><a href="/cookies">Cookie notice</a></li>
-							<li><a href="/terms">Terms of service</a></li>
-						</ul>
-					</div>
+					{
+						chrome.footer.map((col) => (
+							<div class="footer-col">
+								<h2 class="font-eyebrow footer-head">{col.heading}</h2>
+								<ul>
+									{col.items.map((item) => (
+										<li class={item.classes}>
+											<a href={item.href} target={item.target}>
+												{item.label}
+											</a>
+										</li>
+									))}
+								</ul>
+							</div>
+						))
+					}
 				</nav>
 				<div class="footer-base flex items-center">
 					<span class="footer-copy flex flex-col @md:flex-row @md:items-center">
