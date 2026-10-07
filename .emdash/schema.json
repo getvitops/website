@@ -83,6 +83,97 @@
           "type": "json",
           "required": false,
           "unique": false
+        },
+        {
+          "slug": "fact_items",
+          "label": "Facts",
+          "type": "repeater",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "subFields": [
+              {
+                "slug": "term",
+                "type": "string",
+                "label": "Term",
+                "required": true
+              },
+              {
+                "slug": "value",
+                "type": "text",
+                "label": "Value",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "section_items",
+          "label": "Sections",
+          "type": "repeater",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "subFields": [
+              {
+                "slug": "title",
+                "type": "string",
+                "label": "Title",
+                "required": true
+              },
+              {
+                "slug": "body",
+                "type": "text",
+                "label": "Paragraphs (blank line between)"
+              }
+            ]
+          }
+        },
+        {
+          "slug": "faq_items",
+          "label": "FAQ",
+          "type": "repeater",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "subFields": [
+              {
+                "slug": "q",
+                "type": "string",
+                "label": "Question",
+                "required": true
+              },
+              {
+                "slug": "a",
+                "type": "text",
+                "label": "Answer",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "link_items",
+          "label": "Related links",
+          "type": "repeater",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "subFields": [
+              {
+                "slug": "label",
+                "type": "string",
+                "label": "Label",
+                "required": true
+              },
+              {
+                "slug": "href",
+                "type": "string",
+                "label": "Link",
+                "required": true
+              }
+            ]
+          }
         }
       ]
     },
@@ -197,6 +288,73 @@
           "type": "integer",
           "required": false,
           "unique": false
+        },
+        {
+          "slug": "differences_items",
+          "label": "Differences",
+          "type": "repeater",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "subFields": [
+              {
+                "slug": "heading",
+                "type": "string",
+                "label": "Heading",
+                "required": true
+              },
+              {
+                "slug": "body",
+                "type": "text",
+                "label": "Body"
+              }
+            ]
+          }
+        },
+        {
+          "slug": "pillar_items",
+          "label": "Pillars",
+          "type": "repeater",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "subFields": [
+              {
+                "slug": "label",
+                "type": "string",
+                "label": "Label",
+                "required": true
+              },
+              {
+                "slug": "body",
+                "type": "text",
+                "label": "Body"
+              }
+            ]
+          }
+        },
+        {
+          "slug": "faq_items",
+          "label": "FAQ",
+          "type": "repeater",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "subFields": [
+              {
+                "slug": "q",
+                "type": "string",
+                "label": "Question",
+                "required": true
+              },
+              {
+                "slug": "a",
+                "type": "text",
+                "label": "Answer",
+                "required": true
+              }
+            ]
+          }
         }
       ]
     },
@@ -253,6 +411,79 @@
           "slug": "breadcrumb",
           "label": "Breadcrumb trail",
           "type": "json",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "layout",
+          "label": "Page layout",
+          "type": "blocks",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "allowedTypes": [
+              "hero",
+              "callout",
+              "lead",
+              "text",
+              "cards",
+              "columns",
+              "list",
+              "stats",
+              "faq",
+              "facts",
+              "contact_form",
+              "cta"
+            ],
+            "retiredTypes": [],
+            "minItems": 0,
+            "maxItems": 40
+          }
+        },
+        {
+          "slug": "crumbs",
+          "label": "Breadcrumb trail (default: the hero eyebrow, then this page)",
+          "type": "repeater",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "subFields": [
+              {
+                "slug": "label",
+                "type": "string",
+                "label": "Label",
+                "required": true
+              },
+              {
+                "slug": "href",
+                "type": "string",
+                "label": "Link",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "schema_type",
+          "label": "Structured data",
+          "type": "select",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "options": ["none", "organization", "service"]
+          }
+        },
+        {
+          "slug": "service_name",
+          "label": "Service name (structured data)",
+          "type": "string",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "service_description",
+          "label": "Service description (structured data)",
+          "type": "text",
           "required": false,
           "unique": false
         }
@@ -320,9 +551,82 @@
           "type": "text",
           "required": false,
           "unique": false
+        },
+        {
+          "slug": "layout",
+          "label": "Page layout",
+          "type": "blocks",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "allowedTypes": [
+              "hero",
+              "callout",
+              "lead",
+              "text",
+              "cards",
+              "columns",
+              "list",
+              "stats",
+              "faq",
+              "facts",
+              "contact_form",
+              "cta"
+            ],
+            "retiredTypes": [],
+            "minItems": 0,
+            "maxItems": 40
+          }
+        },
+        {
+          "slug": "crumbs",
+          "label": "Breadcrumb trail (default: the hero eyebrow, then this page)",
+          "type": "repeater",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "subFields": [
+              {
+                "slug": "label",
+                "type": "string",
+                "label": "Label",
+                "required": true
+              },
+              {
+                "slug": "href",
+                "type": "string",
+                "label": "Link",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "schema_type",
+          "label": "Structured data",
+          "type": "select",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "options": ["none", "organization", "service"]
+          }
+        },
+        {
+          "slug": "service_name",
+          "label": "Service name (structured data)",
+          "type": "string",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "service_description",
+          "label": "Service description (structured data)",
+          "type": "text",
+          "required": false,
+          "unique": false
         }
       ]
     }
   ],
-  "version": "10821e1bfe37df17"
+  "version": "93c6894217988d31"
 }

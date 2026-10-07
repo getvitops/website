@@ -17,3 +17,19 @@ export function inline(text: string): string {
     )
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
 }
+
+/** Splits a multi-paragraph text field on blank lines. */
+export function paragraphs(text: string | null | undefined): string[] {
+  return (text ?? "")
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+}
+
+/** One entry per non-empty line. */
+export function lines(text: string | null | undefined): string[] {
+  return (text ?? "")
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
+}

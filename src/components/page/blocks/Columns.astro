@@ -1,0 +1,27 @@
+---
+import type { PageLayoutColumnsBlock } from "../../../../emdash-env";
+import type { BlockComponentProps } from "emdash/ui";
+import { inline, paragraphs } from "../../../lib/inline";
+import SectionIntro from "../SectionIntro.astro";
+
+type Props = BlockComponentProps<PageLayoutColumnsBlock>;
+const { value: v } = Astro.props;
+---
+
+<section class="section centered">
+	<div class="spotlight">
+		<SectionIntro eyebrow={v.eyebrow ?? undefined} title={v.title ?? ""} lead={v.lead ?? undefined} />
+		<div class="split flex-col @md:flex-row gap-10">
+			{
+				(v.columns ?? []).map((c) => (
+					<article class="rhythm">
+						<h3 class="font-heading">{c.heading}</h3>
+						{paragraphs(c.body).map((p) => (
+							<p class="font-body text-neutral-muted" set:html={inline(p)} />
+						))}
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>

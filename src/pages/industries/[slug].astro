@@ -20,6 +20,11 @@ if (!entry) return new Response(null, { status: 404, headers: { "cache-control":
 Astro.cache.set(CMS_PAGE_CACHE); // after the 404 return: a missing entry must not get a lifetime
 
 const d = entry.data;
+// Repeater fields (`*_items`) are what editors fill in; the legacy json fields
+// are the fallback until every environment is migrated.
+const differences = d.differences_items?.length ? d.differences_items : d.differences;
+const pillars = d.pillar_items?.length ? d.pillar_items : d.pillars;
+const faq = d.faq_items?.length ? d.faq_items : d.faq;
 ---
 
 <IndustryPage
@@ -32,9 +37,9 @@ const d = entry.data;
 	fundingText={d.funding_text}
 	directAnswer={d.direct_answer}
 	differencesTitle={d.differences_title}
-	differences={d.differences}
-	pillars={d.pillars}
-	faq={d.faq}
+	differences={differences}
+	pillars={pillars}
+	faq={faq}
 	ctaTitle={d.cta_title}
 	ctaLead={d.cta_lead}
 />

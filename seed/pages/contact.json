@@ -3,20 +3,26 @@
   "seo": {
     "description": "Reach Vitops by phone, email or the form below. Based in Ottawa, working across Ontario, and serving clients remotely across Canada."
   },
-  "schema": {
-    "graph": "organization"
-  },
-  "breadcrumb": [["Contact", "/contact"]],
-  "hero": {
-    "eyebrow": "Contact",
-    "title": "Talk to the people who'd actually do the work.",
-    "lead": "One partner, based in Ottawa, working across Ontario. Call, email, or send a note below — a partner answers, not a queue.",
-    "ctaHref": "#contact",
-    "note": "Ask us if [funding](/funding) might be available."
-  },
-  "sections": [
+  "schema_type": "organization",
+  "crumbs": [
     {
-      "type": "facts",
+      "label": "Contact",
+      "href": "/contact"
+    }
+  ],
+  "layout": [
+    {
+      "_type": "hero",
+      "eyebrow": "Contact",
+      "title": "Talk to the people who'd actually do the work.",
+      "lead": "One partner, based in Ottawa, working across Ontario. Call, email, or send a note below — a partner answers, not a queue.",
+      "cta_href": "#contact",
+      "note": "Ask us if [funding](/funding) might be available.",
+      "_version": 1,
+      "_key": "contact-1-hero"
+    },
+    {
+      "_type": "facts",
       "items": [
         {
           "term": "Phone",
@@ -30,13 +36,17 @@
           "term": "Service area",
           "value": "Ottawa, Ontario — working throughout Ontario, and supporting businesses elsewhere in Canada remotely."
         }
-      ]
+      ],
+      "_version": 1,
+      "_key": "contact-2-facts"
     },
     {
-      "type": "contact"
+      "_type": "contact_form",
+      "_version": 1,
+      "_key": "contact-3-contact_form"
     },
     {
-      "type": "faq",
+      "_type": "faq",
       "title": "Questions about reaching us.",
       "items": [
         {
@@ -55,26 +65,31 @@
           "q": "Can I just call instead of filling out the form?",
           "a": "Yes — the phone number above reaches a partner directly."
         }
-      ]
+      ],
+      "_version": 1,
+      "_key": "contact-4-faq"
+    },
+    {
+      "_type": "cta",
+      "title": "Not sure where to start?",
+      "lead": "Tell us what you're running today, on the software side or the marketing side, and we'll tell you what we'd look at first.",
+      "note": "Ask us if [funding](/funding) might be available.",
+      "links": [
+        {
+          "label": "Managed IT services",
+          "href": "/managed-it-services"
+        },
+        {
+          "label": "Digital marketing",
+          "href": "/digital-marketing"
+        },
+        {
+          "label": "Pricing",
+          "href": "/pricing"
+        }
+      ],
+      "_version": 1,
+      "_key": "contact-5-cta"
     }
-  ],
-  "cta": {
-    "title": "Not sure where to start?",
-    "lead": "Tell us what you're running today, on the software side or the marketing side, and we'll tell you what we'd look at first.",
-    "note": "Ask us if [funding](/funding) might be available.",
-    "links": [
-      {
-        "label": "Managed IT services",
-        "href": "/managed-it-services"
-      },
-      {
-        "label": "Digital marketing",
-        "href": "/digital-marketing"
-      },
-      {
-        "label": "Pricing",
-        "href": "/pricing"
-      }
-    ]
-  }
+  ]
 }

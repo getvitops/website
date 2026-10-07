@@ -1,0 +1,35 @@
+---
+import type { PageLayoutTextBlock } from "../../../../emdash-env";
+import type { BlockComponentProps } from "emdash/ui";
+import { inline, paragraphs } from "../../../lib/inline";
+import SectionIntro from "../SectionIntro.astro";
+
+type Props = BlockComponentProps<PageLayoutTextBlock>;
+const { value: v } = Astro.props;
+const more = paragraphs(v.more);
+---
+
+<section class="section centered">
+	{
+		v.spotlight === false ? (
+			<Fragment>
+				<SectionIntro eyebrow={v.eyebrow ?? undefined} title={v.title} lead={v.lead ?? undefined} />
+				{paragraphs(v.body).map((p) => <p class="font-body text-neutral-muted" set:html={inline(p)} />)}
+				{v.note && <p class="font-caption text-neutral-x-muted mt-4" set:html={inline(v.note)} />}
+			</Fragment>
+		) : (
+			<div class="spotlight">
+				<SectionIntro eyebrow={v.eyebrow ?? undefined} title={v.title} lead={v.lead ?? undefined} />
+				{paragraphs(v.body).map((p) => <p class="font-body text-neutral-muted" set:html={inline(p)} />)}
+				{v.note && <p class="font-caption text-neutral-x-muted mt-4" set:html={inline(v.note)} />}
+			</div>
+		)
+	}
+	{
+		more.length > 0 && (
+			<div class="rhythm mt-12 pt-8 border-t border-neutral">
+				{more.map((p) => <p class="font-body text-neutral-muted" set:html={inline(p)} />)}
+			</div>
+		)
+	}
+</section>

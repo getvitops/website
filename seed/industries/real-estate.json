@@ -9,7 +9,12 @@
   "funding_text": "Brokerage systems work often qualifies for government funding — federal, and provincial depending on where you operate.",
   "direct_answer": "A brokerage's operational problem is that its people are neither quite employees nor quite outsiders. Agents need company email, CRM access, listing tools and board-connected systems on the day they sign, they take client relationships with them when they go, and the commission arrangement behind all of it has to reconcile exactly. Standard employee lifecycle tooling assumes a stability that brokerages don't have.",
   "differences_title": "Three things brokerages get wrong, almost universally.",
-  "differences": [
+  "cta_title": "Tell us what happens when an agent signs.",
+  "cta_lead": "Walk us through the last one. Everything they needed, and how long each piece took. That conversation usually finds the problem in ten minutes.",
+  "card_title": "Real estate brokerages",
+  "card_body": "A roster that turns over faster than anything else we work with, board-connected tools that don't integrate cleanly, and commission administration that has to be exactly right.",
+  "sort_order": 2,
+  "differences_items": [
     {
       "heading": "Onboarding speed is a recruiting argument.",
       "body": "An agent who signs on Monday and is still waiting for email on Thursday has already started wondering. When a competing brokerage can have them productive the same afternoon, provisioning speed is not an IT detail — it's part of why they chose you, or didn't."
@@ -23,7 +28,7 @@
       "body": "Board-connected systems and MLS feeds were not designed to sit inside a modern stack, and no amount of wishing changes that. The realistic goal is a clean, documented boundary — one place data crosses, logged — rather than the frictionless integration nobody can actually build."
     }
   ],
-  "pillars": [
+  "pillar_items": [
     {
       "label": "Managed IT services",
       "body": "CRM chosen and configured around how your agents actually work rather than how the demo video does, connected to your listing and marketing tools — see the fuller version of this on our CRM software page. The board-tool boundary documented and watched. Agent onboarding and offboarding run as same-day processes, with commission software configured so splits calculate correctly and payout records stay reconciled, and licensing documentation kept current rather than reconstructed annually. One number to call when an agent can't get into something on a Saturday, which is when it will happen."
@@ -33,7 +38,7 @@
       "body": "Farm-area campaigns and agent-profile pages that route enquiries to the right person automatically, so a lead doesn't sit in a general inbox while three agents assume someone else has it. Recruitment campaigns too, since for most brokerages agent acquisition is the harder of the two markets."
     }
   ],
-  "faq": [
+  "faq_items": [
     {
       "q": "How quickly can a new agent be working?",
       "a": "Same day, once the process is built. The build is a one-time exercise — mapping what an agent actually needs, which is usually more systems than anyone remembers — after which adding one is a form rather than a project."
@@ -50,10 +55,5 @@
       "q": "Do you handle agent commission payouts?",
       "a": "We configure and run the commission software — set up correctly against your splits, so statements stay accurate and what's paid matches what's recorded. The books and the tax treatment stay with you and your accountant."
     }
-  ],
-  "cta_title": "Tell us what happens when an agent signs.",
-  "cta_lead": "Walk us through the last one. Everything they needed, and how long each piece took. That conversation usually finds the problem in ten minutes.",
-  "card_title": "Real estate brokerages",
-  "card_body": "A roster that turns over faster than anything else we work with, board-connected tools that don't integrate cleanly, and commission administration that has to be exactly right.",
-  "sort_order": 2
+  ]
 }

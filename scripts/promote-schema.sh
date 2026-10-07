@@ -71,6 +71,10 @@ field funding_programs title:string:Title eyebrow:string:Eyebrow h1:string:H1 di
   verified:string:Verified source_url:string:"Source URL" source_label:string:"Source label" \
   facts:json:Facts sections:json:Sections faq:json:FAQ related_links:json:"Related links"
 
+# Page-builder block types and the block/repeater fields that use them
+# (single source: scripts/lib/block-types.mjs, mirrored into seed/seed.json).
+node "$(dirname "$0")/promote-blocks.mjs" "$URL"
+
 # Content is not schema: load it afterwards with
 #   EMDASH_TOKEN=... node scripts/sync-pages.mjs --url "$URL"
 echo "Schema promoted to ${URL}. Now run scripts/sync-pages.mjs against it."

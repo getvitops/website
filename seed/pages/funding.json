@@ -3,25 +3,34 @@
   "seo": {
     "description": "BDC LIFT, DMAP and RMPG explained plainly — what each covers, who qualifies, and what disqualifies you. Federal programs apply Canada-wide. Verified September 2026."
   },
-  "breadcrumb": [["Funding", "/funding"]],
-  "hero": {
-    "eyebrow": "Funding",
-    "title": "What governments will actually pay for, and what they won't.",
-    "lead": "There is real money available for digital modernisation, and a lot of confident writing about it that's out of date. Here's what exists as of September 2026, what each program genuinely covers, and — the part usually left out — who doesn't qualify."
-  },
-  "sections": [
+  "schema_type": "none",
+  "crumbs": [
     {
-      "type": "lead",
-      "paragraphs": [
-        "As of September 2026, digital adoption funding for Canadian small businesses comes from two levels. Federally, BDC's LIFT program offers advisory support and financing — a loan, not a grant — for AI and automation projects anywhere in Canada, with a $1 million revenue floor on the AI path. Provincially it depends where you operate: in Ontario, the Digital Competence Centre administers DMAP (up to $15,000 for planning) and RMPG (up to $5,000 for retail). The Technology Demonstration Program, which funded implementation, closed 10 August 2026 with no replacement announced. The Canada Digital Adoption Program has ended."
-      ]
+      "label": "Funding",
+      "href": "/funding"
+    }
+  ],
+  "layout": [
+    {
+      "_type": "hero",
+      "eyebrow": "Funding",
+      "title": "What governments will actually pay for, and what they won't.",
+      "lead": "There is real money available for digital modernisation, and a lot of confident writing about it that's out of date. Here's what exists as of September 2026, what each program genuinely covers, and — the part usually left out — who doesn't qualify.",
+      "_version": 1,
+      "_key": "funding-1-hero"
     },
     {
-      "type": "cards",
+      "_type": "lead",
+      "body": "As of September 2026, digital adoption funding for Canadian small businesses comes from two levels. Federally, BDC's LIFT program offers advisory support and financing — a loan, not a grant — for AI and automation projects anywhere in Canada, with a $1 million revenue floor on the AI path. Provincially it depends where you operate: in Ontario, the Digital Competence Centre administers DMAP (up to $15,000 for planning) and RMPG (up to $5,000 for retail). The Technology Demonstration Program, which funded implementation, closed 10 August 2026 with no replacement announced. The Canada Digital Adoption Program has ended.",
+      "_version": 1,
+      "_key": "funding-2-lead"
+    },
+    {
+      "_type": "cards",
       "eyebrow": "Federal",
       "title": "Available anywhere in Canada.",
       "lead": "Your province doesn't matter for this one. Your revenue and your suppliers do.",
-      "cols": 2,
+      "cols": "2",
       "cards": [
         {
           "tag": "Federal · anywhere in Canada",
@@ -29,10 +38,17 @@
           "body": "Advisory support plus lending for AI, digital transformation and automation projects. Minimum $1M revenue for the AI path. The technology has to come from Canadian suppliers, which we are."
         }
       ],
-      "links": [{ "label": "BDC LIFT in detail", "href": "/funding/bdc-lift" }]
+      "links": [
+        {
+          "label": "BDC LIFT in detail",
+          "href": "/funding/bdc-lift"
+        }
+      ],
+      "_version": 1,
+      "_key": "funding-3-cards"
     },
     {
-      "type": "cards",
+      "_type": "cards",
       "eyebrow": "Ontario",
       "title": "Two programs, in the order most businesses meet them.",
       "lead": "This is where we operate and where we know the programs cold. Most provinces run something comparable — if you're elsewhere, ask and we'll find out what applies to you before you commit to anything.",
@@ -49,12 +65,20 @@
         }
       ],
       "links": [
-        { "label": "DMAP in detail", "href": "/funding/dmap" },
-        { "label": "RMPG in detail", "href": "/funding/rmpg" }
-      ]
+        {
+          "label": "DMAP in detail",
+          "href": "/funding/dmap"
+        },
+        {
+          "label": "RMPG in detail",
+          "href": "/funding/rmpg"
+        }
+      ],
+      "_version": 1,
+      "_key": "funding-4-cards"
     },
     {
-      "type": "cards",
+      "_type": "cards",
       "eyebrow": "Read this part",
       "title": "What usually stops people, and nobody mentions.",
       "lead": "These are the four facts that most often turn a promising funding conversation into a dead end. Better to know now.",
@@ -75,22 +99,22 @@
           "heading": "DMAP is first-come while funds last.",
           "body": "An intake can close without an announcement. OCI's Digital Adoption Consultant roster and vendor database are currently closed to new applicants, which is itself a sign of how tight the current allocation is."
         }
-      ]
+      ],
+      "_version": 1,
+      "_key": "funding-5-cards"
     },
     {
-      "type": "text",
+      "_type": "text",
       "eyebrow": "Where we fit",
       "title": "We'll tell you before you apply.",
       "lead": "We are not grant writers and we don't charge for application support as a product.",
-      "paragraphs": [
-        "On the first call we'll tell you whether you plausibly qualify, which program fits, and — often — that the timing or the revenue test doesn't work for you. If it does fit, we document the modernisation plan in the form the program expects, and we deliver the scoped work if you hire us for it.",
-        "**Approval and amounts are decided by OCI, not Vitops.** Anyone telling you otherwise is selling something. And we'd rather you spend the call finding out you don't qualify than find out three weeks in.",
-        "One thing worth knowing: LIFT requires Canadian suppliers, and we are one. If you're financing digital work federally, it can be spent here."
-      ],
-      "note": "All figures verified 5 September 2026 against the Ontario Centre of Innovation and BDC. We re-check monthly."
+      "body": "On the first call we'll tell you whether you plausibly qualify, which program fits, and — often — that the timing or the revenue test doesn't work for you. If it does fit, we document the modernisation plan in the form the program expects, and we deliver the scoped work if you hire us for it.\n\n**Approval and amounts are decided by OCI, not Vitops.** Anyone telling you otherwise is selling something. And we'd rather you spend the call finding out you don't qualify than find out three weeks in.\n\nOne thing worth knowing: LIFT requires Canadian suppliers, and we are one. If you're financing digital work federally, it can be spent here.",
+      "note": "All figures verified 5 September 2026 against the Ontario Centre of Innovation and BDC. We re-check monthly.",
+      "_version": 1,
+      "_key": "funding-6-text"
     },
     {
-      "type": "faq",
+      "_type": "faq",
       "title": "Common questions.",
       "items": [
         {
@@ -121,16 +145,30 @@
           "q": "Is Ontario's $5 million announcement a new program?",
           "a": "No — it's additional money into the Digital Competence Centre itself, announced May 2026 and expected to support around 450 businesses. It doesn't create a new stream; it means the existing ones have more behind them, which is a reason to apply sooner rather than later."
         }
-      ]
+      ],
+      "_version": 1,
+      "_key": "funding-7-faq"
+    },
+    {
+      "_type": "cta",
+      "title": "Find out in one call whether this applies to you.",
+      "lead": "Tell us your headcount, roughly your revenue, and what you're trying to change. We'll tell you which program fits, or that none of them do.",
+      "links": [
+        {
+          "label": "Managed IT services",
+          "href": "/managed-it-services"
+        },
+        {
+          "label": "Digital marketing",
+          "href": "/digital-marketing"
+        },
+        {
+          "label": "Pricing",
+          "href": "/pricing"
+        }
+      ],
+      "_version": 1,
+      "_key": "funding-8-cta"
     }
-  ],
-  "cta": {
-    "title": "Find out in one call whether this applies to you.",
-    "lead": "Tell us your headcount, roughly your revenue, and what you're trying to change. We'll tell you which program fits, or that none of them do.",
-    "links": [
-      { "label": "Managed IT services", "href": "/managed-it-services" },
-      { "label": "Digital marketing", "href": "/digital-marketing" },
-      { "label": "Pricing", "href": "/pricing" }
-    ]
-  }
+  ]
 }

@@ -18,6 +18,10 @@ export interface FundingProgram {
   sections?: unknown;
   faq?: unknown;
   related_links?: unknown;
+  fact_items?: { term: string; value: string }[];
+  section_items?: { title: string; body?: string | null }[];
+  faq_items?: { q: string; a: string }[];
+  link_items?: { label: string; href: string }[];
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -45,6 +49,9 @@ export interface Industry {
   card_title?: string;
   card_body?: string;
   sort_order?: number;
+  differences_items?: { heading: string; body?: string | null }[];
+  pillar_items?: { label: string; body?: string | null }[];
+  faq_items?: { q: string; a: string }[];
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -64,6 +71,11 @@ export interface ManagedItService {
   callout?: string;
   schema?: unknown;
   breadcrumb?: unknown;
+  layout?: unknown[];
+  crumbs?: { label: string; href: string }[];
+  schema_type?: "none" | "organization" | "service";
+  service_name?: string;
+  service_description?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -84,6 +96,11 @@ export interface Page {
   schema?: unknown;
   breadcrumb?: unknown;
   callout?: string;
+  layout?: unknown[];
+  crumbs?: { label: string; href: string }[];
+  schema_type?: "none" | "organization" | "service";
+  service_name?: string;
+  service_description?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;

@@ -9,7 +9,12 @@
   "funding_text": "Practice management and document system work often qualifies for government funding — federal, and provincial depending on where you operate.",
   "direct_answer": "Professional firms carry an obligation most small businesses don't: the requirement to demonstrate, not merely intend, that client information was accessible only to the people entitled to see it. That turns ordinary IT decisions — file permissions, email retention, who can search what — into questions with professional consequences, and it's the reason generic small-business setups sit poorly in a firm.",
   "differences_title": "Three constraints that reshape everything else.",
-  "differences": [
+  "cta_title": "Tell us how a matter gets set up.",
+  "cta_lead": "Who gets access, when, and who decides. That conversation surfaces most of what we'd want to change.",
+  "card_title": "Legal, accounting and professional firms",
+  "card_body": "Matter-based permissions, conflict checks, and retention rules where the consequence of getting access wrong is professional rather than merely awkward.",
+  "sort_order": 3,
+  "differences_items": [
     {
       "heading": "Permissions are matter-based, not department-based.",
       "body": "Ordinary access control asks which team you're on. A firm has to ask which matters you're on, which changes constantly, and which people must be walled off from — an ethical screen is only real if the system actually enforces it. Most off-the-shelf configurations can't express this without being set up deliberately for it."
@@ -23,7 +28,7 @@
       "body": "Documents have to be kept for a defined period and, just as importantly, disposed of after it. Keeping everything forever is not a retention policy — it's a liability that compounds, and it's what a discovery request or a regulator finds."
     }
   ],
-  "pillars": [
+  "pillar_items": [
     {
       "label": "Managed IT services",
       "body": "Practice or matter management chosen and configured so permissions follow matters, with document storage structured to match. Time and billing connected to accounting. Where AI is used, it's constrained to what the individual user is already entitled to see — which is the whole question in a firm, and the one most AI rollouts get wrong. Onboarding is sequenced so the conflict check precedes access, and permission changes follow people as they move between matters rather than accumulating over a career. Offboarding closes access cleanly and preserves the record; payroll and benefits software run to schedule alongside it."
@@ -33,7 +38,7 @@
       "body": "Practice-area pages that answer the question a prospective client is actually asking, with intake that routes to the right person and doesn't create a conflict problem before anyone has checked. Professional, quiet, and fast — the register your clients expect."
     }
   ],
-  "faq": [
+  "faq_items": [
     {
       "q": "Can you enforce ethical screens in our document system?",
       "a": "Yes, when the system supports it and it's configured deliberately from the start. We'll tell you plainly if your current setup can't express matter-level restriction without being rebuilt — that's a real finding and better heard early than during a complaint."
@@ -54,10 +59,5 @@
       "q": "We already have an IT provider who knows our practice software.",
       "a": "Then keep them. We'd take software operations, identity and lifecycle, licensing and vendor coordination, and coordinate with them on the practice system. We'll say plainly if we think the overlap isn't worth paying for twice."
     }
-  ],
-  "cta_title": "Tell us how a matter gets set up.",
-  "cta_lead": "Who gets access, when, and who decides. That conversation surfaces most of what we'd want to change.",
-  "card_title": "Legal, accounting and professional firms",
-  "card_body": "Matter-based permissions, conflict checks, and retention rules where the consequence of getting access wrong is professional rather than merely awkward.",
-  "sort_order": 3
+  ]
 }

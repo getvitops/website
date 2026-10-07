@@ -1,0 +1,43 @@
+---
+// Renders a page's `layout` blocks field. One adapter per block type in
+// ./blocks/, each mapping the stored (snake_case) block onto the page
+// primitives the hand-written pages use. Block types are defined in
+// scripts/lib/block-types.mjs; add a type there, an adapter here, and a line
+// below — `defineBlockComponents` fails the type-check if one is missing.
+import { Blocks, defineBlockComponents } from "emdash/ui";
+import type { PageLayoutBlock } from "../../../emdash-env";
+import Callout from "./blocks/Callout.astro";
+import Cards from "./blocks/Cards.astro";
+import Columns from "./blocks/Columns.astro";
+import ContactForm from "./blocks/ContactForm.astro";
+import Cta from "./blocks/Cta.astro";
+import Facts from "./blocks/Facts.astro";
+import Faq from "./blocks/Faq.astro";
+import Hero from "./blocks/Hero.astro";
+import Lead from "./blocks/Lead.astro";
+import List from "./blocks/List.astro";
+import Stats from "./blocks/Stats.astro";
+import Text from "./blocks/Text.astro";
+
+interface Props {
+	value: PageLayoutBlock[] | null | undefined;
+}
+const { value } = Astro.props;
+
+const components = defineBlockComponents<PageLayoutBlock>({
+	hero: Hero,
+	callout: Callout,
+	lead: Lead,
+	text: Text,
+	cards: Cards,
+	columns: Columns,
+	list: List,
+	stats: Stats,
+	faq: Faq,
+	facts: Facts,
+	contact_form: ContactForm,
+	cta: Cta,
+});
+---
+
+<Blocks value={value ?? []} components={components} />

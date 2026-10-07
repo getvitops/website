@@ -1,0 +1,54 @@
+---
+import type { PageLayoutListBlock } from "../../../../emdash-env";
+import type { BlockComponentProps } from "emdash/ui";
+import { inline } from "../../../lib/inline";
+import SectionIntro from "../SectionIntro.astro";
+
+type Props = BlockComponentProps<PageLayoutListBlock>;
+const { value: v } = Astro.props;
+---
+
+<section class="section centered">
+	<div class="spotlight">
+		<SectionIntro eyebrow={v.eyebrow ?? undefined} title={v.title ?? ""} lead={v.lead ?? undefined} />
+		<ul class="list rhythm plain-list" role="list">
+			{
+				(v.items ?? []).map((item) =>
+					item.heading ? (
+						<li class="font-body text-neutral-muted">
+							<strong class="font-heading">{item.heading}</strong>{" "}
+							<Fragment set:html={inline(item.body)} />
+							{item.href && (
+								<>
+									{" "}
+									<a class="link" href={item.href}>
+										{item.link_label} →
+									</a>
+								</>
+							)}
+						</li>
+					) : (
+						<li class="font-body text-neutral-muted" set:html={inline(item.body)} />
+					),
+				)
+			}
+		</ul>
+		{v.note && <p class="font-caption follow-link" set:html={inline(v.note)} />}
+	</div>
+</section>
+
+<style>
+	.plain-list {
+		max-width: 68ch;
+		gap: 1rem;
+	}
+	.plain-list strong {
+		display: block;
+		margin-bottom: 0.15rem;
+		color: var(--color-snow);
+	}
+	.follow-link {
+		margin-top: 2rem;
+		color: var(--color-slate);
+	}
+</style>

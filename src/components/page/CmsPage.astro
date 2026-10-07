@@ -1,10 +1,15 @@
 ---
-// Renders an EmDash page-shaped entry (hero / callout / sections / cta, plus
-// breadcrumb and schema). Shared by every route backed by such a collection —
-// `pages` at `/<slug>` and `managed_it_services` at `/managed-it-services/<slug>`
-// — so they cannot drift apart.
+// Renders an EmDash page-shaped entry. Shared by every route backed by such a
+// collection — `pages` at `/<slug>` and `managed_it_services` at
+// `/managed-it-services/<slug>` — so they cannot drift apart.
 //
-// Entry shape is documented on PageSections.astro (sections) and below:
+// Current shape: a `layout` blocks field (PageBlocks.astro — hero, callout,
+// text, cards, … in editor-chosen order), plus `crumbs` (breadcrumb repeater),
+// `schema_type` (none | organization | service) with `service_name` and
+// `service_description`.
+//
+// LEGACY shape, rendered only when `layout` is empty — removed once every
+// environment has been migrated (docs/EMDASH-TOOLCHAIN-MIGRATION-PLAN.md):
 //   hero        { eyebrow, title, lead, ctaLabel?, ctaHref?, secondaryLabel?, secondaryHref?, note? }
 //   cta         { title, lead?, ctaLabel?, ctaHref?, note?, links?[{ label, href }] }
 //   callout     string — the slim funding band above the hero (plain text)
@@ -14,6 +19,7 @@
 import PineLayout from "../../layouts/PineLayout.astro";
 import FundingCallout from "./FundingCallout.astro";
 import PageHero from "./PageHero.astro";
+import PageBlocks from "./PageBlocks.astro";
 import PageSections from "./PageSections.astro";
 import PageCta from "./PageCta.astro";
 import Schema from "./Schema.astro";
@@ -28,19 +34,38 @@ interface Props {
 }
 const { data, path } = Astro.props;
 
-const { title, hero, sections, cta, schema, callout, breadcrumb: trail } = data;
+const { title, hero, sections, cta, callout } = data;
 const description = data.seo?.description ?? undefined;
-const crumbs = (trail?.length ? trail : [[hero?.eyebrow ?? title, path]]) as [string, string][];
+const blocks = data.layout?.length ? data.layout : null;
+
+// Structured data and breadcrumb: new fields first, legacy json as fallback.
+const schema =
+	data.schema_type === "organization"
+		? { graph: "organization" }
+		: data.schema_type === "service"
+			? { service: { name: data.service_name ?? title, description: data.service_description ?? "" } }
+			: data.schema_type === "none"
+				? undefined
+				: data.schema;
+const heroEyebrow = blocks?.find((b: { _type: string }) => b._type === "hero")?.eyebrow ?? hero?.eyebrow;
+const trail: [string, string][] | undefined = data.crumbs?.length
+	? data.crumbs.map((c: { label: string; href: string }) => [c.label, c.href])
+	: data.breadcrumb?.length
+		? data.breadcrumb
+		: undefined;
+const crumbs = trail ?? [[heroEyebrow ?? title, path] as [string, string]];
 ---
 <PineLayout title={title} description={description}>
 	{schema?.graph === "organization" && <Schema data={organizationGraph} />}
 	{schema?.service && <Schema data={service(schema.service.name, schema.service.description, path)} />}
 	<Schema data={breadcrumb(...crumbs)} />
 
-	{callout && <FundingCallout text={callout} />}
+	{blocks && <PageBlocks value={blocks} />}
+
+	{!blocks && callout && <FundingCallout text={callout} />}
 
 	{
-		hero && (
+		!blocks && hero && (
 			<PageHero
 				eyebrow={hero.eyebrow}
 				title={hero.title}
@@ -54,10 +79,10 @@ const crumbs = (trail?.length ? trail : [[hero?.eyebrow ?? title, path]]) as [st
 		)
 	}
 
-	<PageSections sections={sections ?? []} />
+	{!blocks && <PageSections sections={sections ?? []} />}
 
 	{
-		cta && (
+		!blocks && cta && (
 			<PageCta
 				title={cta.title}
 				lead={cta.lead}

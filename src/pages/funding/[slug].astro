@@ -7,6 +7,7 @@ import { getEmDashEntry } from "emdash";
 import ProgramPage from "../../components/page/ProgramPage.astro";
 
 import { CMS_PAGE_CACHE } from "../../lib/cache";
+import { paragraphs } from "../../lib/inline";
 
 export const prerender = false;
 
@@ -21,6 +22,16 @@ if (!entry) return new Response(null, { status: 404, headers: { "cache-control":
 Astro.cache.set(CMS_PAGE_CACHE); // after the 404 return: a missing entry must not get a lifetime
 
 const d = entry.data;
+// Repeater fields (`*_items`) are what editors fill in; the legacy json fields
+// are the fallback until every environment is migrated.
+const facts: [string, string][] = d.fact_items?.length
+	? d.fact_items.map((f: { term: string; value: string }) => [f.term, f.value])
+	: d.facts;
+const sections = d.section_items?.length
+	? d.section_items.map((s: { title: string; body?: string | null }) => ({ title: s.title, body: paragraphs(s.body) }))
+	: d.sections;
+const faq = d.faq_items?.length ? d.faq_items : d.faq;
+const relatedLinks = d.link_items?.length ? d.link_items : d.related_links;
 ---
 
 <ProgramPage
@@ -33,8 +44,8 @@ const d = entry.data;
 	verified={d.verified}
 	sourceUrl={d.source_url}
 	sourceLabel={d.source_label}
-	facts={d.facts}
-	sections={d.sections}
-	faq={d.faq}
-	relatedLinks={d.related_links}
+	facts={facts}
+	sections={sections}
+	faq={faq}
+	relatedLinks={relatedLinks}
 />

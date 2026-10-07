@@ -10,6 +10,599 @@
     "title": "Vitops",
     "tagline": "Run the business. We run the rest."
   },
+  "blockTypes": [
+    {
+      "slug": "hero",
+      "label": "Hero",
+      "category": "Layout",
+      "icon": "layout",
+      "description": "Page heading: eyebrow, title, intro and up to two buttons.",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "eyebrow",
+              "label": "Eyebrow",
+              "type": "string"
+            },
+            {
+              "slug": "title",
+              "label": "Title",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "lead",
+              "label": "Intro",
+              "type": "text"
+            },
+            {
+              "slug": "cta_label",
+              "label": "Button label",
+              "type": "string"
+            },
+            {
+              "slug": "cta_href",
+              "label": "Button link",
+              "type": "string"
+            },
+            {
+              "slug": "secondary_label",
+              "label": "Second button label",
+              "type": "string"
+            },
+            {
+              "slug": "secondary_href",
+              "label": "Second button link",
+              "type": "string"
+            },
+            {
+              "slug": "note",
+              "label": "Note under buttons",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "callout",
+      "label": "Funding callout",
+      "category": "Layout",
+      "icon": "megaphone",
+      "description": "Slim band above the hero pointing at funding.",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "text",
+              "label": "Text",
+              "type": "text",
+              "required": true
+            },
+            {
+              "slug": "link_label",
+              "label": "Link label",
+              "type": "string"
+            },
+            {
+              "slug": "link_href",
+              "label": "Link",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "lead",
+      "label": "Lead paragraph",
+      "category": "Content",
+      "icon": "text-align-left",
+      "description": "Large intro text. Blank line starts a new paragraph.",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "body",
+              "label": "Text",
+              "type": "text",
+              "required": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "text",
+      "label": "Text section",
+      "category": "Content",
+      "icon": "article",
+      "description": "Heading with paragraphs; optional extra paragraphs below a rule.",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "eyebrow",
+              "label": "Eyebrow",
+              "type": "string"
+            },
+            {
+              "slug": "title",
+              "label": "Title",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "lead",
+              "label": "Intro",
+              "type": "text"
+            },
+            {
+              "slug": "body",
+              "label": "Paragraphs",
+              "type": "text"
+            },
+            {
+              "slug": "more",
+              "label": "More paragraphs (below a rule)",
+              "type": "text"
+            },
+            {
+              "slug": "note",
+              "label": "Small print",
+              "type": "text"
+            },
+            {
+              "slug": "spotlight",
+              "label": "Spotlight background",
+              "type": "boolean",
+              "defaultValue": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "cards",
+      "label": "Card grid",
+      "category": "Content",
+      "icon": "squares-four",
+      "description": "Heading with a grid of cards.",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "eyebrow",
+              "label": "Eyebrow",
+              "type": "string"
+            },
+            {
+              "slug": "title",
+              "label": "Title",
+              "type": "string"
+            },
+            {
+              "slug": "lead",
+              "label": "Intro",
+              "type": "text"
+            },
+            {
+              "slug": "cols",
+              "label": "Columns",
+              "type": "select",
+              "validation": {
+                "options": ["2", "3"]
+              }
+            },
+            {
+              "slug": "cards",
+              "label": "Cards",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "tag",
+                    "label": "Tag",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "heading",
+                    "label": "Heading",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "body",
+                    "label": "Body",
+                    "type": "text"
+                  },
+                  {
+                    "slug": "items",
+                    "label": "Bullet list (one per line)",
+                    "type": "text"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "note",
+              "label": "Small print",
+              "type": "text"
+            },
+            {
+              "slug": "links",
+              "label": "Links",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "label",
+                    "label": "Label",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "href",
+                    "label": "Link",
+                    "type": "string",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "columns",
+      "label": "Columns",
+      "category": "Content",
+      "icon": "columns",
+      "description": "Heading with side-by-side text columns.",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "eyebrow",
+              "label": "Eyebrow",
+              "type": "string"
+            },
+            {
+              "slug": "title",
+              "label": "Title",
+              "type": "string"
+            },
+            {
+              "slug": "lead",
+              "label": "Intro",
+              "type": "text"
+            },
+            {
+              "slug": "columns",
+              "label": "Columns",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "heading",
+                    "label": "Heading",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "body",
+                    "label": "Paragraphs",
+                    "type": "text"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "list",
+      "label": "List",
+      "category": "Content",
+      "icon": "list-bullets",
+      "description": "Heading with a list; each item can have a bold lead-in and a link.",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "eyebrow",
+              "label": "Eyebrow",
+              "type": "string"
+            },
+            {
+              "slug": "title",
+              "label": "Title",
+              "type": "string"
+            },
+            {
+              "slug": "lead",
+              "label": "Intro",
+              "type": "text"
+            },
+            {
+              "slug": "items",
+              "label": "Items",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "heading",
+                    "label": "Bold lead-in",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "body",
+                    "label": "Text",
+                    "type": "text",
+                    "required": true
+                  },
+                  {
+                    "slug": "href",
+                    "label": "Link",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "link_label",
+                    "label": "Link label",
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            {
+              "slug": "note",
+              "label": "Small print",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "stats",
+      "label": "Stats",
+      "category": "Content",
+      "icon": "chart-bar",
+      "description": "Figures with a source for each.",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "eyebrow",
+              "label": "Eyebrow",
+              "type": "string"
+            },
+            {
+              "slug": "lead",
+              "label": "Intro",
+              "type": "text"
+            },
+            {
+              "slug": "cols",
+              "label": "Columns",
+              "type": "select",
+              "validation": {
+                "options": ["2", "3", "4"]
+              }
+            },
+            {
+              "slug": "stats",
+              "label": "Stats",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "value",
+                    "label": "Figure",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "label",
+                    "label": "Label",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "source_label",
+                    "label": "Source",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "source_url",
+                    "label": "Source link",
+                    "type": "string"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "faq",
+      "label": "FAQ",
+      "category": "Content",
+      "icon": "question",
+      "description": "Questions and answers (also emitted as FAQ structured data).",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "eyebrow",
+              "label": "Eyebrow",
+              "type": "string"
+            },
+            {
+              "slug": "title",
+              "label": "Title",
+              "type": "string"
+            },
+            {
+              "slug": "items",
+              "label": "Questions",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "q",
+                    "label": "Question",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "a",
+                    "label": "Answer",
+                    "type": "text",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "facts",
+      "label": "Facts list",
+      "category": "Content",
+      "icon": "address-book",
+      "description": "Name / address / phone style term list.",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "items",
+              "label": "Rows",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "term",
+                    "label": "Term",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "value",
+                    "label": "Value",
+                    "type": "text",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "contact_form",
+      "label": "Enquiry form",
+      "category": "Layout",
+      "icon": "envelope",
+      "description": "The contact form. Nothing to edit.",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": []
+        }
+      ]
+    },
+    {
+      "slug": "cta",
+      "label": "Closing call to action",
+      "category": "Layout",
+      "icon": "arrow-circle-right",
+      "description": "Closing band with a button and optional links.",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "title",
+              "label": "Title",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "lead",
+              "label": "Intro",
+              "type": "text"
+            },
+            {
+              "slug": "cta_label",
+              "label": "Button label",
+              "type": "string"
+            },
+            {
+              "slug": "cta_href",
+              "label": "Button link",
+              "type": "string"
+            },
+            {
+              "slug": "note",
+              "label": "Note under button",
+              "type": "text"
+            },
+            {
+              "slug": "links",
+              "label": "Links",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "label",
+                    "label": "Label",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "href",
+                    "label": "Link",
+                    "type": "string",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "collections": [
     {
       "slug": "pages",
@@ -29,12 +622,97 @@
           "label": "Content",
           "type": "portableText"
         },
-        { "slug": "hero", "label": "Hero", "type": "json" },
-        { "slug": "sections", "label": "Sections", "type": "json" },
-        { "slug": "cta", "label": "Closing CTA", "type": "json" },
-        { "slug": "callout", "label": "Funding callout", "type": "text" },
-        { "slug": "schema", "label": "Schema.org JSON-LD", "type": "json" },
-        { "slug": "breadcrumb", "label": "Breadcrumb trail", "type": "json" }
+        {
+          "slug": "hero",
+          "label": "Hero",
+          "type": "json"
+        },
+        {
+          "slug": "sections",
+          "label": "Sections",
+          "type": "json"
+        },
+        {
+          "slug": "cta",
+          "label": "Closing CTA",
+          "type": "json"
+        },
+        {
+          "slug": "callout",
+          "label": "Funding callout",
+          "type": "text"
+        },
+        {
+          "slug": "schema",
+          "label": "Schema.org JSON-LD",
+          "type": "json"
+        },
+        {
+          "slug": "breadcrumb",
+          "label": "Breadcrumb trail",
+          "type": "json"
+        },
+        {
+          "slug": "layout",
+          "label": "Page layout",
+          "type": "blocks",
+          "validation": {
+            "allowedTypes": [
+              "hero",
+              "callout",
+              "lead",
+              "text",
+              "cards",
+              "columns",
+              "list",
+              "stats",
+              "faq",
+              "facts",
+              "contact_form",
+              "cta"
+            ],
+            "maxItems": 40
+          }
+        },
+        {
+          "slug": "crumbs",
+          "label": "Breadcrumb trail (default: the hero eyebrow, then this page)",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "label",
+                "label": "Label",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "href",
+                "label": "Link",
+                "type": "string",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "schema_type",
+          "label": "Structured data",
+          "type": "select",
+          "validation": {
+            "options": ["none", "organization", "service"]
+          }
+        },
+        {
+          "slug": "service_name",
+          "label": "Service name (structured data)",
+          "type": "string"
+        },
+        {
+          "slug": "service_description",
+          "label": "Service description (structured data)",
+          "type": "text"
+        }
       ]
     },
     {
@@ -79,6 +757,67 @@
           "slug": "breadcrumb",
           "label": "Breadcrumb trail",
           "type": "json"
+        },
+        {
+          "slug": "layout",
+          "label": "Page layout",
+          "type": "blocks",
+          "validation": {
+            "allowedTypes": [
+              "hero",
+              "callout",
+              "lead",
+              "text",
+              "cards",
+              "columns",
+              "list",
+              "stats",
+              "faq",
+              "facts",
+              "contact_form",
+              "cta"
+            ],
+            "maxItems": 40
+          }
+        },
+        {
+          "slug": "crumbs",
+          "label": "Breadcrumb trail (default: the hero eyebrow, then this page)",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "label",
+                "label": "Label",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "href",
+                "label": "Link",
+                "type": "string",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "schema_type",
+          "label": "Structured data",
+          "type": "select",
+          "validation": {
+            "options": ["none", "organization", "service"]
+          }
+        },
+        {
+          "slug": "service_name",
+          "label": "Service name (structured data)",
+          "type": "string"
+        },
+        {
+          "slug": "service_description",
+          "label": "Service description (structured data)",
+          "type": "text"
         }
       ]
     },
@@ -164,6 +903,67 @@
           "slug": "sort_order",
           "label": "Sort order",
           "type": "integer"
+        },
+        {
+          "slug": "differences_items",
+          "label": "Differences",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "heading",
+                "label": "Heading",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "body",
+                "label": "Body",
+                "type": "text"
+              }
+            ]
+          }
+        },
+        {
+          "slug": "pillar_items",
+          "label": "Pillars",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "label",
+                "label": "Label",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "body",
+                "label": "Body",
+                "type": "text"
+              }
+            ]
+          }
+        },
+        {
+          "slug": "faq_items",
+          "label": "FAQ",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "q",
+                "label": "Question",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "a",
+                "label": "Answer",
+                "type": "text",
+                "required": true
+              }
+            ]
+          }
         }
       ]
     },
@@ -229,6 +1029,89 @@
           "slug": "related_links",
           "label": "Related links",
           "type": "json"
+        },
+        {
+          "slug": "fact_items",
+          "label": "Facts",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "term",
+                "label": "Term",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "value",
+                "label": "Value",
+                "type": "text",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "section_items",
+          "label": "Sections",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "title",
+                "label": "Title",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "body",
+                "label": "Paragraphs (blank line between)",
+                "type": "text"
+              }
+            ]
+          }
+        },
+        {
+          "slug": "faq_items",
+          "label": "FAQ",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "q",
+                "label": "Question",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "a",
+                "label": "Answer",
+                "type": "text",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "link_items",
+          "label": "Related links",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "label",
+                "label": "Label",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "href",
+                "label": "Link",
+                "type": "string",
+                "required": true
+              }
+            ]
+          }
         }
       ]
     }
@@ -259,27 +1142,63 @@
       "name": "footer_product",
       "label": "Footer: Product",
       "items": [
-        { "type": "custom", "label": "Features", "url": "/#features" },
-        { "type": "custom", "label": "Pricing", "url": "/pricing" },
-        { "type": "custom", "label": "Changelog", "url": "/changelog" }
+        {
+          "type": "custom",
+          "label": "Features",
+          "url": "/#features"
+        },
+        {
+          "type": "custom",
+          "label": "Pricing",
+          "url": "/pricing"
+        },
+        {
+          "type": "custom",
+          "label": "Changelog",
+          "url": "/changelog"
+        }
       ]
     },
     {
       "name": "footer_company",
       "label": "Footer: Company",
       "items": [
-        { "type": "custom", "label": "About", "url": "/about" },
-        { "type": "custom", "label": "Blog", "url": "/blog" },
-        { "type": "custom", "label": "Careers", "url": "/careers" }
+        {
+          "type": "custom",
+          "label": "About",
+          "url": "/about"
+        },
+        {
+          "type": "custom",
+          "label": "Blog",
+          "url": "/blog"
+        },
+        {
+          "type": "custom",
+          "label": "Careers",
+          "url": "/careers"
+        }
       ]
     },
     {
       "name": "footer_support",
       "label": "Footer: Support",
       "items": [
-        { "type": "custom", "label": "Documentation", "url": "/docs" },
-        { "type": "custom", "label": "Contact", "url": "/contact" },
-        { "type": "custom", "label": "Status", "url": "/status" }
+        {
+          "type": "custom",
+          "label": "Documentation",
+          "url": "/docs"
+        },
+        {
+          "type": "custom",
+          "label": "Contact",
+          "url": "/contact"
+        },
+        {
+          "type": "custom",
+          "label": "Status",
+          "url": "/status"
+        }
       ]
     }
   ],
