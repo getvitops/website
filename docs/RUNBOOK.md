@@ -105,7 +105,7 @@ Three layers, three mechanisms:
 
 **Release order, per environment:** deploy the code (it renders both the old and
 new content shapes) → **Promote schema** (adds block types and fields; idempotent)
-→ **Promote content** → purge the edge cache (a deploy does not). Dev first.
+→ **Promote content**. Dev first. The deploy workflows purge the edge cache themselves (`POST /api/purge`, needs `PURGE_TOKEN`).
 Removing legacy fields is a separate, later step, after the code that stops using
 them has shipped everywhere.
 

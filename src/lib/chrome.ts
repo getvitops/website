@@ -87,10 +87,18 @@ const toItem = (item: MenuItem): NavItem => ({
   children: (item.children ?? []).map(toItem),
 });
 
+/**
+ * Carried by every page that renders through PineLayout, so one invalidation
+ * purges the whole site. `POST /api/purge` (called after each deploy) uses it:
+ * a deploy changes templates and hand-written copy, which a content publish
+ * never purges.
+ */
+export const SITE_TAG = "vitops:site";
+
 export async function getChrome() {
   const names = Object.keys(DEFAULTS);
   const results = await Promise.all(names.map((name) => getMenuWithCacheHint(name)));
-  const tags = new Set<string>();
+  const tags = new Set<string>([SITE_TAG]);
   const menus = new Map<string, { label: string; items: NavItem[] }>();
   names.forEach((name, i) => {
     const { data, cacheHint } = results[i] as { data: Menu | null; cacheHint: { tags?: string[] } };

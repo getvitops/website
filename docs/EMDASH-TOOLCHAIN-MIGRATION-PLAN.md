@@ -224,37 +224,66 @@ plan). Nothing to do here until that lands. When it does:
 7. Once the portal's publish provider exists: import this site's config into the portal and
    begin portal-managed `site.json`, in whatever order its own editors ship.
 
-## Status and open items (2026-09-30)
+## Status and open items (2026-10-07)
 
 Done: toolchain upgrade to 8.2.0-alpha + emdash 1.x; bespoke A/B system replaced by
-`vitopsAbTesting()`; 20 pages moved into EmDash collections (see AGENTS.md, "CMS-backed
-pages"); Workers Cache with purge-on-publish verified on dev.vitops.ca.
+`vitopsAbTesting()`; 20 pages moved into EmDash collections; Workers Cache with
+purge-on-publish verified on dev.vitops.ca; then (plan: blocks, menus and staging-first
+flow) pages recomposed from raw JSON into a `layout` **blocks** field with real admin
+forms, nav/footer driven by EmDash **menus**, every page rendered on demand and cached,
+`/llms.txt` made a live route, **promote-content** (dev → prod) with dry-run and a
+snapshot PR, and a post-deploy edge-cache purge. See AGENTS.md, "CMS-backed pages".
+
+Rollout state: **code is committed on `dev` only.** Nothing has been promoted. The legacy
+json fields and the fallbacks that read them are still in place on purpose.
+
+Next, in order, per environment (dev first, then prod):
+
+1. Deploy the code; set the `PURGE_TOKEN` Worker + repo secrets (see RUNBOOK).
+2. **Promote schema** (adds block types, `layout`, `crumbs`, `schema_type`…, `*_items`).
+3. `node scripts/sync-pages.mjs --url <site>` and `node scripts/sync-menus.mjs <site>` on
+   **dev** (overwrites its content with the converted seeds), then check the pages and the
+   nav; edit something in the admin to confirm the block forms work.
+4. **Promote content** dev → prod, dry-run first.
+5. Cleanup, after both environments have run on the new shape for a while: remove the
+   legacy fields (`hero`, `sections`, `cta`, `callout`, `schema`, `breadcrumb`, and the
+   starter `content` on `pages`; the same on `managed_it_services`; `differences`,
+   `pillars`, `faq` on `industries`; `facts`, `sections`, `faq`, `related_links` on
+   `funding_programs`) with `emdash schema remove-field` — **this deletes the data** —
+   after deleting the fallbacks in `CmsPage.astro`, `industries/[slug].astro` and
+   `funding/[slug].astro`, and `PageSections.astro`.
+
+Known differences from the old render: `/about`'s two-column section is `gap-10`
+(was `gap-8`); the block form has no per-section column spacing.
 
 TODO:
 
 - **Scheduled publishing vs the edge cache.** Verified that an immediate publish purges the
   cached page. Not verified: an entry published by schedule (`scheduledAt`) may only appear
-  when the cache lifetime (1 week + 1 day SWR) lapses, if no purge fires at the scheduled
-  time. Test on dev before relying on scheduled publishing; if it does not purge, either
-  lower `routeRules` maxAge or purge from the scheduler hook.
-- **Promote to prod:** apply schema (`scripts/promote-schema.sh`) and content
-  (`scripts/sync-pages.mjs`) to vitops.ca _before_ the code deploy, or the 20 migrated
-  URLs 404.
-- **Perf measurement:** `node scripts/perf-compare.mjs --host https://dev.vitops.ca` (TTFB median/p95 + cache outcome per path).
-- **Search/AI discovery:** `llms.txt` and `pages-sitemap.xml` no longer list migrated
-  pages; `site.seo.indexing.sitemapUrl` does not see CMS pages.
+  when the cache lifetime (1 week + 1 day SWR, `src/lib/cache.ts`) lapses, if no purge fires
+  at the scheduled time. Test on dev before relying on scheduled publishing; if it does not
+  purge, lower `CMS_PAGE_CACHE` or purge from the scheduler hook.
+- **Verify on dev after the first deploy:** editing a menu item in the admin shows up on `/`
+  and on a CMS page on the next request (cache tags), `/_emdash/admin` is never a cache HIT,
+  and `POST /api/purge` with the token returns `{"purged":true}`.
+- **Upload media in promote-content.** An entry that references uploaded media is refused;
+  copy the file between R2 buckets and rewrite the reference when the first image block
+  lands. Same gap as the Refresh-dev workflow's R2 TODO.
+- **Admin menu editor has no CSS-class field**, so per-item styling is by menu
+  (`header_cta`, `footer_*`). A small plugin (or upstream PR) could add the field.
+- **Block-type upsert is noisy.** `promote-blocks.mjs` re-sends every block type on each run
+  (the server's normalised definition never compares equal to ours). That is harmless while a
+  change is compatible — EmDash amends the active version in place — but a breaking change
+  (removing a field, changing a type, adding a required one) must become a new numbered
+  version; read "Build pages with blocks" in the EmDash docs first.
+- **Perf measurement:** `node scripts/perf-compare.mjs --host https://dev.vitops.ca` — now
+  also relevant for `/`, `/pricing` etc., which moved from static assets to the Worker.
 - **Plausible** for experiment reporting (not yet configured).
-- **llms.txt design decision.** It is generated from built HTML, so on-demand pages are
-  skipped (now 7 routes, down from 29). Options: derive CMS entries from `seed/<collection>`
-  at build (drifts silently after admin edits), or serve `/llms.txt` from an on-demand route
-  that queries the collections (accurate, needs the hand-written sections merged in).
-- **Nav and footer links stay hard-coded in `PineLayout.astro`, on purpose.** An EmDash menu
-  would only update the on-demand pages: the hand-written prerendered pages bake the layout
-  at build time, so a menu edit would show on some pages and not others. Revisit if every
-  page is moved on-demand, or if the layout is rendered client-side.
-- **Still hand-written:** `/`, `/pricing`, `/digital-marketing`, `/managed-it-services`
-  (need blocks for `StackAnimation`/`PresenceAnimation`/`KeyPartners`, plan step 0).
-- **Purge the edge cache on deploy.** A deploy does not purge Workers Cache, so template
-  changes are invisible on cached CMS pages for up to a week. Add a purge-everything step
-  to `deploy-dev.yml` / `deploy-prod.yml` (zone cache purge API, or an authenticated
-  Worker endpoint that calls `cache.purge()`).
+- **`site.seo.indexing.sitemapUrl`** still points at `pages-sitemap.xml` only, so
+  `vitops search notify` does not see CMS pages.
+- **Phase 2:** `/`, `/digital-marketing`, the `/managed-it-services` index become block pages
+  with bespoke blocks (`stack_animation`, `presence_animation`, `key_partners`, pillars,
+  pain); `/pricing` (1,500 lines) stays hand-written. Later, upstream the generic blocks
+  into `@getvitops/emdash`.
+- **Blog posts** (the one thing edited on prod): not built; they need their own collection
+  and are outside the promote-content scope on purpose.

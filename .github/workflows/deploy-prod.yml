@@ -52,6 +52,20 @@ jobs:
           # enable analytics somewhere they don't belong.
           VITOPS_STAGE: production
 
+      # A deploy does not purge Workers Cache; every page is cached until it
+      # changes, so template and hand-written copy changes would stay invisible.
+      # Needs repo secret PURGE_TOKEN = the Worker secret of the same name
+      # (`wrangler secret put PURGE_TOKEN`). Skipped, with a warning, until set.
+      - name: Purge edge cache
+        env:
+          PURGE_TOKEN: ${{ secrets.PURGE_TOKEN }}
+        run: |
+          if [ -z "$PURGE_TOKEN" ]; then
+            echo "::warning::PURGE_TOKEN is not set - the edge cache was NOT purged; changed templates may serve stale HTML for up to a week"
+            exit 0
+          fi
+          curl -fsS -X POST -H "authorization: Bearer $PURGE_TOKEN" https://vitops.ca/api/purge
+
       # `search notify` diffs the deployed sitemap against the previous run's
       # snapshot in `.vitops/` and resubmits only what moved. Without the cache
       # every run looks cold and resubmits the whole site.

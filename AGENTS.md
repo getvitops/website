@@ -167,9 +167,14 @@ route):
     missing-entry 404 return; that 404 must be `private, no-store` (a cached 404
     has no tag to purge). Pages that only use the layout tag themselves with the
     menu tags and set `CMS_PAGE_CACHE` at the top of their frontmatter.
-  - **A deploy does not purge the edge cache**, so changed templates keep serving
-    old HTML until an entry is next published or the cache is purged (dashboard:
-    Caching → Purge, or `cache.purge()` from Worker code).
+  - **A deploy does not purge the edge cache** by itself, so changed templates and
+    hand-written copy would keep serving old HTML for up to a week. Both deploy
+    workflows therefore call `POST /api/purge` (`src/pages/api/purge.ts`) after
+    deploying; it invalidates `SITE_TAG` (`src/lib/chrome.ts`), which every page
+    rendered through `PineLayout` carries. It needs the `PURGE_TOKEN` Worker secret
+    on each environment (`wrangler secret put PURGE_TOKEN`) and the same value as a
+    repo secret; with either missing the route 404s / the workflow step warns and
+    skips. Manual alternative: dashboard Caching → Purge.
   - A signed-in editor may be served the cached anonymous page.
   - Cloudflare's `Vary` support is not the mechanism — it caches alternate
     representations of one URL, not "until changed".
