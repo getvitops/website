@@ -1,6 +1,6 @@
 ---
-// Footer columns come from EmDash menus: footer_it, footer_marketing,
-// footer_company, and `footer` (legal links, bottom row). Tagline comes from the
+// Footer columns come from EmDash menus: `footer-sitemap` (parents = columns) and
+// `footer-legal` (bottom row). Tagline comes from the
 // site settings; the blurb from site.seo.defaultDescription in site.json.
 import { getMenu } from 'emdash';
 import config from '../../site.json' with { type: 'json' };
@@ -11,14 +11,10 @@ interface Props {
   tagline?: string;
 }
 const { siteTitle, tagline } = Astro.props;
-const [it, marketing, company, legal] = await Promise.all(
-  ['footer_it', 'footer_marketing', 'footer_company', 'footer'].map((n) => getMenu(n))
-);
-const columns = [
-  { title: 'Managed IT', items: it?.items ?? [] },
-  { title: 'Digital Marketing', items: marketing?.items ?? [] },
-  { title: 'Company', items: company?.items ?? [] },
-];
+const [sitemap, legal] = await Promise.all(['footer-sitemap', 'footer-legal'].map((n) => getMenu(n)));
+// `footer-sitemap` parents are the columns, their children the links. (The framework's
+// <SiteFooter> renders a flat list only; see UPSTREAM.md.)
+const columns = (sitemap?.items ?? []).map((i) => ({ title: i.label, items: i.children ?? [] }));
 const blurb = (config.site as { seo?: { defaultDescription?: string } }).seo?.defaultDescription;
 const year = new Date().getFullYear();
 ---

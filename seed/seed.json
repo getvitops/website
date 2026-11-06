@@ -90,160 +90,6 @@
       ]
     },
     {
-      "slug": "vt_band",
-      "label": "Callout band",
-      "description": "Full-width tinted strip with an icon, heading, text and a button.",
-      "category": "Content",
-      "currentVersion": 2,
-      "versions": [
-        {
-          "version": 1,
-          "fields": [
-            {
-              "slug": "icon",
-              "label": "Icon character",
-              "type": "string"
-            },
-            {
-              "slug": "heading",
-              "label": "Heading",
-              "type": "string",
-              "required": true
-            },
-            {
-              "slug": "body",
-              "label": "Text",
-              "type": "text"
-            },
-            {
-              "slug": "cta_label",
-              "label": "Button label",
-              "type": "string"
-            },
-            {
-              "slug": "cta_href",
-              "label": "Button link",
-              "type": "string"
-            },
-            {
-              "slug": "tone",
-              "label": "Tone",
-              "type": "select",
-              "defaultValue": "mk",
-              "validation": {
-                "options": ["mk", "it"]
-              }
-            }
-          ]
-        },
-        {
-          "version": 2,
-          "fields": [
-            {
-              "slug": "icon",
-              "label": "Icon character",
-              "type": "string"
-            },
-            {
-              "slug": "heading",
-              "label": "Heading",
-              "type": "string",
-              "required": true
-            },
-            {
-              "slug": "body",
-              "label": "Text",
-              "type": "text"
-            },
-            {
-              "slug": "cta_label",
-              "label": "Button label",
-              "type": "string"
-            },
-            {
-              "slug": "cta_href",
-              "label": "Button link",
-              "type": "url"
-            },
-            {
-              "slug": "tone",
-              "label": "Tone (colour role)",
-              "type": "select",
-              "defaultValue": "brand-secondary",
-              "validation": {
-                "options": [
-                  "brand-primary",
-                  "brand-secondary",
-                  "success",
-                  "info",
-                  "warning",
-                  "danger",
-                  "neutral"
-                ]
-              }
-            },
-            {
-              "slug": "color",
-              "label": "Colour override (palette hue, e.g. amber-300)",
-              "type": "string"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "vt_chips",
-      "label": "Heading with tags",
-      "description": "Band with a heading and link on one side and a cluster of pill tags on the other.",
-      "category": "Content",
-      "currentVersion": 1,
-      "versions": [
-        {
-          "version": 1,
-          "fields": [
-            {
-              "slug": "kicker",
-              "label": "Kicker",
-              "type": "string"
-            },
-            {
-              "slug": "heading",
-              "label": "Heading",
-              "type": "string",
-              "required": true
-            },
-            {
-              "slug": "link_label",
-              "label": "Link label",
-              "type": "string"
-            },
-            {
-              "slug": "link_href",
-              "label": "Link",
-              "type": "string"
-            },
-            {
-              "slug": "chips",
-              "label": "Tags",
-              "type": "repeater",
-              "validation": {
-                "subFields": [
-                  {
-                    "slug": "label",
-                    "type": "string",
-                    "label": "Label",
-                    "required": true
-                  }
-                ],
-                "minItems": 1,
-                "maxItems": 24
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
       "slug": "vt_compare",
       "label": "Two companies vs one",
       "description": "Illustration comparing separate marketing and IT reports with a connected funnel. Markup is code-owned; only the caption is editable.",
@@ -257,58 +103,6 @@
               "slug": "caption",
               "label": "Caption",
               "type": "text"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "vt_contact",
-      "label": "Contact form",
-      "description": "Intro text plus an enquiry form with interest chips.",
-      "category": "Forms",
-      "currentVersion": 1,
-      "versions": [
-        {
-          "version": 1,
-          "fields": [
-            {
-              "slug": "kicker",
-              "label": "Kicker",
-              "type": "string"
-            },
-            {
-              "slug": "heading",
-              "label": "Heading",
-              "type": "string",
-              "required": true
-            },
-            {
-              "slug": "sub",
-              "label": "Intro",
-              "type": "text"
-            },
-            {
-              "slug": "email",
-              "label": "Contact email",
-              "type": "string"
-            },
-            {
-              "slug": "interests",
-              "label": "Interest options",
-              "type": "repeater",
-              "validation": {
-                "subFields": [
-                  {
-                    "slug": "label",
-                    "type": "string",
-                    "label": "Label",
-                    "required": true
-                  }
-                ],
-                "minItems": 1,
-                "maxItems": 8
-              }
             }
           ]
         }
@@ -685,10 +479,11 @@
       ]
     },
     {
-      "slug": "vt_section",
+      "slug": "vitops_section",
       "label": "Section",
-      "description": "Generic section: kicker, heading, intro and a rich body that can hold vitops blocks.",
-      "category": "Layout",
+      "description": "A titled page section whose body can hold any other blocks.",
+      "category": "Sections",
+      "icon": "layout",
       "currentVersion": 1,
       "versions": [
         {
@@ -696,188 +491,66 @@
           "fields": [
             {
               "slug": "kicker",
-              "label": "Kicker",
+              "label": "Kicker (small line above the heading)",
               "type": "string"
             },
             {
               "slug": "heading",
               "label": "Heading",
-              "type": "string",
-              "required": true
+              "type": "string"
+            },
+            {
+              "slug": "level",
+              "label": "Heading level",
+              "type": "select",
+              "defaultValue": "2",
+              "validation": {
+                "options": ["2", "3", "4", "5", "6"]
+              }
             },
             {
               "slug": "sub",
-              "label": "Intro",
+              "label": "Lead-in text under the heading",
               "type": "text"
             },
             {
-              "slug": "tone",
-              "label": "Backdrop",
+              "slug": "body",
+              "label": "Content (any blocks)",
+              "type": "portableText"
+            },
+            {
+              "slug": "layout",
+              "label": "Layout",
               "type": "select",
-              "defaultValue": "plain",
+              "defaultValue": "stack",
               "validation": {
-                "options": ["plain", "grid"]
+                "options": ["stack", "center", "split"]
               }
             },
             {
-              "slug": "body",
-              "label": "Body",
-              "type": "portableText"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "vt_stats",
-      "label": "Stats",
-      "description": "Big-number callouts with a short explanation and a source.",
-      "category": "Content",
-      "currentVersion": 2,
-      "versions": [
-        {
-          "version": 1,
-          "fields": [
-            {
-              "slug": "items",
-              "label": "Stats",
-              "type": "repeater",
+              "slug": "width",
+              "label": "Width",
+              "type": "select",
+              "defaultValue": "measure",
               "validation": {
-                "subFields": [
-                  {
-                    "slug": "value",
-                    "type": "string",
-                    "label": "Value",
-                    "required": true
-                  },
-                  {
-                    "slug": "unit",
-                    "type": "string",
-                    "label": "Unit"
-                  },
-                  {
-                    "slug": "text",
-                    "type": "text",
-                    "label": "Explanation"
-                  },
-                  {
-                    "slug": "cite",
-                    "type": "string",
-                    "label": "Source"
-                  },
-                  {
-                    "slug": "tone",
-                    "type": "select",
-                    "label": "Tone",
-                    "options": ["it", "mk"]
-                  }
-                ],
-                "minItems": 1,
-                "maxItems": 4
+                "options": ["measure", "breakout", "spotlight", "fullbleed"]
               }
-            }
-          ]
-        },
-        {
-          "version": 2,
-          "fields": [
+            },
             {
-              "slug": "items",
-              "label": "Stats",
-              "type": "repeater",
-              "validation": {
-                "subFields": [
-                  {
-                    "slug": "value",
-                    "type": "string",
-                    "label": "Value",
-                    "required": true
-                  },
-                  {
-                    "slug": "unit",
-                    "type": "string",
-                    "label": "Unit"
-                  },
-                  {
-                    "slug": "text",
-                    "type": "text",
-                    "label": "Explanation"
-                  },
-                  {
-                    "slug": "cite",
-                    "type": "string",
-                    "label": "Source"
-                  },
-                  {
-                    "slug": "tone",
-                    "type": "select",
-                    "label": "Tone (colour role)",
-                    "options": [
-                      "brand-primary",
-                      "brand-secondary",
-                      "success",
-                      "info",
-                      "warning",
-                      "danger",
-                      "neutral"
-                    ]
-                  },
-                  {
-                    "slug": "color",
-                    "type": "string",
-                    "label": "Colour override (palette hue, e.g. amber-300)"
-                  }
-                ],
-                "minItems": 1,
-                "maxItems": 4
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "vt_steps",
-      "label": "Numbered steps",
-      "description": "Numbered process steps joined by a line.",
-      "category": "Content",
-      "currentVersion": 1,
-      "versions": [
-        {
-          "version": 1,
-          "fields": [
-            {
-              "slug": "kicker",
-              "label": "Kicker",
+              "slug": "tone",
+              "label": "Backdrop tone (a colour role from the site, e.g. surface or brand-primary)",
               "type": "string"
             },
             {
-              "slug": "heading",
-              "label": "Heading",
-              "type": "string",
-              "required": true
+              "slug": "color",
+              "label": "Palette colour instead of a tone (e.g. amber or amber-300)",
+              "type": "string"
             },
             {
-              "slug": "steps",
-              "label": "Steps",
-              "type": "repeater",
-              "validation": {
-                "subFields": [
-                  {
-                    "slug": "title",
-                    "type": "string",
-                    "label": "Title",
-                    "required": true
-                  },
-                  {
-                    "slug": "body",
-                    "type": "text",
-                    "label": "Text"
-                  }
-                ],
-                "minItems": 2,
-                "maxItems": 6
-              }
+              "slug": "solid",
+              "label": "Fill with the solid colour",
+              "type": "boolean",
+              "defaultValue": false
             }
           ]
         }
@@ -909,18 +582,13 @@
           "validation": {
             "allowedTypes": [
               "vt_hero",
-              "vt_section",
-              "vt_stats",
+              "vitops_section",
               "vt_pillars",
               "vt_compare",
               "vt_dashboard",
               "vt_logos",
-              "vt_badges",
-              "vt_band",
-              "vt_steps",
-              "vt_contact"
+              "vt_badges"
             ],
-            "retiredTypes": ["vt_chips"],
             "minItems": 0,
             "maxItems": 40
           }
@@ -929,163 +597,6 @@
     }
   ],
   "menus": [
-    {
-      "id": "menu:footer",
-      "name": "footer",
-      "label": "Footer",
-      "items": [
-        {
-          "type": "custom",
-          "label": "Privacy policy",
-          "url": "/privacy"
-        },
-        {
-          "type": "custom",
-          "label": "Cookie notice",
-          "url": "/cookies"
-        },
-        {
-          "type": "custom",
-          "label": "Terms of service",
-          "url": "/terms"
-        }
-      ]
-    },
-    {
-      "id": "menu:footer_company",
-      "name": "footer_company",
-      "label": "Footer: Company",
-      "items": [
-        {
-          "type": "custom",
-          "label": "Pricing",
-          "url": "/pricing"
-        },
-        {
-          "type": "custom",
-          "label": "Business Health Dashboard",
-          "url": "/dashboard"
-        },
-        {
-          "type": "custom",
-          "label": "Industries",
-          "url": "/industries"
-        },
-        {
-          "type": "custom",
-          "label": "Resources",
-          "url": "/resources"
-        },
-        {
-          "type": "custom",
-          "label": "About",
-          "url": "/about"
-        },
-        {
-          "type": "custom",
-          "label": "Contact",
-          "url": "/contact"
-        }
-      ]
-    },
-    {
-      "id": "menu:footer_it",
-      "name": "footer_it",
-      "label": "Footer: Managed IT",
-      "items": [
-        {
-          "type": "custom",
-          "label": "Software selection and setup",
-          "url": "/software-selection-setup"
-        },
-        {
-          "type": "custom",
-          "label": "Connected software",
-          "url": "/connected-software"
-        },
-        {
-          "type": "custom",
-          "label": "Joining and leaving",
-          "url": "/joining-and-leaving"
-        },
-        {
-          "type": "custom",
-          "label": "Licences and cost control",
-          "url": "/licences-cost-control"
-        },
-        {
-          "type": "custom",
-          "label": "Backup and security",
-          "url": "/backup-security"
-        },
-        {
-          "type": "custom",
-          "label": "Support and vendor management",
-          "url": "/support-vendor-management"
-        },
-        {
-          "type": "custom",
-          "label": "AI where it helps",
-          "url": "/ai-where-it-helps"
-        }
-      ]
-    },
-    {
-      "id": "menu:footer_marketing",
-      "name": "footer_marketing",
-      "label": "Footer: Digital Marketing",
-      "items": [
-        {
-          "type": "custom",
-          "label": "Websites",
-          "url": "/websites"
-        },
-        {
-          "type": "custom",
-          "label": "Ads",
-          "url": "/ads"
-        },
-        {
-          "type": "custom",
-          "label": "SEO and AI search",
-          "url": "/seo-ai-search"
-        },
-        {
-          "type": "custom",
-          "label": "Business profiles",
-          "url": "/business-profiles"
-        },
-        {
-          "type": "custom",
-          "label": "Social media",
-          "url": "/social-media"
-        },
-        {
-          "type": "custom",
-          "label": "Reviews and email campaigns",
-          "url": "/reviews-email"
-        }
-      ]
-    },
-    {
-      "id": "menu:header_actions",
-      "name": "header_actions",
-      "label": "Header buttons",
-      "items": [
-        {
-          "type": "custom",
-          "label": "Client portal",
-          "url": "#",
-          "cssClasses": "ghost"
-        },
-        {
-          "type": "custom",
-          "label": "Talk to us",
-          "url": "/contact",
-          "cssClasses": "solid"
-        }
-      ]
-    },
     {
       "id": "menu:primary",
       "name": "primary",
@@ -1100,22 +611,19 @@
               "type": "custom",
               "label": "Managed IT",
               "url": "/managed-it",
-              "titleAttr": "Software, accounts, licences and security",
-              "cssClasses": "it"
+              "titleAttr": "Software, accounts, licences and security"
             },
             {
               "type": "custom",
               "label": "Digital Marketing",
               "url": "/digital-marketing",
-              "titleAttr": "Website, search, ads and social media",
-              "cssClasses": "mk"
+              "titleAttr": "Website, search, ads and social media"
             },
             {
               "type": "custom",
               "label": "Business Health Dashboard",
               "url": "/dashboard",
-              "titleAttr": "All your key numbers in one place",
-              "cssClasses": "both"
+              "titleAttr": "All your key numbers in one place"
             }
           ]
         },
@@ -1133,6 +641,156 @@
           "type": "custom",
           "label": "About",
           "url": "/about"
+        },
+        {
+          "type": "custom",
+          "label": "Contact",
+          "url": "/contact"
+        }
+      ]
+    },
+    {
+      "id": "menu:footer-sitemap",
+      "name": "footer-sitemap",
+      "label": "Footer: Site Map",
+      "items": [
+        {
+          "type": "custom",
+          "label": "Managed IT",
+          "url": "#",
+          "children": [
+            {
+              "type": "custom",
+              "label": "Software selection and setup",
+              "url": "/software-selection-setup"
+            },
+            {
+              "type": "custom",
+              "label": "Connected software",
+              "url": "/connected-software"
+            },
+            {
+              "type": "custom",
+              "label": "Joining and leaving",
+              "url": "/joining-and-leaving"
+            },
+            {
+              "type": "custom",
+              "label": "Licences and cost control",
+              "url": "/licences-cost-control"
+            },
+            {
+              "type": "custom",
+              "label": "Backup and security",
+              "url": "/backup-security"
+            },
+            {
+              "type": "custom",
+              "label": "Support and vendor management",
+              "url": "/support-vendor-management"
+            },
+            {
+              "type": "custom",
+              "label": "AI where it helps",
+              "url": "/ai-where-it-helps"
+            }
+          ]
+        },
+        {
+          "type": "custom",
+          "label": "Digital Marketing",
+          "url": "#",
+          "children": [
+            {
+              "type": "custom",
+              "label": "Websites",
+              "url": "/websites"
+            },
+            {
+              "type": "custom",
+              "label": "Ads",
+              "url": "/ads"
+            },
+            {
+              "type": "custom",
+              "label": "SEO and AI search",
+              "url": "/seo-ai-search"
+            },
+            {
+              "type": "custom",
+              "label": "Business profiles",
+              "url": "/business-profiles"
+            },
+            {
+              "type": "custom",
+              "label": "Social media",
+              "url": "/social-media"
+            },
+            {
+              "type": "custom",
+              "label": "Reviews and email campaigns",
+              "url": "/reviews-email"
+            }
+          ]
+        },
+        {
+          "type": "custom",
+          "label": "Company",
+          "url": "#",
+          "children": [
+            {
+              "type": "custom",
+              "label": "Pricing",
+              "url": "/pricing"
+            },
+            {
+              "type": "custom",
+              "label": "Business Health Dashboard",
+              "url": "/dashboard"
+            },
+            {
+              "type": "custom",
+              "label": "Industries",
+              "url": "/industries"
+            },
+            {
+              "type": "custom",
+              "label": "Resources",
+              "url": "/resources"
+            },
+            {
+              "type": "custom",
+              "label": "About",
+              "url": "/about"
+            },
+            {
+              "type": "custom",
+              "label": "Contact",
+              "url": "/contact"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "menu:footer-legal",
+      "name": "footer-legal",
+      "label": "Footer: Legal",
+      "items": [
+        {
+          "type": "custom",
+          "label": "Privacy Policy",
+          "url": "/privacy"
+        },
+        {
+          "type": "custom",
+          "label": "Terms & Conditions",
+          "url": "/terms"
+        },
+        {
+          "type": "custom",
+          "label": "Cookie Notice",
+          "url": "/cookies"
         }
       ]
     }
@@ -1217,13 +875,13 @@
               ]
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "h14",
+              "layout": "stack",
               "kicker": "The problem",
               "heading": "You didn’t start a business to manage software or post on Instagram.",
               "sub": "But someone has to do it. Most owners end up with one of these options.",
-              "tone": "plain",
               "body": [
                 {
                   "_type": "vitops.cards",
@@ -1246,48 +904,74 @@
                       "body": "Security gaps grow, you pay for software you don’t use, and competitors show up ahead of you in search."
                     }
                   ]
-                }
-              ]
-            },
-            {
-              "_type": "vt_stats",
-              "_version": 2,
-              "_key": "h17",
-              "items": [
-                {
-                  "_key": "i15",
-                  "value": "11",
-                  "unit": "hrs/week",
-                  "tone": "brand-secondary",
-                  "color": "amber-300",
-                  "text": "Owners spend about 11 hours a week on admin. That’s almost twice the time they spend on sales and growth.",
-                  "cite": "American Express SME Business Barometer, 2026"
                 },
                 {
-                  "_key": "i16",
-                  "value": "82%",
-                  "tone": "brand-primary",
-                  "color": "pine-400",
-                  "text": "of owners who hand off work grew their revenue in two years. Only 66% of owners who don’t hand off work did.",
-                  "cite": "Time Etc / Censuswide, 2023"
+                  "_type": "vitops.stats",
+                  "_key": "h17",
+                  "tone": "neutral",
+                  "color": "",
+                  "stats": [
+                    {
+                      "_key": "i15",
+                      "value": "11 hrs/week",
+                      "label": "Owners spend about 11 hours a week on admin. That’s almost twice the time they spend on sales and growth."
+                    },
+                    {
+                      "_key": "i16",
+                      "value": "82%",
+                      "label": "of owners who hand off work grew their revenue in two years. Only 66% of owners who don’t hand off work did."
+                    }
+                  ],
+                  "animate": false
+                },
+                {
+                  "_type": "block",
+                  "_key": "pb01",
+                  "style": "normal",
+                  "markDefs": [],
+                  "children": [
+                    {
+                      "_type": "span",
+                      "_key": "sp02",
+                      "text": "Source: American Express SME Business Barometer, 2026",
+                      "marks": []
+                    }
+                  ]
+                },
+                {
+                  "_type": "block",
+                  "_key": "pb03",
+                  "style": "normal",
+                  "markDefs": [],
+                  "children": [
+                    {
+                      "_type": "span",
+                      "_key": "sp04",
+                      "text": "Source: Time Etc / Censuswide, 2023",
+                      "marks": []
+                    }
+                  ]
                 }
-              ]
+              ],
+              "width": "spotlight"
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "h18",
+              "layout": "stack",
               "heading": "Or you can hand it to us, for a fixed monthly cost that scales as your team grows.",
-              "tone": "plain"
+              "body": []
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "h19",
+              "layout": "stack",
               "kicker": "What we do",
               "heading": "Two services. One team.",
               "sub": "Choose one service or both.",
-              "tone": "grid"
+              "body": []
             },
             {
               "_type": "vt_pillars",
@@ -1319,13 +1003,14 @@
               ]
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "h23",
+              "layout": "stack",
               "kicker": "Why both",
               "heading": "When one team does both, you see the full picture.",
               "sub": "Marketing brings in new customers. IT helps your business run well as it grows. When two different companies handle these, nobody sees the full picture. When we handle both, you do.",
-              "tone": "plain"
+              "body": []
             },
             {
               "_type": "vt_compare",
@@ -1334,13 +1019,13 @@
               "caption": "We connect your marketing to the tools your team uses to quote and bill. So you can see how much your marketing really brings in."
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "h26",
+              "layout": "stack",
               "kicker": "Business health dashboard",
               "heading": "See your whole business in one place",
               "sub": "Because we manage both, we can show your marketing and IT numbers together. You’ll find them in one dashboard in your client portal, and it updates on its own.",
-              "tone": "plain",
               "body": [
                 {
                   "_type": "vitops.actionLink",
@@ -1349,7 +1034,8 @@
                   "href": "/dashboard",
                   "variant": "btn"
                 }
-              ]
+              ],
+              "width": "spotlight"
             },
             {
               "_type": "vt_dashboard",
@@ -1361,11 +1047,11 @@
               "caption_link_href": "/estimate"
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "h32",
+              "layout": "stack",
               "heading": "Other reasons to use one team",
-              "tone": "plain",
               "body": [
                 {
                   "_type": "vitops.cards",
@@ -1389,7 +1075,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "width": "spotlight"
             },
             {
               "_type": "vt_logos",
@@ -1495,67 +1182,140 @@
               ]
             },
             {
-              "_type": "vt_band",
-              "_version": 2,
+              "_type": "vitops_section",
+              "_version": 1,
               "_key": "h55",
-              "icon": "$",
-              "tone": "brand-secondary",
-              "color": "amber-300",
-              "heading": "You may qualify for funding.",
-              "body": "Ontario businesses can get up to $15,000 through DMAP to plan their technology. We’ll tell you if you’re likely to qualify before you apply.",
-              "cta_label": "See funding programs",
-              "cta_href": "/funding"
+              "layout": "stack",
+              "body": [
+                {
+                  "_type": "vitops.callout",
+                  "_key": "cl05",
+                  "heading": "You may qualify for funding.",
+                  "body": "Ontario businesses can get up to $15,000 through DMAP to plan their technology. We’ll tell you if you’re likely to qualify before you apply.",
+                  "primaryLabel": "See funding programs",
+                  "primaryHref": "/funding",
+                  "tone": "brand-secondary",
+                  "color": "amber-300",
+                  "solid": false
+                }
+              ],
+              "width": "spotlight"
             },
             {
-              "_type": "vt_steps",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "h59",
+              "layout": "stack",
               "kicker": "How it works",
               "heading": "Getting started is simple.",
-              "steps": [
+              "body": [
                 {
-                  "_key": "i56",
-                  "title": "Intro call",
-                  "body": "Tell us how things work today and what you’d like help with. It’s free and there’s no commitment."
-                },
-                {
-                  "_key": "i57",
-                  "title": "We review your setup",
-                  "body": "We look at your software, website and marketing to find where you’re losing time or money."
-                },
-                {
-                  "_key": "i58",
-                  "title": "You get a plan",
-                  "body": "We give you a simple plan and a fixed monthly price. You decide what to go ahead with."
+                  "_type": "vitops.steps",
+                  "_key": "st06",
+                  "tone": "neutral",
+                  "steps": [
+                    {
+                      "_key": "i56",
+                      "title": "Intro call",
+                      "text": "Tell us how things work today and what you’d like help with. It’s free and there’s no commitment."
+                    },
+                    {
+                      "_key": "i57",
+                      "title": "We review your setup",
+                      "text": "We look at your software, website and marketing to find where you’re losing time or money."
+                    },
+                    {
+                      "_key": "i58",
+                      "title": "You get a plan",
+                      "text": "We give you a simple plan and a fixed monthly price. You decide what to go ahead with."
+                    }
+                  ]
                 }
-              ]
+              ],
+              "width": "spotlight"
             },
             {
-              "_type": "vt_contact",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "h64",
+              "layout": "stack",
               "kicker": "Talk to us",
               "heading": "Tell us what you’d like help with.",
               "sub": "Send us a short note. A partner will reply and let you know if we’re a good fit.",
-              "email": "hi@vitops.ca",
-              "interests": [
+              "body": [
                 {
-                  "_key": "i60",
-                  "label": "IT services"
+                  "_type": "vitops.form",
+                  "_key": "fm07",
+                  "heading": "",
+                  "tone": "neutral",
+                  "submitLabel": "Send message",
+                  "fields": [
+                    {
+                      "_key": "ff08",
+                      "label": "I’m interested in",
+                      "name": "interest",
+                      "type": "select",
+                      "required": false,
+                      "options": "IT services\nMarketing\nBoth\nNot sure yet"
+                    },
+                    {
+                      "_key": "ff09",
+                      "label": "Name",
+                      "name": "name",
+                      "type": "text",
+                      "required": true
+                    },
+                    {
+                      "_key": "ff10",
+                      "label": "Work email",
+                      "name": "email",
+                      "type": "email",
+                      "required": true
+                    },
+                    {
+                      "_key": "ff11",
+                      "label": "Company",
+                      "name": "company",
+                      "type": "text",
+                      "required": false
+                    },
+                    {
+                      "_key": "ff12",
+                      "label": "What would you like help with?",
+                      "name": "message",
+                      "type": "textarea",
+                      "required": false
+                    }
+                  ]
                 },
                 {
-                  "_key": "i61",
-                  "label": "Marketing"
-                },
-                {
-                  "_key": "i62",
-                  "label": "Both"
-                },
-                {
-                  "_key": "i63",
-                  "label": "Not sure yet"
+                  "_type": "block",
+                  "_key": "pb13",
+                  "style": "normal",
+                  "markDefs": [
+                    {
+                      "_type": "link",
+                      "_key": "ml01",
+                      "href": "mailto:hi@vitops.ca"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "_type": "span",
+                      "_key": "sp14",
+                      "text": "Or email ",
+                      "marks": []
+                    },
+                    {
+                      "_type": "span",
+                      "_key": "sp15",
+                      "text": "hi@vitops.ca",
+                      "marks": ["ml01"]
+                    }
+                  ]
                 }
-              ]
+              ],
+              "width": "spotlight"
             }
           ]
         }

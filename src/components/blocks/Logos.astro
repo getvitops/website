@@ -38,7 +38,7 @@ const { value } = Astro.props;
         <p class="spotlight text-neutral-muted">
           {value.note}{' '}
           {value.link_label && value.link_href && (
-            <a class="text-pine-400" href={value.link_href}>{value.link_label}</a>
+            <a class="text-pine-400 underline" href={value.link_href}>{value.link_label}</a>
           )}
         </p>
       )

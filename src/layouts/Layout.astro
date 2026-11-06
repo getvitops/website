@@ -1,12 +1,14 @@
 ---
 import VitopsHead from '@getvitops/astro/Head.astro';
 import { resolveOrganizationName } from '@getvitops/astro/routes';
-import { getSiteSettings } from 'emdash';
+import SiteNav from '@getvitops/astro/components/SiteNav.astro';
+import { loadNavMenus } from '@getvitops/astro/components/sitenav.ts';
+import { getMenu, getSiteSettings } from 'emdash';
 import { createPublicPageContext } from 'emdash/page';
 import { EmDashHead } from 'emdash/ui';
 import config from '../../site.json' with { type: 'json' };
 import SiteFooter from '../components/SiteFooter.astro';
-import SiteHeader from '../components/SiteHeader.astro';
+import logo from '../assets/logo.svg?raw';
 // Design-system CSS, layout-scoped (vitops css.inject: false): only pages
 // rendered through this layout get it — keeps it out of /_emdash/admin, while
 // EmDash previews (rendered through this layout) keep it.
@@ -29,6 +31,10 @@ const settings = await getSiteSettings();
 const siteTitle = settings?.title || resolveOrganizationName(config) || 'My EmDash Site';
 const fullTitle = title ? `${title} — ${siteTitle}` : siteTitle;
 const siteDescription = settings?.tagline || 'An EmDash website with the Vitops design system';
+
+// Header nav from the EmDash `primary` menu (nested items become dropdowns; an
+// item's titleAttr is its description). Footer menus are read by SiteFooter.
+const nav = await loadNavMenus(getMenu);
 
 const pageCtx = createPublicPageContext({
   Astro,
@@ -60,7 +66,15 @@ const pageCtx = createPublicPageContext({
     <VitopsHead />
   </head>
   <body class="bg-neutral-muted text-neutral">
-    <SiteHeader siteTitle={siteTitle} />
+    <header class="navbar-sticky centered vt-header">
+      <div class="navbar">
+        <a class="vt-brand" href="/" aria-label={`${siteTitle} home`}>
+          <span class="vt-brand__mark" set:html={logo} aria-hidden="true" />
+          <span>{siteTitle.toLowerCase()}</span>
+        </a>
+        <SiteNav {...nav} />
+      </div>
+    </header>
 
     <!-- Blocks own their own region/centered wrappers (full-bleed sections), so
          <main> adds none. Pages that render plain Portable Text wrap it themselves. -->

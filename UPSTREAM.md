@@ -271,6 +271,77 @@ case with no extra config. Suggested fix: `vitops.stats` (see the registry) shou
 render `Counter` for its figures, and a standalone `vitops.counter` (value, from,
 duration, decimals) would cover a single figure in running text.
 
+## Alpha upgrade results (`@getvitops` 8.3.0-alpha.0 / emdash 2.0.0-alpha.0)
+
+The toolchain shipped most of the registry below, so the site moved onto the `alpha`
+dist-tag and migrated what matched. Status per block:
+
+| Local block                  | Result                           | Why                                                                  |
+| ---------------------------- | -------------------------------- | -------------------------------------------------------------------- |
+| `vt_section`                 | **migrated** to `vitops_section` | grid backdrop dropped (gap A)                                        |
+| `vt_stats`                   | **migrated** to `vitops.stats`   | per-figure colour lost (gap B)                                       |
+| `vt_band`                    | **migrated** to `vitops.callout` | icon dropped; `solid` unreadable (gap F)                             |
+| `vt_steps`                   | **migrated** to `vitops.steps`   | title size needed a site rule (gap G)                                |
+| `vt_contact`                 | **migrated** to `vitops.form`    | multi-select became choose-one; no delivery address yet (gap H)      |
+| `vt_hero`                    | **stays local**                  | `vitops.hero` cards have no eyebrow, per-card tone or button (gap C) |
+| `vt_pillars`                 | **stays local**                  | `vitops.cards` panel tone is per block, not per card (gap C)         |
+| `vt_logos`                   | **stays local**                  | `vitops.logos` renders images only; ours are names (gap D)           |
+| `vt_badges`                  | **stays local**                  | no `vitops.badges`                                                   |
+| `vt_compare`, `vt_dashboard` | **stay local**                   | site-specific, as predicted                                          |
+
+Header and footer: header is `<SiteNav>` (menus `primary`). The framework's `<SiteFooter>` is a
+flat list with no columns or brand, so the footer stays site-local and reads
+`footer-sitemap` (parents = columns) and `footer-legal`.
+
+### Gaps found while migrating
+
+- **A. No section backdrop.** `vitops_section` has `tone`/`solid` but nothing like the blueprint
+  grid, and select options are static, so a site can't register its own. Suggest a `backdrop`
+  field whose options the site supplies like `tones`.
+- **B. Colour is per block, not per item.** Stats, steps and panel cards take one `tone`. Our two
+  stats are pine and amber, and our two pillars and hero doors are pine and amber. Either allow
+  a `tone`/`color` per row, or document that a mixed-colour set means one block per colour.
+- **C. `vitops.hero` cards** need an eyebrow, a per-card tone and a button label. **`vitops.cards`
+  panel** needs per-card tone.
+- **D. `vitops.logos` drops entries without an image**, so a site with wordmarks or text-only
+  partners renders nothing. Offer a text fallback (the name as the mark).
+- **E. `vitops_section` and `vitops.form` have no anchor id**, so `#contact` and `/#services`
+  links from the menu and from content break. Add an `anchor` field.
+- **F. Callout `solid` puts white text on amber** (same cause as finding 2: solid steps pinned
+  with a light foreground). The tinted default is light-on-dark on a dark-only site. Neither
+  looks right; the callout needs a dark-theme-aware tint.
+- **G. Per-component type size.** `steps__title`, stats figures and card titles all use the
+  `heading`/`display` roles at full size, so a site rule (`.steps__title`) was needed.
+  Components should expose a size hook or use a smaller role by default.
+- **H. `vitops.form`:** "interested in" was a multi-select tag group; the block offers choose-one
+  only. The route refuses posts until `site.notifications.email` is set and, with a Turnstile
+  key, until `VITOPS_TURNSTILE_SECRET` exists. Neither is set; `vitops setup turnstile` creates
+  a Cloudflare widget and was deliberately not run.
+- **I. Tailwind does not scan `node_modules`.** `font-display` is used by `vitops.stats` but was
+  not emitted, so figures rendered body-size with no error. Worked around with
+  `src/package-classes.txt`. The `vitops()` integration should add an `@source` for the packages
+  it renders. The same check found `font-caption`/`font-footnote` used by package components with
+  no matching utility.
+- **J. Counter with a unit.** `value: "11 hrs/week"` with the count-up on rendered the figure twice
+  ("11 hrs/week1 hrs/week") in a headless screenshot. Stats here set `animate: false`.
+- **K. `vitops audit` leaks its preview server** when Chromium fails to launch: the next run
+  aborts with "port 4398 is already in use". It also needed `playwright install chromium` by
+  hand, and 25 candidate pages mostly 404 (menus link to planned pages).
+- **L. Footer links to planned pages.** `primary` and `footer-sitemap` keep the mockup's planned
+  links (`/pricing`, `/industries`, ...), which 404 until the pages exist.
+- **M. Header actions.** The mockup's "Client portal" and "Talk to us" buttons have no place in
+  `<SiteNav>`; "Contact" is the last `primary` item instead.
+- **N. `UPGRADE-PROMPT.md` told `vpx emdash seed`;** `vpx` is `vp dlx`, which fetches the package
+  instead of using the pinned binary. Used `vp exec emdash`.
+
+### Result
+
+`seed --validate`, `vpr prepare-local-db`, `vpr build` (prerender guard), `vpr typecheck`,
+`vpr lint:design` and `vp check` pass. `vitops audit` (mobile): `/`, `/privacy`, `/terms`, `/about`
+pass the budgets and have no serious axe violations (LCP 1.8-2.0 s, CLS 0, TBT 0, Lighthouse
+performance 98, SEO 100, best practices 100); 21 candidate pages skipped as 404. One axe failure
+(`link-in-text-block`, two inline links) was found and fixed. A pass is not AODA certification.
+
 ## Proposed blocks (registry)
 
 The home page needed 11 site-local block types (`vt_*`, in
