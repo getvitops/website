@@ -1,0 +1,37 @@
+---
+// Maps each vt_* block type (seeded in the `pages.layout` blocks field) to its
+// renderer. <Blocks> renders in stored order; Portable Text bodies inside a
+// block go through <PortableText>, which is where vitops.* blocks resolve.
+import { Blocks, defineBlockComponents } from 'emdash/ui';
+import Band from './blocks/Band.astro';
+import Badges from './blocks/Badges.astro';
+import Compare from './blocks/Compare.astro';
+import Contact from './blocks/Contact.astro';
+import Dashboard from './blocks/Dashboard.astro';
+import Hero from './blocks/Hero.astro';
+import Logos from './blocks/Logos.astro';
+import Pillars from './blocks/Pillars.astro';
+import Section from './blocks/Section.astro';
+import Stats from './blocks/Stats.astro';
+import Steps from './blocks/Steps.astro';
+
+interface Props {
+  value: unknown[];
+}
+
+const components = defineBlockComponents<any>({
+  vt_hero: Hero,
+  vt_section: Section,
+  vt_stats: Stats,
+  vt_pillars: Pillars,
+  vt_compare: Compare,
+  vt_dashboard: Dashboard,
+  vt_logos: Logos,
+  vt_badges: Badges,
+  vt_band: Band,
+  vt_steps: Steps,
+  vt_contact: Contact,
+});
+---
+
+<Blocks value={Astro.props.value as never} components={components} />

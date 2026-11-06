@@ -1,0 +1,56 @@
+{
+  "name": "jury-regarding",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy": "vitops email check && astro build && emdash migrate --wrangler-config wrangler.jsonc && wrangler deploy",
+    "deploy:dev": "vitops email check && astro build && node scripts/build-dev-wrangler.mjs && emdash migrate --wrangler-config dist/server/wrangler.dev.json && wrangler deploy --config dist/server/wrangler.dev.json",
+    "init:github": "vitops setup repo",
+    "init:hosting": "vitops setup hosting",
+    "setup": "vitops setup all",
+    "typecheck": "astro check",
+    "build:css": "vitops generate -i site.json -f tailwind -o src/styles",
+    "lint:design": "vitops lint -i site.json -f tailwind --strict",
+    "sop": "vitops generate -i site.json -f css -o .vitops/sop",
+    "prepare": "vp config"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^14.0.0",
+    "@astrojs/react": "^7.1.2",
+    "@emdash-cms/cloudflare": "^1.4.0",
+    "@getvitops/astro": "latest",
+    "@getvitops/core": "latest",
+    "@getvitops/emdash": "latest",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.4",
+    "emdash": "^1.4.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@cloudflare/workers-types": "^4.20260305.1",
+    "@getvitops/cli": "latest",
+    "@iconify-json/fa7-solid": "^1.2.5",
+    "typescript": "^6.0.3",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "wrangler": "^4.111.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "24",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@12.16.1",
+  "emdash": {
+    "seed": "seed/seed.json"
+  }
+}

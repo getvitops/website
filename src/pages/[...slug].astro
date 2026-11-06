@@ -1,0 +1,42 @@
+---
+import { getEmDashEntry } from 'emdash';
+import { PortableText } from 'emdash/ui';
+import PageBlocks from '../components/PageBlocks.astro';
+import Layout from '../layouts/Layout.astro';
+
+// Catch-all: any entry in the `pages` collection renders at its slug. Pages with
+// a `layout` (vt_* blocks) render through PageBlocks; others render `content`.
+//
+// Deliberately NOT prerendered, unlike AGENTS.md's general "prerender by
+// default" rule — see index.astro's comment for why: a live EmDash publish
+// should reach visitors without a redeploy. A page that's known ahead of
+// time and doesn't need that (rarely edited, or fine to lag a build) can
+// move to its own prerendered route with `getStaticPaths()` over the
+// `pages` collection instead of relying on this catch-all.
+const { slug } = Astro.params;
+const { entry: page } = slug ? await getEmDashEntry('pages', slug) : { entry: null };
+
+if (!page) {
+  return Astro.rewrite('/404');
+}
+
+// `page.data` is typed `unknown` until `.emdash/types.ts` is generated from a
+// running site (`pnpm dev`, then `emdash types`), so a fresh scaffold would fail
+// `astro check`; the cast keeps it passing both before and after, where the
+// generated type is already `string`.
+const title = page.data.title as string | undefined;
+const layout = page.data.layout as unknown[] | undefined;
+---
+
+<Layout title={title}>
+  {
+    layout && layout.length > 0 ? (
+      <PageBlocks value={layout} />
+    ) : (
+      <article class="centered rhythm region">
+        <h1>{title}</h1>
+        {page.data.content && <PortableText value={page.data.content} />}
+      </article>
+    )
+  }
+</Layout>

@@ -1,0 +1,1808 @@
+{
+  "$schema": "https://emdashcms.com/seed.schema.json",
+  "version": "1",
+  "meta": {
+    "name": "Vitops Starter",
+    "description": "An EmDash website wired to the Vitops design system",
+    "author": "Vitops"
+  },
+  "settings": {
+    "seo": {
+      "titleSeparator": " | "
+    },
+    "tagline": "Run the business, we run the rest.",
+    "timezone": "America/Toronto",
+    "title": "Vitops"
+  },
+  "blockTypes": [
+    {
+      "slug": "vt_badges",
+      "label": "Heading with badges",
+      "description": "Band with a heading and link on one side and a cluster of static badges on the other.",
+      "category": "Content",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "kicker",
+              "label": "Kicker",
+              "type": "string"
+            },
+            {
+              "slug": "heading",
+              "label": "Heading",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "link_label",
+              "label": "Link label",
+              "type": "string"
+            },
+            {
+              "slug": "link_href",
+              "label": "Link",
+              "type": "url"
+            },
+            {
+              "slug": "tone",
+              "label": "Badge tone (colour role)",
+              "type": "select",
+              "defaultValue": "neutral",
+              "validation": {
+                "options": [
+                  "neutral",
+                  "brand-primary",
+                  "brand-secondary",
+                  "success",
+                  "info",
+                  "warning",
+                  "danger"
+                ]
+              }
+            },
+            {
+              "slug": "color",
+              "label": "Colour override (palette hue, e.g. pine-400)",
+              "type": "string"
+            },
+            {
+              "slug": "badges",
+              "label": "Badges",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "label",
+                    "type": "string",
+                    "label": "Label",
+                    "required": true
+                  }
+                ],
+                "minItems": 1,
+                "maxItems": 24
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vt_band",
+      "label": "Callout band",
+      "description": "Full-width tinted strip with an icon, heading, text and a button.",
+      "category": "Content",
+      "currentVersion": 2,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "icon",
+              "label": "Icon character",
+              "type": "string"
+            },
+            {
+              "slug": "heading",
+              "label": "Heading",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "body",
+              "label": "Text",
+              "type": "text"
+            },
+            {
+              "slug": "cta_label",
+              "label": "Button label",
+              "type": "string"
+            },
+            {
+              "slug": "cta_href",
+              "label": "Button link",
+              "type": "string"
+            },
+            {
+              "slug": "tone",
+              "label": "Tone",
+              "type": "select",
+              "defaultValue": "mk",
+              "validation": {
+                "options": ["mk", "it"]
+              }
+            }
+          ]
+        },
+        {
+          "version": 2,
+          "fields": [
+            {
+              "slug": "icon",
+              "label": "Icon character",
+              "type": "string"
+            },
+            {
+              "slug": "heading",
+              "label": "Heading",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "body",
+              "label": "Text",
+              "type": "text"
+            },
+            {
+              "slug": "cta_label",
+              "label": "Button label",
+              "type": "string"
+            },
+            {
+              "slug": "cta_href",
+              "label": "Button link",
+              "type": "url"
+            },
+            {
+              "slug": "tone",
+              "label": "Tone (colour role)",
+              "type": "select",
+              "defaultValue": "brand-secondary",
+              "validation": {
+                "options": [
+                  "brand-primary",
+                  "brand-secondary",
+                  "success",
+                  "info",
+                  "warning",
+                  "danger",
+                  "neutral"
+                ]
+              }
+            },
+            {
+              "slug": "color",
+              "label": "Colour override (palette hue, e.g. amber-300)",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vt_chips",
+      "label": "Heading with tags",
+      "description": "Band with a heading and link on one side and a cluster of pill tags on the other.",
+      "category": "Content",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "kicker",
+              "label": "Kicker",
+              "type": "string"
+            },
+            {
+              "slug": "heading",
+              "label": "Heading",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "link_label",
+              "label": "Link label",
+              "type": "string"
+            },
+            {
+              "slug": "link_href",
+              "label": "Link",
+              "type": "string"
+            },
+            {
+              "slug": "chips",
+              "label": "Tags",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "label",
+                    "type": "string",
+                    "label": "Label",
+                    "required": true
+                  }
+                ],
+                "minItems": 1,
+                "maxItems": 24
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vt_compare",
+      "label": "Two companies vs one",
+      "description": "Illustration comparing separate marketing and IT reports with a connected funnel. Markup is code-owned; only the caption is editable.",
+      "category": "Illustration",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "caption",
+              "label": "Caption",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vt_contact",
+      "label": "Contact form",
+      "description": "Intro text plus an enquiry form with interest chips.",
+      "category": "Forms",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "kicker",
+              "label": "Kicker",
+              "type": "string"
+            },
+            {
+              "slug": "heading",
+              "label": "Heading",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "sub",
+              "label": "Intro",
+              "type": "text"
+            },
+            {
+              "slug": "email",
+              "label": "Contact email",
+              "type": "string"
+            },
+            {
+              "slug": "interests",
+              "label": "Interest options",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "label",
+                    "type": "string",
+                    "label": "Label",
+                    "required": true
+                  }
+                ],
+                "minItems": 1,
+                "maxItems": 8
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vt_dashboard",
+      "label": "Dashboard preview",
+      "description": "Sample Business Health Dashboard panel. Tiles are code-owned; the variant picks which groups show.",
+      "category": "Illustration",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "variant",
+              "label": "Variant",
+              "type": "select",
+              "defaultValue": "both",
+              "validation": {
+                "options": ["both", "it", "marketing"]
+              }
+            },
+            {
+              "slug": "caption",
+              "label": "Caption",
+              "type": "text"
+            },
+            {
+              "slug": "caption_link_label",
+              "label": "Caption link label",
+              "type": "string"
+            },
+            {
+              "slug": "caption_link_href",
+              "label": "Caption link",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vt_hero",
+      "label": "Hero with doors",
+      "description": "Page hero: eyebrow, large heading (emphasis = primary accent, strong = secondary accent), lede, and one to four option cards.",
+      "category": "Layout",
+      "currentVersion": 2,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "eyebrow",
+              "label": "Eyebrow",
+              "type": "string"
+            },
+            {
+              "slug": "heading",
+              "label": "Heading",
+              "type": "portableText",
+              "required": true
+            },
+            {
+              "slug": "lede",
+              "label": "Lede",
+              "type": "text"
+            },
+            {
+              "slug": "doors",
+              "label": "Doors",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "tone",
+                    "type": "select",
+                    "label": "Tone",
+                    "options": ["it", "mk"]
+                  },
+                  {
+                    "slug": "eyebrow",
+                    "type": "string",
+                    "label": "Eyebrow"
+                  },
+                  {
+                    "slug": "title",
+                    "type": "string",
+                    "label": "Title",
+                    "required": true
+                  },
+                  {
+                    "slug": "body",
+                    "type": "text",
+                    "label": "Body"
+                  },
+                  {
+                    "slug": "cta_label",
+                    "type": "string",
+                    "label": "Button label"
+                  },
+                  {
+                    "slug": "href",
+                    "type": "string",
+                    "label": "Link"
+                  }
+                ],
+                "maxItems": 4
+              }
+            }
+          ]
+        },
+        {
+          "version": 2,
+          "fields": [
+            {
+              "slug": "eyebrow",
+              "label": "Eyebrow",
+              "type": "string"
+            },
+            {
+              "slug": "heading",
+              "label": "Heading",
+              "type": "portableText",
+              "required": true
+            },
+            {
+              "slug": "lede",
+              "label": "Lede",
+              "type": "text"
+            },
+            {
+              "slug": "doors",
+              "label": "Option cards",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "tone",
+                    "type": "select",
+                    "label": "Tone (colour role)",
+                    "options": [
+                      "brand-primary",
+                      "brand-secondary",
+                      "success",
+                      "info",
+                      "warning",
+                      "danger",
+                      "neutral"
+                    ]
+                  },
+                  {
+                    "slug": "color",
+                    "type": "string",
+                    "label": "Colour override (palette hue, e.g. pine-400)"
+                  },
+                  {
+                    "slug": "eyebrow",
+                    "type": "string",
+                    "label": "Eyebrow"
+                  },
+                  {
+                    "slug": "title",
+                    "type": "string",
+                    "label": "Title",
+                    "required": true
+                  },
+                  {
+                    "slug": "body",
+                    "type": "text",
+                    "label": "Body"
+                  },
+                  {
+                    "slug": "cta_label",
+                    "type": "string",
+                    "label": "Button label"
+                  },
+                  {
+                    "slug": "href",
+                    "type": "url",
+                    "label": "Link"
+                  }
+                ],
+                "maxItems": 4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vt_logos",
+      "label": "Logo grid",
+      "description": "Partner or client names with optional logos, and a closing note.",
+      "category": "Content",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "kicker",
+              "label": "Kicker",
+              "type": "string"
+            },
+            {
+              "slug": "logos",
+              "label": "Logos",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "name",
+                    "type": "string",
+                    "label": "Name",
+                    "required": true
+                  },
+                  {
+                    "slug": "image",
+                    "type": "image",
+                    "label": "Logo"
+                  }
+                ],
+                "minItems": 1,
+                "maxItems": 24
+              }
+            },
+            {
+              "slug": "note",
+              "label": "Note",
+              "type": "string"
+            },
+            {
+              "slug": "link_label",
+              "label": "Note link label",
+              "type": "string"
+            },
+            {
+              "slug": "link_href",
+              "label": "Note link",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vt_pillars",
+      "label": "Service pillars",
+      "description": "Side-by-side service panels with a tag, heading, intro, checklist and link.",
+      "category": "Layout",
+      "currentVersion": 2,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "items",
+              "label": "Pillars",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "tone",
+                    "type": "select",
+                    "label": "Tone",
+                    "options": ["it", "mk"]
+                  },
+                  {
+                    "slug": "tag",
+                    "type": "string",
+                    "label": "Tag"
+                  },
+                  {
+                    "slug": "title",
+                    "type": "string",
+                    "label": "Title",
+                    "required": true
+                  },
+                  {
+                    "slug": "body",
+                    "type": "text",
+                    "label": "Intro"
+                  },
+                  {
+                    "slug": "points",
+                    "type": "text",
+                    "label": "Checklist (one per line)"
+                  },
+                  {
+                    "slug": "cta_label",
+                    "type": "string",
+                    "label": "Link label"
+                  },
+                  {
+                    "slug": "href",
+                    "type": "string",
+                    "label": "Link"
+                  }
+                ],
+                "minItems": 1,
+                "maxItems": 3
+              }
+            }
+          ]
+        },
+        {
+          "version": 2,
+          "fields": [
+            {
+              "slug": "items",
+              "label": "Pillars",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "tone",
+                    "type": "select",
+                    "label": "Tone (colour role)",
+                    "options": [
+                      "brand-primary",
+                      "brand-secondary",
+                      "success",
+                      "info",
+                      "warning",
+                      "danger",
+                      "neutral"
+                    ]
+                  },
+                  {
+                    "slug": "color",
+                    "type": "string",
+                    "label": "Colour override (palette hue, e.g. pine-400)"
+                  },
+                  {
+                    "slug": "tag",
+                    "type": "string",
+                    "label": "Tag"
+                  },
+                  {
+                    "slug": "title",
+                    "type": "string",
+                    "label": "Title",
+                    "required": true
+                  },
+                  {
+                    "slug": "body",
+                    "type": "text",
+                    "label": "Intro"
+                  },
+                  {
+                    "slug": "points",
+                    "type": "text",
+                    "label": "Checklist (one per line)"
+                  },
+                  {
+                    "slug": "cta_label",
+                    "type": "string",
+                    "label": "Link label"
+                  },
+                  {
+                    "slug": "href",
+                    "type": "url",
+                    "label": "Link"
+                  }
+                ],
+                "minItems": 1,
+                "maxItems": 3
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vt_section",
+      "label": "Section",
+      "description": "Generic section: kicker, heading, intro and a rich body that can hold vitops blocks.",
+      "category": "Layout",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "kicker",
+              "label": "Kicker",
+              "type": "string"
+            },
+            {
+              "slug": "heading",
+              "label": "Heading",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "sub",
+              "label": "Intro",
+              "type": "text"
+            },
+            {
+              "slug": "tone",
+              "label": "Backdrop",
+              "type": "select",
+              "defaultValue": "plain",
+              "validation": {
+                "options": ["plain", "grid"]
+              }
+            },
+            {
+              "slug": "body",
+              "label": "Body",
+              "type": "portableText"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vt_stats",
+      "label": "Stats",
+      "description": "Big-number callouts with a short explanation and a source.",
+      "category": "Content",
+      "currentVersion": 2,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "items",
+              "label": "Stats",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "value",
+                    "type": "string",
+                    "label": "Value",
+                    "required": true
+                  },
+                  {
+                    "slug": "unit",
+                    "type": "string",
+                    "label": "Unit"
+                  },
+                  {
+                    "slug": "text",
+                    "type": "text",
+                    "label": "Explanation"
+                  },
+                  {
+                    "slug": "cite",
+                    "type": "string",
+                    "label": "Source"
+                  },
+                  {
+                    "slug": "tone",
+                    "type": "select",
+                    "label": "Tone",
+                    "options": ["it", "mk"]
+                  }
+                ],
+                "minItems": 1,
+                "maxItems": 4
+              }
+            }
+          ]
+        },
+        {
+          "version": 2,
+          "fields": [
+            {
+              "slug": "items",
+              "label": "Stats",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "value",
+                    "type": "string",
+                    "label": "Value",
+                    "required": true
+                  },
+                  {
+                    "slug": "unit",
+                    "type": "string",
+                    "label": "Unit"
+                  },
+                  {
+                    "slug": "text",
+                    "type": "text",
+                    "label": "Explanation"
+                  },
+                  {
+                    "slug": "cite",
+                    "type": "string",
+                    "label": "Source"
+                  },
+                  {
+                    "slug": "tone",
+                    "type": "select",
+                    "label": "Tone (colour role)",
+                    "options": [
+                      "brand-primary",
+                      "brand-secondary",
+                      "success",
+                      "info",
+                      "warning",
+                      "danger",
+                      "neutral"
+                    ]
+                  },
+                  {
+                    "slug": "color",
+                    "type": "string",
+                    "label": "Colour override (palette hue, e.g. amber-300)"
+                  }
+                ],
+                "minItems": 1,
+                "maxItems": 4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vt_steps",
+      "label": "Numbered steps",
+      "description": "Numbered process steps joined by a line.",
+      "category": "Content",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "kicker",
+              "label": "Kicker",
+              "type": "string"
+            },
+            {
+              "slug": "heading",
+              "label": "Heading",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "steps",
+              "label": "Steps",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "title",
+                    "type": "string",
+                    "label": "Title",
+                    "required": true
+                  },
+                  {
+                    "slug": "body",
+                    "type": "text",
+                    "label": "Text"
+                  }
+                ],
+                "minItems": 2,
+                "maxItems": 6
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "slug": "pages",
+      "label": "Pages",
+      "labelSingular": "Page",
+      "supports": ["drafts", "revisions", "seo"],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText"
+        },
+        {
+          "slug": "layout",
+          "label": "Layout",
+          "type": "blocks",
+          "validation": {
+            "allowedTypes": [
+              "vt_hero",
+              "vt_section",
+              "vt_stats",
+              "vt_pillars",
+              "vt_compare",
+              "vt_dashboard",
+              "vt_logos",
+              "vt_badges",
+              "vt_band",
+              "vt_steps",
+              "vt_contact"
+            ],
+            "retiredTypes": ["vt_chips"],
+            "minItems": 0,
+            "maxItems": 40
+          }
+        }
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "menu:footer",
+      "name": "footer",
+      "label": "Footer",
+      "items": [
+        {
+          "type": "custom",
+          "label": "Privacy policy",
+          "url": "/privacy"
+        },
+        {
+          "type": "custom",
+          "label": "Cookie notice",
+          "url": "/cookies"
+        },
+        {
+          "type": "custom",
+          "label": "Terms of service",
+          "url": "/terms"
+        }
+      ]
+    },
+    {
+      "id": "menu:footer_company",
+      "name": "footer_company",
+      "label": "Footer: Company",
+      "items": [
+        {
+          "type": "custom",
+          "label": "Pricing",
+          "url": "/pricing"
+        },
+        {
+          "type": "custom",
+          "label": "Business Health Dashboard",
+          "url": "/dashboard"
+        },
+        {
+          "type": "custom",
+          "label": "Industries",
+          "url": "/industries"
+        },
+        {
+          "type": "custom",
+          "label": "Resources",
+          "url": "/resources"
+        },
+        {
+          "type": "custom",
+          "label": "About",
+          "url": "/about"
+        },
+        {
+          "type": "custom",
+          "label": "Contact",
+          "url": "/contact"
+        }
+      ]
+    },
+    {
+      "id": "menu:footer_it",
+      "name": "footer_it",
+      "label": "Footer: Managed IT",
+      "items": [
+        {
+          "type": "custom",
+          "label": "Software selection and setup",
+          "url": "/software-selection-setup"
+        },
+        {
+          "type": "custom",
+          "label": "Connected software",
+          "url": "/connected-software"
+        },
+        {
+          "type": "custom",
+          "label": "Joining and leaving",
+          "url": "/joining-and-leaving"
+        },
+        {
+          "type": "custom",
+          "label": "Licences and cost control",
+          "url": "/licences-cost-control"
+        },
+        {
+          "type": "custom",
+          "label": "Backup and security",
+          "url": "/backup-security"
+        },
+        {
+          "type": "custom",
+          "label": "Support and vendor management",
+          "url": "/support-vendor-management"
+        },
+        {
+          "type": "custom",
+          "label": "AI where it helps",
+          "url": "/ai-where-it-helps"
+        }
+      ]
+    },
+    {
+      "id": "menu:footer_marketing",
+      "name": "footer_marketing",
+      "label": "Footer: Digital Marketing",
+      "items": [
+        {
+          "type": "custom",
+          "label": "Websites",
+          "url": "/websites"
+        },
+        {
+          "type": "custom",
+          "label": "Ads",
+          "url": "/ads"
+        },
+        {
+          "type": "custom",
+          "label": "SEO and AI search",
+          "url": "/seo-ai-search"
+        },
+        {
+          "type": "custom",
+          "label": "Business profiles",
+          "url": "/business-profiles"
+        },
+        {
+          "type": "custom",
+          "label": "Social media",
+          "url": "/social-media"
+        },
+        {
+          "type": "custom",
+          "label": "Reviews and email campaigns",
+          "url": "/reviews-email"
+        }
+      ]
+    },
+    {
+      "id": "menu:header_actions",
+      "name": "header_actions",
+      "label": "Header buttons",
+      "items": [
+        {
+          "type": "custom",
+          "label": "Client portal",
+          "url": "#",
+          "cssClasses": "ghost"
+        },
+        {
+          "type": "custom",
+          "label": "Talk to us",
+          "url": "/contact",
+          "cssClasses": "solid"
+        }
+      ]
+    },
+    {
+      "id": "menu:primary",
+      "name": "primary",
+      "label": "Primary Navigation",
+      "items": [
+        {
+          "type": "custom",
+          "label": "Services",
+          "url": "/#services",
+          "children": [
+            {
+              "type": "custom",
+              "label": "Managed IT",
+              "url": "/managed-it",
+              "titleAttr": "Software, accounts, licences and security",
+              "cssClasses": "it"
+            },
+            {
+              "type": "custom",
+              "label": "Digital Marketing",
+              "url": "/digital-marketing",
+              "titleAttr": "Website, search, ads and social media",
+              "cssClasses": "mk"
+            },
+            {
+              "type": "custom",
+              "label": "Business Health Dashboard",
+              "url": "/dashboard",
+              "titleAttr": "All your key numbers in one place",
+              "cssClasses": "both"
+            }
+          ]
+        },
+        {
+          "type": "custom",
+          "label": "Industries",
+          "url": "/industries"
+        },
+        {
+          "type": "custom",
+          "label": "Pricing",
+          "url": "/pricing"
+        },
+        {
+          "type": "custom",
+          "label": "About",
+          "url": "/about"
+        }
+      ]
+    }
+  ],
+  "content": {
+    "pages": [
+      {
+        "id": "pages:home",
+        "slug": "home",
+        "status": "published",
+        "data": {
+          "title": "Home",
+          "content": [],
+          "layout": [
+            {
+              "_type": "vt_hero",
+              "_version": 2,
+              "_key": "h09",
+              "eyebrow": "Ottawa-based, serving businesses across Ontario",
+              "heading": [
+                {
+                  "_type": "block",
+                  "_key": "hb01",
+                  "style": "normal",
+                  "markDefs": [],
+                  "children": [
+                    {
+                      "_type": "span",
+                      "_key": "s02",
+                      "text": "We run your ",
+                      "marks": []
+                    },
+                    {
+                      "_type": "span",
+                      "_key": "s03",
+                      "text": "IT",
+                      "marks": ["em"]
+                    },
+                    {
+                      "_type": "span",
+                      "_key": "s04",
+                      "text": " and your ",
+                      "marks": []
+                    },
+                    {
+                      "_type": "span",
+                      "_key": "s05",
+                      "text": "marketing",
+                      "marks": ["strong"]
+                    },
+                    {
+                      "_type": "span",
+                      "_key": "s06",
+                      "text": ", so you can run your business.",
+                      "marks": []
+                    }
+                  ]
+                }
+              ],
+              "lede": "Most small businesses can’t afford to hire for IT and marketing. We do both for you.",
+              "doors": [
+                {
+                  "_key": "d07",
+                  "tone": "brand-primary",
+                  "color": "pine-400",
+                  "eyebrow": "IT services",
+                  "title": "Keep your tech working for you",
+                  "body": "We help you choose the right software and manage it with cost savings in mind, so your business runs smoothly as it grows.",
+                  "cta_label": "Explore IT services",
+                  "href": "/managed-it"
+                },
+                {
+                  "_key": "d08",
+                  "tone": "brand-secondary",
+                  "color": "amber-300",
+                  "eyebrow": "Marketing",
+                  "title": "Get found by more customers",
+                  "body": "We manage your website, Google listing, ads and social media to bring in more leads.",
+                  "cta_label": "Explore marketing",
+                  "href": "/digital-marketing"
+                }
+              ]
+            },
+            {
+              "_type": "vt_section",
+              "_version": 1,
+              "_key": "h14",
+              "kicker": "The problem",
+              "heading": "You didn’t start a business to manage software or post on Instagram.",
+              "sub": "But someone has to do it. Most owners end up with one of these options.",
+              "tone": "plain",
+              "body": [
+                {
+                  "_type": "vitops.cards",
+                  "_key": "p13",
+                  "columns": "3",
+                  "cards": [
+                    {
+                      "_key": "c10",
+                      "title": "Hire someone",
+                      "body": "A full-time IT or marketing person is expensive. A small team often doesn’t have enough work to keep them busy."
+                    },
+                    {
+                      "_key": "c11",
+                      "title": "Do it yourself",
+                      "body": "Every hour you spend on admin is an hour you’re not spending on customers."
+                    },
+                    {
+                      "_key": "c12",
+                      "title": "Put it off",
+                      "body": "Security gaps grow, you pay for software you don’t use, and competitors show up ahead of you in search."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "_type": "vt_stats",
+              "_version": 2,
+              "_key": "h17",
+              "items": [
+                {
+                  "_key": "i15",
+                  "value": "11",
+                  "unit": "hrs/week",
+                  "tone": "brand-secondary",
+                  "color": "amber-300",
+                  "text": "Owners spend about 11 hours a week on admin. That’s almost twice the time they spend on sales and growth.",
+                  "cite": "American Express SME Business Barometer, 2026"
+                },
+                {
+                  "_key": "i16",
+                  "value": "82%",
+                  "tone": "brand-primary",
+                  "color": "pine-400",
+                  "text": "of owners who hand off work grew their revenue in two years. Only 66% of owners who don’t hand off work did.",
+                  "cite": "Time Etc / Censuswide, 2023"
+                }
+              ]
+            },
+            {
+              "_type": "vt_section",
+              "_version": 1,
+              "_key": "h18",
+              "heading": "Or you can hand it to us, for a fixed monthly cost that scales as your team grows.",
+              "tone": "plain"
+            },
+            {
+              "_type": "vt_section",
+              "_version": 1,
+              "_key": "h19",
+              "kicker": "What we do",
+              "heading": "Two services. One team.",
+              "sub": "Choose one service or both.",
+              "tone": "grid"
+            },
+            {
+              "_type": "vt_pillars",
+              "_version": 2,
+              "_key": "h22",
+              "items": [
+                {
+                  "_key": "i20",
+                  "tone": "brand-primary",
+                  "color": "pine-400",
+                  "tag": "IT services",
+                  "title": "The right software, set up and managed",
+                  "body": "We help you choose the right software, set it up, and manage it with cost savings in mind. Your team works more efficiently, and your systems keep up as you grow.",
+                  "points": "Choose and set up software, including accounting, payroll and HR\nSet up and remove accounts when staff join or leave\nTrack licences so you only pay for what you use\nBack up your data and keep your accounts secure",
+                  "cta_label": "Learn about IT services",
+                  "href": "/managed-it"
+                },
+                {
+                  "_key": "i21",
+                  "tone": "brand-secondary",
+                  "color": "amber-300",
+                  "tag": "Marketing",
+                  "title": "More people find you and get in touch",
+                  "body": "We help customers find your business online and make it easy for them to contact you.",
+                  "points": "Build and manage your website\nHelp you show up on Google and in AI tools like ChatGPT\nRun ads that bring in leads\nKeep your social media and business listings up to date",
+                  "cta_label": "Learn about marketing",
+                  "href": "/digital-marketing"
+                }
+              ]
+            },
+            {
+              "_type": "vt_section",
+              "_version": 1,
+              "_key": "h23",
+              "kicker": "Why both",
+              "heading": "When one team does both, you see the full picture.",
+              "sub": "Marketing brings in new customers. IT helps your business run well as it grows. When two different companies handle these, nobody sees the full picture. When we handle both, you do.",
+              "tone": "plain"
+            },
+            {
+              "_type": "vt_compare",
+              "_version": 1,
+              "_key": "h24",
+              "caption": "We connect your marketing to the tools your team uses to quote and bill. So you can see how much your marketing really brings in."
+            },
+            {
+              "_type": "vt_section",
+              "_version": 1,
+              "_key": "h26",
+              "kicker": "Business health dashboard",
+              "heading": "See your whole business in one place",
+              "sub": "Because we manage both, we can show your marketing and IT numbers together. You’ll find them in one dashboard in your client portal, and it updates on its own.",
+              "tone": "plain",
+              "body": [
+                {
+                  "_type": "vitops.actionLink",
+                  "_key": "p25",
+                  "label": "Learn about the dashboard",
+                  "href": "/dashboard",
+                  "variant": "btn"
+                }
+              ]
+            },
+            {
+              "_type": "vt_dashboard",
+              "_version": 1,
+              "_key": "h27",
+              "variant": "both",
+              "caption": "Sample data shown. Included when your monthly plan totals over $400.",
+              "caption_link_label": "Estimate your cost",
+              "caption_link_href": "/estimate"
+            },
+            {
+              "_type": "vt_section",
+              "_version": 1,
+              "_key": "h32",
+              "heading": "Other reasons to use one team",
+              "tone": "plain",
+              "body": [
+                {
+                  "_type": "vitops.cards",
+                  "_key": "p31",
+                  "columns": "3",
+                  "cards": [
+                    {
+                      "_key": "c28",
+                      "title": "One team",
+                      "body": "You only have to explain your business once."
+                    },
+                    {
+                      "_key": "c29",
+                      "title": "One number to call",
+                      "body": "The same people help with your website and your software."
+                    },
+                    {
+                      "_key": "c30",
+                      "title": "One bill",
+                      "body": "One monthly price instead of paying several companies."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "_type": "vt_logos",
+              "_version": 1,
+              "_key": "h45",
+              "kicker": "Key partners",
+              "logos": [
+                {
+                  "_key": "i33",
+                  "name": "Zoho"
+                },
+                {
+                  "_key": "i34",
+                  "name": "Google"
+                },
+                {
+                  "_key": "i35",
+                  "name": "Microsoft"
+                },
+                {
+                  "_key": "i36",
+                  "name": "QuickBooks"
+                },
+                {
+                  "_key": "i37",
+                  "name": "HubSpot"
+                },
+                {
+                  "_key": "i38",
+                  "name": "Zendesk"
+                },
+                {
+                  "_key": "i39",
+                  "name": "Anthropic"
+                },
+                {
+                  "_key": "i40",
+                  "name": "Rippling"
+                },
+                {
+                  "_key": "i41",
+                  "name": "Cloudflare"
+                },
+                {
+                  "_key": "i42",
+                  "name": "Azure"
+                },
+                {
+                  "_key": "i43",
+                  "name": "IONOS"
+                },
+                {
+                  "_key": "i44",
+                  "name": "WHC"
+                }
+              ],
+              "note": "Using something else?",
+              "link_label": "Reach out",
+              "link_href": "#contact"
+            },
+            {
+              "_type": "vt_badges",
+              "_version": 1,
+              "_key": "hbadges01",
+              "kicker": "Industries",
+              "heading": "Who we work with",
+              "tone": "neutral",
+              "link_label": "See industries we work with",
+              "link_href": "/industries",
+              "badges": [
+                {
+                  "_key": "i46",
+                  "label": "Dental and health clinics"
+                },
+                {
+                  "_key": "i47",
+                  "label": "Trades and home services"
+                },
+                {
+                  "_key": "i48",
+                  "label": "Professional services"
+                },
+                {
+                  "_key": "i49",
+                  "label": "Insurance and mortgage brokerages"
+                },
+                {
+                  "_key": "i50",
+                  "label": "Real estate and property management"
+                },
+                {
+                  "_key": "i51",
+                  "label": "Non-profits and charities"
+                },
+                {
+                  "_key": "i52",
+                  "label": "Wellness and fitness studios"
+                },
+                {
+                  "_key": "i53",
+                  "label": "Automotive repair and detail shops"
+                }
+              ]
+            },
+            {
+              "_type": "vt_band",
+              "_version": 2,
+              "_key": "h55",
+              "icon": "$",
+              "tone": "brand-secondary",
+              "color": "amber-300",
+              "heading": "You may qualify for funding.",
+              "body": "Ontario businesses can get up to $15,000 through DMAP to plan their technology. We’ll tell you if you’re likely to qualify before you apply.",
+              "cta_label": "See funding programs",
+              "cta_href": "/funding"
+            },
+            {
+              "_type": "vt_steps",
+              "_version": 1,
+              "_key": "h59",
+              "kicker": "How it works",
+              "heading": "Getting started is simple.",
+              "steps": [
+                {
+                  "_key": "i56",
+                  "title": "Intro call",
+                  "body": "Tell us how things work today and what you’d like help with. It’s free and there’s no commitment."
+                },
+                {
+                  "_key": "i57",
+                  "title": "We review your setup",
+                  "body": "We look at your software, website and marketing to find where you’re losing time or money."
+                },
+                {
+                  "_key": "i58",
+                  "title": "You get a plan",
+                  "body": "We give you a simple plan and a fixed monthly price. You decide what to go ahead with."
+                }
+              ]
+            },
+            {
+              "_type": "vt_contact",
+              "_version": 1,
+              "_key": "h64",
+              "kicker": "Talk to us",
+              "heading": "Tell us what you’d like help with.",
+              "sub": "Send us a short note. A partner will reply and let you know if we’re a good fit.",
+              "email": "hi@vitops.ca",
+              "interests": [
+                {
+                  "_key": "i60",
+                  "label": "IT services"
+                },
+                {
+                  "_key": "i61",
+                  "label": "Marketing"
+                },
+                {
+                  "_key": "i62",
+                  "label": "Both"
+                },
+                {
+                  "_key": "i63",
+                  "label": "Not sure yet"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "pages:about",
+        "slug": "about",
+        "status": "published",
+        "data": {
+          "title": "About",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "about-body",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "about-body-1",
+                  "text": "This page is rendered by the catch-all route (src/pages/[...slug].astro). Any page you create in the pages collection appears at its slug automatically.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "layout": []
+        }
+      },
+      {
+        "id": "pages:terms",
+        "slug": "terms",
+        "status": "published",
+        "data": {
+          "title": "Terms & Conditions",
+          "content": [
+            {
+              "_type": "vitops.banner",
+              "_key": "terms-placeholder",
+              "message": "Placeholder text — replace with your own terms before launch. This is not legal advice.",
+              "tone": "warning",
+              "dismissible": false
+            },
+            {
+              "_type": "block",
+              "_key": "terms-intro",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-intro-1",
+                  "text": "These terms and conditions govern your use of this website. By accessing or using the site, you agree to be bound by them. If you disagree with any part of these terms, please do not use the site.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "terms-use-h",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-use-h-1",
+                  "text": "Use of the site",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "terms-use",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-use-1",
+                  "text": "Content on this site is provided for general information only and may change without notice. You may not use the site in any way that causes, or may cause, damage to the site or impairment of its availability.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "terms-liability-h",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-liability-h-1",
+                  "text": "Limitation of liability",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "terms-liability",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-liability-1",
+                  "text": "The site is provided \"as is\" without warranties of any kind. To the fullest extent permitted by law, we exclude all liability for any loss or damage arising from use of the site.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "terms-contact",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-contact-1",
+                  "text": "Questions about these terms? Contact the site owner. Edit this page in the EmDash admin.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "layout": []
+        }
+      },
+      {
+        "id": "pages:privacy",
+        "slug": "privacy",
+        "status": "published",
+        "data": {
+          "title": "Privacy Policy",
+          "content": [
+            {
+              "_type": "vitops.banner",
+              "_key": "privacy-placeholder",
+              "message": "Placeholder text — replace with your own privacy policy before launch. This is not legal advice.",
+              "tone": "warning",
+              "dismissible": false
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-intro",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-intro-1",
+                  "text": "This policy describes what information this website collects, how it is used, and the choices you have. We collect only what we need to operate the site.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-collect-h",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-collect-h-1",
+                  "text": "What we collect",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-collect",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-collect-1",
+                  "text": "Standard server logs (IP address, browser type, pages visited) used for security and troubleshooting, and any information you submit through forms on the site.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-use-h",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-use-h-1",
+                  "text": "How we use it",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-use",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-use-1",
+                  "text": "To operate and secure the site and to respond to your enquiries. We do not sell personal information. Third-party services used to host this site (e.g. Cloudflare) process data under their own policies.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-rights-h",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-rights-h-1",
+                  "text": "Your rights",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-rights",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-rights-1",
+                  "text": "You may request access to, correction of, or deletion of your personal information by contacting the site owner. Edit this page in the EmDash admin.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "layout": []
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,100 @@
+import react from '@astrojs/react';
+import { cloudflareEmail } from '@emdash-cms/cloudflare/plugins';
+import vitops from '@getvitops/astro';
+import { resolveOrganizationName } from '@getvitops/astro/routes';
+import { vitopsEmdash, vitopsHosting } from '@getvitops/emdash';
+import { defineConfig } from 'astro/config';
+import emdash from 'emdash/astro';
+import config from './site.json' with { type: 'json' };
+
+// site.json's organization.name is the one build-time-readable source for a
+// display name — EmDash's own getSiteSettings() only resolves inside a live
+// Worker request (AsyncLocalStorage + a DB binding), so it can't be read here
+// even though it's what Layout.astro shows on rendered pages. See AGENTS.md's
+// "EmDash plugin as the design-system editing surface".
+const organizationName = resolveOrganizationName(config) ?? 'My EmDash Site';
+
+// Hosting seam: adapter + EmDash database/storage for the configured target.
+// Default 'cloudflare' (Workers + D1 + R2 — see wrangler.jsonc / src/worker.ts).
+// To move to a Node host (VPS / docker-compose / k8s) later:
+//   pnpm add @astrojs/node better-sqlite3
+// then pass { target: 'node' } here (or set the HOSTING env var, which wins).
+// Content lives in the database and media in storage, so switching hosts is a
+// data migration, not a rewrite — see README "Hosting".
+const { adapter, database, storage } = await vitopsHosting();
+
+export default defineConfig({
+  output: 'server',
+  adapter,
+  image: {
+    layout: 'constrained',
+    responsiveStyles: true,
+  },
+  integrations: [
+    // The EmDash admin UI (/_emdash/admin) is a React app.
+    react(),
+    emdash({
+      database,
+      storage,
+      // Vitops design-system blocks (link/button, image compare, copy snippet,
+      // banner, disclosure, accordion, hero, carousel, gallery, cards, marquee) in the
+      // editor slash menu. Narrow them with `vitopsEmdash({ blocks: { exclude } })`. Default 'integration'
+      // script delivery: Layout.astro renders <Head /> from @getvitops/astro,
+      // which emits the web-component runtime tags.
+      //
+      // designSystemEditor mounts a live <wc-theme-editor> admin page at
+      // /design-system — edits are visible site-wide immediately (no
+      // rebuild) and auto-sync back to source once site.deployment.repo and
+      // a VITOPS_GITHUB_TOKEN secret are set (see SETUP.html) — see
+      // AGENTS.md's "EmDash plugin as the design-system editing surface".
+      // Until then the live half still works; only the sync half is skipped.
+      //
+      // cloudflareEmail sends magic-link sign-in, invites and account recovery
+      // through Cloudflare Email Sending (the EMAIL binding in wrangler.jsonc).
+      // Magic link is how an editor gets into a site whose database was copied
+      // from another origin: a passkey only works at the origin it was
+      // registered on, so a dev database refreshed from prod
+      // (scripts/refresh-dev.mjs) would otherwise lock everyone out of dev. The
+      // cloned users already exist, so the same email signs in on both origins.
+      // `from` must be on a domain onboarded with Cloudflare Email Sending —
+      // `npx vitops email setup send.<your-domain>` — and is usually the
+      // subdomain, not the apex (see AGENTS.md's "Sender-domain onboarding").
+      // Without it, magic link answers "Email is not configured".
+      plugins: [
+        vitopsEmdash({ designSystemEditor: { config } }),
+        cloudflareEmail({
+          from: { email: 'cms@send.my-emdash-site.example.com', name: organizationName },
+        }),
+      ],
+      // 1.0's runtime migration mode defaults to 'auto' (apply pending core
+      // migrations on first request) — fine for local dev, but a deploy
+      // should have already migrated before traffic arrives. 'check' 503s a
+      // request instead of migrating behind it if the explicit `emdash
+      // migrate` step in site-deploy-emdash.yml (see AGENTS.md's CI/CD
+      // section) was skipped or failed. `dev: 'auto'` keeps the convenient
+      // first-run behaviour for `pnpm dev`.
+      migrations: { runtime: 'check', dev: 'auto' },
+    }),
+    vitops({
+      favicon: {
+        source: 'src/assets/logo.svg',
+        name: organizationName,
+        themeColor: '#81b9a1',
+        backgroundColor: '#141b26',
+      },
+      // inject: false — Layout.astro imports the generated stylesheet, so
+      // EmDash's /_emdash/admin routes don't inherit the design system while
+      // your pages (and EmDash previews rendered through the layout) do.
+      //
+      // site.json is the umbrella Config — organization + site facts plus the
+      // design system at designSystem.themes.default — so css.input points
+      // there instead of a bare design-system.json. legal/fonts/search/ads/
+      // reviews all read the same file (see AGENTS.md's "Client onboarding").
+      css: { format: 'tailwind', inject: false, input: 'site.json' },
+      site: { input: 'site.json' },
+      // Without this, `site.fonts` in site.json is silently ignored (no webfonts
+      // load) — logged in UPSTREAM.md. `true` reads the families from `site`.
+      fonts: true,
+    }),
+  ],
+});

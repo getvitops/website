@@ -1,0 +1,53 @@
+{
+  "collections": [
+    {
+      "slug": "pages",
+      "label": "Pages",
+      "labelSingular": "Page",
+      "supports": ["drafts", "revisions", "seo"],
+      "hidden": false,
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "unique": false
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText",
+          "required": false,
+          "unique": false
+        },
+        {
+          "slug": "layout",
+          "label": "Layout",
+          "type": "blocks",
+          "required": false,
+          "unique": false,
+          "validation": {
+            "allowedTypes": [
+              "vt_hero",
+              "vt_section",
+              "vt_stats",
+              "vt_pillars",
+              "vt_compare",
+              "vt_dashboard",
+              "vt_logos",
+              "vt_chips",
+              "vt_band",
+              "vt_steps",
+              "vt_contact"
+            ],
+            "retiredTypes": [],
+            "minItems": 0,
+            "maxItems": 40
+          }
+        }
+      ]
+    }
+  ],
+  "version": "90bdcf2b81e040a9"
+}

@@ -1,0 +1,52 @@
+---
+import type { BV } from './types';
+// Code-owned illustration: marketing + IT reports as two disconnected agencies
+// vs. one connected funnel. Only the caption is editable. See UPSTREAM.md
+// ("Proposed blocks" → vitops.comparison) for what would make it generic.
+import type { BlockComponentProps } from 'emdash/ui';
+
+type Props = BlockComponentProps<BV<{ caption?: string }>>;
+const { value } = Astro.props;
+const chain = [
+  ['1,310', 'ad clicks'],
+  ['38', 'leads'],
+  ['14', 'jobs won'],
+  ['$41,600', 'in sales'],
+];
+---
+
+<div class="vt-bleed">
+  <div class="centered">
+    <div class="spotlight split flex-col @md:flex-row gap-m vt-compare">
+      <section class="card rhythm vt-compare__apart" aria-label="With two separate companies">
+        <h3 class="font-title text-neutral-muted">With two separate companies</h3>
+        <div class="vt-report">
+          <span class="font-eyebrow text-amber-300">Marketing agency report</span>
+          <p>1,310 ad clicks</p>
+        </div>
+        <div class="vt-gap" aria-hidden="true"><span>?</span></div>
+        <div class="vt-report">
+          <span class="font-eyebrow text-pine-400">IT provider report</span>
+          <p>12 support tickets closed</p>
+        </div>
+        <p class="text-neutral-muted">
+          Did those clicks turn into paying jobs? Neither company can tell you.
+        </p>
+      </section>
+      <section class="card rhythm vt-compare__together" aria-label="With Vitops doing both">
+        <h3 class="font-title">With Vitops doing both</h3>
+        <ol class="vt-chain flex items-center" role="list">
+          {
+            chain.map(([n, label], i) => (
+              <li>
+                <b class={i === chain.length - 1 ? 'text-pine-400' : ''}>{n}</b>
+                <span class="text-neutral-muted">{label}</span>
+              </li>
+            ))
+          }
+        </ol>
+        {value.caption && <p>{value.caption}</p>}
+      </section>
+    </div>
+  </div>
+</div>

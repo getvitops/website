@@ -1,0 +1,94 @@
+---
+import type { BV } from './types';
+// Code-owned illustration of the client-portal dashboard with sample data.
+// The sample numbers live here; the editor picks the variant and caption.
+import type { BlockComponentProps } from 'emdash/ui';
+import logo from '../../assets/logo.svg?raw';
+
+interface DashValue {
+  variant?: 'both' | 'it' | 'marketing';
+  caption?: string;
+  caption_link_label?: string;
+  caption_link_href?: string;
+}
+type Props = BlockComponentProps<BV<DashValue>>;
+
+const { value } = Astro.props;
+const variant = value.variant ?? 'both';
+
+type Tile = { k: string; v: string; of?: string; d: string; state: 'up' | 'warn' | 'muted' };
+const marketing: Tile[] = [
+  { k: 'Ad spend', v: '$1,180', d: 'Budget: $1,500', state: 'muted' },
+  { k: 'Ad clicks', v: '1,310', d: '▲ 8% from last month', state: 'up' },
+  { k: 'New leads', v: '38', d: '▲ 9 from last month', state: 'up' },
+  { k: 'Jobs won', v: '14', d: '$41,600 in sales', state: 'up' },
+];
+const it: Tile[] = [
+  { k: 'Software cost', v: '$1,840', d: 'per month', state: 'muted' },
+  { k: 'Licences in use', v: '22', of: 'of 25', d: '3 unused', state: 'warn' },
+  { k: 'Staff using 2-step login', v: '25', of: 'of 25', d: 'Everyone protected', state: 'up' },
+  { k: 'Open requests', v: '2', d: 'All systems running', state: 'up' },
+];
+const groups = [
+  variant !== 'it' && { id: 'mk', label: 'Marketing', tiles: marketing },
+  variant !== 'marketing' && { id: 'it', label: 'IT and software', tiles: it },
+].filter(Boolean) as Array<{ id: 'mk' | 'it'; label: string; tiles: Tile[] }>;
+const stateClass = { up: 'text-pine-400', warn: 'text-amber-300', muted: 'text-neutral-muted' };
+---
+
+<div class="vt-bleed">
+  <div class="centered rhythm">
+    <figure class="spotlight vt-portal" aria-label="Sample Business Health dashboard">
+      <div class="vt-portal__bar flex items-center">
+        <div class="cluster vt-portal__title">
+          <span class="vt-portal__logo" set:html={logo} aria-hidden="true" />
+          <strong>Business health</strong>
+          <span class="text-neutral-muted">Sample company, October 2026</span>
+        </div>
+        <span class="cluster text-neutral-muted vt-live"><i aria-hidden="true"></i>Updated 2 minutes ago</span>
+      </div>
+      <div class="vt-portal__body">
+        {
+          groups.map((g) => (
+            <section>
+              <h3 class={`font-eyebrow cluster ${g.id === 'mk' ? 'text-amber-300' : 'text-pine-400'}`}>
+                <i class={`vt-dot ${g.id === 'mk' ? 'bg-amber-300' : 'bg-pine-400'}`} aria-hidden="true"></i>
+                {g.label}
+              </h3>
+              <ul class="subgrid subgrid-cols-4 subgrid-rows-3 subgrid-responsive vt-tiles" style="--subgrid-gap: var(--space-s)" role="list">
+                {g.tiles.map((t) => (
+                  <li class="card subgrid-card vt-tile">
+                    <span class="text-neutral-muted">{t.k}</span>
+                    <b class="vt-tile__v">
+                      {t.v}
+                      {t.of && <span class="text-neutral-muted vt-tile__of"> {t.of}</span>}
+                    </b>
+                    <span class={`font-caption ${stateClass[t.state]}`}>{t.d}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+        {
+          variant !== 'marketing' && (
+            <p class="vt-tip">
+              <strong class="text-amber-300">Worth a look</strong>
+              3 software licences aren’t being used. Removing them saves $96 a month.
+            </p>
+          )
+        }
+      </div>
+    </figure>
+    {
+      value.caption && (
+        <p class="spotlight font-caption text-neutral-muted">
+          {value.caption}{' '}
+          {value.caption_link_label && value.caption_link_href && (
+            <a class="text-pine-400" href={value.caption_link_href}>{value.caption_link_label} ›</a>
+          )}
+        </p>
+      )
+    }
+  </div>
+</div>

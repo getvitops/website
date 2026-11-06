@@ -1,0 +1,70 @@
+---
+// Header driven by two EmDash menus: `primary` (one level of children becomes
+// the Services dropdown; a child's "title attribute" is its description and its
+// CSS class — it / mk / both — picks the dot colour) and `header_actions` (the
+// two buttons; CSS class `ghost` or `solid`). Edit both under Menus in the admin.
+import { getMenu } from 'emdash';
+import logo from '../assets/logo.svg?raw';
+
+interface Props {
+  siteTitle: string;
+}
+const { siteTitle } = Astro.props;
+
+const primary = (await getMenu('primary'))?.items ?? [];
+const actions = (await getMenu('header_actions'))?.items ?? [];
+const dot = (cls?: string) => (cls === 'mk' ? 'vt-dot--mk' : cls === 'both' ? 'vt-dot--both' : 'vt-dot--it');
+---
+
+<header class="navbar-sticky vt-header">
+  <div class="centered">
+    <div class="spotlight vt-nav flex items-center">
+      <a class="vt-brand" href="/" aria-label={`${siteTitle} home`}>
+        <span class="vt-brand__mark" set:html={logo} aria-hidden="true" />
+        <span>{siteTitle.toLowerCase()}</span>
+      </a>
+      <nav aria-label="Primary" class="vt-nav__links">
+        <ul role="list">
+          {
+            primary.map((item) => (
+              <li class:list={[item.children.length > 0 && 'vt-has-dd']}>
+                <a href={item.url} aria-haspopup={item.children.length > 0 ? 'true' : undefined}>
+                  {item.label}
+                  {item.children.length > 0 && (
+                    <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+                      <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" />
+                    </svg>
+                  )}
+                </a>
+                {item.children.length > 0 && (
+                  <ul class="vt-dd" role="list">
+                    {item.children.map((c) => (
+                      <li>
+                        <a href={c.url}>
+                          <i class={`vt-dot ${dot(c.cssClasses)}`} aria-hidden="true" />
+                          <span>
+                            <b>{c.label}</b>
+                            {c.titleAttr && <small>{c.titleAttr}</small>}
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <div class="vt-nav__actions flex items-center">
+        {
+          actions.map((a) => (
+            <a class={a.cssClasses === 'ghost' ? 'btn vt-btn-ghost' : 'btn'} href={a.url}>
+              {a.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</header>

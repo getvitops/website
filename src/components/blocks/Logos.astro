@@ -1,0 +1,47 @@
+---
+import type { BV } from './types';
+import { Image, type BlockComponentProps } from 'emdash/ui';
+
+interface LogosValue {
+  kicker?: string;
+  logos?: Array<{ name: string; image?: unknown }>;
+  note?: string;
+  link_label?: string;
+  link_href?: string;
+}
+type Props = BlockComponentProps<BV<LogosValue>>;
+
+const { value } = Astro.props;
+---
+
+<div class="region border-b border-neutral-muted">
+  <div class="centered rhythm">
+    {value.kicker && <span class="spotlight font-eyebrow text-pine-400">{value.kicker}</span>}
+    <ul class="spotlight subgrid subgrid-responsive vt-logos" style="--subgrid-cols: 6; --subgrid-row-span: 1; --subgrid-gap: var(--space-s)" role="list">
+      {
+        (value.logos ?? []).map((l) => (
+          <li class="card subgrid-card vt-logo">
+            <div class="cluster vt-logo__row">
+              {l.image ? (
+                <Image image={l.image as never} class="vt-logo__img" />
+              ) : (
+                <i class="vt-slot" aria-hidden="true">logo</i>
+              )}
+              <span>{l.name}</span>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+    {
+      value.note && (
+        <p class="spotlight text-neutral-muted">
+          {value.note}{' '}
+          {value.link_label && value.link_href && (
+            <a class="text-pine-400" href={value.link_href}>{value.link_label}</a>
+          )}
+        </p>
+      )
+    }
+  </div>
+</div>

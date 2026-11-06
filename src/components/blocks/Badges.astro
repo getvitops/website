@@ -1,0 +1,43 @@
+---
+import type { BV } from './types';
+import type { BlockComponentProps } from 'emdash/ui';
+import { resolveTone } from './tone';
+
+interface BadgesValue {
+  kicker?: string;
+  heading: string;
+  link_label?: string;
+  link_href?: string;
+  tone?: string;
+  color?: string;
+  badges?: Array<{ label: string }>;
+}
+type Props = BlockComponentProps<BV<BadgesValue>>;
+
+const { value } = Astro.props;
+// Neutral (the default) leaves the framework's `.badge` untouched; any other
+// tone, or a colour override, tints text and border from the tone variables.
+const toned = (value.tone && value.tone !== 'neutral') || value.color;
+const t = resolveTone(value.tone, value.color);
+---
+
+<div class="region border-b border-neutral-muted">
+  <div class="centered">
+    <div class="spotlight split flex-col @md:split-1-2 @md:items-center gap-xl">
+      <div class="rhythm">
+        {value.kicker && <span class="font-eyebrow text-pine-400">{value.kicker}</span>}
+        <h2 class="font-subheading">{value.heading}</h2>
+        {value.link_label && value.link_href && (
+          <a class="text-pine-400 vt-strong" href={value.link_href}>{value.link_label} ›</a>
+        )}
+      </div>
+      <ul class="cluster" role="list" style={toned ? t.style : undefined}>
+        {
+          (value.badges ?? []).map((b) => (
+            <li class:list={['badge', toned && 'vt-tone-text vt-tone-edge']}>{b.label}</li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</div>

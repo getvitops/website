@@ -1,0 +1,61 @@
+---
+// Footer columns come from EmDash menus: footer_it, footer_marketing,
+// footer_company, and `footer` (legal links, bottom row). Tagline comes from the
+// site settings; the blurb from site.seo.defaultDescription in site.json.
+import { getMenu } from 'emdash';
+import config from '../../site.json' with { type: 'json' };
+import logo from '../assets/logo.svg?raw';
+
+interface Props {
+  siteTitle: string;
+  tagline?: string;
+}
+const { siteTitle, tagline } = Astro.props;
+const [it, marketing, company, legal] = await Promise.all(
+  ['footer_it', 'footer_marketing', 'footer_company', 'footer'].map((n) => getMenu(n))
+);
+const columns = [
+  { title: 'Managed IT', items: it?.items ?? [] },
+  { title: 'Digital Marketing', items: marketing?.items ?? [] },
+  { title: 'Company', items: company?.items ?? [] },
+];
+const blurb = (config.site as { seo?: { defaultDescription?: string } }).seo?.defaultDescription;
+const year = new Date().getFullYear();
+---
+
+<footer class="vt-footer">
+  <div class="centered">
+    <div class="spotlight vt-footer__grid grid-auto" style="--grid-min: 12rem; --grid-gap: var(--space-xl)">
+      <div class="rhythm">
+        <a class="vt-brand" href="/" aria-label={`${siteTitle} home`}>
+          <span class="vt-brand__mark" set:html={logo} aria-hidden="true" />
+          <span>{siteTitle.toLowerCase()}</span>
+        </a>
+        {blurb && <p class="text-neutral-muted">{blurb}</p>}
+        {tagline && <p>{tagline}</p>}
+      </div>
+      {
+        columns.map((col) => (
+          <nav aria-label={col.title} class="rhythm">
+            <h2 class="font-lead">{col.title}</h2>
+            <ul role="list">
+              {col.items.map((i) => (
+                <li>
+                  <a class="text-neutral-muted" href={i.url}>{i.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+    <div class="spotlight vt-footer__base flex flex-wrap items-center justify-between gap-s text-neutral-muted">
+      <span>© {year} {siteTitle}</span>
+      <nav aria-label="Legal">
+        <ul class="cluster" role="list">
+          {(legal?.items ?? []).map((i) => <li><a href={i.url}>{i.label}</a></li>)}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,48 @@
+---
+import { getEmDashEntry } from 'emdash';
+import { PortableText } from 'emdash/ui';
+import PageBlocks from '../components/PageBlocks.astro';
+import Layout from '../layouts/Layout.astro';
+
+// The seeded home page (seed/seed.json → pages/home). Edit it in the admin.
+// The page is composed from the `layout` blocks field (vt_* blocks, rendered by
+// PageBlocks); `content` (Portable Text) is the fallback for simple pages.
+// Vitops blocks from @getvitops/emdash render inside any Portable Text body —
+// EmDash merges the plugin's block components into <PortableText>.
+//
+// Deliberately NOT prerendered, unlike AGENTS.md's general "prerender by
+// default" rule: this is the one route where the tradeoff that rule names
+// (prerendered = fast, but reflects the database as of the last build) is
+// unacceptable — the whole point of editing in EmDash is that a publish
+// shows up without a redeploy. Add `getStaticPaths()` + `prerender = true`
+// here only if this site's home page genuinely doesn't need that.
+const { entry: page } = await getEmDashEntry('pages', 'home');
+
+// `page.data` is typed `unknown` until `.emdash/types.ts` is generated from a
+// running site (`pnpm dev`, then `emdash types`), so a fresh scaffold would fail
+// `astro check`; the cast keeps it passing both before and after, where the
+// generated type is already `string`.
+const title = page?.data.title as string | undefined;
+const layout = page?.data.layout as unknown[] | undefined;
+---
+
+<Layout description={title}>
+  {
+    layout && layout.length > 0 ? (
+      <PageBlocks value={layout} />
+    ) : (
+      <section class="centered rhythm region">
+        <h1>{title ?? 'Welcome'}</h1>
+        {page?.data.content ? (
+          <PortableText value={page.data.content} />
+        ) : (
+          <p>
+            No home page yet. Complete the setup wizard at <a href="/_emdash/admin">/_emdash/admin</a>{' '}
+            and choose to include the sample content, or create a page with the slug{' '}
+            <code>home</code> in the admin.
+          </p>
+        )}
+      </section>
+    )
+  }
+</Layout>

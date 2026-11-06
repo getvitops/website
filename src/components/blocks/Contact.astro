@@ -1,0 +1,57 @@
+---
+import type { BV } from './types';
+// Enquiry form block. NOTE: submission isn't wired up yet (phase C) — the form
+// has no action, so it must not go live as-is. See plan / UPSTREAM.md (vitops.form).
+import type { BlockComponentProps } from 'emdash/ui';
+
+interface ContactValue {
+  kicker?: string;
+  heading: string;
+  sub?: string;
+  email?: string;
+  interests?: Array<{ label: string }>;
+}
+type Props = BlockComponentProps<BV<ContactValue>>;
+
+const { value, blockKey } = Astro.props;
+const id = `contact-${blockKey ?? 'form'}`;
+---
+
+<section class="region border-b border-neutral-muted" id="contact">
+  <div class="centered">
+    <div class="spotlight split flex-col @md:flex-row gap-3xl">
+      <div class="rhythm">
+        {value.kicker && <span class="font-eyebrow text-pine-400">{value.kicker}</span>}
+        <h2>{value.heading}</h2>
+        {value.sub && <p class="vt-sub text-neutral-muted">{value.sub}</p>}
+        {
+          value.email && (
+            <p class="vt-sub">
+              Or email <a class="text-pine-400" href={`mailto:${value.email}`}>{value.email}</a>
+            </p>
+          )
+        }
+      </div>
+      <form class="card vt-form rhythm" method="post" aria-labelledby={`${id}-legend`}>
+        <fieldset class="vt-fieldset">
+          <legend id={`${id}-legend`} class="text-neutral-muted">I’m interested in</legend>
+          <div class="cluster">
+            {
+              (value.interests ?? []).map((o) => (
+                <label class="tag">
+                  <input type="checkbox" name="interest" value={o.label} />
+                  <span>{o.label}</span>
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+        <label class="vt-field"><span class="text-neutral-muted">Name</span><input type="text" name="name" autocomplete="name" required /></label>
+        <label class="vt-field"><span class="text-neutral-muted">Work email</span><input type="email" name="work-email" autocomplete="email" required /></label>
+        <label class="vt-field"><span class="text-neutral-muted">Company (optional)</span><input type="text" name="company" autocomplete="organization" /></label>
+        <label class="vt-field"><span class="text-neutral-muted">What would you like help with?</span><textarea name="message" rows="4"></textarea></label>
+        <button class="btn vt-send" type="submit">Send message</button>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,73 @@
+---
+import VitopsHead from '@getvitops/astro/Head.astro';
+import { resolveOrganizationName } from '@getvitops/astro/routes';
+import { getSiteSettings } from 'emdash';
+import { createPublicPageContext } from 'emdash/page';
+import { EmDashHead } from 'emdash/ui';
+import config from '../../site.json' with { type: 'json' };
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+// Design-system CSS, layout-scoped (vitops css.inject: false): only pages
+// rendered through this layout get it — keeps it out of /_emdash/admin, while
+// EmDash previews (rendered through this layout) keep it.
+import '../styles/tailwind.css';
+// Site-local CSS: only what the framework has no class for (see the file header).
+import '../styles/site.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+const settings = await getSiteSettings();
+// getSiteSettings().title is the editable, client-facing display name (set in
+// the EmDash admin) — it wins whenever it's set. resolveOrganizationName(config)
+// is the fallback rather than a second hardcoded string, so a fresh scaffold
+// shows organization.name (from site.json) before anyone's touched the admin.
+const siteTitle = settings?.title || resolveOrganizationName(config) || 'My EmDash Site';
+const fullTitle = title ? `${title} — ${siteTitle}` : siteTitle;
+const siteDescription = settings?.tagline || 'An EmDash website with the Vitops design system';
+
+const pageCtx = createPublicPageContext({
+  Astro,
+  kind: 'custom',
+  pageType: 'website',
+  title: fullTitle,
+  pageTitle: title ?? siteTitle,
+  description: description || siteDescription,
+  canonical: new URL(Astro.url.pathname, Astro.url).href,
+  image,
+  seo: { ogImage: image },
+  siteName: siteTitle,
+});
+---
+
+<!doctype html>
+<!-- data-theme="dark": the site is dark-only. The framework has no "dark" default
+     (defaultColorScheme is light | system), so the attribute is set here — see
+     UPSTREAM.md. -->
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <EmDashHead page={pageCtx} />
+    <!-- Favicon/PWA links + the vitops web-component runtime. The runtime
+         progressively enhances the @getvitops/emdash editor blocks
+         (wc-carousel, wc-image-compare, ...) wherever Portable Text renders. -->
+    <VitopsHead />
+  </head>
+  <body class="bg-neutral-muted text-neutral">
+    <SiteHeader siteTitle={siteTitle} />
+
+    <!-- Blocks own their own region/centered wrappers (full-bleed sections), so
+         <main> adds none. Pages that render plain Portable Text wrap it themselves. -->
+    <main>
+      <slot />
+    </main>
+
+    <SiteFooter siteTitle={siteTitle} tagline={settings?.tagline} />
+  </body>
+</html>
