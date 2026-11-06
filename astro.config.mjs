@@ -92,9 +92,9 @@ export default defineConfig({
       // reviews all read the same file (see AGENTS.md's "Client onboarding").
       css: { format: 'tailwind', inject: false, input: 'site.json' },
       site: { input: 'site.json' },
-      // Without this, `site.fonts` in site.json is silently ignored (no webfonts
-      // load) — logged in UPSTREAM.md. `true` reads the families from `site`.
-      fonts: true,
+      // Writes design-manifest.json + editor assets to public/vitops/ for the
+      // EmDash /design-system admin page (without loading the editor publicly).
+      editorManifest: true,
     }),
   ],
 });

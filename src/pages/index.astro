@@ -10,12 +10,11 @@ import Layout from '../layouts/Layout.astro';
 // Vitops blocks from @getvitops/emdash render inside any Portable Text body —
 // EmDash merges the plugin's block components into <PortableText>.
 //
-// Deliberately NOT prerendered, unlike AGENTS.md's general "prerender by
-// default" rule: this is the one route where the tradeoff that rule names
-// (prerendered = fast, but reflects the database as of the last build) is
-// unacceptable — the whole point of editing in EmDash is that a publish
-// shows up without a redeploy. Add `getStaticPaths()` + `prerender = true`
-// here only if this site's home page genuinely doesn't need that.
+// Prerendered like every public page: written to static HTML at build time from
+// the `home` entry. A publish in the admin goes live on the next rebuild
+// (AGENTS.md "Rendering and freshness").
+export const prerender = true;
+
 const { entry: page } = await getEmDashEntry('pages', 'home');
 
 // `page.data` is typed `unknown` until `.emdash/types.ts` is generated from a

@@ -1,12 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// NOT prerendered: [...slug].astro reaches this via Astro.rewrite('/404'), and
-// Astro refuses to rewrite an on-demand route to a static one under
-// `output: 'server'` ("You tried to rewrite the on-demand route ... with the
-// static route '/404'"), turning every unknown URL into a 500. The scaffold's
-// earlier `prerender = true` hit exactly that — logged in UPSTREAM.md.
-export const prerender = false;
+// Prerendered to /404.html; Astro serves it with a 404 status for any URL no route matches.
+export const prerender = true;
 ---
 
 <Layout title="Page not found">
