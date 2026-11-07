@@ -1,30 +1,24 @@
-# Prompt: upgrade this site to the new @getvitops toolchain
+# Prompt: move this site from `8.3.0-alpha.0` to `8.3.0-alpha.1`
 
-Run this in an agent session in this directory, after the new `@getvitops/*` packages are published on the `alpha` dist-tag (they are: `8.3.0-alpha.0`, `@getvitops/emdash@2.0.0-alpha.0`, `@getvitops/create@0.9.0-alpha.0`; `latest` is untouched).
+Run this in an agent session in this directory, after `@getvitops/*` `8.3.0-alpha.1` (`@getvitops/emdash@2.0.0-alpha.1`, `@getvitops/create@0.9.0-alpha.1`) is live on the `alpha` dist-tag. Check first: `npm view @getvitops/cli dist-tags.alpha` must print `8.3.0-alpha.1`. If it still prints `alpha.0`, stop and say so.
 
 ---
 
-You are upgrading this EmDash site (vitops.ca, scaffolded from `@getvitops/create`'s emdash template) to the newly published `@getvitops/*` toolchain. The site is not deployed: all content is in `seed/seed.json`, and the local D1 is disposable. Use `vp`/`vpr`/`vpx`, never `pnpm`.
+You are updating this EmDash site (vitops.ca) from the `alpha.0` toolchain to `alpha.1`. The `alpha.0` migration is already done, so do **only** what changed in this release. The site is not deployed, all content is in `seed/seed.json`, and the local D1 is disposable. Use `vp`/`vpr`, never `pnpm`; run the site's own binaries with `vp exec` (`vpx` fetches a remote copy instead of the pinned one).
 
-1. Commit the current working tree as-is (`chore: snapshot before toolchain upgrade`) so the upgrade is a reviewable diff.
-2. Move this site onto the `alpha` channel. It pins `@getvitops/*` to `latest`, which does not resolve to the alpha. In `package.json` set `@getvitops/astro`, `@getvitops/core` and `@getvitops/emdash` (dependencies) and `@getvitops/cli` (devDependencies) to `"alpha"`, then run `vp install` so the lockfile resolves them (later `vp update` runs follow the channel). Keep `emdash` and `@emdash-cms/cloudflare` on their current ranges unless a changelog says otherwise. Leave a comment in the commit message, not in `package.json`, saying these are on `alpha` until the toolchain is released to `latest`, at which point the four specifiers go back to `"latest"` (the template's rule). Then read the new entries in `node_modules/@getvitops/{cli,create,emdash,astro}/CHANGELOG.md` and apply every migration they name.
-3. Compare this site against the current template (`@getvitops/create`'s `templates/emdash/`, from the package tarball). Bring over the `package.json` script changes:
-   - `"prepare-local-db": "vitops emdash prepare-db"`;
-   - `"build": "astro build && vitops emdash check-prerender"`;
-   - the `deploy` and `deploy:dev` chains.
+1. Commit the working tree as-is (`chore: snapshot before alpha.1`).
+2. Run `vp update`. The four `@getvitops/*` specifiers are already `"alpha"`, so this should resolve `alpha.1`; confirm with `vp list @getvitops/cli`. Read the new entries at the top of `node_modules/@getvitops/{cli,create,emdash,astro,generator,core}/CHANGELOG.md` and apply anything they name that is not listed below.
+3. **Delete the Tailwind workaround.** `@getvitops/astro` now writes `@source` lines for its own and `@getvitops/emdash`'s renderers, so `font-display`, `font-caption` and `font-footnote` are generated without help. Remove `src/package-classes.txt` and whatever imports or `@source`s it. Rebuild and confirm the stats figures still render at display size.
+4. **Type roles.** The template now defines `title`, `lead`, `caption`, `eyebrow` and `footnote` alongside `display`, `heading` and `body`. This site has its own `site.json`: for each of those five that is missing under `designSystem.themes.default.typography.roles`, add one that matches the site's design (see the template's `site.json` in the `@getvitops/create` tarball for the shape). Do not give `eyebrow` a `color`: a fixed one failed contrast on tinted tiles. Keep any role the site already defines.
+5. **Anchors.** Every `vitops.*` block and `vitops_section` now has an `anchor` field (the `id`, for `#links`). Set `anchor` on the sections and form that links already point at, so they land: `#contact` on the contact form, `#services` on the "What we do" section, and any others you find in `seed/seed.json` menus, buttons and body links (search for `href` values that start with `#` or `/#`). Add `--header-offset` (the sticky header's height, for example `64px`) to the site's `:root` so anchored blocks clear the header.
+6. **Badges.** Replace the site-local `vt_badges` block with `vitops.badges` (per-row `tone`, `color`, `icon`, `href`; `variant` `badge` or `tag`). Rewrite the seed content to that shape, preserving every label and its colour, then delete `vt_badges`'s component and registration.
+7. **Section theme.** `vitops_section` has a new `theme` select: a role, or `<role>:solid` for a filled backdrop with readable text. Where a section sets `tone` (and `solid`) to a role the select offers (`neutral`, `surface`, `brand-primary`, `brand-secondary`, `info`, `success`, `warning`, `danger`), move it to `theme`. Leave `tone` where the site uses a role the select does not list.
+8. **Widget areas (optional, do it if it is small).** The template now seeds two widget areas and renders them in `src/layouts/Layout.astro`: `announcement` (above the header, empty until used) and `pre-footer` (a call to action above the footer). Compare against this site's layout. Add `<VitopsWidgetArea name="announcement" class="centered" />` before the header and `<VitopsWidgetArea name="pre-footer" class="centered" />` before the footer (import it from `@getvitops/emdash/astro`), plus the two `widgetAreas` entries from the template's `seed/seed.json`. Write the `pre-footer` call to action in this site's own words and link it to the real contact page, or leave it out and say so. Do not turn the existing footer into a widget area.
+9. **Local database.** `seed/seed.json` only applies to an empty database, and the `vitops_section` block type gained fields (`theme`, `anchor`, `class_name`, `style`). Delete the local D1 state (`.wrangler/state`), then `vpr prepare-local-db` so the seed reapplies. This is safe because nothing is deployed.
+10. **Audit tooling.** `vitops audit` now checks for its three optional packages and Chromium before starting a server, and takes its page list from the built sitemap. Confirm `playwright`, `@axe-core/playwright` and `lighthouse` are in `devDependencies` (add any that are missing with `vp add -D`), and Chromium is installed (`vp exec playwright install chromium`).
+11. Verify, and fix until green: `vp exec emdash seed --validate seed/seed.json`, `vpr prepare-local-db`, `vpr build` (the prerender guard must pass, and it must not warn about type-role classes with no rule), `vpr typecheck`, `vpr lint:design`. Then serve `dist/client` and run `vitops audit --url <served url>`. Report the audit results; don't hide failures.
+12. Commit in logical steps (update and workaround removal / type roles and anchors / badges and themes / widget areas). Do not deploy, do not push, do not touch any Cloudflare resource.
 
-   Bring over the new `AGENTS.md` guidance where this site hasn't diverged. Do not overwrite site-specific content. The template no longer ships `scripts/prepare-local-db.mjs` or `scripts/check-prerender.mjs`; the logic is in the CLI.
+What this release does **not** change: `vt_hero`, `vt_pillars` and `vt_logos` stay local (per-card colour and a text fallback for logos are not in `alpha.1`), `SiteFooter` is still a flat list, and the callout `solid` contrast and the stats count-up with a unit are unfixed. Leave those as they are.
 
-4. Seed menus: add `primary` (Contact only; the logo is the home link), `footer-sitemap` and `footer-legal` (Privacy `/privacy`, Terms `/terms`, Cookies `/cookies`). Keep any existing menu items that point at real pages.
-5. Replace site-local blocks in `src/components/blocks/` with upstream ones wherever an equivalent now exists:
-   - `Section`/`vt_section` → `vitops_section`;
-   - `Stats` → `vitops.stats`, `Steps` → `vitops.steps`, `Logos` → `vitops.logos`, `Hero` → `vitops.hero`;
-   - `Contact` → `vitops.form` (Turnstile);
-   - `SiteHeader`/`SiteFooter` → `vitops.nav` + the menus.
-
-   Check the upstream block list (`@getvitops/emdash` `BLOCKS` and `vitopsBlockTypes()`) for `Badges`, `Band`, `Compare`, `Dashboard` and `Pillars`. Rewrite the seed content to the upstream block shapes, preserving every piece of copy, then delete the replaced components and their registrations. Anything with no upstream match stays local; add an entry for it in `UPSTREAM.md` (what's missing, suggested fix).
-
-6. Verify, and fix until green: `vpx emdash seed --validate seed/seed.json`, `vpr prepare-local-db`, `vpr build` (the prerender guard must pass), `vpr typecheck`, `vpr lint:design`. Then serve `dist/client` and run `vitops audit --url <served url>`. Report the audit results; don't hide failures.
-7. Commit in logical steps (deps and template sync / menus / block migration). Do not deploy, do not push, do not touch any Cloudflare resource.
-
-Finish with a summary of what changed, which blocks stayed local and why, the audit results, and anything from the changelogs you could not apply.
+Finish with a summary of what changed, anything in the changelogs you could not apply, and the audit results next to the last run's (Lighthouse performance 98, SEO 100, best practices 100, LCP 1.8–2.0 s, CLS 0, TBT 0 on `/`, `/privacy`, `/terms`, `/about`).
