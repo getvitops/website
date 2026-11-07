@@ -1,1 +1,1 @@
-font-display font-caption font-footnote
+font-display font-caption font-footnote sr-only

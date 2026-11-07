@@ -321,9 +321,14 @@ flat list with no columns or brand, so the footer stays site-local and reads
   not emitted, so figures rendered body-size with no error. Worked around with
   `src/package-classes.txt`. The `vitops()` integration should add an `@source` for the packages
   it renders. The same check found `font-caption`/`font-footnote` used by package components with
-  no matching utility.
-- **J. Counter with a unit.** `value: "11 hrs/week"` with the count-up on rendered the figure twice
-  ("11 hrs/week1 hrs/week") in a headless screenshot. Stats here set `animate: false`.
+  no matching utility, and `sr-only` (used by `wc-counter`), which showed up as a doubled figure (J).
+- **J. Counter with a unit (was misdiagnosed; resolved).** `value: "11 hrs/week"` appeared to
+  render twice ("11 hrs/week1 hrs/week") while counting, so the stats were first set to
+  `animate: false`. The cause was gap I, not the counter: `<wc-counter>` hides the real value
+  with the `.sr-only` utility while it runs, and Tailwind never emitted `.sr-only` because
+  nothing in `src` mentions it (the generator leaves it to Tailwind, which doesn't scan
+  `node_modules`). Adding `sr-only` to `src/package-classes.txt` fixes it, and `wc-counter`
+  parses a unit suffix correctly. `animate` is back on.
 - **K. `vitops audit` leaks its preview server** when Chromium fails to launch: the next run
   aborts with "port 4398 is already in use". It also needed `playwright install chromium` by
   hand, and 25 candidate pages mostly 404 (menus link to planned pages).

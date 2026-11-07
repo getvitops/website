@@ -922,7 +922,7 @@
                       "label": "of owners who hand off work grew their revenue in two years. Only 66% of owners who don’t hand off work did."
                     }
                   ],
-                  "animate": false
+                  "animate": true
                 },
                 {
                   "_type": "block",
