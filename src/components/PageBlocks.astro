@@ -5,7 +5,6 @@
 // block go through <PortableText>, which is where vitops.* blocks resolve.
 import { blockTypeComponents } from '@getvitops/emdash/astro';
 import { Blocks, defineBlockComponents } from 'emdash/ui';
-import Badges from './blocks/Badges.astro';
 import Compare from './blocks/Compare.astro';
 import Dashboard from './blocks/Dashboard.astro';
 import Hero from './blocks/Hero.astro';
@@ -23,7 +22,6 @@ const components = defineBlockComponents<any>({
   vt_compare: Compare,
   vt_dashboard: Dashboard,
   vt_logos: Logos,
-  vt_badges: Badges,
 });
 ---
 

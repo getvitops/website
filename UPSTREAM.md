@@ -276,18 +276,18 @@ duration, decimals) would cover a single figure in running text.
 The toolchain shipped most of the registry below, so the site moved onto the `alpha`
 dist-tag and migrated what matched. Status per block:
 
-| Local block                  | Result                           | Why                                                                  |
-| ---------------------------- | -------------------------------- | -------------------------------------------------------------------- |
-| `vt_section`                 | **migrated** to `vitops_section` | grid backdrop dropped (gap A)                                        |
-| `vt_stats`                   | **migrated** to `vitops.stats`   | per-figure colour lost (gap B)                                       |
-| `vt_band`                    | **migrated** to `vitops.callout` | icon dropped; `solid` unreadable (gap F)                             |
-| `vt_steps`                   | **migrated** to `vitops.steps`   | title size needed a site rule (gap G)                                |
-| `vt_contact`                 | **migrated** to `vitops.form`    | multi-select became choose-one; no delivery address yet (gap H)      |
-| `vt_hero`                    | **stays local**                  | `vitops.hero` cards have no eyebrow, per-card tone or button (gap C) |
-| `vt_pillars`                 | **stays local**                  | `vitops.cards` panel tone is per block, not per card (gap C)         |
-| `vt_logos`                   | **stays local**                  | `vitops.logos` renders images only; ours are names (gap D)           |
-| `vt_badges`                  | **stays local**                  | no `vitops.badges`                                                   |
-| `vt_compare`, `vt_dashboard` | **stay local**                   | site-specific, as predicted                                          |
+| Local block                  | Result                                                                 | Why                                                                  |
+| ---------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `vt_section`                 | **migrated** to `vitops_section`                                       | grid backdrop dropped (gap A)                                        |
+| `vt_stats`                   | **migrated** to `vitops.stats`                                         | per-figure colour lost (gap B)                                       |
+| `vt_band`                    | **migrated** to `vitops.callout`                                       | icon dropped; `solid` unreadable (gap F)                             |
+| `vt_steps`                   | **migrated** to `vitops.steps`                                         | title size needed a site rule (gap G)                                |
+| `vt_contact`                 | **migrated** to `vitops.form`                                          | multi-select became choose-one; no delivery address yet (gap H)      |
+| `vt_hero`                    | **stays local**                                                        | `vitops.hero` cards have no eyebrow, per-card tone or button (gap C) |
+| `vt_pillars`                 | **stays local**                                                        | `vitops.cards` panel tone is per block, not per card (gap C)         |
+| `vt_logos`                   | **stays local**                                                        | `vitops.logos` renders images only; ours are names (gap D)           |
+| `vt_badges`                  | **migrated** (alpha.1) to `vitops_section` (`split`) + `vitops.badges` | none; label order and copy kept                                      |
+| `vt_compare`, `vt_dashboard` | **stay local**                                                         | site-specific, as predicted                                          |
 
 Header and footer: header is `<SiteNav>` (menus `primary`). The framework's `<SiteFooter>` is a
 flat list with no columns or brand, so the footer stays site-local and reads
@@ -305,7 +305,7 @@ flat list with no columns or brand, so the footer stays site-local and reads
   panel** needs per-card tone.
 - **D. `vitops.logos` drops entries without an image**, so a site with wordmarks or text-only
   partners renders nothing. Offer a text fallback (the name as the mark).
-- **E. `vitops_section` and `vitops.form` have no anchor id**, so `#contact` and `/#services`
+- **E. (fixed in alpha.1: `anchor` field; `--header-offset` for the sticky header) `vitops_section` and `vitops.form` have no anchor id**, so `#contact` and `/#services`
   links from the menu and from content break. Add an `anchor` field.
 - **F. Callout `solid` puts white text on amber** (same cause as finding 2: solid steps pinned
   with a light foreground). The tinted default is light-on-dark on a dark-only site. Neither
@@ -317,7 +317,7 @@ flat list with no columns or brand, so the footer stays site-local and reads
   only. The route refuses posts until `site.notifications.email` is set and, with a Turnstile
   key, until `VITOPS_TURNSTILE_SECRET` exists. Neither is set; `vitops setup turnstile` creates
   a Cloudflare widget and was deliberately not run.
-- **I. Tailwind does not scan `node_modules`.** `font-display` is used by `vitops.stats` but was
+- **I. (fixed in alpha.1: the integration adds `@source` lines; `src/package-classes.txt` deleted) Tailwind does not scan `node_modules`.** `font-display` is used by `vitops.stats` but was
   not emitted, so figures rendered body-size with no error. Worked around with
   `src/package-classes.txt`. The `vitops()` integration should add an `@source` for the packages
   it renders. The same check found `font-caption`/`font-footnote` used by package components with
@@ -329,7 +329,7 @@ flat list with no columns or brand, so the footer stays site-local and reads
   nothing in `src` mentions it (the generator leaves it to Tailwind, which doesn't scan
   `node_modules`). Adding `sr-only` to `src/package-classes.txt` fixes it, and `wc-counter`
   parses a unit suffix correctly. `animate` is back on.
-- **K. `vitops audit` leaks its preview server** when Chromium fails to launch: the next run
+- **K. (fixed in alpha.1: preflight before the server, cleanup on exit, page list from sitemap/menus) `vitops audit` leaks its preview server** when Chromium fails to launch: the next run
   aborts with "port 4398 is already in use". It also needed `playwright install chromium` by
   hand, and 25 candidate pages mostly 404 (menus link to planned pages).
 - **L. Footer links to planned pages.** `primary` and `footer-sitemap` keep the mockup's planned
@@ -338,6 +338,30 @@ flat list with no columns or brand, so the footer stays site-local and reads
   `<SiteNav>`; "Contact" is the last `primary` item instead.
 - **N. `UPGRADE-PROMPT.md` told `vpx emdash seed`;** `vpx` is `vp dlx`, which fetches the package
   instead of using the pinned binary. Used `vp exec emdash`.
+
+### alpha.1 follow-up
+
+`@getvitops/*` 8.3.0-alpha.1 fixed E, I, K and the badges gap (above), added the `caption` and
+`footnote` type roles to the template (this site added them to its own `site.json`), and added
+widget areas (`announcement`, `pre-footer`; the latter left empty here). New observations:
+
+- **Sitemap lists unbuilt routes.** `vitops audit` now reads the built sitemap and found
+  `/pages/home`, `/pages/about`, `/pages/terms` and `/pages/privacy`, all 404. The EmDash
+  sitemap emits `/pages/<slug>` while this site serves `/<slug>`, so the sitemap submitted to
+  search engines would point at dead URLs. Needs checking against the deployed build.
+- **Build prints `PortableText [components.type] is missing "vitops.…"`** for every vitops block
+  on every prerendered page, while the pages render correctly. Not confirmed whether this is new
+  in alpha.1; it is noise that hides real warnings.
+- **The template ignores all of `src/styles/`, but tells sites to keep CSS there.** `_gitignore`
+  has `src/styles/` (for the generated `tailwind.css`), and this site's hand-written `site.css`
+  lived in the same folder, so it was never committed: a clean clone would not build. Moved to
+  `src/site.css`. The template should ignore only `src/styles/tailwind.css`, and say where
+  site CSS goes.
+- **`vp update` rewrites unrelated ranges** (astro, wrangler, tailwind, `devEngines.runtime.version`
+  pinned to an exact Node) as well as moving the `alpha` specifiers.
+
+Still open from before: per-item colour (B, C), `vt_logos` text fallback (D), callout contrast (F),
+type-size hooks (G), form choose-one / delivery (H), planned-page links (L), header actions (M).
 
 ### Result
 

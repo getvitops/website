@@ -23,6 +23,8 @@ one author, and no security audit was run.
 
 **Target: 8 / 10.** Items 1–6 below are what it takes. Items 7–12 are polish and hardening.
 
+> **alpha.1 update.** Items 2 (anchors), 4 (badges), 5 (Tailwind scanning) and 6 (audit hygiene) shipped and were verified on this site. Remaining: 1, 3 and everything below. New: the sitemap lists `/pages/<slug>` URLs that 404 (see UPSTREAM.md, "alpha.1 follow-up").
+
 ## Priority 1: close the gaps that kept blocks local
 
 Each of these has a concrete consequence on vitops.ca. Doing 1–4 lets `vt_hero`, `vt_pillars`,
@@ -41,7 +43,7 @@ Each of these has a concrete consequence on vitops.ca. Doing 1–4 lets `vt_hero
 - **Done when.** `vt_hero` and `vt_pillars` can be rewritten as `vitops.hero` and `vitops.cards`
   with no copy or colour lost.
 
-### 2. Anchor ids on sections and forms (gap E)
+### 2. (Done in alpha.1) Anchor ids on sections and forms (gap E)
 
 - **Problem.** `vitops_section` and `vitops.form` have no id. `#contact` (from content) and
   `/#services` (from the menu) land nowhere, and the contact CTA is dead.
@@ -59,7 +61,7 @@ Each of these has a concrete consequence on vitops.ca. Doing 1–4 lets `vt_hero
   with the same sizing and link behaviour. Keep `alt` rules as they are for images.
 - **Done when.** `vt_logos` is replaced with no copy lost.
 
-### 4. A `vitops.badges` block (or a documented route to one)
+### 4. (Done in alpha.1) A `vitops.badges` block (or a documented route to one)
 
 - **Problem.** `badge` and `tag` are patterns in the design system but no block exposes them, so
   the label row on the home page is site-local.
@@ -68,7 +70,7 @@ Each of these has a concrete consequence on vitops.ca. Doing 1–4 lets `vt_hero
   vocabulary from AGENTS.md; do not introduce "chip" or "pill".
 - **Done when.** `vt_badges` is replaced.
 
-### 5. Tailwind must scan the packages it renders (gap I)
+### 5. (Done in alpha.1) Tailwind must scan the packages it renders (gap I)
 
 - **Problem.** Tailwind v4 does not scan `node_modules`, so utilities used only by package
   renderers are never emitted. `font-display` (used by `vitops.stats`), `font-caption` and
@@ -81,7 +83,7 @@ Each of these has a concrete consequence on vitops.ca. Doing 1–4 lets `vt_hero
 - **Done when.** A fresh scaffold with `vitops.stats` renders display-size figures and
   `src/package-classes.txt` is not needed.
 
-### 6. `vitops audit` hygiene (gap K)
+### 6. (Done in alpha.1) `vitops audit` hygiene (gap K)
 
 - **Problem.** When Chromium fails to launch, the preview server on port 4398 is left running, so
   the next run aborts with "port 4398 is already in use". Chromium also had to be installed by

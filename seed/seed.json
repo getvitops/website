@@ -16,80 +16,6 @@
   },
   "blockTypes": [
     {
-      "slug": "vt_badges",
-      "label": "Heading with badges",
-      "description": "Band with a heading and link on one side and a cluster of static badges on the other.",
-      "category": "Content",
-      "currentVersion": 1,
-      "versions": [
-        {
-          "version": 1,
-          "fields": [
-            {
-              "slug": "kicker",
-              "label": "Kicker",
-              "type": "string"
-            },
-            {
-              "slug": "heading",
-              "label": "Heading",
-              "type": "string",
-              "required": true
-            },
-            {
-              "slug": "link_label",
-              "label": "Link label",
-              "type": "string"
-            },
-            {
-              "slug": "link_href",
-              "label": "Link",
-              "type": "url"
-            },
-            {
-              "slug": "tone",
-              "label": "Badge tone (colour role)",
-              "type": "select",
-              "defaultValue": "neutral",
-              "validation": {
-                "options": [
-                  "neutral",
-                  "brand-primary",
-                  "brand-secondary",
-                  "success",
-                  "info",
-                  "warning",
-                  "danger"
-                ]
-              }
-            },
-            {
-              "slug": "color",
-              "label": "Colour override (palette hue, e.g. pine-400)",
-              "type": "string"
-            },
-            {
-              "slug": "badges",
-              "label": "Badges",
-              "type": "repeater",
-              "validation": {
-                "subFields": [
-                  {
-                    "slug": "label",
-                    "type": "string",
-                    "label": "Label",
-                    "required": true
-                  }
-                ],
-                "minItems": 1,
-                "maxItems": 24
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
       "slug": "vt_compare",
       "label": "Two companies vs one",
       "description": "Illustration comparing separate marketing and IT reports with a connected funnel. Markup is code-owned; only the caption is editable.",
@@ -551,6 +477,48 @@
               "label": "Fill with the solid colour",
               "type": "boolean",
               "defaultValue": false
+            },
+            {
+              "slug": "theme",
+              "label": "Theme (backdrop and readable text in one pick; overrides the tone fields)",
+              "type": "select",
+              "defaultValue": "none",
+              "validation": {
+                "options": [
+                  "none",
+                  "neutral",
+                  "surface",
+                  "brand-primary",
+                  "brand-secondary",
+                  "info",
+                  "success",
+                  "warning",
+                  "danger",
+                  "neutral:solid",
+                  "surface:solid",
+                  "brand-primary:solid",
+                  "brand-secondary:solid",
+                  "info:solid",
+                  "success:solid",
+                  "warning:solid",
+                  "danger:solid"
+                ]
+              }
+            },
+            {
+              "slug": "anchor",
+              "label": "Anchor id (so a link can point here with #id)",
+              "type": "string"
+            },
+            {
+              "slug": "class_name",
+              "label": "Extra CSS classes",
+              "type": "string"
+            },
+            {
+              "slug": "style",
+              "label": "CSS custom properties, e.g. --p-card: 2rem",
+              "type": "string"
             }
           ]
         }
@@ -586,8 +554,7 @@
               "vt_pillars",
               "vt_compare",
               "vt_dashboard",
-              "vt_logos",
-              "vt_badges"
+              "vt_logos"
             ],
             "minItems": 0,
             "maxItems": 40
@@ -971,7 +938,8 @@
               "kicker": "What we do",
               "heading": "Two services. One team.",
               "sub": "Choose one service or both.",
-              "body": []
+              "body": [],
+              "anchor": "services"
             },
             {
               "_type": "vt_pillars",
@@ -1135,49 +1103,62 @@
               ],
               "note": "Using something else?",
               "link_label": "Reach out",
-              "link_href": "#contact"
+              "link_href": "/#contact"
             },
             {
-              "_type": "vt_badges",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "hbadges01",
               "kicker": "Industries",
               "heading": "Who we work with",
-              "tone": "neutral",
-              "link_label": "See industries we work with",
-              "link_href": "/industries",
-              "badges": [
+              "layout": "split",
+              "width": "spotlight",
+              "body": [
                 {
-                  "_key": "i46",
-                  "label": "Dental and health clinics"
+                  "_type": "vitops.badges",
+                  "_key": "hbadges-b",
+                  "variant": "badge",
+                  "items": [
+                    {
+                      "_key": "i46",
+                      "label": "Dental and health clinics"
+                    },
+                    {
+                      "_key": "i47",
+                      "label": "Trades and home services"
+                    },
+                    {
+                      "_key": "i48",
+                      "label": "Professional services"
+                    },
+                    {
+                      "_key": "i49",
+                      "label": "Insurance and mortgage brokerages"
+                    },
+                    {
+                      "_key": "i50",
+                      "label": "Real estate and property management"
+                    },
+                    {
+                      "_key": "i51",
+                      "label": "Non-profits and charities"
+                    },
+                    {
+                      "_key": "i52",
+                      "label": "Wellness and fitness studios"
+                    },
+                    {
+                      "_key": "i53",
+                      "label": "Automotive repair and detail shops"
+                    }
+                  ]
                 },
                 {
-                  "_key": "i47",
-                  "label": "Trades and home services"
-                },
-                {
-                  "_key": "i48",
-                  "label": "Professional services"
-                },
-                {
-                  "_key": "i49",
-                  "label": "Insurance and mortgage brokerages"
-                },
-                {
-                  "_key": "i50",
-                  "label": "Real estate and property management"
-                },
-                {
-                  "_key": "i51",
-                  "label": "Non-profits and charities"
-                },
-                {
-                  "_key": "i52",
-                  "label": "Wellness and fitness studios"
-                },
-                {
-                  "_key": "i53",
-                  "label": "Automotive repair and detail shops"
+                  "_type": "vitops.actionLink",
+                  "_key": "hbadges-l",
+                  "label": "See industries we work with",
+                  "href": "/industries",
+                  "variant": "link"
                 }
               ]
             },
@@ -1286,7 +1267,8 @@
                       "type": "textarea",
                       "required": false
                     }
-                  ]
+                  ],
+                  "anchor": "contact"
                 },
                 {
                   "_type": "block",
@@ -1564,5 +1546,19 @@
         }
       }
     ]
-  }
+  },
+  "widgetAreas": [
+    {
+      "name": "announcement",
+      "label": "Announcement bar",
+      "description": "Shown above the header on every page. Empty until you add a widget.",
+      "widgets": []
+    },
+    {
+      "name": "pre-footer",
+      "label": "Above the footer",
+      "description": "A call to action shown above the footer on every page (Widgets in the admin).",
+      "widgets": []
+    }
+  ]
 }
