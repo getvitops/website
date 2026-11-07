@@ -110,5 +110,4 @@ Lessons from building it that the generic rules above don't state:
 - **Diff your markup against the component list before writing any renderer.** Run `vp exec vitops docs components` and `vp exec vitops docs blocks`. A hand-rolled stats figure was built next to an existing `Counter`, and an upstream block (`vitops.stats`) arrived later; check first, every time.
 - **`tone` select options are static** in EmDash, so they cannot follow `site.json` at runtime; the toolkit's `tones/list` route fills them for the admin. A site-local block must not hard-code a site's palette names into a seed option list.
 - **Site-specific decorations stay site-local.** A decoration such as the blueprint grid backdrop is not an option to propose upstream.
-- **Tailwind does not scan `node_modules`.** A utility class used only by a package renderer (`font-display`) is not emitted; list such classes in `src/package-classes.txt`.
 - **Registry:** every `vt_*` block still in use, with verdict and status, is in `UPSTREAM.md` ("Proposed blocks").
