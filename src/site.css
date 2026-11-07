@@ -1,0 +1,419 @@
+/* Site-local CSS: only what the Vitops framework has no class for.
+   Everything here reads tokens from site.json; layout comes from framework
+   classes (centered / region / rhythm / subgrid / cluster). */
+
+:root {
+  /* Sticky header height; anchored blocks scroll to just below it. */
+  --header-offset: 2.75rem;
+  /* Mockup content width is 1200px; the framework's spotlight track defaults to 120ch. */
+  --width-spotlight: 75rem;
+  /* Mockup sections use 112px of vertical padding. */
+  --region-space-min: 3.5rem;
+  --region-space-max: 7rem;
+}
+
+/* 60px line grid behind hero + alternate sections */
+.vt-grid {
+  background-image:
+    linear-gradient(var(--color-border-neutral-muted) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border-neutral-muted) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-color: var(--color-bg-neutral-muted);
+}
+
+/* Hero glow, top right */
+.vt-hero {
+  position: relative;
+  overflow: hidden;
+}
+.vt-hero::after {
+  content: '';
+  position: absolute;
+  inset-inline-end: -14rem;
+  inset-block-start: -16rem;
+  inline-size: 51rem;
+  block-size: 51rem;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-pine-600) 33%, transparent) 0%,
+    transparent 62%
+  );
+  pointer-events: none;
+}
+.vt-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.vt-lede {
+  font-size: var(--text-l);
+  line-height: 1.55;
+  max-inline-size: 50ch;
+}
+.vt-strong {
+  font-weight: 600;
+}
+
+/* Blocks that sit between full sections (stats, compare, dashboard) */
+.vt-bleed {
+  padding-block: 0 var(--space-xl);
+}
+
+/* Checklist in pillars */
+.vt-checks {
+  list-style: none;
+  padding: 0;
+}
+.vt-checks li {
+  display: flex;
+  gap: var(--space-s);
+  padding-block: var(--space-s);
+  border-block-start: 1px solid var(--color-border-neutral-muted);
+}
+.vt-check {
+  flex: none;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  margin-block-start: 0.2em;
+  border-radius: var(--br-circle);
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.vt-ghost {
+  background: transparent;
+  border: 1px solid;
+  box-shadow: none;
+}
+
+/* Steps: numbered discs joined by a line */
+
+/* Callout band */
+.vt-band__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  inline-size: 4rem;
+  block-size: 4rem;
+  border: 1px solid var(--tone-fill);
+  border-radius: var(--br-circle);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+.vt-band__text {
+  flex: 1;
+  min-inline-size: 16rem;
+}
+
+/* Selectable tags (form interest options): the framework's `.tag` pattern,
+   with a visually hidden checkbox and a checked state. */
+.tag {
+  position: relative;
+}
+.tag input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.tag:has(input:checked) {
+  border-color: var(--tone-fill, var(--color-pine-400));
+  color: var(--tone-text, var(--color-pine-400));
+}
+.tag:has(input:focus-visible) {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Logo tiles */
+.vt-logo {
+  font-weight: 500;
+  padding: var(--space-s) var(--space-m);
+}
+.vt-logo__row {
+  align-items: center;
+  gap: var(--space-s);
+}
+.vt-slot {
+  flex: none;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  border: 1px dashed var(--color-border-neutral-muted);
+  border-radius: 0.45rem;
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  font-size: 0.5rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+.vt-logo__img {
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  object-fit: contain;
+}
+
+/* Comparison */
+.vt-report {
+  border: 1px dashed var(--color-border-neutral-muted);
+  border-radius: var(--br-md);
+  padding: var(--space-s) var(--space-m);
+}
+.vt-gap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  block-size: 2.75rem;
+}
+.vt-gap::before {
+  content: '';
+  position: absolute;
+  inset-block: 0.4rem;
+  border-inline-start: 2px dashed var(--color-border-neutral-muted);
+}
+.vt-gap span {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  border-radius: var(--br-circle);
+  border: 1px solid var(--color-border-neutral-muted);
+  background: var(--color-bg-neutral-muted);
+  color: var(--color-amber-300);
+  font-weight: 600;
+}
+.vt-compare__together {
+  border-color: var(--color-pine-400);
+}
+.vt-chain {
+  list-style: none;
+  padding: var(--space-m);
+  justify-content: space-between;
+  gap: var(--space-xs);
+  border: 1px solid var(--color-border-neutral-muted);
+  border-radius: var(--br-md);
+  background: var(--color-bg-neutral-muted);
+  flex-wrap: wrap;
+}
+.vt-chain {
+  gap: var(--space-m);
+}
+.vt-chain li {
+  position: relative;
+  text-align: center;
+}
+.vt-chain b {
+  display: block;
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.vt-chain li + li::before {
+  content: '›';
+  position: absolute;
+  inset-inline-start: calc(var(--space-m) / -2 - 0.25em);
+  inset-block-start: 0.3em;
+  color: var(--color-pine-400);
+  font-size: var(--text-xl);
+}
+
+/* Dashboard preview panel */
+.vt-portal {
+  margin: 0;
+  border: 1px solid var(--color-border-neutral-muted);
+  border-radius: var(--br-xl);
+  background: var(--color-bg-neutral-x-muted);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+.vt-portal__bar {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  padding: var(--space-s) var(--space-m);
+  border-block-end: 1px solid var(--color-border-neutral-muted);
+  background: var(--color-bg-neutral);
+}
+.vt-portal__logo svg {
+  display: block;
+  inline-size: 1.4rem;
+  block-size: auto;
+}
+.vt-portal__body {
+  padding: var(--space-m);
+  display: grid;
+  gap: var(--space-m);
+}
+.vt-live i {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: var(--br-circle);
+  background: var(--color-pine-400);
+  outline: 4px solid color-mix(in oklab, var(--color-pine-400) 20%, transparent);
+}
+.vt-dot {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: var(--br-circle);
+  display: inline-block;
+}
+.vt-tile {
+  padding: var(--space-s) var(--space-m);
+  border-radius: var(--br-md);
+}
+.vt-tile__v {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.vt-tile__of {
+  font-size: var(--text-s);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.vt-tip {
+  border: 1px solid color-mix(in oklab, var(--color-amber-300) 35%, transparent);
+  background: color-mix(in oklab, var(--color-amber-300) 8%, transparent);
+  border-radius: var(--br-md);
+  padding: var(--space-s) var(--space-m);
+  font-size: var(--text-s);
+}
+.vt-tip strong {
+  display: block;
+}
+
+.vt-doors {
+  margin-block-start: var(--space-xl);
+}
+
+/* Bright fills with dark text, as in the mockups. The .btn pattern reads its
+   fill from --bg-button; hover is overridden because the pattern's own hover
+   darkens to the role's -solid-bold, which has a light-text contract. */
+
+/* Buttons: bright pine fill with dark text, as in the mockups. The pattern
+   fills from --bg-button but forces `color` from the role's text-on token and
+   darkens to -solid-bold on hover (both tied to the role's light-text contract),
+   so those two are overridden here. Applies to <button>, .btn and the
+   vitops.actionLink block. */
+@layer components {
+  :root {
+    --bg-button: var(--color-pine-400);
+  }
+  button,
+  .btn {
+    color: var(--color-ink-950);
+  }
+  button:hover,
+  .btn:hover {
+    background-color: var(--color-pine-300);
+  }
+}
+
+/* vitops.cards titles render as <p class="font-heading"> (section-heading
+   size). Inside a card the mockups use the small "lead" size. */
+.card > .font-heading {
+  font-size: var(--text-l);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+/* Steps are plain columns, not cards */
+.vt-band__row {
+  align-items: center;
+  gap: var(--space-l);
+}
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+.vt-header {
+  background: color-mix(in oklab, var(--color-bg-neutral-muted) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-block-end: 1px solid var(--color-border-neutral-muted);
+}
+.vt-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: inherit;
+  text-decoration: none;
+}
+.vt-brand__mark svg {
+  display: block;
+  inline-size: 1.9rem;
+  block-size: auto;
+}
+.vt-brand {
+  margin-inline-end: auto;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+.vt-footer {
+  padding-block: var(--space-2xl) var(--space-xl);
+}
+.vt-footer ul {
+  list-style: none;
+  padding: 0;
+}
+.vt-footer li + li {
+  margin-block-start: 0.5rem;
+}
+.vt-footer a {
+  text-decoration: none;
+}
+.vt-footer a:hover {
+  color: var(--color-text-neutral);
+}
+.vt-footer__base {
+  margin-block-start: var(--space-xl);
+  padding-block-start: var(--space-m);
+  border-block-start: 1px solid var(--color-border-neutral-muted);
+  font-size: var(--text-s);
+}
+.vt-footer__base ul {
+  gap: var(--space-m);
+}
+.vt-footer__base li + li {
+  margin: 0;
+}
+
+/* ── Tone helpers ─────────────────────────────────────────────────────────
+   Blocks set --tone-fill / -on / -text / -edge / -wash (see blocks/tone.ts:
+   role, then semantic fallback, then a palette-hue escape hatch). */
+.vt-tone-fill {
+  background: var(--tone-fill);
+  color: var(--tone-on);
+}
+.vt-tone-text {
+  color: var(--tone-text);
+}
+.vt-tone-edge {
+  border-color: var(--tone-edge);
+}
+.vt-tone-top {
+  border-block-start: 4px solid var(--tone-fill);
+}
+.vt-tone-wash {
+  background: var(--tone-wash);
+  border-color: var(--tone-edge);
+}
+.vt-tone-outline {
+  color: var(--tone-text);
+  border-color: var(--tone-fill);
+}
+.vt-tone-btn {
+  --bg-button: var(--tone-fill);
+  color: var(--tone-on);
+}
+.btn.vt-tone-btn:hover {
+  background-color: color-mix(in oklab, var(--tone-fill) 85%, white);
+}
+
+/* The framework's steps title is a `heading` role (3xl): too big beside a one-line step.
+   Logged in UPSTREAM.md (no per-block size). */
+.steps__title {
+  font-size: var(--text-xl);
+}
