@@ -1,5 +1,5 @@
 /**
- * The site's one on-demand endpoint: contact-form posts (the `vitops.form` block) and the
+ * The site's one on-demand endpoint: contact-form posts (the `vitops_form` block) and the
  * conversion beacons (`<Tracking />`, `tel:`/`mailto:` clicks) all arrive here.
  *
  * Every public page is prerendered (see AGENTS.md, "Rendering and freshness"); this route sets

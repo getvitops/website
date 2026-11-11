@@ -3,6 +3,7 @@
 // `footer-legal` (bottom row). Tagline comes from the
 // site settings; the blurb from site.seo.defaultDescription in site.json.
 import { getMenu } from 'emdash';
+import { menuItems } from '@getvitops/astro/components/sitenav.ts';
 import config from '../../site.json' with { type: 'json' };
 import logo from '../assets/logo.svg?raw';
 
@@ -12,9 +13,11 @@ interface Props {
 }
 const { siteTitle, tagline } = Astro.props;
 const [sitemap, legal] = await Promise.all(['footer-sitemap', 'footer-legal'].map((n) => getMenu(n)));
-// `footer-sitemap` parents are the columns, their children the links. (The framework's
-// <SiteFooter> renders a flat list only; see UPSTREAM.md.)
-const columns = (sitemap?.items ?? []).map((i) => ({ title: i.label, items: i.children ?? [] }));
+// `footer-sitemap` parents are the columns, their children the links. Kept local only for the
+// brand/blurb column the upstream <SiteFooter> has no slot for; menuItems() drops `draft` items.
+const columns = menuItems(sitemap)
+  .filter((i) => (i.children?.length ?? 0) > 0)
+  .map((i) => ({ title: i.label, items: i.children! }));
 const blurb = (config.site as { seo?: { defaultDescription?: string } }).seo?.defaultDescription;
 const year = new Date().getFullYear();
 ---
@@ -49,7 +52,7 @@ const year = new Date().getFullYear();
       <span>© {year} {siteTitle}</span>
       <nav aria-label="Legal">
         <ul class="cluster" role="list">
-          {(legal?.items ?? []).map((i) => <li><a href={i.url}>{i.label}</a></li>)}
+          {menuItems(legal).map((i) => <li><a href={i.url}>{i.label}</a></li>)}
         </ul>
       </nav>
     </div>

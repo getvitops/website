@@ -1,0 +1,132 @@
+---
+/**
+ * `vt_section` — local (watch). A page section AND page opener in one flat DOM:
+ *
+ *   section.region > .centered > .rhythm[.spotlight] > eyebrow, heading, lead, ctas, body…
+ *
+ * Upstream `vitops_section` plus a block in its body (`vitops_hero`, `vitops_cards`) nests
+ * `section > .centered > .section__inner > .section__body > section > .centered > .rhythm`:
+ * three wrappers more than the layout needs. Here the head is plain siblings in the one
+ * `.rhythm`, and body blocks that are bare patterns (`vitops_cards`, `vitops_steps`, …) land
+ * in the same stack. Level 1 makes it a page opener, so there is no separate hero block.
+ * Words in `*stars*` in the heading render as `<em class="accent">`.
+ *
+ * Retire when upstream `vitops_section` can take a `level: 1` lead, CTAs and a flat body.
+ * See UPSTREAM.md (item 6).
+ */
+import type { BV } from './types';
+import { resolveTone } from './tone';
+
+// Imported lazily on purpose: `emdash/ui` statically imports the virtual block map, which
+// imports this plugin's blocks. See upstream Section.astro.
+const { PortableText } = await import('emdash/ui');
+
+interface SectionValue {
+  eyebrow?: string;
+  heading?: string;
+  level?: string | number;
+  lead?: string;
+  primary_label?: string;
+  primary_href?: string;
+  secondary_label?: string;
+  secondary_href?: string;
+  body?: unknown;
+  width?: string;
+  theme?: string;
+  anchor?: string;
+  class_name?: string;
+  style?: string;
+}
+
+const value = (Astro.props.value ?? Astro.props) as BV<SectionValue>;
+const str = (v: unknown) => (typeof v === 'string' ? v.trim() : '');
+const href = (v: unknown) => {
+  const s = str(v);
+  return /^(\/|#|https?:|mailto:|tel:)/.test(s) ? s : '';
+};
+
+const eyebrow = str(value.eyebrow);
+const heading = str(value.heading);
+const lead = str(value.lead);
+const level = Math.min(6, Math.max(1, Math.round(Number(value.level) || 2)));
+const Heading = `h${level}` as 'h1';
+const primary = { label: str(value.primary_label), href: href(value.primary_href) };
+const secondary = { label: str(value.secondary_label), href: href(value.secondary_href) };
+const hasCtas = (primary.label && primary.href) || (secondary.label && secondary.href);
+const body = Array.isArray(value.body) ? value.body : [];
+
+// Heading accents: `*word*` -> <em class="accent">
+const runs: { text: string; accent: boolean }[] = [];
+let last = 0;
+for (const m of heading.matchAll(/\*([^*]+)\*/g)) {
+  if (m.index! > last) runs.push({ text: heading.slice(last, m.index), accent: false });
+  runs.push({ text: m[1]!, accent: true });
+  last = m.index! + m[0].length;
+}
+if (last < heading.length) runs.push({ text: heading.slice(last), accent: false });
+
+// `theme`: "<role>" or "<role>:solid", resolved to the site's own --tone-* properties.
+const [role, fill] = str(value.theme).toLowerCase().replace(/^none$/, '').split(':');
+const tone = role ? resolveTone(role) : undefined;
+const WIDTHS: Record<string, string> = { breakout: 'breakout', spotlight: 'spotlight', fullbleed: 'fullbleed' };
+const width = WIDTHS[str(value.width)];
+// The framework's reading rhythm is tight for a section head: loosen heading to lead on a
+// page opener, and the gap between the head and any blocks that follow it.
+// Custom properties only (`--name: value`), the same grammar upstream blocks accept.
+const customProps = str(value.style)
+  .split(';')
+  .map((d) => d.trim())
+  .filter((d) => /^--[a-zA-Z][a-zA-Z0-9-]{0,60}\s*:\s*[^\\<>@{}"'`]{1,200}$/.test(d) && !/url\(|expression\(/i.test(d));
+const rhythmStyle =
+  [`--rhythm-h-p: ${level === 1 ? 0.8 : 0.7}`, ...customProps].filter(Boolean).join('; ');
+const anchor = /^[a-z][a-z0-9-]{0,63}$/.test(str(value.anchor)) ? str(value.anchor) : undefined;
+const tokens = str(value.class_name)
+  .split(/\s+/)
+  .filter((t) => /^[A-Za-z0-9_:@/.[\]-]{1,80}$/.test(t));
+// `rhythm-*` modifiers (the opt-in `rhythm-flex` stack) belong on the stack, the rest on the section.
+const stackClasses = tokens.filter((t) => t.startsWith('rhythm-'));
+const extra = tokens.filter((t) => !t.startsWith('rhythm-')).join(' ');
+---
+
+{
+  (heading || lead || eyebrow || body.length > 0) && (
+    <section
+      id={anchor}
+      class:list={[
+        'region',
+        tone?.style && 'tone',
+        tone?.style && fill === 'solid' && 'tone--solid',
+        anchor && 'block-anchor',
+        extra,
+      ]}
+      style={tone?.style || undefined}
+    >
+      <div class="centered">
+        <div class:list={['rhythm', 'rhythm-section', width, stackClasses]} style={rhythmStyle}>
+          {eyebrow && <p class="font-eyebrow">{eyebrow}</p>}
+          {heading && (
+            <Heading class={level === 1 ? 'font-display' : 'font-title'}>
+              {runs.map((r) => (r.accent ? <em class="accent">{r.text}</em> : r.text))}
+            </Heading>
+          )}
+          {lead && <p class="font-lead">{lead}</p>}
+          {hasCtas && (
+            <p class="cluster">
+              {primary.label && primary.href && (
+                <a class="btn" href={primary.href}>
+                  {primary.label}
+                </a>
+              )}
+              {secondary.label && secondary.href && (
+                <a class="link" href={secondary.href}>
+                  {secondary.label}
+                </a>
+              )}
+            </p>
+          )}
+          {body.length > 0 && <PortableText value={body as never} />}
+        </div>
+      </div>
+    </section>
+  )
+}

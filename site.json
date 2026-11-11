@@ -39,12 +39,21 @@
               "kind": "surface"
             },
             "ui-primary": "pine",
-            "brand-primary": "pine",
-            "brand-secondary": "amber",
+            "brand-primary": {
+              "hue": "pine",
+              "solid": 300,
+              "foreground": "dark"
+            },
+            "brand-secondary": {
+              "hue": "amber",
+              "solid": 300,
+              "foreground": "dark"
+            },
             "info": "sky",
             "success": "pine",
             "warning": "amber",
-            "danger": "rose"
+            "danger": "rose",
+            "ui-accent": "pine"
           },
           "utilities": ["bg", "text", "icon", "border"]
         },
@@ -200,6 +209,35 @@
               },
               "states": {},
               "roles": ["brand-primary", "brand-secondary", "success", "info", "warning", "danger"]
+            },
+            "cta": {
+              "group": "control",
+              "default_role": "brand-primary",
+              "base": {
+                "padding": "0.75em 1.4em",
+                "border-radius": "var(--br-control, 0.5rem)",
+                "border": "none",
+                "font-weight": "600",
+                "color": "var(--tone-on-solid, var(--color-text-on-brand-primary, #0f151e))",
+                "background": "var(--tone-solid, var(--color-bg-brand-primary-solid))",
+                "display": "inline-flex",
+                "align-items": "center",
+                "cursor": "pointer",
+                "text-decoration": "none"
+              },
+              "states": {
+                "hover": {
+                  "step": 1
+                },
+                "active": {
+                  "scale": 0.97
+                },
+                "focus-visible": {
+                  "ring": true
+                }
+              },
+              "roles": ["brand-primary", "brand-secondary"],
+              "class": "cta"
             }
           }
         },
@@ -307,6 +345,13 @@
               "slide": {}
             },
             "compose": [["fade"], ["slide"], ["fade", "slide"]]
+          }
+        },
+        "layout": {
+          "regionSpace": {
+            "min": "4rem",
+            "preferred": "12vh",
+            "max": "7rem"
           }
         }
       }
@@ -430,6 +475,143 @@
     ],
     "seo": {
       "defaultDescription": "IT and marketing for small businesses in Ottawa and across Ontario."
+    },
+    "notifications": {
+      "email": "hi@vitops.ca"
+    },
+    "templates": {
+      "contact": {
+        "type": "form",
+        "action": "/api/track",
+        "method": "post",
+        "honeypot": true,
+        "fields": [
+          {
+            "name": "interest",
+            "type": "select",
+            "label": "I’m interested in",
+            "options": [
+              {
+                "label": "Managed IT",
+                "value": "Managed IT"
+              },
+              {
+                "label": "Digital Marketing",
+                "value": "Digital Marketing"
+              },
+              {
+                "label": "A package",
+                "value": "A package"
+              },
+              {
+                "label": "Not sure yet",
+                "value": "Not sure yet"
+              }
+            ]
+          },
+          {
+            "name": "name",
+            "type": "text",
+            "label": "Name",
+            "required": true
+          },
+          {
+            "name": "email",
+            "type": "email",
+            "label": "Work email",
+            "required": true
+          },
+          {
+            "name": "company",
+            "type": "text",
+            "label": "Company (optional)"
+          },
+          {
+            "name": "message",
+            "type": "textarea",
+            "label": "Are you running ads now? (Google, Facebook and Instagram, or not yet)"
+          },
+          {
+            "name": "topics",
+            "type": "checkbox",
+            "label": "Want a free review? Pick what we should look at",
+            "options": [
+              {
+                "label": "Website",
+                "value": "Website"
+              },
+              {
+                "label": "Search and AI",
+                "value": "Search and AI"
+              },
+              {
+                "label": "Ads",
+                "value": "Ads"
+              },
+              {
+                "label": "Google profile",
+                "value": "Google profile"
+              },
+              {
+                "label": "Social media",
+                "value": "Social media"
+              },
+              {
+                "label": "Reviews and email",
+                "value": "Reviews and email"
+              },
+              {
+                "label": "Software",
+                "value": "Software"
+              },
+              {
+                "label": "Software costs",
+                "value": "Software costs"
+              },
+              {
+                "label": "Security and access",
+                "value": "Security and access"
+              },
+              {
+                "label": "AI tools",
+                "value": "AI tools"
+              },
+              {
+                "label": "Not sure",
+                "value": "Not sure"
+              }
+            ]
+          },
+          {
+            "name": "website_url",
+            "type": "text",
+            "label": "Your website"
+          },
+          {
+            "name": "team_size",
+            "type": "select",
+            "label": "How many people are on your team?",
+            "options": [
+              {
+                "label": "Just me",
+                "value": "Just me"
+              },
+              {
+                "label": "2 to 15",
+                "value": "2 to 15"
+              },
+              {
+                "label": "16 to 50",
+                "value": "16 to 50"
+              },
+              {
+                "label": "50+",
+                "value": "50+"
+              }
+            ]
+          }
+        ]
+      }
     }
   }
 }

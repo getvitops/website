@@ -34,3 +34,13 @@ public/vitops/
 !.vscode/extensions.json
 
 # dotenv environment variable files
+
+# agent skills linked from @getvitops/skills by `skills experimental_sync` (prepare)
+.agents/skills/contact-form
+.agents/skills/content-and-deploys
+.agents/skills/csp
+.agents/skills/custom-blocks
+.claude/skills/contact-form
+.claude/skills/content-and-deploys
+.claude/skills/csp
+.claude/skills/custom-blocks

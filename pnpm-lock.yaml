@@ -214,13 +214,16 @@ importers:
         version: 1.4.0(d98129326d5cdb65e81bb45895de7ec2)
       '@getvitops/astro':
         specifier: alpha
-        version: 8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@tailwindcss/vite@4.3.4(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1)))(@types/node@26.6.6)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(astro@7.4.5(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)(tailwindcss@4.3.4)
+        version: 8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@tailwindcss/vite@4.3.4(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1)))(@types/node@26.6.6)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(astro@7.4.5(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)(tailwindcss@4.3.4)
       '@getvitops/core':
         specifier: alpha
-        version: 8.3.0-alpha.1
+        version: 8.3.0-alpha.3
       '@getvitops/emdash':
         specifier: alpha
-        version: 2.0.0-alpha.1(e3b5567c5ab4de0faea776086336fbf8)
+        version: 2.0.0-alpha.3(fc7910dac8937de7166a2ea912d06a4d)
+      '@getvitops/skills':
+        specifier: 0.1.0-alpha.0
+        version: 0.1.0-alpha.0
       '@tailwindcss/vite':
         specifier: ^4.3.4
         version: 4.3.4(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))
@@ -251,7 +254,7 @@ importers:
         version: 4.20260702.1
       '@getvitops/cli':
         specifier: alpha
-        version: 8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)
+        version: 8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)
       '@iconify-json/fa7-solid':
         specifier: ^1.2.5
         version: 1.2.5
@@ -264,6 +267,9 @@ importers:
       playwright:
         specifier: ^1.64.1
         version: 1.64.1
+      skills:
+        specifier: ^1.7.6
+        version: 1.7.6
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1066,8 +1072,8 @@ packages:
   '@formatjs/intl-localematcher@0.6.2':
     resolution: {integrity: sha512-XOMO2Hupl0wdd172Y06h6kLpBz6Dv+J4okPLl4LPtzbr8f66WbIoy4ev98EBuZ6ZK4h5ydTN6XneT4QVpD7cdA==}
 
-  '@getvitops/astro@8.3.0-alpha.1':
-    resolution: {integrity: sha512-stUHxT6mnMmOwHHoDdVkTst5pZOACfLQGo06Jk7urkrOWXBeO3GsoqZWNpzq0KQ47UW2aTYQ7gcfd3SKdwFzTQ==}
+  '@getvitops/astro@8.3.0-alpha.3':
+    resolution: {integrity: sha512-oAndtJTMdmwUaSCVjcUO8ueo5XndXSYroaRilHgZF/FROmHZ8Jt0ltXfMJIi1dvfgouCiu8NGOwbYX2oDpNm0A==}
     engines: {node: '>=24'}
     peerDependencies:
       '@astrojs/sitemap': '>=3.6'
@@ -1085,21 +1091,21 @@ packages:
       tailwindcss:
         optional: true
 
-  '@getvitops/cli@8.3.0-alpha.1':
-    resolution: {integrity: sha512-u3x0j2+BKx9ki/mhPDjtZoAKq6TqojqPuOdxy73fy8ezpuqAehP8T/N0UNUOq5jmrEDVjEluabOvx2VXHOpv0g==}
+  '@getvitops/cli@8.3.0-alpha.3':
+    resolution: {integrity: sha512-6Aee3FZziABez/jMBenUOUI9py9qD1AAVnpSB9zyl6AvtdbWY+IYYd1CJq32VoSZweWMECY+WrZ5K8rIjXvLxA==}
     engines: {node: '>=24'}
     hasBin: true
 
-  '@getvitops/config@8.3.0-alpha.1':
-    resolution: {integrity: sha512-VPMBrRusothhOWntDPsZQ83KirNA4ICj25tldXX6ctCfTTjLWefUe+C9qTCAtp4IhYx5nFGnYtLQy9DhUzjVRg==}
+  '@getvitops/config@8.3.0-alpha.3':
+    resolution: {integrity: sha512-VVh2MgBjXLx5QM2OWpI4c/sNM5P2Ty7O/STz2HmnaNfQibb1ucE0561XrllqQE5o49FFoXJBWYri3OiWzkLfVg==}
     engines: {node: '>=24'}
 
-  '@getvitops/core@8.3.0-alpha.1':
-    resolution: {integrity: sha512-N7kNpv5YJV+1OIYQFNvjAKKahJsupQpnR2FKPs0hHX5y+rhvGelUm9usoe4gkpkqSZhMdUHia5R1q3nj2z8wkg==}
+  '@getvitops/core@8.3.0-alpha.3':
+    resolution: {integrity: sha512-xBPFQniDYocZzoCL8gGeaR3lIhABsU92b8wCyZKQk8BSyNt16qEKxO/9h86lwaYS17v8oxKKrgyXK6cpifuXSA==}
     engines: {node: '>=24'}
 
-  '@getvitops/emdash@2.0.0-alpha.1':
-    resolution: {integrity: sha512-797rK75rhGPaxsTZibrC3VU0duNqyiRlq7b+Rt71c5JcXtNUmzOEng1tfQ7BHLnbNFxhs7U9CHikTcKKNouDvw==}
+  '@getvitops/emdash@2.0.0-alpha.3':
+    resolution: {integrity: sha512-rGZgP+rIac8ENXvGBI6M4jJH4KbREpzzmD6PfjKReqV/cXhSJ2Nzjlnl2JIQn8CAo8wuqQI8PbZzDZSh7lq05w==}
     engines: {node: '>=24'}
     peerDependencies:
       '@astrojs/cloudflare': '>=14'
@@ -1125,12 +1131,16 @@ packages:
       react-dom:
         optional: true
 
-  '@getvitops/generator@8.3.0-alpha.1':
-    resolution: {integrity: sha512-gpVV8LarX3dz8rufvLfD9GV2tzqoZjZFQq+MxvyJOGncuvTNjxc5dhWk3saSch9lptDKDKo7TJd7ZyP/vijMPw==}
+  '@getvitops/generator@8.3.0-alpha.3':
+    resolution: {integrity: sha512-DEtwKA/j8TK4k0SgmRsO3XXLY1ePvi4ZbwEaokOuPjPhrXd5pR/GocbgNBO5RSdGUwc5jk3357vqDEr19tZPEw==}
     engines: {node: '>=24'}
 
-  '@getvitops/utils@8.3.0-alpha.1':
-    resolution: {integrity: sha512-VaVNmYPVzTkBR1X5BLhHnaW4fIhZsF+VfR2YwYvq6K9zTW86YDn97eCJ/fZA/xL7qfileMdnP7qlY5IDBkzFMg==}
+  '@getvitops/skills@0.1.0-alpha.0':
+    resolution: {integrity: sha512-Ot4PZTJSdmH4sMetYeBeslOC/jUu83MeH6y4YLyTw/kS9esxd0C90nvzhGJSRiY8Ljc53tBJ/+mKfArPpw81sw==}
+    engines: {node: '>=24'}
+
+  '@getvitops/utils@8.3.0-alpha.3':
+    resolution: {integrity: sha512-tbLOGRlHK+9veu4Uo7Dyu3asBB+TbJaiS7H1Lmf3dwOW1V0H1Fas0hI1S8pEHufgk/1SfS8+hZwH8D8z0zTZUQ==}
     engines: {node: '>=24'}
     peerDependencies:
       '@axe-core/playwright': '>=4.10.0'
@@ -1144,8 +1154,8 @@ packages:
       playwright:
         optional: true
 
-  '@getvitops/vite@8.3.0-alpha.1':
-    resolution: {integrity: sha512-BKaGqIJ+Warjf225i4kzR58/ImFIwXA7K06JEoxCclHFRbWIhWPBlJIINzKhE0LVmEgvmijq7sQ4Tt8e9pMDSg==}
+  '@getvitops/vite@8.3.0-alpha.3':
+    resolution: {integrity: sha512-+nQ7vApFq1GGgofvyvdDkCh3EinhkgbrT/zZKAV43+l7g0cNKeyTvlYfIkN0nxmCOiUIAyWEkNhaJcOF+rZfqQ==}
     engines: {node: '>=24'}
     peerDependencies:
       vite: '>=5'
@@ -1326,6 +1336,10 @@ packages:
     engines: {node: '>=20.9.0'}
     cpu: [x64]
     os: [win32]
+
+  '@isaacs/fs-minipass@4.0.1':
+    resolution: {integrity: sha512-wgm9Ehl2jpeqP3zw/7mo3kRHFp5MEDhqAdwy1fTGkHAwnkGOVsgpvQhL8B5n1qlb01jV3n/bI0ZfZp5lWA1k4w==}
+    engines: {node: '>=18.0.0'}
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -3095,6 +3109,10 @@ packages:
     resolution: {integrity: sha512-TQMmc3w+5AxjpL8iIiwebF73dRDF4fBIieAqGn9RGCWaEVwQ6Fb2cGe31Yns0RRIzii5goJ1Y7xbMwo1TxMplw==}
     engines: {node: '>= 20.19.0'}
 
+  chownr@3.0.0:
+    resolution: {integrity: sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g==}
+    engines: {node: '>=18'}
+
   chrome-launcher@1.2.2:
     resolution: {integrity: sha512-sI90u5qf3854bTrWsQMMdsQfSjjMbeSn7QtxVb9zrikf+QgMfHQ71KepHW7ZfixQKrDlAFKb+qnVlSR+xepBzw==}
     engines: {node: '>=12.13.0'}
@@ -3998,6 +4016,10 @@ packages:
     resolution: {integrity: sha512-tEBHqDnIoM/1rXME1zgka9g6Q2lcoCkxHLuc7ODJ5BxbP5d4c2Z5cGgtXAku59200Cx7diuHTOYfSBD8n6mm8A==}
     engines: {node: '>=16 || 14 >=14.17'}
 
+  minizlib@3.1.0:
+    resolution: {integrity: sha512-KZxYo1BUkWD2TVFLr0MQoM8vUUigWD3LlD83a/75BqC+4qE0Hb1Vo5v1FgcfaNXvfXzr+5EhQ6ing/CaBijTlw==}
+    engines: {node: '>= 18'}
+
   mitt@3.0.1:
     resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
 
@@ -4697,6 +4719,11 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
+  skills@1.7.6:
+    resolution: {integrity: sha512-dAee29yRGin7ub6VHwmifLEfHrysGD41yq4RkY0gg7QQh0wyQKWfhiORGb/r6uNpKWc9A1GY8yowV07Lh+4rCg==}
+    engines: {node: '>=22.20.0'}
+    hasBin: true
+
   smol-toml@1.9.1:
     resolution: {integrity: sha512-j7WyPdf0CJoutMzMoPLF/bVXHtKZIT9Rb4eGeEbWw8X2t5oirjPgpL+OpaENZrILYaXqYwnVH+qgUwVbl+pUJQ==}
     engines: {node: '>= 18'}
@@ -4780,6 +4807,10 @@ packages:
   tapable@2.3.3:
     resolution: {integrity: sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A==}
     engines: {node: '>=6'}
+
+  tar@7.5.22:
+    resolution: {integrity: sha512-MFO/QzvtAOmJbkhOaCTvbGcFN9L9b+JunIsDwaKljSOdcLMea3NJ1k9Usz/rjdfSXTq4dfzfeS7W4p4YOAAHeA==}
+    engines: {node: '>=18'}
 
   third-party-web@0.30.0:
     resolution: {integrity: sha512-p+PfyL5U0ediGzvwPzMSdD9MnC8rHW6nWJJVLIQvqN7RsSqfaZ+7n4c9GILqH36EYR0eXB9CzAeCRnKFr/9uJg==}
@@ -5301,6 +5332,10 @@ packages:
   y18n@5.0.8:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
     engines: {node: '>=10'}
+
+  yallist@5.0.0:
+    resolution: {integrity: sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw==}
+    engines: {node: '>=18'}
 
   yaml-language-server@1.23.0:
     resolution: {integrity: sha512-3qVyCOexLCWw06PQa5kRPwvMWMZ/eZeCRWUvgD6a0OkqL/4iCnxy2WumbWifa937Uo5xhyWJ0uxlU39ljhNh7A==}
@@ -6359,13 +6394,13 @@ snapshots:
     dependencies:
       tslib: 2.9.1
 
-  '@getvitops/astro@8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@tailwindcss/vite@4.3.4(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1)))(@types/node@26.6.6)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(astro@7.4.5(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)(tailwindcss@4.3.4)':
+  '@getvitops/astro@8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@tailwindcss/vite@4.3.4(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1)))(@types/node@26.6.6)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(astro@7.4.5(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)(tailwindcss@4.3.4)':
     dependencies:
-      '@getvitops/config': 8.3.0-alpha.1
-      '@getvitops/core': 8.3.0-alpha.1
-      '@getvitops/generator': 8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)
-      '@getvitops/utils': 8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)
-      '@getvitops/vite': 8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)
+      '@getvitops/config': 8.3.0-alpha.3
+      '@getvitops/core': 8.3.0-alpha.3
+      '@getvitops/generator': 8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)
+      '@getvitops/utils': 8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)
+      '@getvitops/vite': 8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)
       astro: 7.4.5(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1)
     optionalDependencies:
       '@tailwindcss/vite': 4.3.4(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))
@@ -6378,10 +6413,10 @@ snapshots:
       - supports-color
       - vite
 
-  '@getvitops/cli@8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)':
+  '@getvitops/cli@8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)':
     dependencies:
-      '@getvitops/generator': 8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)
-      '@getvitops/utils': 8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)
+      '@getvitops/generator': 8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)
+      '@getvitops/utils': 8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)
     transitivePeerDependencies:
       - '@axe-core/playwright'
       - '@types/node'
@@ -6389,25 +6424,25 @@ snapshots:
       - playwright
       - supports-color
 
-  '@getvitops/config@8.3.0-alpha.1':
+  '@getvitops/config@8.3.0-alpha.3':
     dependencies:
       '@zod/mini': 4.6.7(zod@4.6.7)
       zod: 4.6.7
 
-  '@getvitops/core@8.3.0-alpha.1': {}
+  '@getvitops/core@8.3.0-alpha.3': {}
 
-  '@getvitops/emdash@2.0.0-alpha.1(e3b5567c5ab4de0faea776086336fbf8)':
+  '@getvitops/emdash@2.0.0-alpha.3(fc7910dac8937de7166a2ea912d06a4d)':
     dependencies:
-      '@getvitops/astro': 8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@tailwindcss/vite@4.3.4(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1)))(@types/node@26.6.6)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(astro@7.4.5(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)(tailwindcss@4.3.4)
-      '@getvitops/generator': 8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)
-      '@getvitops/utils': 8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)
+      '@getvitops/astro': 8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@tailwindcss/vite@4.3.4(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1)))(@types/node@26.6.6)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(astro@7.4.5(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)(tailwindcss@4.3.4)
+      '@getvitops/generator': 8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)
+      '@getvitops/utils': 8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)
       astro: 7.4.5(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1)
       emdash: 1.4.0(@astrojs/react@7.1.2(@types/node@26.6.6)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@6.0.3)(yaml@2.9.1))(@atcute/cbor@2.3.8(@atcute/cid@2.5.0))(@atcute/cid@2.5.0)(@atcute/identity@2.0.2(@atcute/lexicons@2.1.1)(typescript@6.0.3))(@date-fns/tz@1.5.0)(@floating-ui/dom@1.8.0)(@tiptap/extensions@3.32.2(@tiptap/core@3.32.2(@tiptap/pm@3.32.2))(@tiptap/pm@3.32.2))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(astro@7.4.5(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(date-fns@4.4.0)(echarts@6.1.0)(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.9)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@10.2.2)(typescript@6.0.3)
     optionalDependencies:
       '@astrojs/cloudflare': 14.4.4(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(astro@7.4.5(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(workerd@1.20261103.1)(wrangler@4.157.0(@cloudflare/workers-types@4.20260702.1)(@types/node@26.6.6))(yaml@2.9.1)
       '@astrojs/react': 7.1.2(@types/node@26.6.6)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@6.0.3)(yaml@2.9.1)
       '@emdash-cms/cloudflare': 1.4.0(d98129326d5cdb65e81bb45895de7ec2)
-      '@getvitops/core': 8.3.0-alpha.1
+      '@getvitops/core': 8.3.0-alpha.3
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
     transitivePeerDependencies:
@@ -6417,10 +6452,10 @@ snapshots:
       - playwright
       - supports-color
 
-  '@getvitops/generator@8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)':
+  '@getvitops/generator@8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)':
     dependencies:
-      '@getvitops/config': 8.3.0-alpha.1
-      '@getvitops/utils': 8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)
+      '@getvitops/config': 8.3.0-alpha.3
+      '@getvitops/utils': 8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)
       '@iconify/utils': 2.3.0(supports-color@10.2.2)
       '@zod/mini': 4.6.7(zod@4.6.7)
       lightningcss: 1.33.0
@@ -6432,9 +6467,11 @@ snapshots:
       - playwright
       - supports-color
 
-  '@getvitops/utils@8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)':
+  '@getvitops/skills@0.1.0-alpha.0': {}
+
+  '@getvitops/utils@8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)':
     dependencies:
-      '@getvitops/config': 8.3.0-alpha.1
+      '@getvitops/config': 8.3.0-alpha.3
       colorjs.io: 0.5.2
       parse5: 7.3.0
       png-to-ico: 3.0.2
@@ -6446,10 +6483,10 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@getvitops/vite@8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)':
+  '@getvitops/vite@8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)':
     dependencies:
-      '@getvitops/generator': 8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)
-      '@getvitops/utils': 8.3.0-alpha.1(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)
+      '@getvitops/generator': 8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)(supports-color@10.2.2)
+      '@getvitops/utils': 8.3.0-alpha.3(@axe-core/playwright@4.14.0(playwright-core@1.64.1))(@types/node@26.6.6)(lighthouse@13.6.0(supports-color@10.2.2))(playwright@1.64.1)
       vite: '@voidzero-dev/vite-plus-core@1.4.0(@types/node@26.6.6)(@volar/typescript@2.4.30(typescript@6.0.3))(esbuild@0.28.2)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1)'
     transitivePeerDependencies:
       - '@axe-core/playwright'
@@ -6586,6 +6623,10 @@ snapshots:
 
   '@img/sharp-win32-x64@0.35.5':
     optional: true
+
+  '@isaacs/fs-minipass@4.0.1':
+    dependencies:
+      minipass: 7.1.3
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
@@ -8116,6 +8157,8 @@ snapshots:
     dependencies:
       readdirp: 5.1.1
 
+  chownr@3.0.0: {}
+
   chrome-launcher@1.2.2(supports-color@10.2.2):
     dependencies:
       '@types/node': 26.6.6
@@ -9075,6 +9118,10 @@ snapshots:
 
   minipass@7.1.3: {}
 
+  minizlib@3.1.0:
+    dependencies:
+      minipass: 7.1.3
+
   mitt@3.0.1: {}
 
   mlly@1.8.2:
@@ -9778,6 +9825,11 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
+  skills@1.7.6:
+    dependencies:
+      tar: 7.5.22
+      yaml: 2.9.1
+
   smol-toml@1.9.1: {}
 
   source-map-js@1.2.2: {}
@@ -9854,6 +9906,14 @@ snapshots:
   tailwindcss@4.3.4: {}
 
   tapable@2.3.3: {}
+
+  tar@7.5.22:
+    dependencies:
+      '@isaacs/fs-minipass': 4.0.1
+      chownr: 3.0.0
+      minipass: 7.1.3
+      minizlib: 3.1.0
+      yallist: 5.0.0
 
   third-party-web@0.30.0: {}
 
@@ -10301,6 +10361,8 @@ snapshots:
       yjs: 13.6.33
 
   y18n@5.0.8: {}
+
+  yallist@5.0.0: {}
 
   yaml-language-server@1.23.0:
     dependencies:

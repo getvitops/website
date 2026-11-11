@@ -7,11 +7,39 @@
       "skillPath": "skills/building-emdash-site/SKILL.md",
       "computedHash": "9674c98251856c48d78c611f5e7884fee726e4da4df9a399e921ab7f5aa5e870"
     },
+    "contact-form": {
+      "source": "@getvitops/skills",
+      "sourceType": "node_modules",
+      "skillPath": "skills/contact-form/SKILL.md",
+      "version": "0.1.0-alpha.0",
+      "computedHash": "52272782fdc6f6e9897931999e075b7dd08bc2c3845a7a626d9df225c6f44477"
+    },
+    "content-and-deploys": {
+      "source": "@getvitops/skills",
+      "sourceType": "node_modules",
+      "skillPath": "skills/content-and-deploys/SKILL.md",
+      "version": "0.1.0-alpha.0",
+      "computedHash": "14e144b639e91a99c45469b099121652a9e721af1f4451ad7edddbec933f02e7"
+    },
     "creating-plugins": {
       "source": "emdash-cms/skills",
       "sourceType": "github",
       "skillPath": "skills/creating-plugins/SKILL.md",
       "computedHash": "5b2d11e98ddd4d6742f93839e2324b98af4ea39f892a82c8ec9fd091604db9ae"
+    },
+    "csp": {
+      "source": "@getvitops/skills",
+      "sourceType": "node_modules",
+      "skillPath": "skills/csp/SKILL.md",
+      "version": "0.1.0-alpha.0",
+      "computedHash": "4ceef9655e06bfb3136e421bf00b4aaf6373e5674a1d9bad04d5ab066828c9b9"
+    },
+    "custom-blocks": {
+      "source": "@getvitops/skills",
+      "sourceType": "node_modules",
+      "skillPath": "skills/custom-blocks/SKILL.md",
+      "version": "0.1.0-alpha.0",
+      "computedHash": "a8774b38d0eb369305bb475c22563cbb8081a543a54d81a2b97acc7b47e5c813"
     },
     "emdash-cli": {
       "source": "emdash-cms/skills",
