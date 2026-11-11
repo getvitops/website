@@ -279,9 +279,9 @@
     {
       "slug": "vt_pillars",
       "label": "Service pillars",
-      "description": "Side-by-side service panels with a tag, heading, intro, checklist and link.",
+      "description": "Side-by-side service panels on the grid backdrop, with an optional heading above, and per panel a tag, heading, intro, checklist and link.",
       "category": "Layout",
-      "currentVersion": 2,
+      "currentVersion": 3,
       "versions": [
         {
           "version": 1,
@@ -401,6 +401,92 @@
               }
             }
           ]
+        },
+        {
+          "version": 3,
+          "fields": [
+            {
+              "slug": "eyebrow",
+              "label": "Eyebrow (small line above the heading)",
+              "type": "string"
+            },
+            {
+              "slug": "heading",
+              "label": "Heading",
+              "type": "string"
+            },
+            {
+              "slug": "lead",
+              "label": "Lead-in text under the heading",
+              "type": "text"
+            },
+            {
+              "slug": "anchor",
+              "label": "Anchor id (so a link can point here with #id)",
+              "type": "string"
+            },
+            {
+              "slug": "items",
+              "label": "Pillars",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "tone",
+                    "type": "select",
+                    "label": "Tone (colour role)",
+                    "options": [
+                      "brand-primary",
+                      "brand-secondary",
+                      "success",
+                      "info",
+                      "warning",
+                      "danger",
+                      "neutral"
+                    ]
+                  },
+                  {
+                    "slug": "color",
+                    "type": "string",
+                    "label": "Colour override (palette hue, e.g. pine-400)"
+                  },
+                  {
+                    "slug": "tag",
+                    "type": "string",
+                    "label": "Tag"
+                  },
+                  {
+                    "slug": "title",
+                    "type": "string",
+                    "label": "Title",
+                    "required": true
+                  },
+                  {
+                    "slug": "body",
+                    "type": "text",
+                    "label": "Intro"
+                  },
+                  {
+                    "slug": "points",
+                    "type": "text",
+                    "label": "Checklist (one per line)"
+                  },
+                  {
+                    "slug": "cta_label",
+                    "type": "string",
+                    "label": "Link label"
+                  },
+                  {
+                    "slug": "href",
+                    "type": "url",
+                    "label": "Link"
+                  }
+                ],
+                "minItems": 1,
+                "maxItems": 3
+              }
+            }
+          ]
         }
       ]
     },
@@ -427,17 +513,37 @@
             },
             {
               "slug": "level",
-              "label": "Heading level",
+              "label": "Heading level (p: styled like a heading, not in the outline)",
               "type": "select",
               "defaultValue": "2",
               "validation": {
-                "options": ["2", "3", "4", "5", "6"]
+                "options": ["1", "2", "3", "4", "5", "6", "p"]
               }
             },
             {
               "slug": "sub",
               "label": "Lead-in text under the heading",
               "type": "text"
+            },
+            {
+              "slug": "cta_label",
+              "label": "Button text (filled)",
+              "type": "string"
+            },
+            {
+              "slug": "cta_href",
+              "label": "Button URL",
+              "type": "string"
+            },
+            {
+              "slug": "secondary_label",
+              "label": "Second link text",
+              "type": "string"
+            },
+            {
+              "slug": "secondary_href",
+              "label": "Second link URL",
+              "type": "string"
             },
             {
               "slug": "body",
@@ -451,6 +557,15 @@
               "defaultValue": "stack",
               "validation": {
                 "options": ["stack", "center", "split"]
+              }
+            },
+            {
+              "slug": "stack",
+              "label": "Spacing (rhythm: head and body use the vertical-rhythm scale, as a page opener or prose stack)",
+              "type": "select",
+              "defaultValue": "grid",
+              "validation": {
+                "options": ["grid", "rhythm"]
               }
             },
             {
@@ -645,6 +760,7 @@
       "slug": "pages",
       "label": "Pages",
       "labelSingular": "Page",
+      "urlPattern": "/{slug}",
       "supports": ["drafts", "revisions", "seo"],
       "fields": [
         {
@@ -1009,43 +1125,18 @@
                     {
                       "_key": "i15",
                       "value": "11 hrs/week",
-                      "label": "Owners spend about 11 hours a week on admin. That’s almost twice the time they spend on sales and growth."
+                      "label": "Owners spend about 11 hours a week on admin. That’s almost twice the time they spend on sales and growth.",
+                      "delta": "Source: American Express SME Business Barometer, 2026"
                     },
                     {
                       "_key": "i16",
                       "value": "82%",
-                      "label": "of owners who hand off work grew their revenue in two years. Only 66% of owners who don’t hand off work did."
+                      "label": "of owners who hand off work grew their revenue in two years. Only 66% of owners who don’t hand off work did.",
+                      "delta": "Source: Time Etc / Censuswide, 2023"
                     }
                   ],
-                  "animate": true
-                },
-                {
-                  "_type": "block",
-                  "_key": "pb01",
-                  "style": "normal",
-                  "markDefs": [],
-                  "children": [
-                    {
-                      "_type": "span",
-                      "_key": "sp02",
-                      "text": "Source: American Express SME Business Barometer, 2026",
-                      "marks": []
-                    }
-                  ]
-                },
-                {
-                  "_type": "block",
-                  "_key": "pb03",
-                  "style": "normal",
-                  "markDefs": [],
-                  "children": [
-                    {
-                      "_type": "span",
-                      "_key": "sp04",
-                      "text": "Source: Time Etc / Censuswide, 2023",
-                      "marks": []
-                    }
-                  ]
+                  "animate": true,
+                  "variant": "tiles"
                 }
               ],
               "width": "spotlight"
@@ -1059,19 +1150,8 @@
               "body": []
             },
             {
-              "_type": "vitops_section",
-              "_version": 1,
-              "_key": "h19",
-              "layout": "stack",
-              "kicker": "What we do",
-              "heading": "Two services. One team.",
-              "sub": "Choose one service or both.",
-              "body": [],
-              "anchor": "services"
-            },
-            {
               "_type": "vt_pillars",
-              "_version": 2,
+              "_version": 3,
               "_key": "h22",
               "items": [
                 {
@@ -1096,7 +1176,11 @@
                   "cta_label": "Learn about marketing",
                   "href": "/digital-marketing"
                 }
-              ]
+              ],
+              "eyebrow": "What we do",
+              "heading": "Two services. One team.",
+              "lead": "Choose one service or both.",
+              "anchor": "services"
             },
             {
               "_type": "vitops_section",
@@ -1175,63 +1259,72 @@
               "width": "spotlight"
             },
             {
-              "_type": "vt_logos",
+              "_type": "vitops_section",
               "_version": 1,
-              "_key": "h45",
-              "kicker": "Key partners",
-              "logos": [
+              "_key": "sech45",
+              "layout": "stack",
+              "width": "spotlight",
+              "body": [
                 {
-                  "_key": "i33",
-                  "name": "Zoho"
-                },
-                {
-                  "_key": "i34",
-                  "name": "Google"
-                },
-                {
-                  "_key": "i35",
-                  "name": "Microsoft"
-                },
-                {
-                  "_key": "i36",
-                  "name": "QuickBooks"
-                },
-                {
-                  "_key": "i37",
-                  "name": "HubSpot"
-                },
-                {
-                  "_key": "i38",
-                  "name": "Zendesk"
-                },
-                {
-                  "_key": "i39",
-                  "name": "Anthropic"
-                },
-                {
-                  "_key": "i40",
-                  "name": "Rippling"
-                },
-                {
-                  "_key": "i41",
-                  "name": "Cloudflare"
-                },
-                {
-                  "_key": "i42",
-                  "name": "Azure"
-                },
-                {
-                  "_key": "i43",
-                  "name": "IONOS"
-                },
-                {
-                  "_key": "i44",
-                  "name": "WHC"
+                  "_type": "vitops_logos",
+                  "_key": "lgh45",
+                  "kicker": "Key partners",
+                  "label": "Key partners",
+                  "logos": [
+                    {
+                      "_key": "i33",
+                      "alt": "Zoho"
+                    },
+                    {
+                      "_key": "i34",
+                      "alt": "Google"
+                    },
+                    {
+                      "_key": "i35",
+                      "alt": "Microsoft"
+                    },
+                    {
+                      "_key": "i36",
+                      "alt": "QuickBooks"
+                    },
+                    {
+                      "_key": "i37",
+                      "alt": "HubSpot"
+                    },
+                    {
+                      "_key": "i38",
+                      "alt": "Zendesk"
+                    },
+                    {
+                      "_key": "i39",
+                      "alt": "Anthropic"
+                    },
+                    {
+                      "_key": "i40",
+                      "alt": "Rippling"
+                    },
+                    {
+                      "_key": "i41",
+                      "alt": "Cloudflare"
+                    },
+                    {
+                      "_key": "i42",
+                      "alt": "Azure"
+                    },
+                    {
+                      "_key": "i43",
+                      "alt": "IONOS"
+                    },
+                    {
+                      "_key": "i44",
+                      "alt": "WHC"
+                    }
+                  ],
+                  "note": "Using something else?",
+                  "linkLabel": "Reach out",
+                  "linkHref": "/#contact"
                 }
-              ],
-              "note": "Using something else?",
-              "link_label": "Reach out",
-              "link_href": "/#contact"
+              ]
             },
             {
               "_type": "vitops_section",
@@ -1685,24 +1778,17 @@
               "_type": "vitops_section",
               "_version": 1,
               "_key": "h103",
-              "layout": "stack",
+              "kicker": "Managed IT for Ontario businesses",
+              "heading": "Software that works for your team, *not against it.*",
+              "level": "1",
+              "sub": "We help you choose the right software, set it up, and manage it with cost savings in mind. Your team works more efficiently, and your systems keep up as you grow.",
+              "layout": "center",
+              "stack": "rhythm",
               "width": "spotlight",
-              "heading": "",
-              "body": [
-                {
-                  "_type": "vitops_hero",
-                  "_key": "r104",
-                  "eyebrow": "Managed IT for Ontario businesses",
-                  "heading": "Software that works for your team, *not against it.*",
-                  "level": "1",
-                  "body": "We help you choose the right software, set it up, and manage it with cost savings in mind. Your team works more efficiently, and your systems keep up as you grow.",
-                  "primaryLabel": "Get a free review",
-                  "primaryHref": "#contact",
-                  "secondaryLabel": "See pricing",
-                  "secondaryHref": "/pricing",
-                  "layout": "centered"
-                }
-              ]
+              "cta_label": "Get a free review",
+              "cta_href": "#contact",
+              "secondary_label": "See pricing",
+              "secondary_href": "/pricing"
             },
             {
               "_type": "vitops_section",
@@ -1751,18 +1837,17 @@
                     {
                       "_key": "i111",
                       "value": "45%",
-                      "unit": "",
-                      "text": "of software licences companies pay for are used regularly. The rest are empty seats.",
-                      "cite": "Productiv, State of SaaS Sprawl, 2021"
+                      "label": "of software licences companies pay for are used regularly. The rest are empty seats.",
+                      "delta": "Source: Productiv, State of SaaS Sprawl, 2021"
                     },
                     {
                       "_key": "i112",
                       "value": "60%",
-                      "unit": "",
-                      "text": "of software buyers regretted a purchase they made in the last 18 months.",
-                      "cite": "Capterra, Tech Trends Reports, 2024/2025"
+                      "label": "of software buyers regretted a purchase they made in the last 18 months.",
+                      "delta": "Source: Capterra, Tech Trends Reports, 2024/2025"
                     }
-                  ]
+                  ],
+                  "variant": "tiles"
                 }
               ]
             },
@@ -2164,24 +2249,17 @@
               "_type": "vitops_section",
               "_version": 1,
               "_key": "h166",
-              "layout": "stack",
+              "kicker": "Digital marketing for Ontario businesses",
+              "heading": "Help more customers find you *and choose you.*",
+              "level": "1",
+              "sub": "We manage your website, search, ads, Google listing and social media. One team keeps it all working together, so more of the people who find you get in touch.",
+              "layout": "center",
+              "stack": "rhythm",
               "width": "spotlight",
-              "heading": "",
-              "body": [
-                {
-                  "_type": "vitops_hero",
-                  "_key": "r167",
-                  "eyebrow": "Digital marketing for Ontario businesses",
-                  "heading": "Help more customers find you *and choose you.*",
-                  "level": "1",
-                  "body": "We manage your website, search, ads, Google listing and social media. One team keeps it all working together, so more of the people who find you get in touch.",
-                  "primaryLabel": "Get a free review",
-                  "primaryHref": "#contact",
-                  "secondaryLabel": "See pricing",
-                  "secondaryHref": "/pricing",
-                  "layout": "centered"
-                }
-              ]
+              "cta_label": "Get a free review",
+              "cta_href": "#contact",
+              "secondary_label": "See pricing",
+              "secondary_href": "/pricing"
             },
             {
               "_type": "vitops_section",
@@ -2229,19 +2307,18 @@
                   "stats": [
                     {
                       "_key": "i174",
-                      "value": "15+",
-                      "unit": "hrs/week",
-                      "text": "Managing social media well takes a full-time specialist more than 15 hours a week.",
-                      "cite": "Sprout Social, Social Media Productivity Report, 2023"
+                      "value": "15+ hrs/week",
+                      "label": "Managing social media well takes a full-time specialist more than 15 hours a week.",
+                      "delta": "Source: Sprout Social, Social Media Productivity Report, 2023"
                     },
                     {
                       "_key": "i175",
                       "value": "73%",
-                      "unit": "",
-                      "text": "of small business owners aren’t sure their marketing is working.",
-                      "cite": "Constant Contact / Ascend2, Small Business Now, 2024"
+                      "label": "of small business owners aren’t sure their marketing is working.",
+                      "delta": "Source: Constant Contact / Ascend2, Small Business Now, 2024"
                     }
-                  ]
+                  ],
+                  "variant": "tiles"
                 }
               ]
             },
@@ -2907,27 +2984,33 @@
           "content": [],
           "layout": [
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "hero926",
-              "width": "spotlight",
-              "eyebrow": "Pricing",
+              "kicker": "Pricing",
               "heading": "Simple pricing. *No long contracts.*",
               "level": "1",
-              "lead": "Every plan is month to month, and you can cancel with 30 days’ notice. These prices are a starting point. Your quote depends on your team size and what you need.",
-              "body": [],
-              "primary_label": "Estimate your cost",
-              "primary_href": "/estimate",
+              "sub": "Every plan is month to month, and you can cancel with 30 days’ notice. These prices are a starting point. Your quote depends on your team size and what you need.",
+              "layout": "stack",
+              "stack": "rhythm",
+              "width": "spotlight",
+              "cta_label": "Estimate your cost",
+              "cta_href": "/estimate",
               "secondary_label": "Talk to us",
-              "secondary_href": "/contact"
+              "secondary_href": "/contact",
+              "body": []
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "sec934",
-              "width": "spotlight",
+              "kicker": "Managed IT",
               "heading": "One plan, priced per user.",
               "level": "2",
+              "sub": "A user is anyone with a paid software licence. Staff who don’t use any software aren’t on the bill.",
+              "layout": "stack",
+              "stack": "rhythm",
+              "width": "spotlight",
               "body": [
                 {
                   "_type": "vitops_pricing",
@@ -2985,17 +3068,19 @@
                     }
                   ]
                 }
-              ],
-              "eyebrow": "Managed IT",
-              "lead": "A user is anyone with a paid software licence. Staff who don’t use any software aren’t on the bill."
+              ]
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "sec944",
-              "width": "spotlight",
+              "kicker": "Digital Marketing",
               "heading": "Choose only what you need.",
               "level": "2",
+              "sub": "Every service works on its own. Keep your current website, or let us build you a new one.",
+              "layout": "stack",
+              "stack": "rhythm",
+              "width": "spotlight",
               "body": [
                 {
                   "_type": "vitops_cards",
@@ -3068,17 +3153,19 @@
                     }
                   ]
                 }
-              ],
-              "eyebrow": "Digital Marketing",
-              "lead": "Every service works on its own. Keep your current website, or let us build you a new one."
+              ]
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "sec951",
-              "width": "spotlight",
+              "kicker": "Websites",
               "heading": "Website plans",
               "level": "2",
+              "sub": "Need a new website? Pick the plan that fits.",
+              "layout": "stack",
+              "stack": "rhythm",
+              "width": "spotlight",
               "body": [
                 {
                   "_type": "vitops_pricing",
@@ -3128,17 +3215,19 @@
                     }
                   ]
                 }
-              ],
-              "eyebrow": "Websites",
-              "lead": "Need a new website? Pick the plan that fits."
+              ]
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "sec958",
-              "width": "spotlight",
+              "kicker": "Packages",
               "heading": "Packages for every stage.",
               "level": "2",
+              "sub": "Get IT and marketing together and pay less than buying each one on its own.",
+              "layout": "stack",
+              "stack": "rhythm",
+              "width": "spotlight",
               "body": [
                 {
                   "_type": "vitops_pricing",
@@ -3188,17 +3277,18 @@
                     }
                   ]
                 }
-              ],
-              "eyebrow": "Packages",
-              "lead": "Get IT and marketing together and pay less than buying each one on its own."
+              ]
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "sec961",
-              "width": "spotlight",
+              "kicker": "One-off work",
               "heading": "Projects and advice",
               "level": "2",
+              "layout": "stack",
+              "stack": "rhythm",
+              "width": "spotlight",
               "body": [
                 {
                   "_type": "block",
@@ -3214,16 +3304,16 @@
                     }
                   ]
                 }
-              ],
-              "eyebrow": "One-off work"
+              ]
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "sec963",
-              "width": "spotlight",
-              "heading": "",
               "level": "2",
+              "layout": "stack",
+              "stack": "rhythm",
+              "width": "spotlight",
               "body": [
                 {
                   "_type": "vitops_callout",
@@ -3239,12 +3329,16 @@
               ]
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "sec970",
-              "width": "spotlight",
+              "kicker": "Get a quote",
               "heading": "Looking for something more custom?",
               "level": "2",
+              "sub": "Tell us your team size and what you need. We’ll put together a plan that fits, with a clear quote and no sales pitch. Or email hi@vitops.ca.",
+              "layout": "stack",
+              "stack": "rhythm",
+              "width": "spotlight",
               "body": [
                 {
                   "_type": "vitops_form",
@@ -3293,17 +3387,18 @@
                     }
                   ]
                 }
-              ],
-              "eyebrow": "Get a quote",
-              "lead": "Tell us your team size and what you need. We’ll put together a plan that fits, with a clear quote and no sales pitch. Or email hi@vitops.ca."
+              ]
             },
             {
-              "_type": "vt_section",
+              "_type": "vitops_section",
               "_version": 1,
               "_key": "sec978",
-              "width": "spotlight",
+              "kicker": "Questions",
               "heading": "Common questions",
               "level": "2",
+              "layout": "stack",
+              "stack": "rhythm",
+              "width": "spotlight",
               "body": [
                 {
                   "_type": "vitops_accordion",
@@ -3342,8 +3437,7 @@
                     }
                   ]
                 }
-              ],
-              "eyebrow": "Questions"
+              ]
             }
           ]
         }

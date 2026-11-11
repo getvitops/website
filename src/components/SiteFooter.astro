@@ -1,9 +1,9 @@
 ---
-// Footer columns come from EmDash menus: `footer-sitemap` (parents = columns) and
-// `footer-legal` (bottom row). Tagline comes from the
-// site settings; the blurb from site.seo.defaultDescription in site.json.
+// Footer columns come from EmDash menus: `footer-sitemap` (parents = columns) and `footer-legal`
+// (bottom row). The brand column (logo, blurb, tagline) goes in the upstream footer's `brand`
+// slot; the blurb is site.seo.defaultDescription in site.json.
+import UpstreamFooter from '@getvitops/astro/components/SiteFooter.astro';
 import { getMenu } from 'emdash';
-import { menuItems } from '@getvitops/astro/components/sitenav.ts';
 import config from '../../site.json' with { type: 'json' };
 import logo from '../assets/logo.svg?raw';
 
@@ -13,48 +13,16 @@ interface Props {
 }
 const { siteTitle, tagline } = Astro.props;
 const [sitemap, legal] = await Promise.all(['footer-sitemap', 'footer-legal'].map((n) => getMenu(n)));
-// `footer-sitemap` parents are the columns, their children the links. Kept local only for the
-// brand/blurb column the upstream <SiteFooter> has no slot for; menuItems() drops `draft` items.
-const columns = menuItems(sitemap)
-  .filter((i) => (i.children?.length ?? 0) > 0)
-  .map((i) => ({ title: i.label, items: i.children! }));
 const blurb = (config.site as { seo?: { defaultDescription?: string } }).seo?.defaultDescription;
-const year = new Date().getFullYear();
 ---
 
-<footer class="vt-footer">
-  <div class="centered">
-    <div class="spotlight vt-footer__grid grid-auto" style="--grid-min: 12rem; --grid-gap: var(--space-xl)">
-      <div class="rhythm">
-        <a class="vt-brand" href="/" aria-label={`${siteTitle} home`}>
-          <span class="vt-brand__mark" set:html={logo} aria-hidden="true" />
-          <span>{siteTitle.toLowerCase()}</span>
-        </a>
-        {blurb && <p class="text-neutral-muted">{blurb}</p>}
-        {tagline && <p>{tagline}</p>}
-      </div>
-      {
-        columns.map((col) => (
-          <nav aria-label={col.title} class="rhythm">
-            <h2 class="font-lead">{col.title}</h2>
-            <ul role="list">
-              {col.items.map((i) => (
-                <li>
-                  <a class="text-neutral-muted" href={i.url}>{i.label}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        ))
-      }
-    </div>
-    <div class="spotlight vt-footer__base flex flex-wrap items-center justify-between gap-s text-neutral-muted">
-      <span>© {year} {siteTitle}</span>
-      <nav aria-label="Legal">
-        <ul class="cluster" role="list">
-          {menuItems(legal).map((i) => <li><a href={i.url}>{i.label}</a></li>)}
-        </ul>
-      </nav>
-    </div>
+<UpstreamFooter sitemap={sitemap} legal={legal} name={siteTitle}>
+  <div class="rhythm" slot="brand">
+    <a class="vt-brand" href="/" aria-label={`${siteTitle} home`}>
+      <span class="vt-brand__mark" set:html={logo} aria-hidden="true" />
+      <span>{siteTitle.toLowerCase()}</span>
+    </a>
+    {blurb && <p class="text-neutral-muted">{blurb}</p>}
+    {tagline && <p>{tagline}</p>}
   </div>
-</footer>
+</UpstreamFooter>

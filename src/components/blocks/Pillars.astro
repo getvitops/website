@@ -13,13 +13,31 @@ interface Pillar {
   cta_label?: string;
   href?: string;
 }
-type Props = BlockComponentProps<BV<{ items?: Pillar[] }>>;
+type Props = BlockComponentProps<
+  BV<{ items?: Pillar[]; eyebrow?: string; heading?: string; lead?: string; anchor?: string }>
+>;
 
-const items = Astro.props.value.items ?? [];
+const value = Astro.props.value;
+const items = value.items ?? [];
+const str = (v?: string) => (typeof v === 'string' ? v.trim() : '');
+const eyebrow = str(value.eyebrow);
+const heading = str(value.heading);
+const lead = str(value.lead);
+const anchor = /^[a-z][a-z0-9-]{0,63}$/.test(str(value.anchor)) ? str(value.anchor) : undefined;
+const hasHead = Boolean(eyebrow || heading || lead);
 const lines = (s?: string) => (s ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
 ---
 
-<div class="vt-bleed vt-grid centered">
+<div id={anchor} class:list={['vt-bleed', 'vt-grid', 'centered', anchor && 'block-anchor', hasHead && 'vt-pillars-block--headed']}>
+{
+  hasHead && (
+    <header class="spotlight rhythm vt-pillars__head">
+      {eyebrow && <p class="font-eyebrow">{eyebrow}</p>}
+      {heading && <h2 class="font-title">{heading}</h2>}
+      {lead && <p class="font-lead">{lead}</p>}
+    </header>
+  )
+}
 <ul class={`spotlight subgrid subgrid-cols-${Math.min(items.length || 1, 3)} subgrid-responsive vt-pillars`} role="list">
   {
     items.map((p) => {

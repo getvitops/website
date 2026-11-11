@@ -54,16 +54,12 @@ const spans = (value.heading ?? []).flatMap((b) => b.children ?? []);
             return (
               <li class="card subgrid-card vt-tone-top" style={t.style}>
                 {d.eyebrow && <span class="font-eyebrow vt-tone-text">{d.eyebrow}</span>}
-                <h2 class="font-subheading">
-                  {d.href ? (
-                    <a class="stretched-link" href={d.href}>{d.title}</a>
-                  ) : (
-                    d.title
-                  )}
-                </h2>
+                <h2 class="font-subheading">{d.title}</h2>
                 <div class="subgrid-card__footer rhythm">
                   {d.body && <p class="text-neutral-muted">{d.body}</p>}
-                  {d.cta_label && <span class="btn vt-tone-btn inline-block">{d.cta_label} ›</span>}
+                  {d.cta_label && d.href && (
+                    <a class="btn vt-tone-btn stretched-link inline-block" href={d.href}>{d.cta_label} ›</a>
+                  )}
                 </div>
               </li>
             );

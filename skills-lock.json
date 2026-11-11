@@ -7,39 +7,18 @@
       "skillPath": "skills/building-emdash-site/SKILL.md",
       "computedHash": "9674c98251856c48d78c611f5e7884fee726e4da4df9a399e921ab7f5aa5e870"
     },
-    "contact-form": {
-      "source": "@getvitops/skills",
-      "sourceType": "node_modules",
-      "skillPath": "skills/contact-form/SKILL.md",
-      "version": "0.1.0-alpha.0",
-      "computedHash": "52272782fdc6f6e9897931999e075b7dd08bc2c3845a7a626d9df225c6f44477"
-    },
-    "content-and-deploys": {
-      "source": "@getvitops/skills",
-      "sourceType": "node_modules",
-      "skillPath": "skills/content-and-deploys/SKILL.md",
-      "version": "0.1.0-alpha.0",
-      "computedHash": "14e144b639e91a99c45469b099121652a9e721af1f4451ad7edddbec933f02e7"
-    },
     "creating-plugins": {
       "source": "emdash-cms/skills",
       "sourceType": "github",
       "skillPath": "skills/creating-plugins/SKILL.md",
       "computedHash": "5b2d11e98ddd4d6742f93839e2324b98af4ea39f892a82c8ec9fd091604db9ae"
     },
-    "csp": {
+    "emdash-building-pages": {
       "source": "@getvitops/skills",
       "sourceType": "node_modules",
-      "skillPath": "skills/csp/SKILL.md",
-      "version": "0.1.0-alpha.0",
-      "computedHash": "4ceef9655e06bfb3136e421bf00b4aaf6373e5674a1d9bad04d5ab066828c9b9"
-    },
-    "custom-blocks": {
-      "source": "@getvitops/skills",
-      "sourceType": "node_modules",
-      "skillPath": "skills/custom-blocks/SKILL.md",
-      "version": "0.1.0-alpha.0",
-      "computedHash": "a8774b38d0eb369305bb475c22563cbb8081a543a54d81a2b97acc7b47e5c813"
+      "skillPath": "skills/emdash-building-pages/SKILL.md",
+      "version": "0.1.0-alpha.2",
+      "computedHash": "203b175198163cbd50300e8ccacccdb48bcb85ba4c9dda7b1127b9cc00b98785"
     },
     "emdash-cli": {
       "source": "emdash-cms/skills",
@@ -47,11 +26,60 @@
       "skillPath": "skills/emdash-cli/SKILL.md",
       "computedHash": "18a17701b946afd65e778ea560feddfd18082da3f0e916dcc6ca8c155bc0d803"
     },
+    "emdash-contact-form": {
+      "source": "@getvitops/skills",
+      "sourceType": "node_modules",
+      "skillPath": "skills/emdash-contact-form/SKILL.md",
+      "version": "0.1.0-alpha.2",
+      "computedHash": "3037fc1655442d3128ac83f45e1686549f6de24da927e330d1e2bce438f17268"
+    },
+    "emdash-content-and-deploys": {
+      "source": "@getvitops/skills",
+      "sourceType": "node_modules",
+      "skillPath": "skills/emdash-content-and-deploys/SKILL.md",
+      "version": "0.1.0-alpha.2",
+      "computedHash": "eabd1730f435a047428140a9a4aa185f3258fd28fb3568db0021f099c36f5832"
+    },
+    "emdash-custom-blocks": {
+      "source": "@getvitops/skills",
+      "sourceType": "node_modules",
+      "skillPath": "skills/emdash-custom-blocks/SKILL.md",
+      "version": "0.1.0-alpha.2",
+      "computedHash": "7a60554ea5fafec687447338839fff7ff1440a449b98731a7f4aea39d71f3faa"
+    },
     "upgrading-emdash": {
       "source": "emdash-cms/skills",
       "sourceType": "github",
       "skillPath": "skills/upgrading-emdash/SKILL.md",
       "computedHash": "49600bfd83609a8caa40501ed511dac5c0731138bcff51eb5257281dfe3ac8fb"
+    },
+    "vitops-ads": {
+      "source": "@getvitops/skills",
+      "sourceType": "node_modules",
+      "skillPath": "skills/vitops-ads/SKILL.md",
+      "version": "0.1.0-alpha.2",
+      "computedHash": "dce06e3cd19369f1595118f7361196e2277a5113eecd98d1f6f3ba3bf412f576"
+    },
+    "vitops-consent": {
+      "source": "@getvitops/skills",
+      "sourceType": "node_modules",
+      "skillPath": "skills/vitops-consent/SKILL.md",
+      "version": "0.1.0-alpha.2",
+      "computedHash": "e0808c805b2ce36896b275df0a9263c2a4840a983cfcaaa0d5370460818c3cfc"
+    },
+    "vitops-csp": {
+      "source": "@getvitops/skills",
+      "sourceType": "node_modules",
+      "skillPath": "skills/vitops-csp/SKILL.md",
+      "version": "0.1.0-alpha.2",
+      "computedHash": "f7a9057419b81795ce0ae6e1daa4e5bf778eacfab26528d1587fff27a9ea3852"
+    },
+    "vitops-see-the-page": {
+      "source": "@getvitops/skills",
+      "sourceType": "node_modules",
+      "skillPath": "skills/vitops-see-the-page/SKILL.md",
+      "version": "0.1.0-alpha.2",
+      "computedHash": "08032a38c38355235c6a07f1bd20f4401256d30758183ff44683c0f0ae23bc07"
     },
     "wordpress-plugin-to-emdash": {
       "source": "emdash-cms/skills",

@@ -44,3 +44,6 @@ public/vitops/
 .claude/skills/content-and-deploys
 .claude/skills/csp
 .claude/skills/custom-blocks
+# `skills experimental_sync` also leaves a duplicate `pnpm-@getvitops+skills-*` link per skill
+.agents/skills/pnpm-*
+.claude/skills/pnpm-*

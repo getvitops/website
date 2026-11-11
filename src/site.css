@@ -125,34 +125,6 @@
   outline-offset: 2px;
 }
 
-/* Logo tiles */
-.vt-logo {
-  font-weight: 500;
-  padding: var(--space-s) var(--space-m);
-}
-.vt-logo__row {
-  align-items: center;
-  gap: var(--space-s);
-}
-.vt-slot {
-  flex: none;
-  inline-size: 1.75rem;
-  block-size: 1.75rem;
-  border: 1px dashed var(--color-border-neutral-muted);
-  border-radius: 0.45rem;
-  display: grid;
-  place-items: center;
-  font-style: normal;
-  font-size: 0.5rem;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-}
-.vt-logo__img {
-  inline-size: 1.75rem;
-  block-size: 1.75rem;
-  object-fit: contain;
-}
-
 /* Comparison */
 .vt-report {
   border: 1px dashed var(--color-border-neutral-muted);
@@ -327,36 +299,6 @@
   margin-inline-end: auto;
 }
 
-/* ── Footer ───────────────────────────────────────────────────────────── */
-.vt-footer {
-  padding-block: var(--space-2xl) var(--space-xl);
-}
-.vt-footer ul {
-  list-style: none;
-  padding: 0;
-}
-.vt-footer li + li {
-  margin-block-start: 0.5rem;
-}
-.vt-footer a {
-  text-decoration: none;
-}
-.vt-footer a:hover {
-  color: var(--color-text-neutral);
-}
-.vt-footer__base {
-  margin-block-start: var(--space-xl);
-  padding-block-start: var(--space-m);
-  border-block-start: 1px solid var(--color-border-neutral-muted);
-  font-size: var(--text-s);
-}
-.vt-footer__base ul {
-  gap: var(--space-m);
-}
-.vt-footer__base li + li {
-  margin: 0;
-}
-
 /* ── Tone helpers ─────────────────────────────────────────────────────────
    Blocks set --tone-fill / -on / -text / -edge / -wash (see blocks/tone.ts:
    role, then semantic fallback, then a palette-hue escape hatch). */
@@ -382,54 +324,20 @@
   border-color: var(--tone-fill);
 }
 .vt-tone-btn {
-  --bg-button: var(--tone-fill);
+  --bg-btn: var(--tone-fill);
   color: var(--tone-on);
 }
 .btn.vt-tone-btn:hover {
   background-color: color-mix(in oklab, var(--tone-fill) 85%, white);
 }
 
-/* ── Stacks (`.rhythm`) ────────────────────────────────────────────────────────────────
-   Upstream candidates, see UPSTREAM.md (items 6 to 13). */
-
-/* `rhythm-section` is the stack of `vt_section` only: a form's own `.rhythm` must keep its tight
-   field spacing. Block-level children of a section stack (a card row, a stats list, an accordion, a form) sit a
-   block-gap apart, not a paragraph apart. `vitops_cards` renders `<wc-cards><ul>`, so the
-   direct child is the custom element. */
-.rhythm-section > :where(wc-cards, ul, ol, div, details, form, table, figure) {
-  margin-block-start: calc(var(--rhythm-base) * var(--rhythm-block, 2));
-}
-
-/* A row of buttons after the lead, and a bare link: both are a block-gap from what is above. A bare
-   link is inline, so a margin-based stack cannot space it until it is made a block. */
-.rhythm-section > :where(p.cluster, a.link) {
-  margin-block-start: calc(var(--rhythm-base) * var(--rhythm-block-action, 1.6));
-}
-.rhythm-section > :where(p.cluster) {
-  align-items: center;
-}
-.rhythm > :where(a.link) {
-  display: block;
-  inline-size: fit-content;
-}
-
-/* Opt-in second stack: add `rhythm-flex` beside `rhythm` (a section's class field) where the
-   margin approach fails. Flex items are blockified, so margins apply to every child. No `gap`:
-   the `.rhythm` pair rules still decide the spacing. */
-.rhythm-flex {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.rhythm-flex > :where(wc-cards, ul, ol, div, details, form, table, figure) {
-  align-self: stretch;
-}
-
 /* ── Tone ──────────────────────────────────────────────────────────────────────────────
    The framework tints from the role's `muted` step, which is brown on a dark page for amber.
    The mockups use the role's solid at a low alpha over the page. */
-:is(.callout, .card, .section, .banner).tone:not(.tone--solid) {
-  --_bg: color-mix(in oklab, var(--tone-solid, currentColor) 8%, transparent);
+.tone {
+  /* What `colors.tint: { mix: "8%" }` would emit. alpha.4 rejects that key in site.json
+     (ColorsPatch has no `tint`), so it is set here. UPSTREAM.md. */
+  --tone-tint: color-mix(in oklab, var(--tone-solid, currentColor) 8%, transparent);
 }
 /* A call-to-action band keeps neutral text and a faint role-coloured edge; the role colour is
    carried by the wash and the button. */
@@ -441,144 +349,49 @@
   align-items: center;
 }
 
-/* Blocks that take a tone only for its colour variables (steps, stats, form) are not surfaces:
-   without padding and a border a tinted fill reads as a stray band. */
-.steps.tone,
-.stats.tone,
-.form-block.tone {
-  --_bg: transparent;
-  --_fg: inherit;
-}
-
 /* ── Steps ─────────────────────────────────────────────────────────────────────────────
-   Upstream candidates for patterns/steps.css. */
+   Card geometry and marker are the `steps` pattern in site.json; `steps--cards` and
+   `steps--animated` are built in. Only the title size stays local. */
 .steps {
   --steps-title-size: var(--text-l);
 }
-.steps .steps__item {
-  align-content: start;
-  /* `.rhythm li + li` would otherwise push every step after the first down. */
-  margin-block-start: 0;
-}
-/* The marker is an outlined disc in the tone, as in the mockups, so it reads with no tone set. */
-.steps .steps__item::before {
-  background-color: var(--color-bg-neutral, transparent);
-  color: var(--tone-solid, currentColor);
-  border: 2px solid var(--tone-solid, currentColor);
-}
-/* Each step in a card, like the mockup's `.step`. */
-.steps--cards .steps__item {
-  padding: 1.5rem;
-  border: var(--b-card, 1px solid var(--color-border-neutral-muted));
-  border-radius: var(--br-card, 0.75rem);
-  background-color: var(--color-bg-surface, transparent);
-}
-/* In a card the connector runs in the gap between cards, at the marker's height. */
-.steps--cards .steps__item:not(:last-child)::after {
-  opacity: 0.7;
-  background-color: var(--tone-solid, currentColor);
-  inset-block-start: calc(1.5rem + var(--_marker) / 2 - var(--_line) / 2);
-}
-@container (min-width: 48rem) {
-  .steps--cards.steps--row .steps__item:not(:last-child)::after {
-    inset-inline-start: 100%;
-    inset-inline-end: calc(var(--_gap) * -1);
-  }
-}
-/* The connector draws, and the marker fills, as each step scrolls into view. CSS only:
-   one scroll timeline per item drives `--steps-p` (0 to 1), and the marker and connector read
-   it. Browsers without scroll-driven animations keep `--steps-p: 1`, the static pattern. */
-@property --steps-p {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 1;
-}
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .steps--animated .steps__item {
-      animation: steps-progress linear both;
-      animation-timeline: view();
-      animation-range: entry 15% cover 40%;
-    }
-    .steps--animated .steps__item::after {
-      transform-origin: top;
-      transform: scaleY(var(--steps-p));
-    }
-    .steps--animated.steps--row .steps__item::after {
-      transform-origin: left;
-      transform: scaleX(var(--steps-p));
-    }
-    .steps--animated .steps__item::before {
-      background-color: color-mix(
-        in oklab,
-        var(--tone-solid, currentColor) calc(var(--steps-p) * 100%),
-        var(--color-bg-neutral, transparent)
-      );
-      color: color-mix(
-        in oklab,
-        var(--tone-on-solid, Canvas) calc(var(--steps-p) * 100%),
-        var(--tone-solid, currentColor)
-      );
-    }
-  }
-}
-@keyframes steps-progress {
-  from {
-    --steps-p: 0;
-  }
-  to {
-    --steps-p: 1;
-  }
-}
 
-/* ── Accordion ─────────────────────────────────────────────────────────────────────────
-   `.accordion` has no CSS upstream, so a FAQ read as bare lines. Upstream candidate. */
-.accordion {
-  border-block-end: 1px solid var(--color-border-neutral-muted);
-}
-.accordion details {
-  border-block-start: 1px solid var(--color-border-neutral-muted);
-  padding-block: 1.1rem;
-}
-.accordion summary {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: 1rem;
-  cursor: pointer;
-  list-style: none;
-  font-weight: 600;
-}
-.accordion summary::-webkit-details-marker {
-  display: none;
-}
-.accordion summary::after {
-  content: '+';
-  color: var(--color-text-ui-accent);
-  font-weight: 400;
-  font-size: 1.5em;
-  line-height: 1;
-}
-.accordion details[open] summary::after {
-  content: '\2013';
-}
-.accordion details > p {
-  margin-block: 0.75rem 0;
-  max-inline-size: var(--width-measure, 65ch);
-  color: var(--color-text-neutral-muted, inherit);
-}
-
-/* ── vitops_section (upstream wrapper) ────────────────────────────────────────────────
-   Only `.section--split` makes `.section__inner` a grid with a gap, so in the default stack
-   the head sits flush on the body. Give the body the block gap, and the body's own children
-   more room than 1.5rem. UPSTREAM.md item 8. */
-.section .section__head + .section__body {
-  margin-block-start: calc(var(--rhythm-base) * var(--rhythm-block, 2));
-}
+/* ── vitops_section ───────────────────────────────────────────────────────────────────
+   The gap between a section's body children. alpha.4 spaces head and body (`--section-gap`, or the
+   rhythm scale under `stack: rhythm`) but not the children inside `.section__body`. */
 .section {
   --section-body-gap: calc(var(--rhythm-base) * var(--rhythm-block, 2));
 }
 /* A bare link or button block is a grid item here and would stretch to the full width. */
 .section__body > :where(a) {
   justify-self: start;
+}
+/* A level-1 `vitops_section` heading is `.font-title`, which beats the bare `h1` display role, so a page
+   opener rendered at title size. Restore the display role for it. UPSTREAM.md. */
+.section h1.section__title {
+  font-size: var(--display-fs, var(--text-5xl));
+  font-weight: var(--display-fw, 600);
+  line-height: var(--display-lh, 1.02);
+  letter-spacing: var(--display-ls, -0.035em);
+}
+
+/* Stat tiles: the source line (the tile's `delta`) is a small attribution on its own line at the
+   bottom of the card. The tile has no markup for a citation, so `delta` carries it. UPSTREAM.md (9a). */
+.stats--tiles .stats__item {
+  grid-template-rows: auto 1fr auto;
+  gap: 0.5rem;
+}
+.stats--tiles .stats__delta {
+  font-size: var(--text-s);
+  line-height: 1.4;
+  color: var(--color-text-neutral-muted, inherit);
+  margin-block-start: var(--space-xs);
+}
+
+/* Pillars: the optional heading sits at the top of the grid backdrop, a block gap above the cards. */
+.vt-pillars-block--headed {
+  padding-block-start: var(--space-xl);
+}
+.vt-pillars__head {
+  margin-block-end: var(--space-l);
 }

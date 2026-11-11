@@ -70,12 +70,15 @@ Lessons from building it that the generic rules above don't state:
 Built with the Vitops design system (`@getvitops/*`); tokens and site facts live in `site.json`.
 Prefer its classes and patterns over hand-written CSS. Load the skill that matches the task:
 
-- [contact-form](.agents/skills/contact-form/SKILL.md) — Use when adding or changing a form, fixing submissions that don't arrive, setting up noti…
-- [content-and-deploys](.agents/skills/content-and-deploys/SKILL.md) — Use for any deploy or build problem, stale or missing content, "my publish isn't live", s…
-- [csp](.agents/skills/csp/SKILL.md) — Use when changing `public/_headers`, adding an embed, tracking snippet or third-party scr…
-- [custom-blocks](.agents/skills/custom-blocks/SKILL.md) — Use before creating, renaming or deleting any block type, any `src/components/blocks/*` r…
-- [vitops-design-system](.agents/skills/vitops-design-system/SKILL.md) — Use when styling or authoring pages or components (choosing utility/pattern classes, colo…
+- [emdash-building-pages](.agents/skills/emdash-building-pages/SKILL.md) — Use when authoring or changing a page's layout or content on this EmDash site — composing `vitops_*` blocks
+- [emdash-contact-form](.agents/skills/emdash-contact-form/SKILL.md) — Use when adding or changing a form, fixing submissions that don't arrive, setting up notifications, CRM or Turnstile
+- [emdash-content-and-deploys](.agents/skills/emdash-content-and-deploys/SKILL.md) — Use for any deploy or build problem, stale or missing content, "my publish isn't live", scheduled posts, previews
+- [emdash-custom-blocks](.agents/skills/emdash-custom-blocks/SKILL.md) — Use before creating, renaming or deleting any block type, any `src/components/blocks/*` renderer
+- [vitops-ads](.agents/skills/vitops-ads/SKILL.md) — Use when adding or changing a Google/Meta/LinkedIn/TikTok/Microsoft/Reddit/Pinterest/Snapchat pixel
+- [vitops-consent](.agents/skills/vitops-consent/SKILL.md) — Use before gating, adding or changing any non-essential third-party tag, cookie, embed
+- [vitops-csp](.agents/skills/vitops-csp/SKILL.md) — Use when changing `public/_headers`, adding an embed, tracking snippet or third-party script, turning the CSP on
+- [vitops-design-system](.agents/skills/vitops-design-system/SKILL.md) — Use when styling or authoring pages or components (choosing utility/pattern classes, colours, spacing, typography)
+- [vitops-see-the-page](.agents/skills/vitops-see-the-page/SKILL.md) — How to look at a rendered page of this site
 
-Reference, rendered from this project: `vitops docs <topic>` (no topic lists them).
-<!-- managed by `vitops agents sync` · @getvitops/cli@8.3.0-alpha.3 — edit outside this block -->
+Reference, rendered from this project: `vp exec vitops docs [topic]` (no topic lists them).
 <!-- vitops:end -->
