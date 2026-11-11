@@ -2,8 +2,10 @@
 import VitopsHead from '@getvitops/astro/Head.astro';
 import { resolveOrganizationName } from '@getvitops/astro/routes';
 import SiteNav from '@getvitops/astro/components/SiteNav.astro';
+import Masthead from '@getvitops/astro/components/Masthead.astro';
+import { resolveNavOptions } from '@getvitops/astro/components/masthead.ts';
 import { loadNavMenus } from '@getvitops/astro/components/sitenav.ts';
-import { VitopsWidgetArea } from '@getvitops/emdash/astro';
+import { VitopsMegaPanel, VitopsWidgetArea } from '@getvitops/emdash/astro';
 import { getMenu, getSiteSettings } from 'emdash';
 import { createPublicPageContext } from 'emdash/page';
 import { EmDashHead } from 'emdash/ui';
@@ -52,10 +54,7 @@ const pageCtx = createPublicPageContext({
 ---
 
 <!doctype html>
-<!-- data-theme="dark": the site is dark-only. The framework has no "dark" default
-     (defaultColorScheme is light | system), so the attribute is set here — see
-     UPSTREAM.md. -->
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -68,15 +67,14 @@ const pageCtx = createPublicPageContext({
   </head>
   <body class="bg-neutral-muted text-neutral">
     <VitopsWidgetArea name="announcement" class="centered" />
-    <header class="navbar-sticky centered vt-header">
-      <div class="navbar">
-        <a class="vt-brand" href="/" aria-label={`${siteTitle} home`}>
-          <span class="vt-brand__mark" set:html={logo} aria-hidden="true" />
-          <span>{siteTitle.toLowerCase()}</span>
-        </a>
-        <SiteNav {...nav} />
-      </div>
-    </header>
+    <!-- Look and nav behaviour come from `site.chrome` in site.json. -->
+    <Masthead config={config}>
+      <a slot="brand" class="vt-brand" href="/" aria-label={`${siteTitle} home`}>
+        <span class="vt-brand__mark" set:html={logo} aria-hidden="true" />
+        <span>{siteTitle.toLowerCase()}</span>
+      </a>
+      <SiteNav {...nav} {...resolveNavOptions(config)} megaPanel={VitopsMegaPanel} />
+    </Masthead>
 
     <!-- Blocks own their own region/centered wrappers (full-bleed sections), so
          <main> adds none. Pages that render plain Portable Text wrap it themselves. -->

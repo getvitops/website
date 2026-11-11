@@ -169,7 +169,10 @@
               "element": "button",
               "class": "btn",
               "fill": false,
-              "overrides": { "b": "1px solid transparent", "fs": "inherit" },
+              "overrides": {
+                "b": "1px solid transparent",
+                "fs": "inherit"
+              },
               "base": {
                 "display": "inline-flex",
                 "align-items": "center",
@@ -190,9 +193,13 @@
               "states": {
                 "hover": {
                   "step": 1,
-                  "css": { "background-color": "var(--color-bg-surface-muted)" }
+                  "css": {
+                    "background-color": "var(--color-bg-surface-muted)"
+                  }
                 },
-                "focus-visible": { "ring": true }
+                "focus-visible": {
+                  "ring": true
+                }
               },
               "roles": []
             },
@@ -282,8 +289,12 @@
                 "text-underline-offset": "0.15em"
               },
               "states": {
-                "hover": { "step": 1 },
-                "focus-visible": { "ring": true }
+                "hover": {
+                  "step": 1
+                },
+                "focus-visible": {
+                  "ring": true
+                }
               },
               "roles": []
             },
@@ -421,7 +432,7 @@
         }
       }
     },
-    "defaultColorScheme": "light"
+    "defaultColorScheme": "dark"
   },
   "organization": {
     "name": "Vitops",
@@ -676,6 +687,23 @@
             ]
           }
         ]
+      }
+    },
+    "chrome": {
+      "masthead": {
+        "position": "sticky",
+        "behavior": "always",
+        "surface": "glass",
+        "layout": "full",
+        "width": "content",
+        "elevation": {
+          "border": true
+        },
+        "height": "4rem"
+      },
+      "nav": {
+        "compact": "drawer",
+        "drawerSide": "end"
       }
     }
   }

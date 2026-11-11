@@ -3,8 +3,6 @@
    classes (centered / region / rhythm / subgrid / cluster). */
 
 :root {
-  /* Sticky header height; anchored blocks scroll to just below it. */
-  --header-offset: 2.75rem;
   /* Mockup content width is 1200px; the framework's spotlight track defaults to 120ch. */
   --width-spotlight: 75rem;
   /* Mockup sections use 112px of vertical padding. */
@@ -274,12 +272,19 @@
   gap: var(--space-l);
 }
 
-/* ── Header ───────────────────────────────────────────────────────────── */
-.vt-header {
-  background: color-mix(in oklab, var(--color-bg-neutral-muted) 92%, transparent);
-  backdrop-filter: blur(8px);
-  border-block-end: 1px solid var(--color-border-neutral-muted);
+/* ── Masthead ─────────────────────────────────────────────────────────────
+   `.masthead__row { display: block }` beats `.centered { display: grid }` (alpha.5), so a
+   `width: content` row never gets the page track and the brand sits on the viewport edge.
+   UPSTREAM.md. */
+.masthead__row.centered {
+  display: grid;
 }
+/* Line the bar up with the blocks below, which use the spotlight track. */
+.masthead__row.centered > .navbar {
+  grid-column: spotlight;
+}
+
+/* ── Brand ────────────────────────────────────────────────────────────── */
 .vt-brand {
   display: inline-flex;
   align-items: center;
@@ -294,9 +299,6 @@
   display: block;
   inline-size: 1.9rem;
   block-size: auto;
-}
-.vt-brand {
-  margin-inline-end: auto;
 }
 
 /* ── Tone helpers ─────────────────────────────────────────────────────────
