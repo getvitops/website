@@ -1,6 +1,6 @@
 # UPSTREAM.md
 
-What is still open against `@getvitops/*` (8.3.0-alpha.3, `@getvitops/emdash` 2.0.0-alpha.3,
+What is still open against `@getvitops/*` (8.3.0-alpha.5, `@getvitops/emdash` 2.0.0-alpha.5,
 `emdash` 1.4.0), found while building vitops.ca from the Workdrive mockups. Written for the toolkit
 maintainers. One site and one author, so "universal" is a judgement, not a second consumer.
 
@@ -14,6 +14,22 @@ Entry format: what we saw, why, the local workaround, the suggested fix.
 held it back (below). Not re-rated this round. The two things that would move it most are items 1 and 2.
 
 ## Open items, ranked
+
+**alpha.4 and alpha.5 closed items 1 to 4, 6, 8 to 13, 15, 17 to 19, 21 and 25 to 26** (see "Resolved"). The
+entries below are kept for the history; the new open ones are 30 and 31 and are listed first.
+
+### New in alpha.5
+
+30. **`colors.tint` is documented but rejected.** `vitops docs authoring` describes `colors.tint: { mix: "8%" }`,
+    but `vitops validate` reports `designSystem.themes.default.colors: unknown key "tint"`. **Local fix:** the
+    `.tone { --tone-tint: color-mix(…) }` rule in `src/site.css`. **Fix:** accept the key in the config schema, or
+    drop it from the docs.
+31. **`<Masthead width="content">` is not on the page track.** `.masthead__row { display: block }` has the same
+    specificity as `.centered { display: grid }` and wins, so the row has no tracks and the brand sits on the
+    viewport edge. Even with `display: grid`, the `.navbar` lands in the measure track while blocks use the
+    spotlight track. **Local fix:** `.masthead__row.centered { display: grid }` and
+    `> .navbar { grid-column: spotlight }` in `src/site.css`. **Fix:** make the row a grid in the pattern and
+    place `.navbar` in `spotlight`.
 
 ### Priority 1: patterns that blocks emit but the generated CSS does not have
 
@@ -156,7 +172,7 @@ All site-local blocks are `local (watch)`: retire them when the upstream shape s
 | `vt_section`   | Flat section / page opener (item 6)                | **Upstream, new**       | flat variant of `vitops_section`: lead, CTAs, level 1, flat body                      |
 | `vt_hero`      | Hero with two option cards, pine and amber accents | **Upstream, extension** | two-colour heading accents and a cards slot on `vitops_hero` (items 6 and 16)         |
 | `vt_pillars`   | "Two services. One team." panels                   | **Upstream, extension** | per-card tone on `vitops_cards` `panel` (item 19)                                     |
-| `vt_logos`     | Partner names with kicker, note and link           | **Upstream, extension** | kicker, note and link on `vitops_logos` (item 15)                                     |
+| `vt_logos`     | Partner names with kicker, note and link           | **Retired** (alpha.4)   | replaced by `vitops_logos` with `kicker`, `note` and `linkLabel`/`linkHref`           |
 | `vt_compare`   | Two companies versus one connected funnel          | **Site-specific**       | this site's argument, copy and figures; revisit only if a second site needs an A-vs-B |
 | `vt_dashboard` | Sample dashboard with sample data in code          | **Site-specific**       | the product's portal mock; its generic kernel is `vitops_stats` tiles                 |
 
@@ -176,6 +192,15 @@ caption. The home page's other nine local blocks all moved to upstream blocks.
   missing form recipient and h1 counts.
 
 ## Resolved (one line each)
+
+- **alpha.4 and alpha.5:** `cta`, `link`, `details` and `steps` patterns and the `ui-accent` role ship in the
+  scaffold; `.accordion` styled; tone paints only on surfaces (`tone--tint`/`tone--solid`); `vitops_section` is the
+  page opener (CTAs, accent, `stack: rhythm`) and `.rhythm` spaces blocks; steps markers, `steps--cards` and
+  `steps--animated`; `<wc-counter>` leaves non-numeric figures alone; `vitops_logos` kicker, note and link;
+  pricing `yearly` and `note`; `<SiteFooter>` `brand` slot; `check-prerender` sitemap warning; dark-only works
+  from `defaultColorScheme: "dark"` alone (no `data-theme` in the layout); the header is `<Masthead>` from
+  `site.chrome`; skills are named by scope and `vitops agents sync` writes the AGENTS.md block; agents view pages
+  with `playwright-cli`.
 
 - **First round:** dark-only mode (`defaultColorScheme`); per-role `solid` and `foreground`; shadows with spread
   and inset (`box`/`drop`); `acknowledgeOffLadder` for off-ladder palette hues; type role key `text-transform`
