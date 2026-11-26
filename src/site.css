@@ -1,5 +1,5 @@
 /* Site-local CSS: only what the Vitops framework has no class for.
-   Everything here reads tokens from site.json; layout comes from framework
+   Everything here reads tokens from vitops.json; layout comes from framework
    classes (centered / region / rhythm / subgrid / cluster). */
 
 :root {
@@ -337,7 +337,7 @@
    The framework tints from the role's `muted` step, which is brown on a dark page for amber.
    The mockups use the role's solid at a low alpha over the page. */
 .tone {
-  /* What `colors.tint: { mix: "8%" }` would emit. alpha.4 rejects that key in site.json
+  /* What `colors.tint: { mix: "8%" }` would emit. alpha.4 rejects that key in vitops.json
      (ColorsPatch has no `tint`), so it is set here. UPSTREAM.md. */
   --tone-tint: color-mix(in oklab, var(--tone-solid, currentColor) 8%, transparent);
 }
@@ -352,7 +352,7 @@
 }
 
 /* ── Steps ─────────────────────────────────────────────────────────────────────────────
-   Card geometry and marker are the `steps` pattern in site.json; `steps--cards` and
+   Card geometry and marker are the `steps` pattern in vitops.json; `steps--cards` and
    `steps--animated` are built in. Only the title size stays local. */
 .steps {
   --steps-title-size: var(--text-l);

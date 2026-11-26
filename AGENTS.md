@@ -3,9 +3,9 @@ design system. Public pages are prerendered; the Worker serves the admin and API
 
 ## Ground rules
 
-- `site.json` is the single source of truth: organization and site facts, plus the design
+- `vitops.json` is the single source of truth: organization and site facts, plus the design
   system (colors, type, spacing, patterns) under `designSystem.themes.default`. Never edit
-  `src/styles/tailwind.css`; it is generated from `site.json` and gitignored.
+  `src/styles/tailwind.css`; it is generated from `vitops.json` and gitignored.
 - Content lives in the EmDash database, not the repo. Query it with `getEmDashCollection` /
   `getEmDashEntry` from `emdash`; render Portable Text with `<PortableText />` from `emdash/ui`
   (the `vitops_*` blocks from `@getvitops/emdash` are merged in).
@@ -52,7 +52,7 @@ through `vpr` (`vpr dev`, `vpr build`, `vpr preview`); `vpr dev` returns immedia
 | migrate and seed local DB | `vpr prepare-local-db` (before a first build)    |
 | build                     | `vpr build` (`vitops emdash build`)              |
 | deploy                    | `vpr deploy` / `vpr deploy:dev`, only when asked |
-| validate config           | `vp exec vitops validate site.json`              |
+| validate config           | `vp exec vitops validate vitops.json`            |
 
 EmDash skills are installed per project: `vp dlx skills add emdash-cms/skills --skill '*' -y`.
 
@@ -61,13 +61,13 @@ EmDash skills are installed per project: `vp dlx skills add emdash-cms/skills --
 Lessons from building it that the generic rules above don't state:
 
 - **Diff your markup against the component list before writing any renderer.** Run `vp exec vitops docs components` and `vp exec vitops docs blocks`. A hand-rolled stats figure was built next to an existing `Counter`, and an upstream block (`vitops_stats`) arrived later; check first, every time.
-- **`tone` select options are static** in EmDash, so they cannot follow `site.json` at runtime; the toolkit's `tones/list` route fills them for the admin. A site-local block must not hard-code a site's palette names into a seed option list.
+- **`tone` select options are static** in EmDash, so they cannot follow `vitops.json` at runtime; the toolkit's `tones/list` route fills them for the admin. A site-local block must not hard-code a site's palette names into a seed option list.
 - **Site-specific decorations stay site-local.** A decoration such as the blueprint grid backdrop is not an option to propose upstream.
 - **Registry:** every `vt_*` block still in use, with verdict and status, is in `UPSTREAM.md` ("Local block registry").
 
 <!-- vitops:start -->
 
-Built with the Vitops design system (`@getvitops/*`); tokens and site facts live in `site.json`.
+Built with the Vitops design system (`@getvitops/*`); tokens and site facts live in `vitops.json`.
 Prefer its classes and patterns over hand-written CSS. Load the skill that matches the task:
 
 - [emdash-building-pages](.agents/skills/emdash-building-pages/SKILL.md) — Use when authoring or changing a page's layout or content on this EmDash site — composing `vitops_*` blocks

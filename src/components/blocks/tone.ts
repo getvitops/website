@@ -1,7 +1,7 @@
 // Colour vocabulary for block fields, resolved in three tiers:
 //
 //   1. ROLE name (preferred)   `brand-primary`, `warning` … any key of
-//                              `colors.roles` in site.json.
+//                              `colors.roles` in vitops.json.
 //   2. SEMANTIC fallback       `primary`, `secondary`, `success` … mapped to the
 //                              closest role this site actually defines. Also maps
 //                              the legacy v1 values `it` / `mk`.
@@ -13,7 +13,7 @@
 // out in source, so `bg-${role}-solid` can't be built dynamically. Custom
 // properties are all emitted, so no safelist is needed. The `.vt-tone-*` classes
 // in site.css read them.
-import config from '../../../site.json';
+import config from '../../../vitops.json';
 
 type RoleDef = string | { hue: string; kind?: 'surface' | 'chromatic' };
 const colors = (

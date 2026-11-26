@@ -9,7 +9,7 @@ import { VitopsMegaPanel, VitopsWidgetArea } from '@getvitops/emdash/astro';
 import { getMenu, getSiteSettings } from 'emdash';
 import { createPublicPageContext } from 'emdash/page';
 import { EmDashHead } from 'emdash/ui';
-import config from '../../site.json' with { type: 'json' };
+import config from '../../vitops.json' with { type: 'json' };
 import SiteFooter from '../components/SiteFooter.astro';
 import logo from '../assets/logo.svg?raw';
 // Design-system CSS, layout-scoped (vitops css.inject: false): only pages
@@ -30,7 +30,7 @@ const settings = await getSiteSettings();
 // getSiteSettings().title is the editable, client-facing display name (set in
 // the EmDash admin) — it wins whenever it's set. resolveOrganizationName(config)
 // is the fallback rather than a second hardcoded string, so a fresh scaffold
-// shows organization.name (from site.json) before anyone's touched the admin.
+// shows organization.name (from vitops.json) before anyone's touched the admin.
 const siteTitle = settings?.title || resolveOrganizationName(config) || 'My EmDash Site';
 const fullTitle = title ? `${title} — ${siteTitle}` : siteTitle;
 const siteDescription = settings?.tagline || 'An EmDash website with the Vitops design system';
@@ -67,7 +67,7 @@ const pageCtx = createPublicPageContext({
   </head>
   <body class="bg-neutral-muted text-neutral">
     <VitopsWidgetArea name="announcement" class="centered" />
-    <!-- Look and nav behaviour come from `site.chrome` in site.json. -->
+    <!-- Look and nav behaviour come from `site.chrome` in vitops.json. -->
     <Masthead config={config}>
       <a slot="brand" class="vt-brand" href="/" aria-label={`${siteTitle} home`}>
         <span class="vt-brand__mark" set:html={logo} aria-hidden="true" />

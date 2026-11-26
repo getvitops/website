@@ -692,7 +692,6 @@
     "chrome": {
       "masthead": {
         "position": "sticky",
-        "behavior": "always",
         "surface": "glass",
         "layout": "full",
         "width": "content",

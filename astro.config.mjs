@@ -5,9 +5,9 @@ import { resolveOrganizationName } from '@getvitops/astro/routes';
 import { vitopsEmdash, vitopsHosting } from '@getvitops/emdash';
 import { defineConfig } from 'astro/config';
 import emdash from 'emdash/astro';
-import config from './site.json' with { type: 'json' };
+import config from './vitops.json' with { type: 'json' };
 
-// site.json's organization.name is the one build-time-readable source for a
+// vitops.json's organization.name is the one build-time-readable source for a
 // display name — EmDash's own getSiteSettings() only resolves inside a live
 // Worker request (AsyncLocalStorage + a DB binding), so it can't be read here
 // even though it's what Layout.astro shows on rendered pages. See AGENTS.md's
@@ -86,12 +86,12 @@ export default defineConfig({
       // EmDash's /_emdash/admin routes don't inherit the design system while
       // your pages (and EmDash previews rendered through the layout) do.
       //
-      // site.json is the umbrella Config — organization + site facts plus the
+      // vitops.json is the umbrella Config — organization + site facts plus the
       // design system at designSystem.themes.default — so css.input points
       // there instead of a bare design-system.json. legal/fonts/search/ads/
       // reviews all read the same file (see AGENTS.md's "Client onboarding").
-      css: { format: 'tailwind', inject: false, input: 'site.json' },
-      site: { input: 'site.json' },
+      css: { format: 'tailwind', inject: false, input: 'vitops.json' },
+      site: { input: 'vitops.json' },
       // Writes design-manifest.json + editor assets to public/vitops/ for the
       // EmDash /design-system admin page (without loading the editor publicly).
       editorManifest: true,

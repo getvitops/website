@@ -9,7 +9,7 @@
       Check afterwards: `curl <site>/sitemap-pages.xml` lists `/<slug>` and `/` for home.
       The build cannot warn about this, because the sitemap is served on demand, not prerendered.
 
-- [ ] **Google call tracking (website call conversions).** Not configured: `site.json` has no `site.ads` or
+- [ ] **Google call tracking (website call conversions).** Not configured: `vitops.json` has no `site.ads` or
       `site.tracking` yet. When the Google Ads account exists: 1. In Google Ads create a conversion action of type _Calls from a phone number on your website_ (separate
       from the tap action) and note its label. 2. Set `site.tracking.enabled: true` and
       `site.ads.google: { pixelId: "AW-…", callTracking: { label: "…", number: "613-518-7984" } }`.
