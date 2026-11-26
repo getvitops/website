@@ -1,0 +1,326 @@
+---
+import type { BV } from './types';
+// Code-owned cost estimator (local, watch): the prices live here, only the caption is
+// editable. Keep the figures in step with the pricing page (seed `pricing` page).
+// Native radios, checkboxes and number inputs carry the state; the script only does the sum.
+import type { BlockComponentProps } from 'emdash/ui';
+
+type Props = BlockComponentProps<BV<{ caption?: string }>>;
+const { value } = Astro.props;
+
+const PRICING = {
+  packages: {
+    launch: { name: 'Launch', monthly: 79, setup: 350 },
+    small: { name: 'Small Team', monthly: 849, setup: 500 },
+    growing: { name: 'Growing Team', monthly: 1799, setup: 800 },
+  },
+  notes: {
+    own: 'Choose any mix of IT and marketing services.',
+    launch:
+      'For solo owners: domain, business email, a Basic website and your Google profile. Your email licence is billed at cost.',
+    small:
+      'For teams of 5 to 15: Plus website, business profiles, reviews and email, SEO and AI search, plus Managed IT.',
+    growing:
+      'For teams of 15 to 50: Growth website, all six marketing services and Managed IT. Ad spend is extra.',
+  },
+  perUser: 15,
+  minIt: 100,
+  extraLicence: 5,
+  backup: 8,
+  faster: 10,
+  itSetup: 500,
+  webSetup: 500,
+  dashboardAbove: 400,
+  services: {
+    seo: ['SEO and AI search', 600],
+    bp: ['Business profiles', 100],
+    rev: ['Reviews and email campaigns', 200],
+    dir: ['Directory management', 100],
+    soc: ['Social media', 450],
+    ads: ['Ads', 500],
+  },
+  examples: {
+    office: { pkg: 'own', users: 10, backup: true },
+    launch: { pkg: 'launch', users: 1 },
+    small: { pkg: 'small', users: 15 },
+  },
+};
+
+const packages = [
+  ['own', 'Build your own'],
+  ['launch', 'Launch'],
+  ['small', 'Small Team'],
+  ['growing', 'Growing Team'],
+];
+const web = [
+  ['0', 'None'],
+  ['39', 'Basic'],
+  ['89', 'Plus'],
+  ['229', 'Growth'],
+];
+const marketing: [string, string, string, string?][] = [
+  ['seo', 'SEO and AI search', '$600'],
+  ['bp', 'Business profiles', '$100'],
+  ['dir', 'Directory management', '$100'],
+  ['rev', 'Reviews and email campaigns', '$200'],
+  ['soc', 'Social media', '$450'],
+  ['ads', 'Ads', '$500 + ad spend'],
+];
+---
+
+<div class="vt-bleed">
+  <div class="centered">
+    <form class="spotlight vt-est rhythm" data-pricing={JSON.stringify(PRICING)} novalidate>
+      {value.caption && <p class="text-neutral-muted">{value.caption}</p>}
+      <p class="cluster" role="group" aria-label="Try an example">
+        <span class="text-neutral-muted">Try an example:</span>
+        <button type="button" class="btn" data-ex="office">10-person office with backup</button>
+        <button type="button" class="btn" data-ex="launch">Solo trades owner</button>
+        <button type="button" class="btn" data-ex="small">15 people, Small Team</button>
+      </p>
+
+      <div class="vt-est__grid">
+        <div class="rhythm">
+          <fieldset class="card rhythm">
+            <legend class="font-heading">Start with</legend>
+            <div class="cluster">
+              {
+                packages.map(([v, label]) => (
+                  <label class="tag">
+                    <input type="radio" name="pkg" value={v} checked={v === 'own'} />
+                    {label}
+                  </label>
+                ))
+              }
+            </div>
+            <p class="text-neutral-muted" data-out="pkgnote">{PRICING.notes.own}</p>
+          </fieldset>
+
+          <fieldset class="card rhythm" data-group="it">
+            <legend class="font-heading text-pine-400">Managed IT</legend>
+            <label class="vt-est__row flex flex-wrap items-center justify-between gap-s" data-row="mit">
+              <span><input type="checkbox" name="mit" checked /> Managed IT, $15 per user</span>
+              <span class="text-neutral-muted">$100 minimum</span>
+            </label>
+            <label class="vt-est__row flex flex-wrap items-center justify-between gap-s">
+              <span>Users</span>
+              <input type="number" name="users" value="10" min="1" max="500" inputmode="numeric" />
+            </label>
+            <label class="vt-est__row flex flex-wrap items-center justify-between gap-s">
+              <span>Extra licences <span class="text-neutral-muted">(2 per user included)</span></span>
+              <input type="number" name="extra" value="0" min="0" max="1000" inputmode="numeric" />
+            </label>
+            <label class="vt-est__row flex flex-wrap items-center justify-between gap-s">
+              <span><input type="checkbox" name="backup" /> Managed backup</span>
+              <span class="text-neutral-muted">$8 per user</span>
+            </label>
+            <label class="vt-est__row flex flex-wrap items-center justify-between gap-s">
+              <span><input type="checkbox" name="faster" /> Faster response</span>
+              <span class="text-neutral-muted">$10 per user</span>
+            </label>
+          </fieldset>
+
+          <fieldset class="card rhythm" data-group="mk">
+            <legend class="font-heading text-amber-300">Digital Marketing</legend>
+            <div class="vt-est__row flex flex-wrap items-center justify-between gap-s" data-row="web">
+              <span id="vt-est-web">Website plan</span>
+              <span class="cluster" role="group" aria-labelledby="vt-est-web">
+                {
+                  web.map(([v, label]) => (
+                    <label class="tag">
+                      <input type="radio" name="web" value={v} checked={v === '0'} />
+                      {label}
+                    </label>
+                  ))
+                }
+              </span>
+            </div>
+            {
+              marketing.map(([id, label, price]) => (
+                <label class="vt-est__row flex flex-wrap items-center justify-between gap-s" data-row={id}>
+                  <span>
+                    <input type="checkbox" name={id} /> {label}
+                  </span>
+                  <span class="text-neutral-muted">{price}</span>
+                </label>
+              ))
+            }
+          </fieldset>
+        </div>
+
+        <aside class="card rhythm vt-est__out" aria-labelledby="vt-est-title">
+          <p id="vt-est-title" class="font-eyebrow text-neutral-muted">Your estimate</p>
+          <div aria-live="polite" class="rhythm">
+            <p class="vt-est__total flex items-baseline gap-xs">
+              <b class="font-title" data-out="total">$150</b><span class="text-neutral-muted">/month</span>
+            </p>
+            <div data-out="lines">
+              <p class="vt-est__line flex flex-wrap items-center justify-between gap-s"><span>Managed IT, 10 users</span><b>$150</b></p>
+            </div>
+            <p class="vt-est__line flex flex-wrap items-center justify-between gap-s"><span>One-time setup</span><b data-out="setup">$500</b></p>
+            <p data-out="dash" class="text-neutral-muted">
+              Add $251 a month to include the Business Health Dashboard.
+            </p>
+            <ul class="rhythm text-neutral-muted" data-out="notes">
+              <li>Managed IT setup is waived with a yearly commitment.</li>
+              <li>Taxes extra. Your final quote may differ.</li>
+            </ul>
+          </div>
+          <a class="cta" href="/contact#form">Get an exact quote</a>
+          <noscript>
+            <p class="text-neutral-muted">
+              The total only updates with JavaScript on. <a href="/pricing">See the plans and prices</a>.
+            </p>
+          </noscript>
+        </aside>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  type Pricing = {
+    packages: Record<string, { name: string; monthly: number; setup: number }>;
+    notes: Record<string, string>;
+    perUser: number;
+    minIt: number;
+    extraLicence: number;
+    backup: number;
+    faster: number;
+    itSetup: number;
+    webSetup: number;
+    dashboardAbove: number;
+    services: Record<string, [string, number]>;
+    examples: Record<string, { pkg: string; users: number; backup?: boolean }>;
+  };
+
+  const money = (n: number) => '$' + n.toLocaleString('en-CA');
+
+  function init(f: HTMLFormElement) {
+    const P: Pricing = JSON.parse(f.dataset.pricing || '{}');
+    const el = (n: string) => f.elements.namedItem(n) as HTMLInputElement;
+    const checked = (n: string) => el(n).checked;
+    const out = (n: string) => f.querySelector<HTMLElement>(`[data-out="${n}"]`)!;
+    const show = (sel: string, on: boolean) =>
+      f.querySelectorAll<HTMLElement>(sel).forEach((r) => (r.hidden = !on));
+    const num = (n: string, min: number) => Math.max(min, Math.floor(Number(el(n).value)) || min);
+    const radio = (n: string) => (f.elements.namedItem(n) as RadioNodeList).value;
+
+    function draw() {
+      const pkg = radio('pkg');
+      const users = num('users', 1);
+      const extra = num('extra', 0);
+      const lines: [string, number][] = [];
+      const notes: string[] = [];
+      let monthly = 0;
+      let setup = 0;
+      let ads = false;
+
+      const own = pkg === 'own';
+      const itOn = pkg === 'small' || pkg === 'growing' || (own && checked('mit'));
+      const mkOn = pkg !== 'launch';
+      show('[data-group="it"]', pkg !== 'launch');
+      show('[data-group="mk"]', mkOn);
+      show('[data-row="mit"]', own);
+      for (const r of ['web', 'seo', 'bp', 'rev']) show(`[data-row="${r}"]`, own);
+      show('[data-row="soc"], [data-row="ads"]', pkg !== 'growing');
+      out('pkgnote').textContent = P.notes[pkg];
+
+      if (!own) {
+        const k = P.packages[pkg];
+        monthly += k.monthly;
+        setup += k.setup;
+        lines.push([`${k.name} package`, k.monthly]);
+      }
+      if (itOn) {
+        let it = users * P.perUser + extra * P.extraLicence;
+        if (own) it = Math.max(P.minIt, it);
+        monthly += it;
+        lines.push([`Managed IT, ${users} users${extra ? ` + ${extra} licences` : ''}`, it]);
+        if (checked('backup')) {
+          monthly += P.backup * users;
+          lines.push(['Managed backup', P.backup * users]);
+        }
+        if (checked('faster')) {
+          monthly += P.faster * users;
+          lines.push(['Faster response', P.faster * users]);
+        }
+        if (own) {
+          setup += P.itSetup;
+          notes.push('Managed IT setup is waived with a yearly commitment.');
+        }
+      }
+      const web = Number(radio('web'));
+      if (own && web) {
+        monthly += web;
+        setup += P.webSetup;
+        lines.push(['Website plan', web]);
+      }
+      const ownOnly = ['seo', 'bp', 'rev'];
+      const picks = ['seo', 'bp', 'rev', 'dir', 'soc', 'ads'].filter((id) => {
+        if (ownOnly.includes(id)) return own;
+        if (id === 'dir') return mkOn;
+        return mkOn && pkg !== 'growing';
+      });
+      for (const id of picks) {
+        if (!checked(id)) continue;
+        const [label, price] = P.services[id];
+        monthly += price;
+        lines.push([label, price]);
+        if (id === 'ads') ads = true;
+      }
+      if (pkg === 'growing') ads = true;
+      if (pkg === 'launch') notes.push('Your email licence is billed at the vendor’s price.');
+      if (ads) notes.push('Ad spend is billed separately, with no markup.');
+      notes.push('Taxes extra. Your final quote may differ.');
+
+      out('total').textContent = money(monthly);
+      out('setup').textContent = money(setup);
+      out('lines').replaceChildren(
+        ...lines.map(([label, price]) => {
+          const p = document.createElement('p');
+          p.className = 'vt-est__line flex flex-wrap items-center justify-between gap-s';
+          const s = document.createElement('span');
+          s.textContent = label;
+          const b = document.createElement('b');
+          b.textContent = money(price);
+          p.append(s, b);
+          return p;
+        }),
+      );
+      out('dash').textContent =
+        monthly > P.dashboardAbove
+          ? 'Business Health Dashboard included.'
+          : `Add ${money(P.dashboardAbove + 1 - monthly)} a month to include the Business Health Dashboard.`;
+      out('notes').replaceChildren(
+        ...notes.map((n) => {
+          const li = document.createElement('li');
+          li.textContent = n;
+          return li;
+        }),
+      );
+    }
+
+    f.addEventListener('input', draw);
+    f.addEventListener('change', draw);
+    f.addEventListener('submit', (e) => e.preventDefault());
+    f.querySelectorAll<HTMLButtonElement>('[data-ex]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const ex = P.examples[b.dataset.ex || ''];
+        if (!ex) return;
+        (f.elements.namedItem('pkg') as RadioNodeList).value = ex.pkg;
+        (f.elements.namedItem('web') as RadioNodeList).value = '0';
+        for (const id of ['backup', 'faster', 'seo', 'bp', 'dir', 'rev', 'soc', 'ads'])
+          el(id).checked = false;
+        el('mit').checked = true;
+        el('users').value = String(ex.users);
+        el('extra').value = '0';
+        if (ex.backup) el('backup').checked = true;
+        draw();
+      }),
+    );
+    draw();
+  }
+
+  document.querySelectorAll<HTMLFormElement>('.vt-est').forEach(init);
+</script>

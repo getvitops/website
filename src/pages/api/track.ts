@@ -10,7 +10,8 @@
  * `vitops.json`:
  *   VITOPS_TURNSTILE_SECRET            created by `vitops setup turnstile`
  *   EMAIL                              the `send_email` binding in wrangler.jsonc
- *   VITOPS_HUBSPOT_ACCESS_TOKEN        or VITOPS_ZOHO_* / VITOPS_JOBBER_*, when `site.crm` is set
+ *   VITOPS_ZOHO_CLIENT_ID / _CLIENT_SECRET / _REFRESH_TOKEN                  Bigin, when `site.crm` is set
+ *   VITOPS_ZOHO_CAMPAIGNS_CLIENT_ID / _CLIENT_SECRET / _REFRESH_TOKEN        Zoho Campaigns, when `site.campaigns` is set
  *
  * Where a submission goes: `site.notifications.email` (or the primary location's email) and,
  * when `site.crm` is set, the CRM. The email is the durability floor: a failed CRM write never
@@ -94,6 +95,24 @@ function crmCredentials() {
   }
 }
 
+function campaignsCredentials() {
+  const campaigns = site.site.campaigns;
+  if (!campaigns) return undefined;
+  if (campaigns.provider === 'sendfox') {
+    const accessToken = secret('VITOPS_SENDFOX_TOKEN');
+    return accessToken ? { provider: 'sendfox' as const, sendfox: { accessToken } } : undefined;
+  }
+  const clientId = secret('VITOPS_ZOHO_CAMPAIGNS_CLIENT_ID');
+  const clientSecret = secret('VITOPS_ZOHO_CAMPAIGNS_CLIENT_SECRET');
+  const refreshToken = secret('VITOPS_ZOHO_CAMPAIGNS_REFRESH_TOKEN');
+  return clientId && clientSecret && refreshToken
+    ? {
+        provider: 'zoho-campaigns' as const,
+        zohoCampaigns: { clientId, clientSecret, refreshToken },
+      }
+    : undefined;
+}
+
 export const POST: APIRoute = async ({ request, locals }) => {
   const context = toNotifyContext(site);
   const isForm = /multipart\/form-data|application\/x-www-form-urlencoded/.test(
@@ -143,6 +162,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
     binding: () => bindings['EMAIL'] as never,
     ...(site.site.crm
       ? { crm: { config: site.site.crm, credentials: () => crmCredentials() } }
+      : {}),
+    ...(site.site.campaigns
+      ? { campaigns: { config: site.site.campaigns, credentials: () => campaignsCredentials() } }
       : {}),
     ...(siteKey && turnstileSecret
       ? { turnstile: { secretKey: turnstileSecret, required: TURNSTILE_REQUIRED } }

@@ -58,6 +58,13 @@ if (Array.isArray(cfg.routes)) {
   );
 }
 
+// Dev-only custom domain. Local to this site: the prod config keeps no route until cutover, because
+// a prod route on the apex would overwrite the live vitops.ca the moment it deploys. A Workers custom
+// domain only attaches once no other worker or DNS record holds the hostname.
+if (process.env.DEV_DOMAIN) {
+  cfg.routes = [{ pattern: process.env.DEV_DOMAIN, custom_domain: true }];
+}
+
 cfg.d1_databases = (cfg.d1_databases ?? []).map((d) =>
   d.binding === 'DB' ? { ...d, database_name: devName, database_id: DEV_D1_ID } : d,
 );
@@ -66,7 +73,7 @@ cfg.r2_buckets = (cfg.r2_buckets ?? []).map((r) =>
   r.binding === 'MEDIA' ? { ...r, bucket_name: `${r.bucket_name}-dev` } : r,
 );
 
-// No cron on dev. Dev's database is a copy of prod (scripts/refresh-dev.mjs),
+// No cron on dev. Dev's database is a copy of prod (.github/workflows/sync-dev.yml),
 // so it carries prod's scheduled publishes and plugin jobs; leaving the trigger
 // on would run them a second time against the copy. The cost: scheduled
 // publishing can't be exercised on dev.

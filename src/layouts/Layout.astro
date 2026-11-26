@@ -1,5 +1,9 @@
 ---
 import VitopsHead from '@getvitops/astro/Head.astro';
+import Analytics from '@getvitops/astro/Analytics.astro';
+import Ads from '@getvitops/astro/Ads.astro';
+import Tracking from '@getvitops/astro/Tracking.astro';
+import CookieConsent from '@getvitops/astro/CookieConsent.astro';
 import { resolveOrganizationName } from '@getvitops/astro/routes';
 import SiteNav from '@getvitops/astro/components/SiteNav.astro';
 import Masthead from '@getvitops/astro/components/Masthead.astro';
@@ -64,6 +68,11 @@ const pageCtx = createPublicPageContext({
          progressively enhances the @getvitops/emdash editor blocks
          (wc-carousel, wc-image-compare, ...) wherever Portable Text renders. -->
     <VitopsHead />
+    <!-- Providers and pixels come from `site.analytics`, `site.ads` and `site.tracking` in vitops.json;
+         each renders inert until the consent gate allows its category (Plausible is cookieless). -->
+    <Analytics />
+    <Ads />
+    <Tracking />
   </head>
   <body class="bg-neutral-muted text-neutral">
     <VitopsWidgetArea name="announcement" class="centered" />
@@ -84,5 +93,6 @@ const pageCtx = createPublicPageContext({
 
     <VitopsWidgetArea name="pre-footer" class="centered" />
     <SiteFooter siteTitle={siteTitle} tagline={settings?.tagline} />
+    <CookieConsent policyUrl="/privacy" />
   </body>
 </html>

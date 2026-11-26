@@ -74,10 +74,14 @@ Prefer its classes and patterns over hand-written CSS. Load the skill that match
 - [emdash-contact-form](.agents/skills/emdash-contact-form/SKILL.md) — Use when adding or changing a form, fixing submissions that don't arrive, setting up notifications, CRM or Turnstile
 - [emdash-content-and-deploys](.agents/skills/emdash-content-and-deploys/SKILL.md) — Use for any deploy or build problem, stale or missing content, "my publish isn't live", scheduled posts, previews
 - [emdash-custom-blocks](.agents/skills/emdash-custom-blocks/SKILL.md) — Use before creating, renaming or deleting any block type, any `src/components/blocks/*` renderer
+- [vitops-accessibility](.agents/skills/vitops-accessibility/SKILL.md) — Load when building or reviewing pages, components, colour, forms, media or PDFs; when a client asks about AODA, WCAG
 - [vitops-ads](.agents/skills/vitops-ads/SKILL.md) — Use when adding or changing a Google/Meta/LinkedIn/TikTok/Microsoft/Reddit/Pinterest/Snapchat pixel
+- [vitops-compliance](.agents/skills/vitops-compliance/SKILL.md) — Load at the start of any client engagement, when a client mentions compliance, AODA, CASL, Law 25, PIPEDA, GDPR
 - [vitops-consent](.agents/skills/vitops-consent/SKILL.md) — Use before gating, adding or changing any non-essential third-party tag, cookie, embed
 - [vitops-csp](.agents/skills/vitops-csp/SKILL.md) — Use when changing `public/_headers`, adding an embed, tracking snippet or third-party script, turning the CSP on
 - [vitops-design-system](.agents/skills/vitops-design-system/SKILL.md) — Use when styling or authoring pages or components (choosing utility/pattern classes, colours, spacing, typography)
+- [vitops-privacy](.agents/skills/vitops-privacy/SKILL.md) — Use when a site collects personal information (forms, newsletters, email marketing, CRM), runs analytics, cookies
+- [vitops-report-issue](.agents/skills/vitops-report-issue/SKILL.md) — Use when a vitops command errors or prints wrong output, a toolchain warning says something is deprecated
 - [vitops-see-the-page](.agents/skills/vitops-see-the-page/SKILL.md) — How to look at a rendered page of this site
 
 Reference, rendered from this project: `vp exec vitops docs [topic]` (no topic lists them).

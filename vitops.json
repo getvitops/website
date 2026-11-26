@@ -41,7 +41,8 @@
             "ui-primary": "pine",
             "brand-primary": {
               "hue": "pine",
-              "solid": 300,
+              "solid": 400,
+              "acknowledgeContrast": 1,
               "foreground": "dark"
             },
             "brand-secondary": {
@@ -49,10 +50,16 @@
               "solid": 300,
               "foreground": "dark"
             },
-            "info": "sky",
+            "info": {
+              "hue": "sky",
+              "solid": 700
+            },
             "success": "pine",
             "warning": "amber",
-            "danger": "rose",
+            "danger": {
+              "hue": "rose",
+              "solid": 700
+            },
             "ui-accent": "pine"
           },
           "utilities": ["bg", "text", "icon", "border"]
@@ -186,7 +193,7 @@
                 "color": "inherit",
                 "font-family": "inherit",
                 "font-size": "var(--fs-btn-group)",
-                "font-weight": "inherit",
+                "font-weight": "600",
                 "text-decoration": "none",
                 "cursor": "pointer"
               },
@@ -440,6 +447,10 @@
     "phone": "613-518-7984"
   },
   "site": {
+    "accessibility": {
+      "standard": "wcag21",
+      "level": "AA"
+    },
     "defaultLocale": "en",
     "locales": {
       "en": {
@@ -448,10 +459,10 @@
     },
     "environments": {
       "production": {
-        "url": "https://my-emdash-site.example.com"
+        "url": "https://vitops.ca"
       },
       "dev": {
-        "url": "https://dev.my-emdash-site.example.com",
+        "url": "https://vitops-ca-v2-dev.monadmedia.workers.dev",
         "robots": "noindex,nofollow"
       }
     },
@@ -704,6 +715,56 @@
         "compact": "drawer",
         "drawerSide": "end"
       }
+    },
+    "analytics": {
+      "plausibleDomain": "vitops.ca"
+    },
+    "tracking": {
+      "enabled": true,
+      "category": "marketing",
+      "platforms": ["google"]
+    },
+    "ads": {
+      "google": {
+        "accountId": "",
+        "pixelId": "",
+        "conversionLabel": {
+          "call": "",
+          "email": "",
+          "form": ""
+        },
+        "enabled": false
+      }
+    },
+    "crm": {
+      "provider": "bigin",
+      "bigin": {
+        "dataCenter": "ca"
+      }
+    },
+    "campaigns": {
+      "provider": "zoho-campaigns",
+      "zohoCampaigns": {
+        "dataCenter": "com"
+      },
+      "lists": {
+        "updates": {
+          "label": "Email updates",
+          "zohoCampaigns": {
+            "listKey": ""
+          }
+        }
+      },
+      "enabled": false
+    },
+    "legal": {
+      "cookieConsent": {
+        "enabled": true
+      }
+    },
+    "plan": {
+      "key": "internal",
+      "addons": ["server_side_tracking"]
     }
   }
 }

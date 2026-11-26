@@ -1,7 +1,7 @@
 ---
 import type { BV } from './types';
 import type { BlockComponentProps } from 'emdash/ui';
-import { resolveTone } from './tone';
+import { blockComponents } from '@getvitops/emdash/astro';
 
 interface Pillar {
   tone?: string;
@@ -25,7 +25,25 @@ const heading = str(value.heading);
 const lead = str(value.lead);
 const anchor = /^[a-z][a-z0-9-]{0,63}$/.test(str(value.anchor)) ? str(value.anchor) : undefined;
 const hasHead = Boolean(eyebrow || heading || lead);
-const lines = (s?: string) => (s ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
+// Retired (UPSTREAM.md registry): the panels are a `vitops_cards` `variant: panel` block now.
+// This adapter keeps content saved as `vt_pillars` rendering through it, so no local card markup remains.
+const Cards = blockComponents.vitops_cards;
+const cards = {
+  _type: 'vitops_cards',
+  variant: 'panel',
+  columns: Math.min(items.length || 1, 3),
+  className: 'spotlight',
+  cards: items.map((p) => ({
+    title: p.title,
+    body: p.body,
+    tags: p.tag,
+    checklist: p.points,
+    ctaLabel: p.cta_label,
+    ctaHref: p.href,
+    tone: p.tone,
+    color: p.color,
+  })),
+};
 ---
 
 <div id={anchor} class:list={['vt-bleed', 'vt-grid', 'centered', anchor && 'block-anchor', hasHead && 'vt-pillars-block--headed']}>
@@ -38,31 +56,5 @@ const lines = (s?: string) => (s ?? '').split('\n').map((l) => l.trim()).filter(
     </header>
   )
 }
-<ul class={`spotlight subgrid subgrid-cols-${Math.min(items.length || 1, 3)} subgrid-responsive vt-pillars`} role="list">
-  {
-    items.map((p) => {
-      const t = resolveTone(p.tone, p.color);
-      return (
-        <li class="card subgrid-card vt-pillar" style={t.style}>
-          {p.tag && <span class="font-eyebrow vt-tone-text">{p.tag}</span>}
-          <h3 class="font-subheading">{p.title}</h3>
-          <div class="subgrid-card__footer rhythm">
-            {p.body && <p class="text-neutral-muted">{p.body}</p>}
-            <ul class="vt-checks" role="list">
-              {lines(p.points).map((l) => (
-                <li>
-                  <span class="vt-check vt-tone-fill" aria-hidden="true">✓</span>
-                  {l}
-                </li>
-              ))}
-            </ul>
-            {p.cta_label && p.href && (
-              <a class="btn inline-block vt-ghost vt-tone-outline" href={p.href}>{p.cta_label} ›</a>
-            )}
-          </div>
-        </li>
-      );
-    })
-  }
-</ul>
+<Cards value={cards} />
 </div>

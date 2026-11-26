@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "emdashVersion": "1.4.0",
+  "emdashVersion": "1.6.0",
   "migrationSet": {
     "names": [
       "001_initial",
@@ -92,9 +92,16 @@
       "088_cron_oneshot_utc",
       "089_auto_seed_completion",
       "090_redirect_enable_loop_guard",
-      "091_redirect_artifacts"
+      "091_redirect_artifacts",
+      "092_plugin_kv_options",
+      "093_menu_item_orphans",
+      "094_media_usage_file_url_reindex",
+      "095_plugin_storage_unique_scope",
+      "096_revision_kind_and_editors",
+      "097_room_storage",
+      "098_user_last_login"
     ],
-    "fingerprint": "d72e86d4d9dd878eabd4a1e1f106e333f8d7734c9911ef226018a61831b9e01f"
+    "fingerprint": "d50e7fc8e5a27b6cafd71322b6733594528471f3d57ea43746db1813dcc6aa2a"
   },
   "i18n": null,
   "database": {

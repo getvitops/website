@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "my-emdash-site",
+  "name": "vitops-ca-v2",
   "main": "./src/worker.ts",
   "compatibility_date": "2026-02-24",
   "compatibility_flags": ["nodejs_compat"],
@@ -21,15 +21,19 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "my-emdash-site",
+      "database_name": "vitops-ca-v2",
     },
   ],
   "r2_buckets": [
     {
       "binding": "MEDIA",
-      "bucket_name": "my-emdash-site-media",
+      "bucket_name": "vitops-ca-v2-media",
     },
   ],
+  // Image transforms for the responsive AVIF `srcset` the vitops_* image blocks emit when an
+  // image shape is set (vitopsHosting() states imageService: 'cloudflare-binding'). A missing
+  // binding silently serves full-size originals.
+  "images": { "binding": "IMAGES" },
   // Outbound mail for EmDash's magic-link sign-in, invites and recovery
   // (cloudflareEmail() in astro.config.mjs). The binding does nothing until the
   // sender domain is onboarded: `npx vitops email setup send.<your-domain>`.

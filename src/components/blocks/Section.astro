@@ -15,7 +15,7 @@
  * See UPSTREAM.md (item 6).
  */
 import type { BV } from './types';
-import { resolveTone } from './tone';
+import { themeAttrs } from '@getvitops/emdash/astro';
 
 // Imported lazily on purpose: `emdash/ui` statically imports the virtual block map, which
 // imports this plugin's blocks. See upstream Section.astro.
@@ -65,9 +65,8 @@ for (const m of heading.matchAll(/\*([^*]+)\*/g)) {
 }
 if (last < heading.length) runs.push({ text: heading.slice(last), accent: false });
 
-// `theme`: "<role>" or "<role>:solid", resolved to the site's own --tone-* properties.
-const [role, fill] = str(value.theme).toLowerCase().replace(/^none$/, '').split(':');
-const tone = role ? resolveTone(role) : undefined;
+// `theme`: "<role>" or "<role>:solid", resolved by the toolkit to the site's own `tone` classes and --tone-* properties.
+const theme = themeAttrs(value.theme);
 const WIDTHS: Record<string, string> = { breakout: 'breakout', spotlight: 'spotlight', fullbleed: 'fullbleed' };
 const width = WIDTHS[str(value.width)];
 // The framework's reading rhythm is tight for a section head: loosen heading to lead on a
@@ -94,13 +93,11 @@ const extra = tokens.filter((t) => !t.startsWith('rhythm-')).join(' ');
       id={anchor}
       class:list={[
         'region',
-        tone?.style && 'tone',
-        // alpha.4: `.tone` only sets colour variables; the surface is `tone--tint` or `tone--solid`.
-        tone?.style && (fill === 'solid' ? 'tone--solid' : 'tone--tint'),
+        theme.class,
         anchor && 'block-anchor',
         extra,
       ]}
-      style={tone?.style || undefined}
+      style={theme.style}
     >
       <div class="centered">
         <div class:list={['rhythm', width, stackClasses]} style={rhythmStyle}>
@@ -112,7 +109,7 @@ const extra = tokens.filter((t) => !t.startsWith('rhythm-')).join(' ');
           )}
           {lead && <p class="font-lead">{lead}</p>}
           {hasCtas && (
-            <p class="cluster">
+            <p class="cluster items-center">
               {primary.label && primary.href && (
                 <a class="cta" href={primary.href}>
                   {primary.label}
