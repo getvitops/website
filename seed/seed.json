@@ -623,7 +623,13 @@
           "type": "custom",
           "label": "Cookie Notice",
           "url": "/cookies",
-          "cssClasses": "draft"
+          "cssClasses": null
+        },
+        {
+          "type": "custom",
+          "label": "Accessibility",
+          "url": "/accessibility",
+          "cssClasses": null
         }
       ]
     }
@@ -1469,99 +1475,428 @@
         "slug": "terms",
         "status": "published",
         "data": {
-          "title": "Terms & Conditions",
+          "title": "Terms of Service",
           "content": [
             {
+              "_type": "block",
+              "_key": "terms-of-service-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-1-0",
+                  "text": "Last updated: 2026-11-26",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
               "_type": "vitops_banner",
-              "_key": "terms-placeholder",
-              "message": "Placeholder text — replace with your own terms before launch. This is not legal advice.",
+              "_key": "terms-of-service-2",
+              "message": "Generated from this site's configuration. It is a starting point, not legal advice — have it reviewed before you publish it, and make sure it matches what your site actually does.",
               "tone": "warning",
-              "dismissible": false,
-              "className": "fade-in slide-up animate-view"
+              "dismissible": false
             },
             {
               "_type": "block",
-              "_key": "terms-intro",
+              "_key": "terms-of-service-3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-3-0",
+                  "text": "These terms govern your use of https://vitops.ca (the \"Site\"), operated by Monad Media Inc. (\"we\", \"us\"). By accessing or using the Site, you agree to these terms. If you do not agree to them, please do not use the Site.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-4",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-4-0",
+                  "text": "We may change these terms from time to time. The version published on the Site is the one that applies, and your continued use of the Site after a change means you accept the revised terms.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-5",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-5-0",
+                  "text": "Use of the Site",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-6",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-6-0",
+                  "text": "You may use the Site for lawful purposes only. You agree not to:",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-7-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-7-0-0",
+                  "text": "use the Site in any way that breaches any applicable law or regulation",
+                  "marks": []
+                }
+              ],
               "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-7-1",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "terms-intro-1",
-                  "text": "These terms and conditions govern your use of this website. By accessing or using the site, you agree to be bound by them. If you disagree with any part of these terms, please do not use the site.",
+                  "_key": "terms-of-service-7-1-0",
+                  "text": "attempt to gain unauthorized access to the Site, its servers, or any connected system",
                   "marks": []
                 }
-              ]
-            },
-            {
-              "_type": "block",
-              "_key": "terms-use-h",
-              "style": "h2",
-              "markDefs": [],
-              "children": [
-                {
-                  "_type": "span",
-                  "_key": "terms-use-h-1",
-                  "text": "Use of the site",
-                  "marks": []
-                }
-              ]
-            },
-            {
-              "_type": "block",
-              "_key": "terms-use",
+              ],
               "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-7-2",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "terms-use-1",
-                  "text": "Content on this site is provided for general information only and may change without notice. You may not use the site in any way that causes, or may cause, damage to the site or impairment of its availability.",
+                  "_key": "terms-of-service-7-2-0",
+                  "text": "interfere with or disrupt the operation of the Site, including by introducing malicious code",
                   "marks": []
                 }
-              ]
-            },
-            {
-              "_type": "block",
-              "_key": "terms-liability-h",
-              "style": "h2",
-              "markDefs": [],
-              "children": [
-                {
-                  "_type": "span",
-                  "_key": "terms-liability-h-1",
-                  "text": "Limitation of liability",
-                  "marks": []
-                }
-              ]
-            },
-            {
-              "_type": "block",
-              "_key": "terms-liability",
+              ],
               "style": "normal",
-              "markDefs": [],
-              "children": [
-                {
-                  "_type": "span",
-                  "_key": "terms-liability-1",
-                  "text": "The site is provided \"as is\" without warranties of any kind. To the fullest extent permitted by law, we exclude all liability for any loss or damage arising from use of the site.",
-                  "marks": []
-                }
-              ]
+              "listItem": "bullet",
+              "level": 1
             },
             {
               "_type": "block",
-              "_key": "terms-contact",
-              "style": "normal",
+              "_key": "terms-of-service-7-3",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "terms-contact-1",
-                  "text": "Questions about these terms? Contact the site owner. Edit this page in the EmDash admin.",
+                  "_key": "terms-of-service-7-3-0",
+                  "text": "collect or harvest information about other users of the Site",
                   "marks": []
                 }
-              ]
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-7-4",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-7-4-0",
+                  "text": "reproduce, duplicate, or resell any part of the Site except as these terms permit",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-8",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-8-0",
+                  "text": "We may suspend or withdraw access to the Site, in whole or in part, at any time and without notice.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-9",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-9-0",
+                  "text": "Intellectual Property",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-10",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-10-0",
+                  "text": "Unless stated otherwise, the content of the Site — including text, graphics, logos, and layout — is owned by or licensed to us and is protected by copyright and other intellectual property laws. You may view, download, and print content from the Site for your own personal, non-commercial use. Any other use requires our prior written permission.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-11",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-11-0",
+                  "text": "Accuracy of Information",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-12",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-12-0",
+                  "text": "We take reasonable care to keep the Site accurate and current, but we make no representation or warranty that the content is complete, accurate, or up to date. Content on the Site is provided for general information only and should not be relied on as advice for your particular circumstances.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-13",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-13-0",
+                  "text": "Third Party Links and Services",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-14",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-14-0",
+                  "text": "The Site may link to, or rely on, websites and services operated by others. We do not control those sites and services and are not responsible for their content, availability, or practices. A link is not an endorsement.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-15",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-15-0",
+                  "text": "Disclaimer",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-16",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-16-0",
+                  "text": "The Site is provided \"as is\" and \"as available\", without warranty of any kind, whether express or implied.",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-16-1",
+                  "text": " To the fullest extent permitted by law, we disclaim all warranties, including implied warranties of merchantability, fitness for a particular purpose, and non-infringement. We do not warrant that the Site will be uninterrupted, secure, or error free.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-17",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-17-0",
+                  "text": "Limitation of Liability",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-18",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-18-0",
+                  "text": "To the fullest extent permitted by law, we will not be liable for any indirect, incidental, special, consequential, or punitive damages, or for any loss of profits, revenue, data, or goodwill, arising out of or in connection with your use of the Site",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-18-1",
+                  "text": " — whether the claim is based in contract, tort, or any other legal theory, and whether or not we were advised of the possibility of such damages.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-19",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-19-0",
+                  "text": "Nothing in these terms excludes or limits liability that cannot be excluded or limited under applicable law.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-20",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-20-0",
+                  "text": "Privacy",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-21",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-21-0",
+                  "text": "Our handling of personal information is described in our Privacy Policy, which forms part of these terms.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-22",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-22-0",
+                  "text": "Governing Law",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-23",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-23-0",
+                  "text": "These terms are governed by the laws of Ontario and the federal laws of CA applicable therein. You agree to the exclusive jurisdiction of the courts of that jurisdiction for any dispute arising out of or in connection with these terms or the Site.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-24",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-24-0",
+                  "text": "Contact",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "terms-of-service-25",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "terms-of-service-25-0",
+                  "text": "If you have questions about these terms, please contact us at hi@vitops.ca.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
             }
           ],
           "layout": []
@@ -1575,110 +1910,1157 @@
           "title": "Privacy Policy",
           "content": [
             {
+              "_type": "block",
+              "_key": "privacy-policy-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-1-0",
+                  "text": "Last updated: 2026-11-26",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
               "_type": "vitops_banner",
-              "_key": "privacy-placeholder",
-              "message": "Placeholder text — replace with your own privacy policy before launch. This is not legal advice.",
+              "_key": "privacy-policy-2",
+              "message": "Generated from this site's configuration. It is a starting point, not legal advice — have it reviewed before you publish it, and make sure it matches what your site actually does.",
               "tone": "warning",
-              "dismissible": false,
-              "className": "fade-in slide-up animate-view"
+              "dismissible": false
             },
             {
               "_type": "block",
-              "_key": "privacy-intro",
+              "_key": "privacy-policy-3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-3-0",
+                  "text": "This is the privacy policy of Monad Media Inc. (\"Business\"). It summarizes what personal information we collect and how we use and disclose this information.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-4",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-4-0",
+                  "text": "By using our website (the \"Site\"), you signify your consent to the terms of our Privacy Policy. If you do not agree with any terms of this Privacy Policy, please do not use this Site or submit any personal information to us, or use the preference tools we provide to adjust your settings. This Privacy Policy also describes certain choices you have on how we use your personal information.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-5",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-5-0",
+                  "text": "We reserve the right to modify this Privacy Policy at any time. We will reflect any such modifications to this Privacy Policy on our Site. We suggest that you periodically consult this Privacy Policy. Your continued use of the Site after any such changes constitutes your acceptance of this Privacy Policy, as revised.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-6",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-6-0",
+                  "text": "Privacy Policy Summary.",
+                  "marks": ["strong"]
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-7-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-7-0-0",
+                  "text": "What Personal Information We Collect",
+                  "marks": []
+                }
+              ],
               "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-7-1",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "privacy-intro-1",
-                  "text": "This policy describes what information this website collects, how it is used, and the choices you have. We collect only what we need to operate the site.",
+                  "_key": "privacy-policy-7-1-0",
+                  "text": "How We Use Personal Information",
                   "marks": []
                 }
-              ]
-            },
-            {
-              "_type": "block",
-              "_key": "privacy-collect-h",
-              "style": "h2",
-              "markDefs": [],
-              "children": [
-                {
-                  "_type": "span",
-                  "_key": "privacy-collect-h-1",
-                  "text": "What we collect",
-                  "marks": []
-                }
-              ]
-            },
-            {
-              "_type": "block",
-              "_key": "privacy-collect",
+              ],
               "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-7-2",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "privacy-collect-1",
-                  "text": "Standard server logs (IP address, browser type, pages visited) used for security and troubleshooting, and any information you submit through forms on the site.",
+                  "_key": "privacy-policy-7-2-0",
+                  "text": "How We Share Personal Information",
                   "marks": []
                 }
-              ]
-            },
-            {
-              "_type": "block",
-              "_key": "privacy-use-h",
-              "style": "h2",
-              "markDefs": [],
-              "children": [
-                {
-                  "_type": "span",
-                  "_key": "privacy-use-h-1",
-                  "text": "How we use it",
-                  "marks": []
-                }
-              ]
-            },
-            {
-              "_type": "block",
-              "_key": "privacy-use",
+              ],
               "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-7-3",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "privacy-use-1",
-                  "text": "To operate and secure the site and to respond to your enquiries. We do not sell personal information. Third-party services used to host this site (e.g. Cloudflare) process data under their own policies.",
+                  "_key": "privacy-policy-7-3-0",
+                  "text": "Your Choices",
                   "marks": []
                 }
-              ]
-            },
-            {
-              "_type": "block",
-              "_key": "privacy-rights-h",
-              "style": "h2",
-              "markDefs": [],
-              "children": [
-                {
-                  "_type": "span",
-                  "_key": "privacy-rights-h-1",
-                  "text": "Your rights",
-                  "marks": []
-                }
-              ]
-            },
-            {
-              "_type": "block",
-              "_key": "privacy-rights",
+              ],
               "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-8",
               "markDefs": [],
               "children": [
                 {
                   "_type": "span",
-                  "_key": "privacy-rights-1",
-                  "text": "You may request access to, correction of, or deletion of your personal information by contacting the site owner. Edit this page in the EmDash admin.",
+                  "_key": "privacy-policy-8-0",
+                  "text": "Full Privacy Policy",
                   "marks": []
                 }
-              ]
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-9",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-9-0",
+                  "text": "What Personal Information We Collect and How We Collect It",
+                  "marks": []
+                }
+              ],
+              "style": "h3"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-10",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-10-0",
+                  "text": "Personal information is information about an identifiable individual. We collect personal information only for purposes that a reasonable person would consider appropriate in the circumstances and only with your knowledge and consent, except where otherwise required or permitted by law. Business collects personal information when you voluntarily provide it through our Site or when you provide it to us through other means. For example, we may collect personal information when you:",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-11-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-11-0-0",
+                  "text": "contact us through e-mail, telephone, mail or other correspondence",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-11-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-11-1-0",
+                  "text": "submit one of the forms on our Site",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-12",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-12-0",
+                  "text": "The personal information we may collect will depend on the service you request and may include:",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-13-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-13-0-0",
+                  "text": "your answers to the questions we ask",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-13-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-13-1-0",
+                  "text": "your name",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-13-2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-13-2-0",
+                  "text": "your e-mail address",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-13-3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-13-3-0",
+                  "text": "your company or organization name",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-13-4",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-13-4-0",
+                  "text": "the content of the messages you send us",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-13-5",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-13-5-0",
+                  "text": "the other details you enter in our forms",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-13-6",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-13-6-0",
+                  "text": "any other personal information that you choose to submit to us",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-14",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-14-0",
+                  "text": "How Business Collects Information Through Technological Means",
+                  "marks": []
+                }
+              ],
+              "style": "h3"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-15",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-15-0",
+                  "text": "When you visit our Site, we may collect information that is automatically sent to us by your web browser. This information may include:",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-16-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-16-0-0",
+                  "text": "your domain name",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-16-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-16-1-0",
+                  "text": "your numerical IP address",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-16-2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-16-2-0",
+                  "text": "the pages you view and the files you request",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-16-3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-16-3-0",
+                  "text": "the type of browser and operating system you use",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-16-4",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-16-4-0",
+                  "text": "the address of the site that referred you",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-17",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-17-0",
+                  "text": "We use this information to:",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-18-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-18-0-0",
+                  "text": "measure the performance of our Site",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-18-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-18-1-0",
+                  "text": "better understand how visitors use our Site",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-18-2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-18-2-0",
+                  "text": "improve our Site to better meet your needs",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-19",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-19-0",
+                  "text": "The amount of information that is sent by your web browser depends on the browser and settings you use. Please refer to the instructions provided by your browser if you want to learn more about what information it sends to websites you visit or how you may change or restrict this.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-20",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-20-0",
+                  "text": "Business may use cookies and other similar devices on this Site to enhance functionality. These devices may track information which includes:",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-21-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-21-0-0",
+                  "text": "your IP address",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-21-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-21-1-0",
+                  "text": "the type of web browser and operating system used",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-21-2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-21-2-0",
+                  "text": "the pages of the Site visited",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-21-3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-21-3-0",
+                  "text": "which advertisement or campaign brought you to our Site",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-22",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-22-0",
+                  "text": "We use this information to:",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-23-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-23-0-0",
+                  "text": "keep the Site functioning as you move between pages",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-23-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-23-1-0",
+                  "text": "understand how our Site is used, in aggregate",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-23-2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-23-2-0",
+                  "text": "attribute an enquiry to the advertisement that brought you here, for up to 90 days",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-24",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-24-0",
+                  "text": "If you wish to disable cookies, refer to your browser help menu to learn how. You may also withdraw your consent to non-essential cookies at any time using the consent controls on our Site.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-25",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-25-0",
+                  "text": "How Business Uses and Discloses Personal Information",
+                  "marks": []
+                }
+              ],
+              "style": "h3"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-26",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-26-0",
+                  "text": "The personal information we collect may be used by Business for the purposes for which it was collected, as provided in this Privacy Policy, or for other purposes that are disclosed to you and to which you consent.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-27",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-27-0",
+                  "text": "For example, we may use your personal information to:",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-28-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-28-0-0",
+                  "text": "respond to your inquiries",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-28-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-28-1-0",
+                  "text": "supply you with requested products or services",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-28-2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-28-2-0",
+                  "text": "route your message to the appropriate person in our organization",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-28-3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-28-3-0",
+                  "text": "measure the effectiveness of our marketing",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-28-4",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-28-4-0",
+                  "text": "send you informational or promotional communication",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-28-5",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-28-5-0",
+                  "text": "carry out other purposes that are disclosed to you and to which you consent",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-28-6",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-28-6-0",
+                  "text": "carry out any other purpose permitted or required by law",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-29",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-29-0",
+                  "text": "We may transfer personal information to third party service providers that assist us with carrying out these purposes. When we transfer personal information to service providers, we require them to protect the information in a manner consistent with our privacy practices and applicable privacy laws. These service providers are:",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-30-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-30-0-0",
+                  "text": "Plausible Analytics, for website analytics (privacy policy: https://plausible.io/privacy)",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-30-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-30-1-0",
+                  "text": "Zoho Bigin, for CRM (privacy policy: https://www.zoho.com/privacy.html)",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-30-2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-30-2-0",
+                  "text": "Cloudflare, for website hosting and content delivery (privacy policy: https://www.cloudflare.com/privacypolicy/)",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-31",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-31-0",
+                  "text": "We remain responsible for personal information in the possession of our service providers.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-32",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-32-0",
+                  "text": "Business reserves the right to transfer personal information in the event that we merge with or are acquired by a third party. We also may disclose your personal information for any other purpose required or permitted by law or to which you consent.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-33",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-33-0",
+                  "text": "Your Choices",
+                  "marks": []
+                }
+              ],
+              "style": "h3"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-34-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-34-0-0",
+                  "text": "You may unsubscribe from any commercial e-mail we send using the \"unsubscribe\" link in that e-mail.",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-34-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-34-1-0",
+                  "text": "You may configure your browser to refuse cookies, though parts of our Site may not function as intended.",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-34-2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-34-2-0",
+                  "text": "You may also withdraw your consent to non-essential cookies at any time using the consent controls on our Site.",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-35",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-35-0",
+                  "text": "How We Protect Personal Information",
+                  "marks": []
+                }
+              ],
+              "style": "h3"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-36",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-36-0",
+                  "text": "The security of your personal information is important to us. We protect your personal information in our control through appropriate security safeguards against loss, theft, unauthorized access, disclosure, copying, use or modification. These safeguards include physical measures (such as locked filing cabinets), organizational measures (such as employee training and restricted access), and technological measures (such as encryption and passwords). Personal information may be accessed by persons within our organization who require such access to carry out the purposes described in this Privacy Policy, or such other purposes as permitted or required by law. Personal information we collect is maintained with the source of the information at https://vitops.ca.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-37",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-37-0",
+                  "text": "We retain personal information that we collect only as long as necessary for the purposes for which it was collected or to meet legal requirements. We destroy personal information when it is no longer needed for such purposes.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-38",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-38-0",
+                  "text": "It is important to understand that no security measures are absolute. We cannot guarantee the safety of any information you provide to us.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-39",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-39-0",
+                  "text": "We May Transfer Personal Information to Other Countries",
+                  "marks": []
+                }
+              ],
+              "style": "h3"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-40",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-40-0",
+                  "text": "Some or all of the personal information we collect may be stored or processed in jurisdictions outside of Canada, including the European Union.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-41",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-41-0",
+                  "text": "Some of the service providers we use are established in, or controlled from, jurisdictions outside of Canada, including the United States. Personal information those providers handle on our behalf may be subject to the laws of those jurisdictions even when it is stored in Canada.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-42",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-42-0",
+                  "text": "As a result, this information may be subject to access requests from governments, courts or law enforcement in those jurisdictions according to laws in those jurisdictions.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-43",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-43-0",
+                  "text": "Accessing and Correcting Your Personal Information",
+                  "marks": []
+                }
+              ],
+              "style": "h3"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-44",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-44-0",
+                  "text": "You have a right to access your personal information and to request a correction to it if you believe it is inaccurate. If you have submitted personal information and would like to have access to it, or if you would like to have it corrected, please contact us using the contact information provided below. We may require you verify your identity before allowing you to access your personal information.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-45",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-45-0",
+                  "text": "How to Contact Us",
+                  "marks": []
+                }
+              ],
+              "style": "h3"
+            },
+            {
+              "_type": "block",
+              "_key": "privacy-policy-46",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "privacy-policy-46-0",
+                  "text": "If you have any questions regarding this Privacy Policy, to submit a complaint, or to access or correct your information, please contact our Privacy Officer at hi@vitops.ca. If you are not satisfied with our response to your privacy concerns, you may contact the Office of the Privacy Commissioner of Canada at www.priv.gc.ca or 1-800-282-1376.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
             }
           ],
           "layout": []
@@ -12241,6 +13623,754 @@
               "stack": "rhythm"
             }
           ]
+        }
+      },
+      {
+        "id": "pages:cookies",
+        "slug": "cookies",
+        "status": "published",
+        "data": {
+          "title": "Cookie Notice",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "cookie-notice-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-1-0",
+                  "text": "Last updated: 2026-11-26",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "vitops_banner",
+              "_key": "cookie-notice-2",
+              "message": "Generated from this site's configuration. It is a starting point, not legal advice — have it reviewed before you publish it, and make sure it matches what your site actually does.",
+              "tone": "warning",
+              "dismissible": false
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-3-0",
+                  "text": "This notice explains how Monad Media Inc. uses cookies and similar technologies on https://vitops.ca (the \"Site\"). It supplements our Privacy Policy.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-4",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-4-0",
+                  "text": "What Cookies Are",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-5",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-5-0",
+                  "text": "A cookie is a small text file that a website asks your browser to store. Cookies let a site remember things between pages and between visits — for example, that you have already dismissed a message. Similar technologies, such as local storage, do much the same thing.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-6",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-6-0",
+                  "text": "What We Use Them For",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-7-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-7-0-0",
+                  "text": "keep the Site functioning as you move between pages",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-7-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-7-1-0",
+                  "text": "understand how our Site is used, in aggregate",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-7-2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-7-2-0",
+                  "text": "attribute an enquiry to the advertisement that brought you here, for up to 90 days",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-8",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-8-0",
+                  "text": "Cookies used on this Site may track:",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-9-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-9-0-0",
+                  "text": "your IP address",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-9-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-9-1-0",
+                  "text": "the type of web browser and operating system used",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-9-2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-9-2-0",
+                  "text": "the pages of the Site visited",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-9-3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-9-3-0",
+                  "text": "which advertisement or campaign brought you to our Site",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-10",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-10-0",
+                  "text": "Cookies Set on This Site",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-11",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-11-0",
+                  "text": "Beyond the cookies strictly necessary to serve and secure the Site, no third party sets cookies through this Site. The third party services we use on this Site — Plausible Analytics, Zoho Bigin and Cloudflare — do not set cookies of their own.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-12",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-12-0",
+                  "text": "Cookies We Set Ourselves",
+                  "marks": []
+                }
+              ],
+              "style": "h3"
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-13-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-13-0-0",
+                  "text": "_ac",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-13-0-1",
+                  "text": " — records the advertisement or campaign you arrived from, so an enquiry can be attributed to it. Kept for 90 days.",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-14",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-14-0",
+                  "text": "Your Choices",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-15-0",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-15-0-0",
+                  "text": "You may configure your browser to refuse cookies, though parts of our Site may not function as intended.",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-15-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-15-1-0",
+                  "text": "You may also withdraw your consent to non-essential cookies at any time using the consent controls on our Site.",
+                  "marks": []
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-16",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-16-0",
+                  "text": "Most browsers let you see which cookies are stored, delete them individually or in bulk, and block them entirely. Blocking all cookies will stop parts of the Site from working as intended.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-17",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-17-0",
+                  "text": "Contact",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "cookie-notice-18",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cookie-notice-18-0",
+                  "text": "If you have questions about our use of cookies, please contact us at hi@vitops.ca.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            }
+          ],
+          "layout": []
+        }
+      },
+      {
+        "id": "pages:accessibility",
+        "slug": "accessibility",
+        "status": "published",
+        "data": {
+          "title": "Accessibility",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-1-0",
+                  "text": "Last updated: November 26, 2026",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "vitops_banner",
+              "_key": "accessibility-statement-2",
+              "message": "Generated from this site's configuration. It is a starting point, not legal advice — have it reviewed before you publish it, and make sure it matches what your site actually does.",
+              "tone": "warning",
+              "dismissible": false
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-3-0",
+                  "text": "Our commitment",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-4",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-4-0",
+                  "text": "Monad Media Inc. is committed to making this website easy to use for everyone, including people with disabilities. We follow the Accessibility for Ontarians with Disabilities Act (AODA) and work to remove barriers wherever we find them.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-5",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-5-0",
+                  "text": "If something on this website is hard to use, tell us. We will work with you to get you the information or service you need.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-6",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-6-0",
+                  "text": "The standard we follow",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-7",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-7-0",
+                  "text": "This website aims to meet the Web Content Accessibility Guidelines (WCAG) 2.1, Level AA. WCAG is a set of international rules that make web content easier to use for people with disabilities.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-8",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-8-0",
+                  "text": "Browsers and assistive technology",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-9",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-9-0",
+                  "text": "Assistive technology is software or equipment that helps people use a computer, such as screen readers (software that reads the screen aloud), screen magnifiers and voice control.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-10",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-10-0",
+                  "text": "We build the website to work in the current and previous major versions of Chrome, Edge, Firefox and Safari, on computers and phones.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-11",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-11-0",
+                  "text": "We build the website to work with assistive technology.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-12",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-12-0",
+                  "text": "The website also responds to your device settings for high contrast, reduced motion and larger text. We design it so you can make the text up to twice as large without losing content or features.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-13",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-13-0",
+                  "text": "The website may work in older browsers, but some features may look or act differently. The main tasks stay available. If you cannot update your browser or device and something does not work, contact us and we will help another way.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-14",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-14-0",
+                  "text": "Known problems",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-15",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-15-0",
+                  "text": "We are not aware of any current accessibility problems. If you find one, please tell us.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-16",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-16-0",
+                  "text": "Asking for an accessible format or support",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-17",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-17-0",
+                  "text": "You can ask for information in a format that works for you, at no extra cost. Under the AODA, we must tell you that accessible formats and communication supports are available. This section is that notice.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-18",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-18-0",
+                  "text": "To ask, contact us in any of these ways:",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-19-0",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "accessibility-statement-19-0-1-link",
+                  "href": "mailto:hi@vitops.ca"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-19-0-0",
+                  "text": "Email: ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-19-0-1",
+                  "text": "hi@vitops.ca",
+                  "marks": ["accessibility-statement-19-0-1-link"]
+                }
+              ],
+              "style": "normal",
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-20",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-20-0",
+                  "text": "We will reply as soon as we can and work with you to find a format that suits you. If we cannot give you the format you asked for, we will tell you why and offer another option.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-21",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-21-0",
+                  "text": "Feedback",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-22",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-22-0",
+                  "text": "We welcome feedback about the accessibility of this website and our services. To report a barrier or share a suggestion, use any contact method above.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-23",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-23-0",
+                  "text": "Please tell us the page address, what you were trying to do, and the browser or assistive technology you use, if you know it. You do not have to tell us all of this.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-24",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-24-0",
+                  "text": "We will reply to your feedback as soon as we can and tell you what we plan to do about it.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-25",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-25-0",
+                  "text": "About this statement",
+                  "marks": []
+                }
+              ],
+              "style": "h2"
+            },
+            {
+              "_type": "block",
+              "_key": "accessibility-statement-26",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "accessibility-statement-26-0",
+                  "text": "This statement was last updated on November 26, 2026. We review this statement whenever the website changes in a big way.",
+                  "marks": []
+                }
+              ],
+              "style": "normal"
+            }
+          ],
+          "layout": []
         }
       }
     ]

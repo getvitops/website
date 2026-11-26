@@ -28,8 +28,7 @@ const layout = page?.data.layout as unknown[] | undefined;
 ---
 
 <Layout entry={page ?? undefined}>
-  <!-- Street address, hours, logo and social profiles are not in vitops.json yet; add them to
-       `organization` and here when they are. -->
+  <!-- Facts come from `organization` in vitops.json. Hours, logo and social profiles are not set yet. -->
   <LocalBusiness
     type="ProfessionalService"
     name={config.organization.name}
@@ -37,7 +36,7 @@ const layout = page?.data.layout as unknown[] | undefined;
     description={config.site.seo.defaultDescription}
     telephone={config.organization.phone}
     email={config.organization.email}
-    address={{ addressLocality: 'Ottawa', addressRegion: 'ON', addressCountry: 'CA' }}
+    address={config.organization.address}
     areaServed={['Ottawa', 'Ontario', 'Canada']}
   />
   {

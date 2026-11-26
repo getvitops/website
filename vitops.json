@@ -444,7 +444,19 @@
   "organization": {
     "name": "Vitops",
     "email": "hi@vitops.ca",
-    "phone": "613-518-7984"
+    "phone": "613-518-7984",
+    "legalName": "Monad Media Inc.",
+    "foundingDate": "2018-10-30",
+    "address": {
+      "streetAddress": "323 Coventry Road, Suite L086",
+      "addressLocality": "Ottawa",
+      "addressRegion": "ON",
+      "postalCode": "K1K 3X6",
+      "addressCountry": "CA"
+    },
+    "contact": {
+      "email": "hi@vitops.ca"
+    }
   },
   "site": {
     "accessibility": {
@@ -760,11 +772,34 @@
     "legal": {
       "cookieConsent": {
         "enabled": true
+      },
+      "jurisdiction": "ca",
+      "privacyPolicy": {
+        "enabled": true,
+        "url": "https://vitops.ca/privacy",
+        "lastUpdated": "2026-11-26"
+      },
+      "termsOfService": {
+        "enabled": true,
+        "url": "https://vitops.ca/terms",
+        "lastUpdated": "2026-11-26"
+      },
+      "accessibilityStatement": {
+        "enabled": true,
+        "url": "https://vitops.ca/accessibility",
+        "lastUpdated": "2026-11-26",
+        "law": "aoda"
       }
     },
     "plan": {
       "key": "internal",
       "addons": ["server_side_tracking"]
+    },
+    "domains": {
+      "canonical": "https://vitops.ca"
+    },
+    "deployment": {
+      "platform": "cloudflare"
     }
   }
 }
