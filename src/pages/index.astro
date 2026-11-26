@@ -1,6 +1,8 @@
 ---
 import { getEmDashEntry } from 'emdash';
 import { PortableText } from 'emdash/ui';
+import LocalBusiness from '@getvitops/astro/schemas/LocalBusiness.astro';
+import config from '../../vitops.json' with { type: 'json' };
 import PageBlocks from '../components/PageBlocks.astro';
 import Layout from '../layouts/Layout.astro';
 
@@ -25,7 +27,19 @@ const title = page?.data.title as string | undefined;
 const layout = page?.data.layout as unknown[] | undefined;
 ---
 
-<Layout description={title}>
+<Layout entry={page ?? undefined}>
+  <!-- Street address, hours, logo and social profiles are not in vitops.json yet; add them to
+       `organization` and here when they are. -->
+  <LocalBusiness
+    type="ProfessionalService"
+    name={config.organization.name}
+    url={config.site.environments.production.url}
+    description={config.site.seo.defaultDescription}
+    telephone={config.organization.phone}
+    email={config.organization.email}
+    address={{ addressLocality: 'Ottawa', addressRegion: 'ON', addressCountry: 'CA' }}
+    areaServed={['Ottawa', 'Ontario', 'Canada']}
+  />
   {
     layout && layout.length > 0 ? (
       <PageBlocks value={layout} />

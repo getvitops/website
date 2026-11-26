@@ -9,8 +9,6 @@ import Compare from './blocks/Compare.astro';
 import Dashboard from './blocks/Dashboard.astro';
 import Estimate from './blocks/Estimate.astro';
 import Hero from './blocks/Hero.astro';
-import Pillars from './blocks/Pillars.astro';
-import Section from './blocks/Section.astro';
 
 interface Props {
   value: unknown[];
@@ -19,11 +17,9 @@ interface Props {
 const components = defineBlockComponents<any>({
   ...blockTypeComponents, // vitops_section
   vt_hero: Hero,
-  vt_pillars: Pillars,
   vt_compare: Compare,
   vt_dashboard: Dashboard,
   vt_estimate: Estimate,
-  vt_section: Section,
 });
 ---
 

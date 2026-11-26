@@ -62,7 +62,7 @@ Lessons from building it that the generic rules above don't state:
 
 - **Diff your markup against the component list before writing any renderer.** Run `vp exec vitops docs components` and `vp exec vitops docs blocks`. A hand-rolled stats figure was built next to an existing `Counter`, and an upstream block (`vitops_stats`) arrived later; check first, every time.
 - **`tone` select options are static** in EmDash, so they cannot follow `vitops.json` at runtime; the toolkit's `tones/list` route fills them for the admin. A site-local block must not hard-code a site's palette names into a seed option list.
-- **Site-specific decorations stay site-local.** A decoration such as the blueprint grid backdrop is not an option to propose upstream.
+- **Site-specific decorations stay site-local.** The line-grid backdrop was dropped for a minimal look; keep decoration light (heroes and bands, no patterns).
 - **Registry:** every `vt_*` block still in use, with verdict and status, is in `UPSTREAM.md` ("Local block registry").
 
 <!-- vitops:start -->

@@ -25,6 +25,9 @@ const { adapter, database, storage } = await vitopsHosting();
 
 export default defineConfig({
   output: 'server',
+  // /managed-it is served as managed-it.html: no 307 to a trailing-slash URL, canonicals match links.
+  trailingSlash: 'never',
+  build: { format: 'file' },
   adapter,
   image: {
     layout: 'constrained',

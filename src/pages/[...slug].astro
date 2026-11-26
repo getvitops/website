@@ -14,8 +14,8 @@ export async function getStaticPaths() {
   // Fail the build rather than ship a site with no pages.
   if (error) throw error;
   return entries
-    .filter((entry) => entry.id !== 'home') // served by index.astro
-    .map((entry) => ({ params: { slug: entry.id }, props: { page: entry } }));
+    .filter((entry) => entry.data.slug !== 'home') // served by index.astro
+    .map((entry) => ({ params: { slug: entry.data.slug as string }, props: { page: entry } }));
 }
 
 const { page } = Astro.props;
@@ -28,7 +28,7 @@ const title = page.data.title as string | undefined;
 const layout = page.data.layout as unknown[] | undefined;
 ---
 
-<Layout title={title}>
+<Layout title={title} entry={page}>
   {
     layout && layout.length > 0 ? (
       <PageBlocks value={layout} />

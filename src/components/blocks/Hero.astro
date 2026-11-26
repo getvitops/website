@@ -1,7 +1,7 @@
 ---
 import type { BV } from './types';
 import type { BlockComponentProps } from 'emdash/ui';
-import { resolveTone } from './tone';
+import { resolveTone } from '@getvitops/emdash';
 
 interface Door {
   tone?: string;
@@ -27,7 +27,7 @@ const doors = value.doors ?? [];
 const spans = (value.heading ?? []).flatMap((b) => b.children ?? []);
 ---
 
-<header class="vt-hero vt-grid region border-b border-neutral-muted">
+<header class="vt-hero region border-b border-neutral-muted">
   <div class="centered rhythm">
     <div class="spotlight rhythm">
       {value.eyebrow && <span class="font-eyebrow text-pine-400">{value.eyebrow}</span>}

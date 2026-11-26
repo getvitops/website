@@ -10,15 +10,6 @@
   --region-space-max: 7rem;
 }
 
-/* 60px line grid behind hero + alternate sections */
-.vt-grid {
-  background-image:
-    linear-gradient(var(--color-border-neutral-muted) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-border-neutral-muted) 1px, transparent 1px);
-  background-size: 60px 60px;
-  background-color: var(--color-bg-neutral-muted);
-}
-
 /* Hero glow, top right */
 .vt-hero {
   position: relative;
@@ -33,7 +24,7 @@
   block-size: 51rem;
   background: radial-gradient(
     circle,
-    color-mix(in oklab, var(--color-pine-600) 33%, transparent) 0%,
+    color-mix(in oklab, var(--color-pine-600) 14%, transparent) 0%,
     transparent 62%
   );
   pointer-events: none;
@@ -336,14 +327,6 @@
   line-height: 1.4;
   color: var(--color-text-neutral-muted, inherit);
   margin-block-start: var(--space-xs);
-}
-
-/* Pillars: the optional heading sits at the top of the grid backdrop, a block gap above the cards. */
-.vt-pillars-block--headed {
-  padding-block-start: var(--space-xl);
-}
-.vt-pillars__head {
-  margin-block-end: var(--space-l);
 }
 
 /* ── Cost estimator (vt_estimate) ─────────────────────────────────────────────────────
