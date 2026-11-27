@@ -15,13 +15,13 @@ const PRICING = {
     growing: { name: 'Growing Team', monthly: 1799, setup: 800 },
   },
   notes: {
-    own: 'Choose any mix of IT and marketing services.',
+    own: 'Choose any mix of software and marketing services.',
     launch:
       'For solo owners: domain, business email, a Basic website and your Google profile. Your email licence is billed at cost.',
     small:
-      'For teams of 5 to 15: Plus website, business profiles, reviews and email, SEO and AI search, plus Managed IT.',
+      'For teams of 5 to 15: Plus website, business profiles, reviews and email, SEO and AI search, plus Managed software.',
     growing:
-      'For teams of 15 to 50: Growth website, all six marketing services and Managed IT. Ad spend is extra.',
+      'For teams of 15 to 50: Growth website, all six marketing services and Managed software. Ad spend is extra.',
   },
   perUser: 15,
   minIt: 100,
@@ -97,9 +97,9 @@ const marketing: [string, string, string, string?][] = [
           </fieldset>
 
           <fieldset class="vt-est__panel rhythm" data-group="it">
-            <legend class="font-heading text-pine-400">Managed IT</legend>
+            <legend class="font-heading text-pine-400">Managed software</legend>
             <label class="vt-est__row flex flex-wrap items-center justify-between gap-s" data-row="mit">
-              <span><input type="checkbox" name="mit" checked /> Managed IT, $15 per user</span>
+              <span><input type="checkbox" name="mit" checked /> Managed software, $15 per user</span>
               <span class="text-neutral-muted">$100 minimum</span>
             </label>
             <label class="vt-est__row flex flex-wrap items-center justify-between gap-s">
@@ -155,14 +155,14 @@ const marketing: [string, string, string, string?][] = [
               <b class="font-title" data-out="total">$150</b><span class="text-neutral-muted">/month</span>
             </p>
             <div data-out="lines">
-              <p class="vt-est__line flex flex-wrap items-center justify-between gap-s"><span>Managed IT, 10 users</span><b>$150</b></p>
+              <p class="vt-est__line flex flex-wrap items-center justify-between gap-s"><span>Managed software, 10 users</span><b>$150</b></p>
             </div>
             <p class="vt-est__line flex flex-wrap items-center justify-between gap-s"><span>One-time setup</span><b data-out="setup">$500</b></p>
             <p data-out="dash" class="text-neutral-muted">
               Add $251 a month to include the Business Health Dashboard.
             </p>
             <ul class="rhythm text-neutral-muted" data-out="notes">
-              <li>Managed IT setup is waived with a yearly commitment.</li>
+              <li>Managed software setup is waived with a yearly commitment.</li>
               <li>Taxes extra. Your final quote may differ.</li>
             </ul>
           </div>
@@ -236,7 +236,7 @@ const marketing: [string, string, string, string?][] = [
         let it = users * P.perUser + extra * P.extraLicence;
         if (own) it = Math.max(P.minIt, it);
         monthly += it;
-        lines.push([`Managed IT, ${users} users${extra ? ` + ${extra} licences` : ''}`, it]);
+        lines.push([`Managed software, ${users} users${extra ? ` + ${extra} licences` : ''}`, it]);
         if (checked('backup')) {
           monthly += P.backup * users;
           lines.push(['Managed backup', P.backup * users]);
@@ -247,7 +247,7 @@ const marketing: [string, string, string, string?][] = [
         }
         if (own) {
           setup += P.itSetup;
-          notes.push('Managed IT setup is waived with a yearly commitment.');
+          notes.push('Managed software setup is waived with a yearly commitment.');
         }
       }
       const web = Number(radio('web'));
