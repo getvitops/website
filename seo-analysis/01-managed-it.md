@@ -2,105 +2,82 @@
 
 Status: proposal for review. Nothing here is applied to `seed/seed.json`.
 Data: Semrush, Canada database, pulled 2026-11-26. Volumes are monthly searches in Canada.
+Revised after the positioning facts in `00-positioning.md` (SaaS only, no hardware, no on-site).
 
 ## Role and verdict
 
-Pillar for IT and hub for the seven IT service pages. It is the best commercial page on the site:
-the Ottawa and small-business terms below are low difficulty and carry high ad prices, which is a
-sign that people searching them are ready to buy.
+Pillar for the software services and hub for the seven service pages. The first draft aimed at
+"managed IT services Ottawa", which is mostly searched by people who want hardware, network and
+on-site help. Vitops does not offer that, so those terms are the wrong target. The page should
+be about **managing the cloud software a small business runs on**, and say so.
 
-vitops.ca ranks for none of these terms today (Semrush shows only two stray keywords from the old
-site), so every target is a fresh opportunity, not a defence.
+vitops.ca ranks for none of the terms below today, so every target is a fresh opportunity.
 
 ## Keyword targets
 
-One primary intent per page. The pillar takes the broad and local terms; the service pages take
-the narrower ones (see "Cannibalization").
+| Keyword                                 | Volume  | KD  | CPC          | Role                                           |
+| --------------------------------------- | ------- | --- | ------------ | ---------------------------------------------- |
+| microsoft 365 consultant                | 90      | 17  | $16.24       | **Primary**: matches the offer, low difficulty |
+| microsoft 365 management                | 50      | n/a | $10.47       | Secondary                                      |
+| managed saas / saas management services | 20 / 20 | 0   | $46.02 / n/a | Secondary: tiny but the exact description      |
+| zoho consultant                         | 110     | 32  | $5.50        | Shared with `/software-selection-setup`        |
+| crm consultant ottawa                   | 70      | 21  | n/a          | Shared with `/software-selection-setup`        |
 
-| Keyword                                | Volume | KD  | CPC    | Role                                                                      |
-| -------------------------------------- | ------ | --- | ------ | ------------------------------------------------------------------------- |
-| managed it services ottawa             | 590    | 24  | $21.87 | **Primary**                                                               |
-| it services ottawa                     | 480    | 30  | $5.16  | Secondary                                                                 |
-| managed it services for small business | 480    | 15  | $8.72  | Secondary                                                                 |
-| outsourced it services                 | 390    | 19  | n/a    | Secondary                                                                 |
-| it company ottawa                      | 210    | 27  | $3.12  | Supporting                                                                |
-| msp ottawa                             | 50     | 16  | $3.56  | Supporting                                                                |
-| managed it services (no geo)           | 4,400  | 50  | $16.28 | Stretch: not winnable first, but the page's wording should not exclude it |
+Dropped as targets because of what they mean: `managed it services ottawa` (590), `it services
+ottawa` (480), `outsourced it services` (390), `it company ottawa` (210), `msp ottawa` (50).
+People searching these want hardware, network and on-site help.
 
-Moved to service pages: `it support ottawa` (480, KD 22), `it support for small business` (480,
-KD 11), `small business it support` (320, KD 11), `computer support ottawa` (140, KD 15).
-
-## What ranks now (managed it services ottawa)
-
-Positions 1 to 10 are mostly **dedicated Ottawa location pages** from managed service providers
-(Convergence Networks, Neolore, F12, Crestline, Cypher, Revnet), plus directories (CloudTango,
-Clutch) and one Reddit thread. Three things follow:
-
-- Google wants a page that is plainly "managed IT in Ottawa", not a general services page.
-- A directory (Clutch, CloudTango) holds the top spots; we can't outrank those, but we can take
-  the provider slots below them.
-- The competing pages are about helpdesk, network and security. Ours leads with software choice
-  and setup, which is a real difference but reads as a different intent. The page needs a clear
-  "what's included" block (support, security, backup) high up so it matches what searchers expect.
+The earlier SERP for `managed it services ottawa` shows why: every result is a managed service
+provider that runs networks and devices, plus directories. Our page would be a mismatch.
 
 ## Current state
 
-- Title: `Managed IT | Vitops`. No target term.
-- H1: "Software that works for your team, not against it." Good brand voice; nothing names the
-  service, the customer or the place.
-- Kicker: "Managed IT for Ontario businesses". "Ottawa" appears nowhere above the fold.
-- About 1,250 words, 7 service cards and 7 software cards.
-- Only 2 internal links detected in the page data (the service cards need real hrefs).
-- No pricing mention beyond the services list; searchers for this term compare cost.
+- Title: `Managed IT | Vitops`. H1: "Software that works for your team, not against it." (good).
+- Kicker: "Managed IT for Ontario businesses". The words "managed IT" attract the wrong searches.
+- About 1,250 words, 7 service cards and 7 software cards. The page already describes software
+  selection, setup, connection, AI and licences, which is exactly the offer.
+- Only 2 internal links detected in the page data.
 
 ## Recommended changes, highest impact first
 
 1. **Title and meta (high).**
-   - Title (57): `Managed IT Services in Ottawa for Small Business | Vitops`
-   - Meta (136): `Managed IT for small businesses in Ottawa and across Ontario: software, setup, security, backup and support for one fixed monthly price.`
-2. **Say it above the fold (high).** Keep the H1. Change the kicker to a plain statement:
-   `Managed IT services for small businesses in Ottawa and Ontario`. The first sentence of the
-   lead should name what is included: "software, setup, security, backup and support".
-3. **Add a "what's included" block and a price pointer (high).** A short section (three or four
-   lines) listing support, security, backup and software management, ending with
-   "Plans start at ... a month. See pricing" linking to `/pricing`. Cost questions are a real
-   query family (`how much do managed it services cost`, 20+20/month).
-4. **Link the cards (medium).** All 7 service cards and 7 software cards should link to their
-   pages with descriptive anchors ("Backup and security", "Licences and cost control"). Add one
-   link back from each service page using the anchor "Managed IT services".
-5. **Add a short "What is managed IT?" explainer (medium).** `what is managed it services` gets
-   110 searches. Two or three plain sentences near the top serve readers and AI answers.
-6. **Structured data (medium).** `Service` (provider Vitops, areaServed Ottawa and Ontario) and
-   `BreadcrumbList` (Home > Managed IT). The toolkit has both in `@getvitops/astro/schemas/`.
-   Skip `FAQPage` markup: Google limits FAQ rich results to well-known government and health
-   sites, so it adds nothing here. Keep the questions as visible page copy.
-7. **Source the statistics (low).** The licence-usage and software-regret figures should cite their
-   source in the text, with a link.
+   - Title (47): `Business Software Management in Ottawa | Vitops`
+   - Meta (153): `We choose, set up, connect and manage the cloud software your business runs on: Microsoft 365, Google Workspace, Zoho and QuickBooks. Ottawa and Ontario.`
+2. **State the scope above the fold (high).** Kicker:
+   `Cloud software management for small businesses in Ottawa and Ontario`. Add one plain
+   sentence: "We work with cloud software only. We don't do hardware, networks or on-site
+   visits." It filters out the wrong leads and sets Vitops apart.
+3. **Name the vendors (high).** The lead should name the tools you implement, for example
+   Microsoft 365, Google Workspace, Zoho, QuickBooks. Tool names are what buyers search.
+4. **Link the cards (medium).** All 7 service cards and 7 software cards link to their pages
+   with descriptive anchors, and each page links back using "Business software management".
+5. **Add a price pointer (medium).** "Plans start at ... See pricing" linking to `/pricing`.
+   `microsoft 365 consultant` buyers compare cost, and a solo owner needs to see they fit.
+6. **Structured data (medium).** `Service` (service type: cloud software management, area served:
+   Ontario) and `BreadcrumbList`. No `FAQPage` markup (no rich result since Google limited it
+   to government and health sites).
+7. **Source the statistics (low).** The licence-usage and software-regret figures need a cited
+   source with a link.
 
 ## Copy rewrites (proposed, not applied)
 
-| Where           | Now                                                                                                                                                                | Proposed                                                                                                                                                                     |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Kicker          | Managed IT for Ontario businesses                                                                                                                                  | Managed IT services for small businesses in Ottawa and Ontario                                                                                                               |
-| Lead            | We help you choose the right software, set it up, and manage it with cost savings in mind. Your team works more efficiently, and your systems keep up as you grow. | We choose your software, set it up, secure and back it up, and answer the phone when something breaks. You pay one fixed monthly price and your systems keep up as you grow. |
-| Section heading | Four steps, in the right order.                                                                                                                                    | How we work, one step at a time.                                                                                                                                             |
-| Section heading | Seven services. One team.                                                                                                                                          | What we manage for you.                                                                                                                                                      |
-
-Why: the count-announcing headings ("Four steps", "Seven services") are a pattern to drop, and
-the proposed lead names the service and the buyer in the first sentence. Canadian spelling
-("licences") is already right.
+| Where           | Now                                                                                                                                                                | Proposed                                                                                                                                                              |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Kicker          | Managed IT for Ontario businesses                                                                                                                                  | Cloud software management for small businesses in Ottawa and Ontario                                                                                                  |
+| Lead            | We help you choose the right software, set it up, and manage it with cost savings in mind. Your team works more efficiently, and your systems keep up as you grow. | We choose your software, set it up, connect it and keep it running, from Microsoft 365 and Google Workspace to Zoho and QuickBooks. We keep the bill low as you grow. |
+| Section heading | Four steps, in the right order.                                                                                                                                    | How we work, one step at a time.                                                                                                                                      |
+| Section heading | Seven services. One team.                                                                                                                                          | What we manage for you.                                                                                                                                               |
 
 ## Cannibalization
 
-- `/managed-it` owns: managed it services ottawa, it services ottawa, managed it services for
-  small business, outsourced it services.
-- `/support-vendor-management` owns: it support ottawa, it support for small business, small
-  business it support.
-- `/backup-security`, `/licences-cost-control`, `/joining-and-leaving` own their own long-tail
-  terms; none of them should use "managed IT services" as a target.
+- `/managed-it` owns: microsoft 365 consultant and management, SaaS management.
+- `/software-selection-setup` owns: the consultant and migration terms for Zoho, CRM, Microsoft
+  365 and Google Workspace setup.
+- `/support-vendor-management` owns: Microsoft 365 support and Google Workspace support.
+- None of them should target "IT support" or "managed IT services".
 
 ## Open questions for you
 
-- Is "one fixed monthly price" accurate for the IT service as a whole, or only for some plans?
-  The proposed meta and lead say it; the pricing page should back it up.
-- Is there a starting price for IT that can sit next to "See pricing"?
+- Should the visible name change from "Managed IT"? See `00-positioning.md`.
+- Is there a starting price for the software management plan that can sit next to "See
+  pricing"? The pricing page shows $15 a user with a $100 minimum, and $79 for the solo plan.

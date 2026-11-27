@@ -19,6 +19,12 @@ pillar, and clear copy; do not write extra content hoping to rank.
 | microsoft 365 setup (tracked, Ottawa)                                                                                  | 10     | n/a | n/a    | From the existing tracking          |
 | software selection for small business, crm implementation ottawa, business software ottawa, software consulting ottawa | none   | n/a | n/a    | No volume recorded in Semrush       |
 
+Added after the positioning facts (see `00-positioning.md`): the consultant and migration terms
+fit this page better than anything above, for example `zoho crm consultant` (90, difficulty 18),
+`zoho consultant` (110), `microsoft 365 consultant` (90, difficulty 17), `crm consultant ottawa`
+(70), `microsoft 365 migration` (90) and `google workspace setup` (70). Retitle around those
+tools once you confirm which ones you implement.
+
 ## Current state
 
 - Title: `Software selection and setup | Vitops`. Close; no audience.

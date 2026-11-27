@@ -79,6 +79,7 @@ has no analyst.** From their titles, none of the top ten appear to mix IT and ma
 
 ## Open questions for you
 
-- Is the dashboard a paid add-on or included in every plan? The page says it lives in the client
-  portal but not whether it is included. A buyer will ask; one sentence would also help the
-  pricing page.
+- Answered: the dashboard is included when the plan is large enough (the pricing page says over
+  $400 a month) or bought as an add-on. The dashboard page should say this in one sentence near
+  the call to action, so a visitor knows whether they qualify. Suggested line: "Included with
+  plans over $400 a month, or add it to any plan."
