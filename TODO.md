@@ -2,9 +2,14 @@
 
 ## Open (no admin access needed)
 
-- [ ] **`/dashboard` axe `color-contrast` (25 nodes)** in `vitops audit` on alpha.15. Computed colours of the flagged
-      elements are high contrast (`rgb(180,188,200)` on `rgb(26,34,48)`), so this looks like a mid-animation
-      reading (`animate-view` opacity) rather than a real miss; confirm with a reduced-motion run before fixing.
+- [x] **`/dashboard` axe `color-contrast`: an audit artifact, not a real failure** (checked 2026-11-27).
+      The dashboard mock is a `fade-in slide-up animate-view` element below the fold, so at audit time its opacity is
+      near 0 and axe reads foreground `#161d28` on background `#141b26` (ratio 1.02). Evidence: with
+      `reducedMotion: reduce` or animations forced to their end state axe passes; with the element scrolled into view
+      it passes (opacity 1); only a load-time scan fails. A visitor sees it settled. Not rebuilt on 17c35d7 to compare
+      (too heavy), but the mechanism is not alpha.15-specific. **UPSTREAM candidate:** `vitops audit` should scan after
+      animations settle (emulate reduced motion, or scroll each `.animate-view` into view) so a fade-in does not fail the
+      run; until then `/dashboard` and any page with a late fade-in can fail the audit spuriously.
 - [ ] **Live content edit:** the "Learn more" links on `/business-profiles` and `/reviews-email` now have
       descriptive labels in `seed/seed.json` (Lighthouse `link-text`, SEO 92); apply the same in the admin on
       dev and prod, since a seed only applies to an empty database.
