@@ -1,0 +1,71 @@
+---
+import type { BV } from './types';
+import type { BlockComponentProps } from 'emdash/ui';
+import { resolveTone } from '@getvitops/emdash';
+
+interface Door {
+  tone?: string;
+  color?: string;
+  eyebrow?: string;
+  title: string;
+  body?: string;
+  cta_label?: string;
+  href?: string;
+}
+interface HeroValue {
+  eyebrow?: string;
+  heading?: Array<{ children?: Array<{ text?: string; marks?: string[] }> }>;
+  lede?: string;
+  doors?: Door[];
+}
+type Props = BlockComponentProps<BV<HeroValue>>;
+
+const { value } = Astro.props;
+const doors = value.doors ?? [];
+// Heading is Portable Text so editors can colour words: emphasis = primary accent,
+// strong = secondary accent. Rendered by hand — it's one inline run, no blocks.
+const spans = (value.heading ?? []).flatMap((b) => b.children ?? []);
+---
+
+<header class="vt-hero region border-b border-neutral-muted">
+  <div class="centered rhythm">
+    <div class="spotlight rhythm">
+      {value.eyebrow && <span class="font-eyebrow text-pine-400">{value.eyebrow}</span>}
+      <h1 class="vt-hero__title">
+        {
+          spans.map((s) =>
+            s.marks?.includes('em') ? (
+              <span class="text-pine-400">{s.text}</span>
+            ) : s.marks?.includes('strong') ? (
+              <span class="text-amber-300">{s.text}</span>
+            ) : (
+              s.text
+            )
+          )
+        }
+      </h1>
+      {value.lede && <p class="vt-lede text-neutral-muted">{value.lede}</p>}
+    </div>
+    {
+      doors.length > 0 && (
+        <ul class={`spotlight subgrid subgrid-cols-${Math.min(doors.length, 4)} subgrid-responsive vt-doors`} role="list">
+          {doors.map((d) => {
+            const t = resolveTone(d.tone, d.color);
+            return (
+              <li class="card subgrid-card vt-tone-top" style={t.style}>
+                {d.eyebrow && <span class="font-eyebrow vt-tone-text">{d.eyebrow}</span>}
+                <h2 class="font-subheading">{d.title}</h2>
+                <div class="subgrid-card__footer rhythm">
+                  {d.body && <p class="text-neutral-muted">{d.body}</p>}
+                  {d.cta_label && d.href && (
+                    <a class="btn vt-tone-btn stretched-link inline-block" href={d.href}>{d.cta_label} ›</a>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      )
+    }
+  </div>
+</header>

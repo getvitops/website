@@ -1,0 +1,442 @@
+/* Site-local CSS: only what the Vitops framework has no class for.
+   Everything here reads tokens from vitops.json; layout comes from framework
+   classes (centered / region / rhythm / subgrid / cluster). */
+
+:root {
+  /* Mockup content width is 1200px; the framework's spotlight track defaults to 120ch. */
+  --width-spotlight: 75rem;
+  /* Mockup sections use 112px of vertical padding. */
+  --region-space-min: 3.5rem;
+  --region-space-max: 7rem;
+}
+
+/* Hero glow, top right */
+.vt-hero {
+  position: relative;
+  overflow: hidden;
+}
+.vt-hero::after {
+  content: '';
+  position: absolute;
+  inset-inline-end: -14rem;
+  inset-block-start: -16rem;
+  inline-size: 51rem;
+  block-size: 51rem;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-pine-600) 14%, transparent) 0%,
+    transparent 62%
+  );
+  pointer-events: none;
+}
+.vt-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.vt-lede {
+  font-size: var(--text-l);
+  line-height: 1.55;
+  max-inline-size: 50ch;
+}
+.vt-strong {
+  font-weight: 600;
+}
+
+/* Blocks that sit between full sections (stats, compare, dashboard) */
+.vt-bleed {
+  padding-block: 0 var(--space-xl);
+}
+
+/* Steps: numbered discs joined by a line */
+
+/* Callout band */
+.vt-band__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  inline-size: 4rem;
+  block-size: 4rem;
+  border: 1px solid var(--tone-fill);
+  border-radius: var(--br-circle);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+.vt-band__text {
+  flex: 1;
+  min-inline-size: 16rem;
+}
+
+/* Selectable tags (form interest options): the framework's `.tag` pattern,
+   with a visually hidden checkbox and a checked state. */
+.tag {
+  position: relative;
+}
+.tag input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.tag:has(input:checked) {
+  border-color: var(--tone-fill, var(--color-pine-400));
+  color: var(--tone-text, var(--color-pine-400));
+}
+.tag:has(input:focus-visible) {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Comparison */
+.vt-report {
+  border: 1px dashed var(--color-border-neutral-muted);
+  border-radius: var(--br-md);
+  padding: var(--space-s) var(--space-m);
+}
+.vt-gap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  block-size: 2.75rem;
+}
+.vt-gap::before {
+  content: '';
+  position: absolute;
+  inset-block: 0.4rem;
+  border-inline-start: 2px dashed var(--color-border-neutral-muted);
+}
+.vt-gap span {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  border-radius: var(--br-circle);
+  border: 1px solid var(--color-border-neutral-muted);
+  background: var(--color-bg-neutral-muted);
+  color: var(--color-amber-300);
+  font-weight: 600;
+}
+.vt-compare__together {
+  border-color: var(--color-pine-400);
+}
+.vt-chain {
+  list-style: none;
+  padding: var(--space-m);
+  justify-content: space-between;
+  gap: var(--space-xs);
+  border: 1px solid var(--color-border-neutral-muted);
+  border-radius: var(--br-md);
+  background: var(--color-bg-neutral-muted);
+  flex-wrap: wrap;
+}
+.vt-chain {
+  gap: var(--space-m);
+}
+.vt-chain li {
+  position: relative;
+  text-align: center;
+}
+.vt-chain b {
+  display: block;
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.vt-chain li + li::before {
+  content: '›';
+  position: absolute;
+  inset-inline-start: calc(var(--space-m) / -2 - 0.25em);
+  inset-block-start: 0.3em;
+  color: var(--color-pine-400);
+  font-size: var(--text-xl);
+}
+
+/* Dashboard preview panel */
+.vt-portal {
+  margin: 0;
+  border: 1px solid var(--color-border-neutral-muted);
+  border-radius: var(--br-xl);
+  background: var(--color-bg-neutral-x-muted);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+.vt-portal__bar {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  padding: var(--space-s) var(--space-m);
+  border-block-end: 1px solid var(--color-border-neutral-muted);
+  background: var(--color-bg-neutral);
+}
+.vt-portal__logo svg {
+  display: block;
+  inline-size: 1.4rem;
+  block-size: auto;
+}
+.vt-portal__body {
+  padding: var(--space-m);
+  display: grid;
+  gap: var(--space-m);
+}
+.vt-live i {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: var(--br-circle);
+  background: var(--color-pine-400);
+  outline: 4px solid color-mix(in oklab, var(--color-pine-400) 20%, transparent);
+}
+.vt-dot {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: var(--br-circle);
+  display: inline-block;
+}
+.vt-tile {
+  padding: var(--space-s) var(--space-m);
+  border-radius: var(--br-md);
+}
+.vt-tile__v {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.vt-tile__of {
+  font-size: var(--text-s);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.vt-tip {
+  border: 1px solid color-mix(in oklab, var(--color-amber-300) 35%, transparent);
+  background: color-mix(in oklab, var(--color-amber-300) 8%, transparent);
+  border-radius: var(--br-md);
+  padding: var(--space-s) var(--space-m);
+  font-size: var(--text-s);
+}
+.vt-tip strong {
+  display: block;
+}
+
+.vt-doors {
+  margin-block-start: var(--space-xl);
+}
+
+/* Inside a card the mockups use the small "lead" size: the documented hook on `.card__title`. */
+.card {
+  --card-title-size: var(--text-l);
+}
+
+/* Steps are plain columns, not cards */
+.vt-band__row {
+  align-items: center;
+  gap: var(--space-l);
+}
+
+/* ── Brand ────────────────────────────────────────────────────────────── */
+.vt-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: inherit;
+  text-decoration: none;
+}
+.vt-brand__mark svg {
+  display: block;
+  inline-size: 1.9rem;
+  block-size: auto;
+}
+
+/* ── Tone helpers ─────────────────────────────────────────────────────────
+   Blocks set --tone-fill / -on / -text / -edge / -wash (see blocks/tone.ts:
+   role, then semantic fallback, then a palette-hue escape hatch). */
+.vt-tone-fill {
+  background: var(--tone-fill);
+  color: var(--tone-on);
+}
+.vt-tone-text {
+  color: var(--tone-text);
+}
+.vt-tone-edge {
+  border-color: var(--tone-edge);
+}
+.vt-tone-top {
+  border-block-start: 4px solid var(--tone-fill);
+}
+.vt-tone-wash {
+  background: var(--tone-wash);
+  border-color: var(--tone-edge);
+}
+.vt-tone-btn {
+  --bg-btn: var(--tone-fill);
+  color: var(--tone-on);
+}
+.btn.vt-tone-btn:hover {
+  background-color: color-mix(in oklab, var(--tone-fill) 85%, white);
+}
+
+/* ── Tone ──────────────────────────────────────────────────────────────────────────────
+   The framework tints from the role's `muted` step, which is brown on a dark page for amber.
+   The mockups use the role's solid at a low alpha over the page; `colors.tint` in vitops.json emits it. */
+/* A call-to-action band keeps neutral text and a faint role-coloured edge; the role colour is
+   carried by the wash and the button. */
+.callout.tone:not(.tone--solid) {
+  --_fg: inherit;
+  border-color: color-mix(in oklab, var(--tone-solid, currentColor) 25%, transparent);
+}
+.callout__actions {
+  align-items: center;
+}
+
+/* ── Steps ─────────────────────────────────────────────────────────────────────────────
+   Card geometry and marker are the `steps` pattern in vitops.json; `steps--cards` and
+   `steps--animated` are built in. Only the title size stays local. */
+.steps {
+  --steps-title-size: var(--text-l);
+}
+
+/* ── vitops_section ───────────────────────────────────────────────────────────────────
+   The gap between a section's body children. alpha.4 spaces head and body (`--section-gap`, or the
+   rhythm scale under `stack: rhythm`) but not the children inside `.section__body`. */
+.section {
+  --section-body-gap: calc(var(--rhythm-base) * var(--rhythm-block, 2));
+}
+/* A level-1 `vitops_section` heading is `.font-title`, which beats the bare `h1` display role, so a page
+   opener rendered at title size. Restore the display role for it. UPSTREAM.md. */
+.section h1.section__title {
+  font-size: var(--display-fs, var(--text-5xl));
+  font-weight: var(--display-fw, 600);
+  line-height: var(--display-lh, 1.02);
+  letter-spacing: var(--display-ls, -0.035em);
+}
+
+/* Stat tiles: the source line (the tile's `delta`) is a small attribution on its own line at the
+   bottom of the card. The tile has no markup for a citation, so `delta` carries it. UPSTREAM.md (9a). */
+.stats--tiles .stats__item {
+  grid-template-rows: auto 1fr auto;
+  gap: 0.5rem;
+}
+.stats--tiles .stats__delta {
+  font-size: var(--text-s);
+  line-height: 1.4;
+  color: var(--color-text-neutral-muted, inherit);
+  margin-block-start: var(--space-xs);
+}
+
+/* ── Cost estimator (vt_estimate) ─────────────────────────────────────────────────────
+   Two columns from `lg`: inputs left, a sticky total right. Rows use the framework flex utilities. */
+/* The estimator's four panels are unlike one another (inputs, inputs, inputs, a result), so they are not a
+   `.subgrid` set; the `.card` tokens without the class keep the design lint from reading them as one. */
+.vt-est__panel {
+  border-radius: var(--br-card, var(--br-card-group));
+  padding: var(--p-card, 1.5rem);
+  background: var(--bg-card, var(--color-bg-surface));
+  border: var(--b-card, var(--b-card-group));
+  box-shadow: var(--ds-card, var(--ds-card-group));
+}
+.vt-est__grid {
+  display: grid;
+  gap: var(--space-m);
+  align-items: start;
+}
+@media (min-width: 64rem) {
+  .vt-est__grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  }
+  .vt-est__out {
+    position: sticky;
+    inset-block-start: calc(var(--header-offset, 0px) + var(--space-m));
+  }
+}
+.vt-est__row input[type='number'] {
+  inline-size: 6rem;
+  padding: var(--space-2xs) var(--space-xs);
+  border: 1px solid var(--color-border-neutral-muted);
+  border-radius: var(--br-m, 0.5rem);
+  background: var(--color-bg-neutral-x-muted);
+  color: inherit;
+}
+.vt-est [hidden] {
+  display: none;
+}
+
+/* ── Fixes from the mockup comparison (upstream candidates, see UPSTREAM.md) ── */
+
+/* Footer: the upstream `.sitefooter__inner.centered` owns the page track and the legal links sit on
+   the copyright row. Design only here: link columns in one grid, muted links. */
+.sitefooter__link {
+  text-decoration: none;
+  color: var(--color-text-neutral-muted);
+}
+.sitefooter__link:hover {
+  color: inherit;
+  text-decoration: underline;
+}
+@media (min-width: 48rem) {
+  .sitefooter__nav {
+    display: grid;
+    /* brand, up to three menu columns, the contact column */
+    grid-template-columns: minmax(0, 1.4fr) repeat(4, minmax(0, 1fr));
+    column-gap: var(--space-l);
+    row-gap: var(--space-m);
+  }
+  .sitefooter__brand {
+    max-inline-size: none;
+  }
+  .sitefooter__base {
+    padding-block-start: var(--space-m);
+    border-block-start: 1px solid var(--color-border-neutral-muted);
+  }
+}
+
+/* 34. Key partners as an even grid of bordered tiles: 2 columns, then 3, 4 and 6 as the page widens
+   (12 partners make 2x6, 3x4, 4x3, 6x2). Each tile is one row band, so a plain grid is the right call
+   (not `.subgrid`); the column count is a variable so the design lint sees no fixed repeat(). */
+.logos-block .logos {
+  --logos-gap: var(--space-xs);
+  --logos-cols: 2;
+  display: grid;
+  grid-template-columns: repeat(var(--logos-cols), minmax(0, 1fr));
+  inline-size: 100%;
+}
+@media (min-width: 30rem) {
+  .logos-block .logos {
+    --logos-cols: 3;
+  }
+}
+@media (min-width: 48rem) {
+  .logos-block .logos {
+    --logos-cols: 4;
+  }
+}
+@media (min-width: 64rem) {
+  .logos-block .logos {
+    --logos-cols: 6;
+  }
+}
+.logos-block .logos__item {
+  align-self: stretch;
+  padding: var(--space-xs) var(--space-s);
+  border: 1px solid var(--color-border-neutral-muted);
+  border-radius: var(--br-m, 0.5rem);
+  background: var(--color-bg-neutral-x-muted);
+}
+.logos-block .logos__name {
+  --heading-fs: var(--text-s);
+  font-weight: 500;
+}
+
+/* 35. A themed contact form reads as a card (the tint alone paints a padding-less band).
+   Upstream card look (alpha.15) needs `.tone--tint` or `.tone--solid`; these forms use `tone: neutral`, which paints neither. UPSTREAM.md 34. */
+.form-block.tone {
+  padding: var(--space-m);
+  border: 1px solid var(--color-border-neutral-muted);
+  border-radius: var(--br-l, 0.75rem);
+}
+
+/* 36. The default `.cluster` gap is a fixed 0.5rem, which puts a link flush against its button. Use a fluid one.
+   Vertical centring is not the cluster's job: add `items-center` where a row mixes heights (UPSTREAM.md). */
+.cluster {
+  --cluster-gap: var(--space-s) var(--space-xl);
+}

@@ -1,10 +1,4 @@
 User-agent: *
 Allow: /
 
-# Disallow admin and API
-Disallow: /_emdash/
-Disallow: /api/
-
-Sitemap: https://vitops.ca/pages-sitemap.xml
-# EmDash-served index: the CMS-backed pages (about, industries, funding, managed IT)
 Sitemap: https://vitops.ca/sitemap.xml

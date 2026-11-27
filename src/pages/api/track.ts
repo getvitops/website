@@ -1,51 +1,180 @@
-// The tel:-click conversion route. `<Tracking />`'s capture script beacons
-// TRACKING_ENDPOINT ("/api/track") whenever a visitor taps a `tel:` link; with
-// no route answering it, the integration warns at build time and every one of
-// those conversions is silently lost.
-//
-// createConversionRoute() (from @getvitops/astro/routes) is the shared factory
-// for this — it reads the attribution cookie, builds the event, and calls
-// notify() against site.json's notifications config. It deliberately does no
-// validation of its own; that's for a form's route (src/pages/api/contact.ts),
-// which owns its own required fields and does not use this factory (see
-// CLAUDE.md's "Ad-click attribution" section for why the split is intentional).
-//
-// env.EMAIL is read via a dynamically-imported `cloudflare:workers`, matching
-// contact.ts's workerEnv() convention: a static `import { env } from
-// "cloudflare:workers"` would tie this module to workerd even where Astro only
-// type-checks or bundles it, and this file otherwise has no such dependency.
-// The binding is looked up fresh per request (not once at module load) so a
-// runtime where it isn't available yet degrades to "printed, not sent" rather
-// than throwing at import time.
-import { createConversionRoute } from "@getvitops/astro/routes";
-import type { NotifyContext } from "@getvitops/utils/notify";
-import type { APIRoute } from "astro";
-import config from "../../../site.json" with { type: "json" };
+/**
+ * The site's one on-demand endpoint: contact-form posts (the `vitops_form` block) and the
+ * conversion beacons (`<Tracking />`, `tel:`/`mailto:` clicks) all arrive here.
+ *
+ * Every public page is prerendered (see AGENTS.md, "Rendering and freshness"); this route sets
+ * `prerender = false` because it has to run on each request. It is the one exception, and the
+ * Cloudflare adapter handles it in the Worker beside the EmDash admin.
+ *
+ * Credentials are functions of the request, read from the Worker's bindings and never from
+ * `vitops.json`:
+ *   VITOPS_TURNSTILE_SECRET            created by `vitops setup turnstile`
+ *   EMAIL                              the `send_email` binding in wrangler.jsonc
+ *   VITOPS_ZOHO_CLIENT_ID / _CLIENT_SECRET / _REFRESH_TOKEN                  Bigin, when `site.crm` is set
+ *   VITOPS_ZOHO_CAMPAIGNS_CLIENT_ID / _CLIENT_SECRET / _REFRESH_TOKEN        Zoho Campaigns, when `site.campaigns` is set
+ *
+ * Where a submission goes: `site.notifications.email` (or the primary location's email) and,
+ * when `site.crm` is set, the CRM. The email is the durability floor: a failed CRM write never
+ * fails the request and is stated in the email. With neither configured the post is refused,
+ * because accepting a message nobody receives is worse than an error page.
+ */
+import { env } from 'cloudflare:workers';
+import {
+  createConversionRoute,
+  toNotifyContext,
+  type RateLimitStore,
+} from '@getvitops/astro/routes';
+import type { APIRoute } from 'astro';
+import config from '../../../vitops.json' with { type: 'json' };
 
 export const prerender = false;
 
-async function workerEnv(): Promise<Record<string, any>> {
-  try {
-    return (await import("cloudflare:workers")).env as Record<string, any>;
-  } catch {
-    return {};
+type Site = Parameters<typeof toNotifyContext>[0];
+const site = config as unknown as Site;
+
+/**
+ * Challenge every form post that carries no token when a Turnstile key exists. `false` keeps a
+ * no-JavaScript visitor able to submit, at the price that a bot can simply omit the token and be
+ * held only by the honeypot, origin and rate checks. A form that gets spam should keep this true.
+ */
+const TURNSTILE_REQUIRED = true;
+
+const bindings: Record<string, unknown> = env;
+const secret = (name: string): string | undefined => {
+  const v = bindings[name];
+  return typeof v === 'string' && v ? v : undefined;
+};
+
+/**
+ * One store for the life of the isolate. `createConversionRoute` builds its default store per
+ * call, and this handler builds a route per request (the redirect depends on the form's page),
+ * so the default would never see a second hit. Per-isolate only; a fleet-wide limit needs a KV
+ * or Durable Object store behind the same one-method interface.
+ */
+const hits = new Map<string, number>();
+const rateLimitStore: RateLimitStore = {
+  hit(id, at) {
+    const prev = hits.get(id);
+    hits.set(id, at);
+    if (hits.size > 5000) for (const [k, t] of hits) if (at - t > 60_000) hits.delete(k);
+    return prev === undefined ? null : at - prev;
+  },
+};
+
+/** A same-site path or nothing: `_next` comes from the request, so it must never be an open redirect. */
+function safeNext(input: unknown): string | null {
+  const v = typeof input === 'string' ? input : '';
+  if (!v.startsWith('/') || v.startsWith('//') || v.includes('\\') || v.length > 200) return null;
+  return /[\u0000-\u001f\u007f#?]/.test(v) ? null : v;
+}
+
+function crmCredentials() {
+  const crm = site.site.crm;
+  if (!crm) return undefined;
+  switch (crm.provider) {
+    case 'hubspot': {
+      const accessToken = secret('VITOPS_HUBSPOT_ACCESS_TOKEN');
+      return accessToken ? { provider: 'hubspot' as const, hubspot: { accessToken } } : undefined;
+    }
+    case 'bigin': {
+      const clientId = secret('VITOPS_ZOHO_CLIENT_ID');
+      const clientSecret = secret('VITOPS_ZOHO_CLIENT_SECRET');
+      const refreshToken = secret('VITOPS_ZOHO_REFRESH_TOKEN');
+      return clientId && clientSecret && refreshToken
+        ? { provider: 'bigin' as const, bigin: { clientId, clientSecret, refreshToken } }
+        : undefined;
+    }
+    case 'jobber': {
+      const clientId = secret('VITOPS_JOBBER_CLIENT_ID');
+      const clientSecret = secret('VITOPS_JOBBER_CLIENT_SECRET');
+      const refreshToken = secret('VITOPS_JOBBER_REFRESH_TOKEN');
+      return clientId && clientSecret && refreshToken
+        ? { provider: 'jobber' as const, jobber: { clientId, clientSecret, refreshToken } }
+        : undefined;
+    }
   }
 }
 
-// `config.site.notifications.email.provider` comes back as a plain `string`
-// from the JSON import (JSON has no way to express a literal type), so it
-// needs an explicit cast to the `"cloudflare"` union `NotifyContext` expects.
-const NOTIFY_CONTEXT: NotifyContext = {
-  notifications: config.site.notifications as NotifyContext["notifications"],
-  canonical: config.site.domains.canonical,
-  organizationName: config.organization.name,
-  locationEmails: [config.organization.email],
-};
+function campaignsCredentials() {
+  const campaigns = site.site.campaigns;
+  if (!campaigns) return undefined;
+  if (campaigns.provider === 'sendfox') {
+    const accessToken = secret('VITOPS_SENDFOX_TOKEN');
+    return accessToken ? { provider: 'sendfox' as const, sendfox: { accessToken } } : undefined;
+  }
+  const clientId = secret('VITOPS_ZOHO_CAMPAIGNS_CLIENT_ID');
+  const clientSecret = secret('VITOPS_ZOHO_CAMPAIGNS_CLIENT_SECRET');
+  const refreshToken = secret('VITOPS_ZOHO_CAMPAIGNS_REFRESH_TOKEN');
+  return clientId && clientSecret && refreshToken
+    ? {
+        provider: 'zoho-campaigns' as const,
+        zohoCampaigns: { clientId, clientSecret, refreshToken },
+      }
+    : undefined;
+}
 
-export const POST: APIRoute = async (ctx) => {
-  const EMAIL = (await workerEnv()).EMAIL;
-  return createConversionRoute({
-    context: NOTIFY_CONTEXT,
-    binding: () => EMAIL,
-  })(ctx);
+export const POST: APIRoute = async ({ request, locals }) => {
+  const context = toNotifyContext(site);
+  const isForm = /multipart\/form-data|application\/x-www-form-urlencoded/.test(
+    request.headers.get('content-type') ?? '',
+  );
+
+  // Where a no-JS visitor lands: the page the form was on, with the fragment that reveals the
+  // right notice. A JSON/beacon caller gets a JSON response and never reaches these.
+  let next: string | null = null;
+  if (isForm) {
+    try {
+      next = safeNext((await request.clone().formData()).get('_next'));
+    } catch {
+      // A body that will not parse is the route's own 400; the redirect falls back to the root.
+    }
+  }
+  const page = next ?? '/';
+  const sent = `${page}?sent=1#form-sent`;
+  const failed = `${page}?error=1#form-error`;
+
+  // Nothing to deliver to: refuse rather than accept and lose the message.
+  if (
+    isForm &&
+    !context.notifications?.email &&
+    !context.locationEmails?.length &&
+    !site.site.crm
+  ) {
+    console.error(
+      '[vitops] form post refused: set site.notifications.email (or a location email, or site.crm) in vitops.json',
+    );
+    return Response.redirect(new URL(failed, request.url), 303);
+  }
+
+  // A site key means the page renders the widget, so a missing secret would mean a check that
+  // nothing enforces. Fail closed.
+  const siteKey = site.site.security?.turnstile?.siteKey;
+  const turnstileSecret = secret('VITOPS_TURNSTILE_SECRET');
+  if (isForm && siteKey && !turnstileSecret) {
+    console.error(
+      '[vitops] form post refused: site.security.turnstile.siteKey is set but the VITOPS_TURNSTILE_SECRET Worker secret is not (run `vitops setup turnstile`)',
+    );
+    return Response.redirect(new URL(failed, request.url), 303);
+  }
+
+  const handle = createConversionRoute({
+    context,
+    binding: () => bindings['EMAIL'] as never,
+    ...(site.site.crm
+      ? { crm: { config: site.site.crm, credentials: () => crmCredentials() } }
+      : {}),
+    ...(site.site.campaigns
+      ? { campaigns: { config: site.site.campaigns, credentials: () => campaignsCredentials() } }
+      : {}),
+    ...(siteKey && turnstileSecret
+      ? { turnstile: { secretKey: turnstileSecret, required: TURNSTILE_REQUIRED } }
+      : {}),
+    // The request's own origin: a cross-site form post carries a different `Origin` and is
+    // refused. Set `site.domains.canonical` and this follows it instead.
+    ...(context.canonical ? {} : { allowedOrigin: new URL(request.url).origin }),
+    rateLimit: { store: rateLimitStore },
+    redirectTo: sent,
+    errorRedirectTo: failed,
+  });
+  return handle({ request, locals });
 };

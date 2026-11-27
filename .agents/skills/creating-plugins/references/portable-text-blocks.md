@@ -1,6 +1,8 @@
 # Portable Text Block Types
 
-**Trusted plugins only.** PT blocks require Astro components for site-side rendering (`componentsEntry`), loaded at build time from an npm package. Sandboxed/marketplace plugins cannot define PT blocks.
+Plugin CLI and registry packages cannot define Portable Text block types. `emdash-plugin build` warns that `portableTextBlocks` require trusted mode and omits them from the sandboxed manifest. Site-side rendering also needs an Astro `componentsEntry`, which is loaded with the site at build time.
+
+Core can forward declarative block metadata from a config-declared standard plugin descriptor, but that path does not make the definition portable through the registry and does not provide a site renderer. Treat custom Portable Text blocks as a native-plugin feature unless the site owns both the descriptor and the rendering components and has verified the complete editor-to-render path.
 
 Plugins can add custom block types to the Portable Text editor. These appear in the slash command menu and can be inserted into any `portableText` field.
 
@@ -55,30 +57,30 @@ Fields use Block Kit element syntax:
 
 ```typescript
 fields: [
-	{
-		type: "text_input",
-		action_id: "id",
-		label: "URL",
-		placeholder: "https://...",
-	},
-	{ type: "text_input", action_id: "title", label: "Title" },
-	{ type: "text_input", action_id: "poster", label: "Poster Image" },
-	{ type: "number_input", action_id: "start", label: "Start Time (seconds)" },
-	{ type: "toggle", action_id: "autoplay", label: "Autoplay" },
-	{
-		type: "select",
-		action_id: "size",
-		label: "Size",
-		options: [
-			{ label: "Small", value: "small" },
-			{ label: "Medium", value: "medium" },
-			{ label: "Large", value: "large" },
-		],
-	},
+  {
+    type: 'text_input',
+    action_id: 'id',
+    label: 'URL',
+    placeholder: 'https://...',
+  },
+  { type: 'text_input', action_id: 'title', label: 'Title' },
+  { type: 'text_input', action_id: 'poster', label: 'Poster Image' },
+  { type: 'number_input', action_id: 'start', label: 'Start Time (seconds)' },
+  { type: 'toggle', action_id: 'autoplay', label: 'Autoplay' },
+  {
+    type: 'select',
+    action_id: 'size',
+    label: 'Size',
+    options: [
+      { label: 'Small', value: 'small' },
+      { label: 'Medium', value: 'medium' },
+      { label: 'Large', value: 'large' },
+    ],
+  },
 ];
 ```
 
-See [Block Kit reference](./block-kit.md) for all element types.
+See [Block Kit](./block-kit.md) for element shapes. The Portable Text editor additionally renders `repeater` and `media_picker` authoring elements. Do not assume every element accepted by the shared union renders in every Block Kit surface.
 
 The `action_id` of each field becomes a key in the Portable Text block data. The field with `action_id: "id"` is treated as the primary identifier (typically the URL).
 
@@ -94,11 +96,11 @@ Portable Text output:
 
 ```json
 {
-	"_type": "youtube",
-	"_key": "abc123",
-	"id": "https://youtube.com/watch?v=dQw4w9WgXcQ",
-	"title": "Never Gonna Give You Up",
-	"poster": "https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg"
+  "_type": "youtube",
+  "_key": "abc123",
+  "id": "https://youtube.com/watch?v=dQw4w9WgXcQ",
+  "title": "Never Gonna Give You Up",
+  "poster": "https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg"
 }
 ```
 
@@ -110,13 +112,13 @@ To render block types on the site, export Astro components from a `componentsEnt
 
 ```typescript
 // src/astro/index.ts
-import YouTube from "./YouTube.astro";
-import CodePen from "./CodePen.astro";
+import YouTube from './YouTube.astro';
+import CodePen from './CodePen.astro';
 
 // This export name is required
 export const blockComponents = {
-	youtube: YouTube,
-	codepen: CodePen,
+  youtube: YouTube,
+  codepen: CodePen,
 };
 ```
 
@@ -149,13 +151,13 @@ Set `componentsEntry` in the descriptor:
 
 ```typescript
 export function myPlugin(options = {}): PluginDescriptor {
-	return {
-		id: "my-plugin",
-		entrypoint: "@my-org/my-plugin",
-		componentsEntry: "@my-org/my-plugin/astro",
-		version: "1.0.0",
-		options,
-	};
+  return {
+    id: 'my-plugin',
+    entrypoint: '@my-org/my-plugin',
+    componentsEntry: '@my-org/my-plugin/astro',
+    version: '1.0.0',
+    options,
+  };
 }
 ```
 
@@ -165,14 +167,14 @@ Add the `./astro` export:
 
 ```json
 {
-	"exports": {
-		".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
-		"./admin": { "types": "./dist/admin.d.ts", "import": "./dist/admin.js" },
-		"./astro": {
-			"types": "./dist/astro/index.d.ts",
-			"import": "./dist/astro/index.js"
-		}
-	}
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./admin": { "types": "./dist/admin.d.ts", "import": "./dist/admin.js" },
+    "./astro": {
+      "types": "./dist/astro/index.d.ts",
+      "import": "./dist/astro/index.js"
+    }
+  }
 }
 ```
 
@@ -190,50 +192,50 @@ Site authors don't need to import anything. User components take precedence over
 
 ```typescript
 // src/index.ts
-import { definePlugin } from "emdash";
-import type { PluginDescriptor } from "emdash";
+import { definePlugin } from 'emdash';
+import type { PluginDescriptor } from 'emdash';
 
 export function embedsPlugin(options = {}): PluginDescriptor {
-	return {
-		id: "embeds",
-		version: "1.0.0",
-		entrypoint: "@my-org/plugin-embeds",
-		componentsEntry: "@my-org/plugin-embeds/astro",
-		options,
-	};
+  return {
+    id: 'embeds',
+    version: '1.0.0',
+    entrypoint: '@my-org/plugin-embeds',
+    componentsEntry: '@my-org/plugin-embeds/astro',
+    options,
+  };
 }
 
 export function createPlugin() {
-	return definePlugin({
-		id: "embeds",
-		version: "1.0.0",
+  return definePlugin({
+    id: 'embeds',
+    version: '1.0.0',
 
-		admin: {
-			portableTextBlocks: [
-				{
-					type: "youtube",
-					label: "YouTube Video",
-					icon: "video",
-					placeholder: "Paste YouTube URL...",
-					fields: [
-						{ type: "text_input", action_id: "id", label: "YouTube URL" },
-						{ type: "text_input", action_id: "title", label: "Title" },
-						{
-							type: "text_input",
-							action_id: "poster",
-							label: "Poster Image URL",
-						},
-					],
-				},
-				{
-					type: "linkPreview",
-					label: "Link Preview",
-					icon: "link-external",
-					placeholder: "Paste any URL...",
-				},
-			],
-		},
-	});
+    admin: {
+      portableTextBlocks: [
+        {
+          type: 'youtube',
+          label: 'YouTube Video',
+          icon: 'video',
+          placeholder: 'Paste YouTube URL...',
+          fields: [
+            { type: 'text_input', action_id: 'id', label: 'YouTube URL' },
+            { type: 'text_input', action_id: 'title', label: 'Title' },
+            {
+              type: 'text_input',
+              action_id: 'poster',
+              label: 'Poster Image URL',
+            },
+          ],
+        },
+        {
+          type: 'linkPreview',
+          label: 'Link Preview',
+          icon: 'link-external',
+          placeholder: 'Paste any URL...',
+        },
+      ],
+    },
+  });
 }
 
 export default createPlugin;
@@ -241,11 +243,11 @@ export default createPlugin;
 
 ```typescript
 // src/astro/index.ts
-import YouTube from "./YouTube.astro";
-import LinkPreview from "./LinkPreview.astro";
+import YouTube from './YouTube.astro';
+import LinkPreview from './LinkPreview.astro';
 
 export const blockComponents = {
-	youtube: YouTube,
-	linkPreview: LinkPreview,
+  youtube: YouTube,
+  linkPreview: LinkPreview,
 };
 ```

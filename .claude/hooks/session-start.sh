@@ -2,11 +2,11 @@
 #
 # SessionStart hook for Claude Code on the web.
 #
-# The web container ships Node 20/21/22, but this project pins Node 24.18.0 via
-# `devEngines` in package.json. This hook installs Node 24 (via the image's nvm),
-# makes it win over the baked-in Node 22 on PATH for the whole session, activates
-# the pinned pnpm, and installs dependencies so `astro check`, builds, and the
-# EmDash CLI all run against the version the project expects.
+# The web container ships Node 20/21/22, but this project pins Node 24 via
+# `devEngines` in package.json. This hook installs Node 24 (via the image's
+# nvm), makes it win over the baked-in Node on PATH for the whole session,
+# activates the pinned pnpm, and installs dependencies so `astro check`,
+# builds, and the EmDash CLI all run against the version the project expects.
 set -euo pipefail
 
 # Only relevant in the remote web container; local sessions manage their own Node.
@@ -22,18 +22,22 @@ export NVM_DIR="${NVM_DIR:-/opt/nvm}"
 nvm install 24
 nvm alias default 24
 
-# The base image prepends /opt/node22/bin to PATH, ahead of nvm's shims, so a
-# plain `node` resolves to 22. Put Node 24's bin dir first for this session and
-# persist it to every subsequent tool call via $CLAUDE_ENV_FILE.
+# The base image prepends its own node bin dir to PATH, ahead of nvm's shims,
+# so a plain `node` resolves to the baked-in version. Put Node 24's bin dir
+# first for this session and persist it to every subsequent tool call via
+# $CLAUDE_ENV_FILE.
 NODE24_BIN="$(dirname "$(nvm which 24)")"
 export PATH="$NODE24_BIN:$PATH"
 echo "export PATH=\"$NODE24_BIN:\$PATH\"" >> "$CLAUDE_ENV_FILE"
 
 # --- Dependencies (pnpm, pinned via package.json > packageManager) -----------
+# pnpm is the bootstrap here: `vp` (Vite+) is a devDependency, so it only exists
+# once this install has run. After that, use `vp install` / `vpr <script>` /
+# `vp exec <bin>` — see AGENTS.md "Commands".
 cd "$CLAUDE_PROJECT_DIR"
 export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 corepack enable
 # `install` (not `--frozen-lockfile`) so the warmed container cache is reusable.
 pnpm install
 
-echo "Ready: Node $(node --version), pnpm $(pnpm --version)"
+echo "Ready: Node $(node --version), pnpm $(pnpm --version), vp $(./node_modules/.bin/vp --version 2>/dev/null | head -1 || echo 'not installed')"

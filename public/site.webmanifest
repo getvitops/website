@@ -1,0 +1,28 @@
+{
+  "name": "Vitops",
+  "short_name": "Vitops",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-mask.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#81b9a1",
+  "background_color": "#141b26",
+  "display": "standalone",
+  "start_url": "/"
+}

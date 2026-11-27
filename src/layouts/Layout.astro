@@ -1,0 +1,117 @@
+---
+import VitopsHead from '@getvitops/astro/Head.astro';
+import Analytics from '@getvitops/astro/Analytics.astro';
+import Ads from '@getvitops/astro/Ads.astro';
+import Tracking from '@getvitops/astro/Tracking.astro';
+import CookieConsent from '@getvitops/astro/CookieConsent.astro';
+import { resolveOrganizationName } from '@getvitops/astro/routes';
+import SiteNav from '@getvitops/astro/components/SiteNav.astro';
+import Masthead from '@getvitops/astro/components/Masthead.astro';
+import { resolveNavOptions } from '@getvitops/astro/components/masthead.ts';
+import { loadNavMenus } from '@getvitops/astro/components/sitenav.ts';
+import { VitopsMegaPanel, VitopsWidgetArea } from '@getvitops/emdash/astro';
+import { getMenu, getSeoMeta, getSiteSettings } from 'emdash';
+import { createPublicPageContext } from 'emdash/page';
+import { EmDashHead } from 'emdash/ui';
+import config from '../../vitops.json' with { type: 'json' };
+import SiteFooter from '../components/SiteFooter.astro';
+import logo from '../assets/vitops-mark.svg?raw';
+// Design-system CSS, layout-scoped (vitops css.inject: false): only pages
+// rendered through this layout get it — keeps it out of /_emdash/admin, while
+// EmDash previews (rendered through this layout) keep it.
+import '../styles/tailwind.css';
+// Site-local CSS: only what the framework has no class for (see the file header).
+import '../site.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  /** A `pages` entry: its SEO panel (title, description, image, canonical, noindex) feeds the head. */
+  entry?: Parameters<typeof getSeoMeta>[0];
+}
+
+const { title, description, image, entry } = Astro.props;
+const settings = await getSiteSettings();
+// getSiteSettings().title is the editable, client-facing display name (set in
+// the EmDash admin) — it wins whenever it's set. resolveOrganizationName(config)
+// is the fallback rather than a second hardcoded string, so a fresh scaffold
+// shows organization.name (from vitops.json) before anyone's touched the admin.
+const siteTitle = settings?.title || resolveOrganizationName(config) || 'My EmDash Site';
+// `build.format: 'file'` makes the pathname `/ads.html` (and `/index.html`); the public URL is `/ads`.
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '') || '/';
+// Canonicals always point at production; the dev worker is noindex (site.environments.dev.robots).
+const origin = (
+  settings?.url ||
+  (config.site as { environments?: { production?: { url?: string } } }).environments?.production?.url ||
+  Astro.url.origin
+).replace(/\/$/, '');
+const separator = settings?.seo?.titleSeparator ?? ' | ';
+const seo = entry
+  ? getSeoMeta(entry, {
+      siteTitle,
+      siteUrl: origin,
+      titleSeparator: separator,
+      path,
+    })
+  : undefined;
+const fullTitle = seo?.title || (title ? `${title}${separator}${siteTitle}` : siteTitle);
+const siteDescription = settings?.tagline || (config.site as { seo?: { defaultDescription?: string } }).seo?.defaultDescription || '';
+
+// Header nav from the EmDash `primary` menu (nested items become dropdowns; an
+// item's titleAttr is its description). Footer menus are read by SiteFooter.
+const nav = await loadNavMenus(getMenu);
+
+const pageCtx = createPublicPageContext({
+  Astro,
+  kind: 'custom',
+  pageType: 'website',
+  title: fullTitle,
+  pageTitle: seo?.ogTitle ?? title ?? siteTitle,
+  description: seo?.description || description || siteDescription,
+  canonical: seo?.canonical || `${origin}${path === '/' ? '/' : path}`,
+  image: seo?.ogImage ?? image,
+  siteName: siteTitle,
+  ...(entry ? { content: { collection: 'pages', id: (entry.data as Record<string, unknown>).id as string, slug: (entry.data as Record<string, unknown>).slug as string } } : {}),
+});
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <EmDashHead page={pageCtx} />
+    <!-- Favicon/PWA links + the vitops web-component runtime. The runtime
+         progressively enhances the @getvitops/emdash editor blocks
+         (wc-carousel, wc-image-compare, ...) wherever Portable Text renders. -->
+    <VitopsHead />
+    <!-- Providers and pixels come from `site.analytics`, `site.ads` and `site.tracking` in vitops.json;
+         each renders inert until the consent gate allows its category (Plausible is cookieless). -->
+    <Analytics />
+    <Ads />
+    <Tracking />
+  </head>
+  <body class="bg-neutral-muted text-neutral">
+    <VitopsWidgetArea name="announcement" class="centered" />
+    <!-- Look and nav behaviour come from `site.chrome` in vitops.json. -->
+    <Masthead config={config}>
+      <a slot="brand" class="vt-brand" href="/" aria-label={`${siteTitle} home`}>
+        <span class="vt-brand__mark" set:html={logo} aria-hidden="true" />
+        <span>{siteTitle.toLowerCase()}</span>
+      </a>
+      <SiteNav {...nav} {...resolveNavOptions(config)} megaPanel={VitopsMegaPanel} />
+    </Masthead>
+
+    <!-- Blocks own their own region/centered wrappers (full-bleed sections), so
+         <main> adds none. Pages that render plain Portable Text wrap it themselves. -->
+    <main>
+      <slot />
+    </main>
+
+    <VitopsWidgetArea name="pre-footer" class="centered" />
+    <SiteFooter siteTitle={siteTitle} tagline={settings?.tagline} />
+    <CookieConsent policyUrl="/cookies" />
+  </body>
+</html>

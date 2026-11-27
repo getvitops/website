@@ -1,0 +1,30 @@
+---
+// Footer columns come from EmDash menus: `footer-sitemap` (parents = columns) and `footer-legal`
+// (bottom row). The brand column (logo, blurb, tagline) goes in the upstream footer's `brand`
+// slot; the blurb is site.seo.defaultDescription in vitops.json. `config` supplies the contact column
+// (organization address, phone, email) and `site.chrome.backToTop`; `credit={false}` because the
+// "Powered by Vitops" link would point this site at itself.
+import UpstreamFooter from '@getvitops/astro/components/SiteFooter.astro';
+import { getMenu } from 'emdash';
+import config from '../../vitops.json' with { type: 'json' };
+import logo from '../assets/vitops-mark.svg?raw';
+
+interface Props {
+  siteTitle: string;
+  tagline?: string;
+}
+const { siteTitle, tagline } = Astro.props;
+const [sitemap, legal] = await Promise.all(['footer-sitemap', 'footer-legal'].map((n) => getMenu(n)));
+const blurb = (config.site as { seo?: { defaultDescription?: string } }).seo?.defaultDescription;
+---
+
+<UpstreamFooter sitemap={sitemap} legal={legal} name={siteTitle} config={config} credit={false}>
+  <div class="rhythm" slot="brand">
+    <a class="vt-brand" href="/" aria-label={`${siteTitle} home`}>
+      <span class="vt-brand__mark" set:html={logo} aria-hidden="true" />
+      <span>{siteTitle.toLowerCase()}</span>
+    </a>
+    {blurb && <p class="text-neutral-muted">{blurb}</p>}
+    {tagline && <p>{tagline}</p>}
+  </div>
+</UpstreamFooter>
