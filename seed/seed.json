@@ -848,7 +848,7 @@
               "layout": "stack",
               "kicker": "Business health dashboard",
               "heading": "See your whole business in one place",
-              "sub": "Because we manage both, we can show your marketing and IT numbers together. You’ll find them in one dashboard in your client portal, and it updates on its own.",
+              "sub": "Because we manage both, we can show your marketing and software numbers together. You’ll find them in one dashboard in your client portal, and it updates on its own.",
               "body": [
                 {
                   "_type": "vitops_actionLink",
@@ -3449,7 +3449,7 @@
               "_version": 1,
               "_key": "h157",
               "layout": "stack",
-              "heading": "All your IT numbers in one place",
+              "heading": "All your software numbers in one place",
               "width": "spotlight",
               "kicker": "Business health dashboard",
               "sub": "See your software costs, licences, security and support requests together in your client portal. It updates on its own.",
@@ -4525,7 +4525,7 @@
               "kicker": "Packages",
               "heading": "Packages for every stage.",
               "level": "2",
-              "sub": "Get IT and marketing together and pay less than buying each one on its own.",
+              "sub": "Get software and marketing together and pay less than buying each one on its own.",
               "layout": "stack",
               "stack": "rhythm",
               "width": "spotlight",
@@ -4574,7 +4574,7 @@
                     {
                       "_type": "span",
                       "_key": "s957",
-                      "text": "Package setup fees cover your website and IT setup. Zoho Mail is the default email provider.",
+                      "text": "Package setup fees cover your website and software setup. Zoho Mail is the default email provider.",
                       "marks": []
                     }
                   ]
@@ -4790,7 +4790,7 @@
                     {
                       "_key": "i981",
                       "title": "Dental and health clinics",
-                      "body": "Front desks that can’t wait on IT while patients are in the room, and patient privacy rules under PHIPA.",
+                      "body": "Front desks that can’t wait on a software fix while patients are in the room, and patient privacy rules under PHIPA.",
                       "checklist": "IT: Patient software and access by role\nMarketing: Online booking and Google reviews\nTools: Jane, OSCAR, Dentrix, ClearDent"
                     },
                     {
@@ -5024,7 +5024,7 @@
                     {
                       "_type": "span",
                       "_key": "s1010",
-                      "text": "When HR or a busy manager creates accounts without IT background, each person ends up set up a little differently. Some get too much access, some too little. We build a standard setup for each role, so everyone gets the same thing with the right permissions.",
+                      "text": "When HR or a busy manager creates accounts without a technical background, each person ends up set up a little differently. Some get too much access, some too little. We build a standard setup for each role, so everyone gets the same thing with the right permissions.",
                       "marks": []
                     }
                   ]
@@ -10418,7 +10418,7 @@
               "kicker": "Pricing",
               "heading": "Estimate your *monthly cost.*",
               "level": "1",
-              "sub": "Pick a package or build your own mix of IT and marketing. The total updates as you go, including setup fees and whether the Business Health Dashboard is included.",
+              "sub": "Pick a package or build your own mix of software and marketing. The total updates as you go, including setup fees and whether the Business Health Dashboard is included.",
               "body": [],
               "cta_label": "Get an exact quote",
               "cta_href": "/contact#form",
@@ -11161,7 +11161,7 @@
                     {
                       "_type": "span",
                       "_key": "inv21-s34",
-                      "text": "This is where your IT and your marketing meet: the moment a client pays is the best time to ask for a review.",
+                      "text": "This is where your software and your marketing meet: the moment a client pays is the best time to ask for a review.",
                       "marks": []
                     }
                   ]
@@ -11542,7 +11542,7 @@
                 }
               ],
               "kicker": "Our approach",
-              "sub": "In many small teams, a new hire starts with a chain of emails: HR tells the manager, the manager tells whoever handles IT, and something gets missed. When someone leaves, their accounts stay on until someone remembers.",
+              "sub": "In many small teams, a new hire starts with a chain of emails: HR tells the manager, the manager tells whoever handles your software, and something gets missed. When someone leaves, their accounts stay on until someone remembers.",
               "layout": "stack",
               "stack": "rhythm"
             },
