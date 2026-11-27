@@ -4,6 +4,8 @@ import { PortableText } from 'emdash/ui';
 import PageBlocks from '../components/PageBlocks.astro';
 import Layout from '../layouts/Layout.astro';
 
+type PortableTextValue = Parameters<typeof PortableText>[0]['value'];
+
 // Prerendered: every published `pages` entry becomes a static file at its slug. A URL not in
 // the list has no route, so Astro serves the prerendered 404 with a real 404 status (no
 // Astro.rewrite('/404'): rewriting an on-demand route to a prerendered one is a 500).
@@ -26,6 +28,7 @@ const { page } = Astro.props;
 // generated type is already `string`.
 const title = page.data.title as string | undefined;
 const layout = page.data.layout as unknown[] | undefined;
+const content = page.data.content as PortableTextValue | undefined;
 ---
 
 <Layout title={title} entry={page}>
@@ -35,7 +38,7 @@ const layout = page.data.layout as unknown[] | undefined;
     ) : (
       <article class="centered rhythm region">
         <h1>{title}</h1>
-        {page.data.content && <PortableText value={page.data.content} />}
+        {content && <PortableText value={content} />}
       </article>
     )
   }
