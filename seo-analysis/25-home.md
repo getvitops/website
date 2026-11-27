@@ -61,10 +61,10 @@ This belongs on the launch checklist with the other old-site redirects.
    - Title (60): `Software and Marketing for Small Business in Ottawa | Vitops`
    - Meta (148): `We manage the cloud software your business runs on and handle your digital marketing, from one team and one monthly bill. Ottawa and across Ontario.`
    - Set these in the page's SEO fields, not in the layout.
-2. **Stop saying "IT" on the first screen (high).** "IT services" and "your IT" invite hardware
+2. **Stop saying "IT" on the first screen (high). Applied with the rename.** "IT services" and "your IT" invite hardware
    and on-site expectations, which you do not offer. Options: "We run your software and your
    marketing, so you can run your business", and a card label of "Software" or "Managed
-   software". This depends on the naming decision in `00-positioning.md`; the SEO case is that
+   software". This was applied with the rename to "Managed software" (see `00-positioning.md`); the SEO case is that
    "IT" attracts the wrong searchers and leads.
 3. **Say what you do and do not do (medium).** One short line under the lead: "We work with
    cloud software only. No hardware, networks or on-site visits." It is a trust and filtering
@@ -95,16 +95,16 @@ This belongs on the launch checklist with the other old-site redirects.
 | Section kicker  | Why both                                                         | Why one team                                                           |
 
 Why: "Two services" announces a count (a pattern to drop), and "Getting started is simple" is
-a claim rather than a heading. The H1 and eyebrow changes depend on the naming decision.
+a claim rather than a heading. The H1 word and the eyebrow were applied with the rename to
+"Managed software"; the other headings are still proposals.
 
 ## Cannibalization
 
 The home page owns only the brand and the overall description. It should not use the target
-terms of `/managed-it` or `/digital-marketing` as titles or headings.
+terms of `/managed-software` or `/digital-marketing` as titles or headings.
 
 ## Open questions for you
 
-- Do you want to change "IT" to "software" on the home page now, or wait for the nav and URL
-  decision?
+- Answered: the H1 and card label now say "software" (rename to "Managed software").
 - Is there a customer quote or result you can use near the top?
 - Is DMAP still available, and is "up to $15,000" current?

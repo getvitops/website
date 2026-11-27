@@ -35,16 +35,16 @@ All volumes are monthly searches in Canada.
 | --------------------------------------- | ------- | --- | ------------ | ----------------------------------------------- |
 | zoho crm consultant                     | 90      | 18  | $26.63       | `/software-selection-setup` or a Zoho page      |
 | zoho consultant                         | 110     | 32  | $5.50        | same                                            |
-| microsoft 365 consultant                | 90      | 17  | $16.24       | `/managed-it` or `/software-selection-setup`    |
+| microsoft 365 consultant                | 90      | 17  | $16.24       | `/managed-software` or `/software-selection-setup`    |
 | crm consultant ottawa                   | 70      | 21  | n/a          | `/software-selection-setup`                     |
 | microsoft 365 migration                 | 90      | 33  | n/a          | `/software-selection-setup`                     |
 | microsoft 365 support                   | 210     | 61  | $3.29        | `/support-vendor-management` (hard)             |
 | google workspace support                | 210     | 49  | $5.47        | `/support-vendor-management`                    |
 | google workspace setup                  | 70      | 60  | $7.76        | `/software-selection-setup`                     |
 | zoho partner                            | 70      | 40  | $5.93        | same (partner status would help)                |
-| microsoft 365 management                | 50      | n/a | $10.47       | `/managed-it`                                   |
+| microsoft 365 management                | 50      | n/a | $10.47       | `/managed-software`                                   |
 | google workspace migration              | 50      | n/a | $8.14        | `/software-selection-setup`                     |
-| managed saas / saas management services | 20 / 20 | 0   | $46.02 / n/a | `/managed-it` (tiny, but the exact description) |
+| managed saas / saas management services | 20 / 20 | 0   | $46.02 / n/a | `/managed-software` (tiny, but the exact description) |
 
 Reading the table:
 
@@ -59,13 +59,13 @@ Reading the table:
 
 ## What to change
 
-1. **Retitle the pillar around software, not "IT".** See `01-managed-it.md`.
+1. **Retitle the pillar around software, not "IT".** See `01-managed-software.md`.
 2. **Say what is out of scope, once and plainly,** on the pillar and the support page: "We work
    with cloud software only. We don't do hardware, networks or on-site visits." It filters the
    wrong leads, and it is a claim competitors won't make.
 3. **Avoid these words in titles, headings and meta text:** IT support, helpdesk, managed IT
-   services, network, device, endpoint, on-site. The menu label "Managed IT" has the same
-   problem; see the questions below.
+   services, network, device, endpoint, on-site. The old menu label "Managed IT" had the same
+   problem; it is now "Managed software" (see the decision below).
 4. **Name the vendors you work with** (Zoho, Microsoft 365, Google Workspace, QuickBooks, HubSpot,
    Jobber) in the lead and headings of the relevant pages.
 5. **Service schema:** set the service type to cloud software management and the area served to
@@ -73,11 +73,12 @@ Reading the table:
 
 ## Questions for you
 
-- **The "Managed IT" name.** It is the nav label, the URL (`/managed-it`), the kicker on each
-  service page and the pricing plan name. It will keep drawing hardware-minded searchers even
-  after the title changes. Options: keep the URL and rename the visible label ("Managed
-  software"), or rename both with a redirect. This is a naming decision, not an SEO one, so I
-  have changed nothing.
+- **Decided (2026-11-27): the visible name is now "Managed software".** The nav label, plan name,
+  kickers, page slug (`/managed-software`) and form options use it, and `/managed-it` redirects
+  with a 301. "Managed software" has no search volume of its own (Semrush shows 0, though
+  advertisers pay $13 to $24 a click for it), so it works as a label, and the SEO targets stay on
+  the consultant, management and tool-specific terms in this note. Running copy still says "IT"
+  in a few places; see the review list in the commit notes.
 - **Is "Zoho partner" status something you hold or want?** The partner searches (70/month) are
   only worth targeting if the page can say it truthfully.
 - **Which vendors do you actively implement?** The consultant pages should name only those.

@@ -591,8 +591,8 @@
             "label": "I’m interested in",
             "options": [
               {
-                "label": "Managed IT",
-                "value": "Managed IT"
+                "label": "Managed software",
+                "value": "Managed software"
               },
               {
                 "label": "Digital Marketing",

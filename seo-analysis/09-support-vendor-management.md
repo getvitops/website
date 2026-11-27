@@ -6,7 +6,7 @@ Revised after the positioning facts in `00-positioning.md` (SaaS only, no hardwa
 
 ## Role and verdict
 
-Managed IT sub-service. **Geo tier A in the first draft; now geo-neutral.** The first draft
+Managed software sub-service. **Geo tier A in the first draft; now geo-neutral.** The first draft
 aimed at "IT support Ottawa", but that search is for on-site and device support, and half its
 results are job boards. Vitops supports cloud software remotely, so the page should target the
 software-specific support terms instead.
@@ -46,7 +46,7 @@ managed service providers: not a market this page fits.
    that here so the page and the pricing agree.
 4. **Name the vendors you support (medium).** Microsoft 365, Google Workspace, Zoho,
    QuickBooks and the rest. Only list what you actually support.
-5. **Link up and sideways (medium).** `/managed-it` ("Business software management"),
+5. **Link up and sideways (medium).** `/managed-software` ("Business software management"),
    `/backup-security` (restore requests) and `/dashboard` (open requests).
 6. **Structured data (medium).** `Service` (remote, area served Ontario) plus `BreadcrumbList`.
 
@@ -60,7 +60,7 @@ managed service providers: not a market this page fits.
 
 ## Cannibalization
 
-Owns Google Workspace and Microsoft 365 support wording and vendor management. `/managed-it`
+Owns Google Workspace and Microsoft 365 support wording and vendor management. `/managed-software`
 should not use "support" as a target term.
 
 ## Open questions for you

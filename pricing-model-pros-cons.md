@@ -16,7 +16,7 @@ Written for the Vitops team, to help decide the plan structure. Nothing here cha
 
 | Item              | Today                                                                                |
 | ----------------- | ------------------------------------------------------------------------------------ |
-| Managed IT plan   | $15 per user a month, $100 minimum. A "user" is anyone with a paid software licence. |
+| Managed software plan   | $15 per user a month, $100 minimum. A "user" is anyone with a paid software licence. |
 | Licences included | 2 per user. Extra licences are $5 each a month.                                      |
 | Add-ons           | Managed backup $8 per user; faster response $10 per user.                            |
 | Setup             | $500, waived with a yearly commitment.                                               |
@@ -171,7 +171,7 @@ A **hybrid of D and E, with licence-neutral rules**:
 
 ## Things to decide
 
-- Where the solo price sits, and whether a solo plan includes hours of help. Today the Managed IT
+- Where the solo price sits, and whether a solo plan includes hours of help. Today the Managed software
   plan lists up to 4 hours a month; a solo owner may need less and cost you less.
 - Whether to keep $500 setup for a solopreneur. A lower setup, or a self-serve option for one
   tool, would lower the barrier.

@@ -50,7 +50,7 @@ has no analyst.** From their titles, none of the top ten appear to mix IT and ma
    - A longer option, `Business Health Dashboard: IT and Marketing in One Place | Vitops`, is 65
      characters and would be cut off in results; avoid it.
 2. **Link to it from both pillars and the pricing page (high).** The page converts; it needs
-   visitors. Add a clear "See the dashboard" link from `/managed-it`, `/digital-marketing`,
+   visitors. Add a clear "See the dashboard" link from `/managed-software`, `/digital-marketing`,
    `/pricing` and the home page, using the anchor "Business Health Dashboard".
 3. **Add one plain definition near the top (medium).** "A business health dashboard shows your
    marketing results, software costs and open IT requests in one place." Written once, it serves

@@ -85,7 +85,7 @@ These need to be accurate and use your real numbers.
 
 | Where           | Now                        | Proposed                                                     |
 | --------------- | -------------------------- | ------------------------------------------------------------ |
-| Section kicker  | Managed IT                 | Software management                                          |
+| Section kicker  | Managed software                 | Software management                                          |
 | Section heading | One plan, priced per user. | (decide after the pricing model; see the pros and cons file) |
 | Section heading | Packages for every stage.  | (keep)                                                       |
 
@@ -96,7 +96,7 @@ should not carry price tables of their own beyond a "from" line.
 
 ## Claim to fix before launch
 
-The Managed IT note says "We don't resell software. You keep your own licences at the vendor's
+The Managed software note says "We don't resell software. You keep your own licences at the vendor's
 price." That is no longer accurate given referral payments and Pax8 delivery. See
 `27-referral-disclosure.md` for the corrected wording.
 

@@ -440,8 +440,8 @@
           "children": [
             {
               "type": "custom",
-              "label": "Managed IT",
-              "url": "/managed-it",
+              "label": "Managed software",
+              "url": "/managed-software",
               "titleAttr": "Software, accounts, licences and security"
             },
             {
@@ -487,7 +487,7 @@
       "items": [
         {
           "type": "custom",
-          "label": "Managed IT",
+          "label": "Managed software",
           "url": "#",
           "children": [
             {
@@ -665,7 +665,7 @@
                     {
                       "_type": "span",
                       "_key": "s03",
-                      "text": "IT",
+                      "text": "software",
                       "marks": ["em"]
                     },
                     {
@@ -695,11 +695,11 @@
                   "_key": "d07",
                   "tone": "brand-primary",
                   "color": "pine-400",
-                  "eyebrow": "IT services",
+                  "eyebrow": "Software",
                   "title": "Keep your tech working for you",
                   "body": "We help you choose the right software and manage it with cost savings in mind, so your business runs smoothly as it grows.",
-                  "cta_label": "Explore IT services",
-                  "href": "/managed-it"
+                  "cta_label": "Explore managed software",
+                  "href": "/managed-software"
                 },
                 {
                   "_key": "d08",
@@ -802,10 +802,10 @@
                       "_key": "i20",
                       "title": "The right software, set up and managed",
                       "body": "We help you choose the right software, set it up, and manage it with cost savings in mind. Your team works more efficiently, and your systems keep up as you grow.",
-                      "tags": "IT services",
+                      "tags": "Managed software",
                       "checklist": "Choose and set up software, including accounting, payroll and HR\nSet up and remove accounts when staff join or leave\nTrack licences so you only pay for what you use\nBack up your data and keep your accounts secure",
-                      "ctaLabel": "Learn about IT services",
-                      "ctaHref": "/managed-it",
+                      "ctaLabel": "Learn about managed software",
+                      "ctaHref": "/managed-software",
                       "tone": "brand-primary"
                     },
                     {
@@ -3067,18 +3067,18 @@
         }
       },
       {
-        "id": "pages:managed-it",
-        "slug": "managed-it",
+        "id": "pages:managed-software",
+        "slug": "managed-software",
         "status": "published",
         "data": {
-          "title": "Managed IT",
+          "title": "Managed software",
           "content": [],
           "layout": [
             {
               "_type": "vitops_section",
               "_version": 1,
               "_key": "h103",
-              "kicker": "Managed IT for Ontario businesses",
+              "kicker": "Managed software for Ontario businesses",
               "heading": "Software that works for your team, *not against it.*",
               "level": "1",
               "sub": "We help you choose the right software, set it up, and manage it with cost savings in mind. Your team works more efficiently, and your systems keep up as you grow.",
@@ -3199,7 +3199,7 @@
               "layout": "stack",
               "heading": "Seven services. One team.",
               "width": "spotlight",
-              "kicker": "IT services",
+              "kicker": "Software services",
               "sub": "Each service has its own page with more detail.",
               "body": [
                 {
@@ -4139,7 +4139,7 @@
                       "name": "interest",
                       "type": "select",
                       "required": false,
-                      "options": "Managed IT\nDigital Marketing\nBoth\nNot sure yet"
+                      "options": "Managed software\nDigital Marketing\nBoth\nNot sure yet"
                     },
                     {
                       "_key": "f911",
@@ -4290,7 +4290,7 @@
               "_type": "vitops_section",
               "_version": 1,
               "_key": "sec934",
-              "kicker": "Managed IT",
+              "kicker": "Managed software",
               "heading": "One plan, priced per user.",
               "level": "2",
               "sub": "A user is anyone with a paid software licence. Staff who don’t use any software aren’t on the bill.",
@@ -4304,7 +4304,7 @@
                   "plans": [
                     {
                       "_key": "i928",
-                      "name": "Managed IT plan",
+                      "name": "Managed software plan",
                       "price": "$15",
                       "period": "per user, per month",
                       "features": "Choosing, setting up and connecting your software\nAccounts set up and removed as staff join or leave\nYour HR system set up and looked after\n2-step login on every account\nUp to 4 hours a month of changes and small connection work\nHelp by phone, email or ticket during business hours\nA monthly report on licences, savings and security",
@@ -4536,7 +4536,7 @@
                       "_key": "i954",
                       "name": "Small Team (5 to 15)",
                       "price": "$849",
-                      "period": "/month + Managed IT at $15 per user + $500 setup",
+                      "period": "/month + Managed software at $15 per user + $500 setup",
                       "features": "Plus website\nBusiness profiles\nReviews and email campaigns\nSEO and AI search\nCRM or job tracking set up\nYour main tools connected\nBusiness Health Dashboard",
                       "ctaLabel": "Get started",
                       "ctaHref": "/contact#form",
@@ -4546,7 +4546,7 @@
                       "_key": "i955",
                       "name": "Growing Team (15 to 50)",
                       "price": "$1,799",
-                      "period": "/month + Managed IT at $15 per user + ad spend + $800 setup",
+                      "period": "/month + Managed software at $15 per user + ad spend + $800 setup",
                       "features": "Growth website\nBusiness profiles\nReviews and email campaigns\nSEO and AI search\nSocial media\nAds management\nHR system set up and connected\nNew staff set up automatically\nAI where it helps\nBusiness Health Dashboard, with a monthly review call",
                       "ctaLabel": "Get started",
                       "ctaHref": "/contact#form"
@@ -4654,7 +4654,7 @@
                       "name": "interest",
                       "type": "select",
                       "required": false,
-                      "options": "Managed IT\nDigital Marketing\nA package\nNot sure yet"
+                      "options": "Managed software\nDigital Marketing\nA package\nNot sure yet"
                     },
                     {
                       "_key": "f967",
@@ -4700,7 +4700,7 @@
                     {
                       "_key": "q972",
                       "summary": "Do I have to sign a contract?",
-                      "body": "No. Everything is month to month with 30 days’ notice. A yearly commitment is optional and waives the Managed IT setup fee."
+                      "body": "No. Everything is month to month with 30 days’ notice. A yearly commitment is optional and waives the Managed software setup fee."
                     },
                     {
                       "_key": "q973",
@@ -4715,7 +4715,7 @@
                     {
                       "_key": "q975",
                       "summary": "Is 2-step login extra?",
-                      "body": "No. It’s part of every Managed IT plan, on every account."
+                      "body": "No. It’s part of every Managed software plan, on every account."
                     },
                     {
                       "_key": "q976",
@@ -4984,7 +4984,7 @@
               "_version": 1,
               "_key": "hero1008",
               "width": "spotlight",
-              "kicker": "Managed IT",
+              "kicker": "Managed software",
               "heading": "Set up right on day one. *Locked out the day they leave.*",
               "level": "1",
               "sub": "We handle onboarding and offboarding the same way every time. New staff get the right access from the start, and people who leave lose it the same day.",
@@ -5247,7 +5247,7 @@
                     {
                       "_type": "span",
                       "_key": "s1043",
-                      "text": "Included with Managed IT: $15 per user per month, $100 minimum. Onboarding, role changes and same-day offboarding are all included.",
+                      "text": "Included with Managed software: $15 per user per month, $100 minimum. Onboarding, role changes and same-day offboarding are all included.",
                       "marks": []
                     }
                   ]
@@ -5331,7 +5331,7 @@
               "_version": 1,
               "_key": "hero1051",
               "width": "spotlight",
-              "kicker": "Managed IT",
+              "kicker": "Managed software",
               "heading": "Your data backed up. *Your accounts locked down.*",
               "level": "1",
               "sub": "We lock down the accounts your team signs in to, and back up your email and files every day.",
@@ -5610,7 +5610,7 @@
               "level": "2",
               "body": [],
               "kicker": "Pricing",
-              "sub": "Included with Managed IT. Account security is included at $15 per user per month, $100 minimum. Managed backup is $8 per user per month. See it in your Business Health Dashboard, included when your monthly plan totals over $400.",
+              "sub": "Included with Managed software. Account security is included at $15 per user per month, $100 minimum. Managed backup is $8 per user per month. See it in your Business Health Dashboard, included when your monthly plan totals over $400.",
               "cta_label": "Estimate your cost",
               "cta_href": "/estimate",
               "secondary_label": "Business Health Dashboard",
@@ -6037,7 +6037,7 @@
               "_version": 1,
               "_key": "hero1135",
               "width": "spotlight",
-              "kicker": "Managed IT",
+              "kicker": "Managed software",
               "heading": "Pay for the software you use. *Nothing more.*",
               "level": "1",
               "sub": "We review what you pay for, track every licence and find ways to lower the bill, so software costs stay in check as you grow.",
@@ -6279,7 +6279,7 @@
               "level": "2",
               "body": [],
               "kicker": "Pricing",
-              "sub": "Included with Managed IT: $15 per user per month, $100 minimum. We don’t resell software, so every saving we find goes to you. See it in your Business Health Dashboard, included when your monthly plan totals over $400.",
+              "sub": "Included with Managed software: $15 per user per month, $100 minimum. We don’t resell software, so every saving we find goes to you. See it in your Business Health Dashboard, included when your monthly plan totals over $400.",
               "cta_label": "Estimate your cost",
               "cta_href": "/estimate",
               "secondary_label": "Business Health Dashboard",
@@ -7446,7 +7446,7 @@
                     {
                       "_key": "das48-c52",
                       "title": "One service: see that side of your business",
-                      "body": "With Managed IT or Digital Marketing, your dashboard shows the numbers for that service."
+                      "body": "With Managed software or Digital Marketing, your dashboard shows the numbers for that service."
                     },
                     {
                       "_key": "das48-c53",
@@ -7512,7 +7512,7 @@
                   "fields": [
                     {
                       "_key": "das48-f62",
-                      "label": "I’m interested in (Managed IT, Digital Marketing, both, or not sure yet)",
+                      "label": "I’m interested in (Managed software, Digital Marketing, both, or not sure yet)",
                       "name": "interest",
                       "type": "text",
                       "required": false
@@ -8322,7 +8322,7 @@
               "level": "2",
               "body": [],
               "kicker": "Pricing",
-              "sub": "Choosing and setting up your software is included with Managed IT, $15 per user per month, $100 minimum. Moving to new software or a bigger setup project is quoted up front, and one-off advice is $80 an hour. See your software costs, licences in use and setup progress in your Business Health Dashboard, included when your monthly plan totals over $400.",
+              "sub": "Choosing and setting up your software is included with Managed software, $15 per user per month, $100 minimum. Moving to new software or a bigger setup project is quoted up front, and one-off advice is $80 an hour. See your software costs, licences in use and setup progress in your Business Health Dashboard, included when your monthly plan totals over $400.",
               "cta_label": "Estimate your cost",
               "cta_href": "/estimate",
               "secondary_label": "Business Health Dashboard",
@@ -8390,7 +8390,7 @@
                     },
                     {
                       "_key": "sof16-q45",
-                      "summary": "Can I get this without Managed IT?",
+                      "summary": "Can I get this without Managed software?",
                       "body": "Yes. We can help as one-off work, at a fixed quote or $80 an hour for advice."
                     },
                     {
@@ -8714,7 +8714,7 @@
                     {
                       "_key": "con19-q36",
                       "summary": "Do I pay extra for connection tools?",
-                      "body": "Built-in connections are part of Managed IT. Custom connections cost extra, including any paid tools they need, and we quote them before any work starts."
+                      "body": "Built-in connections are part of Managed software. Custom connections cost extra, including any paid tools they need, and we quote them before any work starts."
                     },
                     {
                       "_key": "con19-q37",
@@ -8987,7 +8987,7 @@
                   "cards": [
                     {
                       "_key": "sup35-c31",
-                      "title": "Included with Managed IT: next business day",
+                      "title": "Included with Managed software: next business day",
                       "body": "Call, email or open a ticket during business hours, and we’ll reply by the next business day."
                     },
                     {
@@ -9382,7 +9382,7 @@
                     {
                       "_key": "ai-26-q33",
                       "summary": "What does it cost?",
-                      "body": "Finding and setting up AI tasks is part of Managed IT. AI tool licences are at the vendor’s price, and custom work is quoted up front."
+                      "body": "Finding and setting up AI tasks is part of Managed software. AI tool licences are at the vendor’s price, and custom work is quoted up front."
                     }
                   ],
                   "className": "fade-in slide-up animate-view"
@@ -10368,7 +10368,7 @@
                     {
                       "_key": "rev92-q30",
                       "summary": "Do I need a CRM?",
-                      "body": "It helps. We can use the one you have. If you don’t have one, our Managed IT team can help you pick one and set it up."
+                      "body": "It helps. We can use the one you have. If you don’t have one, our Managed software team can help you pick one and set it up."
                     },
                     {
                       "_key": "rev92-q31",
@@ -14391,7 +14391,7 @@
     {
       "name": "form-general",
       "label": "Form: general enquiry",
-      "description": "Contact form shared by the home and Managed IT pages.",
+      "description": "Contact form shared by the home and Managed software pages.",
       "widgets": [
         {
           "type": "content",
@@ -14408,7 +14408,7 @@
                   "name": "interest",
                   "type": "select",
                   "required": false,
-                  "options": "IT services\nMarketing\nBoth\nNot sure yet"
+                  "options": "Managed software\nMarketing\nBoth\nNot sure yet"
                 },
                 {
                   "_key": "ff09",

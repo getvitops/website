@@ -1,4 +1,4 @@
-# /managed-it: SEO analysis
+# /managed-software: SEO analysis
 
 Status: proposal for review. Nothing here is applied to `seed/seed.json`.
 Data: Semrush, Canada database, pulled 2026-11-26. Volumes are monthly searches in Canada.
@@ -70,7 +70,7 @@ provider that runs networks and devices, plus directories. Our page would be a m
 
 ## Cannibalization
 
-- `/managed-it` owns: microsoft 365 consultant and management, SaaS management.
+- `/managed-software` owns: microsoft 365 consultant and management, SaaS management.
 - `/software-selection-setup` owns: the consultant and migration terms for Zoho, CRM, Microsoft
   365 and Google Workspace setup.
 - `/support-vendor-management` owns: Microsoft 365 support and Google Workspace support.
@@ -78,6 +78,6 @@ provider that runs networks and devices, plus directories. Our page would be a m
 
 ## Open questions for you
 
-- Should the visible name change from "Managed IT"? See `00-positioning.md`.
+- Answered: the page is renamed "Managed software" (URL `/managed-software`, 301 from `/managed-it`).
 - Is there a starting price for the software management plan that can sit next to "See
   pricing"? The pricing page shows $15 a user with a $100 minimum, and $79 for the solo plan.

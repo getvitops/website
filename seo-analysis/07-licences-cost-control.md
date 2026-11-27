@@ -5,7 +5,7 @@ Data: Semrush, Canada database, pulled 2026-11-26. Terms not listed returned no 
 
 ## Role and verdict
 
-Managed IT sub-service and the strongest cost story on the site. **Geo tier B.** Volumes are tiny
+Managed software sub-service and the strongest cost story on the site. **Geo tier B.** Volumes are tiny
 but the ad prices are very high ($41 to $48 a click), which tells you vendors value this
 audience. A service business will not beat software vendors for these terms; the value is the
 page's pull for readers who already arrive from the pillar.

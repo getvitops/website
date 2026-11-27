@@ -6,7 +6,7 @@ Revised after the positioning facts in `00-positioning.md` (SaaS only, no hardwa
 
 ## Role and verdict
 
-Managed IT sub-service. **Geo tier B.** The page is about backing up cloud data (Microsoft 365
+Managed software sub-service. **Geo tier B.** The page is about backing up cloud data (Microsoft 365
 and Google Workspace) and securing accounts (2-step login, access). That is a good fit for
 `microsoft 365 backup`, which is valuable but hard. The first draft also aimed at
 "cybersecurity services ottawa", but that search is mostly network and endpoint security, which

@@ -5,7 +5,7 @@ Data: Semrush, Canada database, pulled 2026-11-26. Terms not listed returned no 
 
 ## Role and verdict
 
-Managed IT sub-service. **Geo tier B.** Demand is near zero, so treat it as a conversion and
+Managed software sub-service. **Geo tier B.** Demand is near zero, so treat it as a conversion and
 internal-link page. Its worked example ("a new website enquiry from a customer, deck repair") is
 the strongest content on the page and the part most worth keeping.
 
@@ -33,7 +33,7 @@ the strongest content on the page and the part most worth keeping.
 2. **Use the words buyers use (medium).** The copy says "connected"; searchers say "integration".
    Use "software integration" once in the lead and once in a heading.
 3. **Link the example to the pillar and the dashboard (medium).** "We watch every connection"
-   should link to `/dashboard`, and the page should link back to `/managed-it`.
+   should link to `/dashboard`, and the page should link back to `/managed-software`.
 4. **Structured data (low).** `Service` plus `BreadcrumbList`.
 
 ## Copy rewrites (proposed, not applied)

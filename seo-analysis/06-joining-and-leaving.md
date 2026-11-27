@@ -5,7 +5,7 @@ Data: Semrush, Canada database, pulled 2026-11-26. Terms not listed returned no 
 
 ## Role and verdict
 
-Managed IT sub-service. **Geo tier B.** The page title ("Joining and leaving") is internal
+Managed software sub-service. **Geo tier B.** The page title ("Joining and leaving") is internal
 wording that nobody searches. The searches that exist are about onboarding and offboarding
 checklists, and they are small. The best use of this topic is a page that answers "what does IT
 do when someone joins or leaves", which also earns quotes in AI answers.
@@ -25,7 +25,7 @@ compare against.
 
 ## Current state
 
-- Title: `Joining and leaving | Vitops`. Kicker "Managed IT". H1 "Set up right on day one. Locked
+- Title: `Joining and leaving | Vitops`. Kicker "Managed software". H1 "Set up right on day one. Locked
   out the day they leave." is excellent.
 - About 320 words: a role-based setup (front desk, technician, manager) and three approach cards.
 
@@ -48,7 +48,7 @@ compare against.
 
 | Where           | Now                       | Proposed                               |
 | --------------- | ------------------------- | -------------------------------------- |
-| Kicker          | Managed IT                | Managed IT: onboarding and offboarding |
+| Kicker          | Managed software                | Managed software: onboarding and offboarding |
 | Section heading | One setup for every role. | (keep)                                 |
 
 ## Cannibalization

@@ -9,7 +9,7 @@ payroll, and job tracking.
 
 Category pages for the tools Vitops chooses, sets up and connects. Each names three or four
 vendors (for example Zoho Bigin, HubSpot and Jobber for CRM) and explains how to pick one. They
-support `/managed-it` and `/software-selection-setup` and answer the "which one should I use"
+support `/managed-software` and `/software-selection-setup` and answer the "which one should I use"
 question that comes before a purchase.
 
 ## What the search results look like
@@ -53,7 +53,7 @@ question that comes before a purchase.
    prices you have checked, and date them.
 4. **Use `Service` structured data, not `SoftwareApplication`.** Vitops does not sell the
    software, so a software schema would be inaccurate.
-5. **Link the cluster.** Every software page links up to `/managed-it` and `/software-selection-setup`
+5. **Link the cluster.** Every software page links up to `/managed-software` and `/software-selection-setup`
    and across to two related software pages (CRM to invoicing and job tracking; HR to
    bookkeeping and payroll; productivity to communication). The cards on the pillar should link
    to every page.
