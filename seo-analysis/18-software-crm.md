@@ -45,8 +45,9 @@ listing. The only independent Canadian voice is Gestisoft, so there is room for 
    both readers and AI answers.
 3. **Add a "CRM for contractors and trades" paragraph (medium).** `crm for contractors` carries a
    $20 click; the Jobber section is already the answer, it only needs the wording.
-4. **State the neutrality (medium).** "We don't resell any of these. You own the account." See
-   the overview for the commission question.
+4. **State the neutrality (medium).** Say that you own the account, and disclose that Vitops
+   receives referral payments from Jobber (and from Zoho once that starts). See
+   `27-referral-disclosure.md`.
 5. **Link across (medium).** To `/software-job-tracking` (jobs), `/software-invoicing` (quotes)
    and `/connected-software`; up to `/software-selection-setup`.
 6. **Structured data (low).** `Service` plus `BreadcrumbList`.

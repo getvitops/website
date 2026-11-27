@@ -40,12 +40,14 @@ question that comes before a purchase.
 
 1. **Do not try to out-rank vendors on "best CRM" or "best payroll".** Compete on the angle
    vendors cannot take: **independent, Canadian, and set up for you**. Titles and openings say
-   "for small business in Canada", and the page says Vitops does not resell the software
-   (the pricing page already says this).
-2. **The honest differentiator is vendor neutrality.** Say plainly that Vitops does not resell,
-   that the client owns every account, and, if true, whether Vitops receives any vendor
-   commission. See `../pricing-model-pros-cons.md` for the decision on commissions. A page
-   that recommends tools and also earns from them needs to disclose it.
+   "for small business in Canada", and the page says how Vitops is paid
+   (see `27-referral-disclosure.md`).
+2. **The honest differentiator is independence, with the payments disclosed.** Vitops does
+   receive referral payments from some of these vendors (Jobber and QuickBooks now, Zoho soon,
+   Microsoft and Google when not delivered through Pax8). Say so next to the recommendation
+   and link to a "How we get paid" page. The client owns every account. See
+   `27-referral-disclosure.md` for the disclosure design and for site copy that is no longer
+   accurate.
 3. **Add a short comparison people can use.** Each page names three or four tools; a table of
    "best for", "starting price" and "where it is weak" beats a list of descriptions. Only state
    prices you have checked, and date them.
@@ -67,7 +69,7 @@ a small business use" questions. Do not expect the traffic of the service pages.
 
 ## Questions for you
 
-- Do you receive partner or referral payments from any of these vendors? It decides what the
-  disclosure line says.
+- Answered: referral payments exist for Jobber, QuickBooks, and soon Zoho; see
+  `27-referral-disclosure.md` for the follow-up questions about how they are calculated.
 - Which of the named tools do you actually implement today? Each page should name only those.
 - Are any listed prices public and stable enough to show in the comparison tables?

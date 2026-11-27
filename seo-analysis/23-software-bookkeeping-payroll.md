@@ -50,7 +50,7 @@ detail (CPP, EI, provincial rules, filing deadlines) is the gap.
    remittance dates). A short, accurate paragraph is what separates this from a vendor page.
    Check every figure against the Canada Revenue Agency before it goes live.
 4. **Add a "which fits" table (medium).** Four rows. Keep prices dated and checked.
-5. **State the neutrality (medium).** No resale; the client owns the accounts; accountant access.
+5. **State the neutrality (medium).** Say the client owns the accounts and has accountant access, and disclose the QuickBooks referral payment (see `27-referral-disclosure.md`).
 6. **Link across (medium).** To `/software-invoicing`, `/software-hr` and `/connected-software`.
 7. **Structured data (low).** `Service` plus `BreadcrumbList`.
 

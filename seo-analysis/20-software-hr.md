@@ -39,7 +39,7 @@ drives IT setup. That angle also connects this page to `/joining-and-leaving`.
 4. **Lean on the onboarding angle (medium).** One section titled "Employee onboarding software
    that sets up every account" links to `/joining-and-leaving` and answers `employee
    onboarding software`.
-5. **State the neutrality (medium).** No resale; the client owns the accounts.
+5. **State the neutrality (medium).** Say the client owns the accounts, and add a referral disclosure for any tool Vitops is paid on (see `27-referral-disclosure.md`).
 6. **Link across (medium).** To `/joining-and-leaving`, `/software-bookkeeping-payroll`.
 7. **Structured data (low).** `Service` plus `BreadcrumbList`.
 

@@ -94,6 +94,12 @@ These need to be accurate and use your real numbers.
 Owns pricing and package wording. The service pages describe the service and link here; they
 should not carry price tables of their own beyond a "from" line.
 
+## Claim to fix before launch
+
+The Managed IT note says "We don't resell software. You keep your own licences at the vendor's
+price." That is no longer accurate given referral payments and Pax8 delivery. See
+`27-referral-disclosure.md` for the corrected wording.
+
 ## Open questions for you
 
 - Which pricing model are you choosing? The title and meta do not depend on it, but the

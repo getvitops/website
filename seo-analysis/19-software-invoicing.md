@@ -37,7 +37,7 @@ page's best angle is the whole path from quote to payment, which most invoice pa
    Zoho Invoice for simple invoices, QuickBooks for the books, Jobber for job-based billing.
 3. **Lead with the quote-to-cash path (medium).** "From quote to paid" is the differentiator;
    repeat it as a heading ("Quote to payment, set up once").
-4. **State the neutrality (medium).** No resale; the client owns the accounts.
+4. **State the neutrality (medium).** Say the client owns the accounts, and disclose referral payments from QuickBooks and Jobber (see `27-referral-disclosure.md`).
 5. **Link across (medium).** To `/software-bookkeeping-payroll` (the books these feed) and
    `/software-crm` (quotes start in the CRM).
 6. **Structured data (low).** `Service` plus `BreadcrumbList`.

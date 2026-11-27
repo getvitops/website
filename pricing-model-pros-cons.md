@@ -114,12 +114,18 @@ You take a percentage of the money you save the client.
 
 You sell the licences, or the vendor pays you.
 
-- **Good:** Extra income, and simpler billing for the client.
-- **Not good:** Directly opposes the offer: a margin on each licence is an incentive to sell
-  more. Your pricing page already says you do not resell. Check partner and reseller agreements
-  with the vendors (Zoho, Microsoft, Google, QuickBooks) for commissions you receive without
-  billing the client, since those count as an incentive too, and decide whether to decline
-  them or disclose them. **Avoid, or disclose.**
+**Update after your answer:** Vitops does receive referral payments (Jobber and QuickBooks now,
+Zoho soon, and Microsoft and Google when the client buys direct). When Vitops delivers Microsoft
+or Google licences through Pax8 there is no payout, and the licence is billed at cost.
+
+- **Good:** Extra income, and simpler billing for the client. The Pax8 at-cost route is neutral.
+- **Not good:** A payout that grows with the client's plan or seat count is the licence-count
+  conflict again, and it sits badly with the "we cut your licences" promise. A one-time fee per
+  signup is a smaller bias. Disclosure is required either way.
+- **What to do:** keep the referral payments if you want them, but disclose them next to the
+  recommendation, avoid a recurring share that rises with spend (or credit it back to the client),
+  and make Pax8 at cost the default for Microsoft and Google. Details and the site wording that
+  has to change are in `seo-analysis/27-referral-disclosure.md`.
 
 ## How they compare
 
@@ -148,8 +154,10 @@ A **hybrid of D and E, with licence-neutral rules**:
    so a business with six platforms pays more than one with two, without charging per seat.
 4. **Remove the "extra licence $5" fee.** It is the one rule that rewards more licences. If
    extra licences genuinely add work, cover that with the system bands, not a per-licence price.
-5. **Keep "we don't resell"** and add a plain statement that licence changes never change the
-   fee. Decide about vendor partner commissions (see option H).
+5. **Replace "we don't resell software"** with "we don't mark up software", say licences we
+   deliver are billed at cost, and add a plain statement that licence changes never change the
+   fee. Disclose referral payments and decide how to treat recurring ones (see option H and
+   `seo-analysis/27-referral-disclosure.md`).
 6. **Make the neutrality visible:**
    - A short "licence-neutral pledge" on the pricing page: "Our fee doesn't change when we add
      or remove licences. We make money when your bill goes down and your team is set up well,
@@ -167,7 +175,8 @@ A **hybrid of D and E, with licence-neutral rules**:
   plan lists up to 4 hours a month; a solo owner may need less and cost you less.
 - Whether to keep $500 setup for a solopreneur. A lower setup, or a self-serve option for one
   tool, would lower the barrier.
-- Whether vendor partner commissions (if any) are declined or disclosed.
+- Whether recurring referral payments are declined, capped or credited back to the client (they
+  exist for some vendors; one-time fees are easier to disclose).
 - How to word the headcount bands so the 15 and 16 person step is not a cliff (for example a
   gradual per-person rate between bands).
 - Whether the dashboard threshold ($400 a month today) still makes sense once the plans change.
