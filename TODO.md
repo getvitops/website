@@ -1,5 +1,16 @@
 # TODO
 
+## Open (no admin access needed)
+
+- [ ] **`/dashboard` axe `color-contrast` (25 nodes)** in `vitops audit` on alpha.15. Computed colours of the flagged
+      elements are high contrast (`rgb(180,188,200)` on `rgb(26,34,48)`), so this looks like a mid-animation
+      reading (`animate-view` opacity) rather than a real miss; confirm with a reduced-motion run before fixing.
+- [ ] **Live content edit:** the "Learn more" links on `/business-profiles` and `/reviews-email` now have
+      descriptive labels in `seed/seed.json` (Lighthouse `link-text`, SEO 92); apply the same in the admin on
+      dev and prod, since a seed only applies to an empty database.
+- [ ] Optional: adopt `fade-slide-journey` (emitted by the Tailwind format since alpha.15) in place of
+      `fade-in slide-up animate-view`; a visual change, see UPSTREAM.md Motion.
+
 ## Needs a person (admin access)
 
 - [ ] **Set the `pages` collection URL pattern to `/{slug}`** on the local, dev and prod databases

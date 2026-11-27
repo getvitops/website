@@ -5,6 +5,7 @@
       "default": {
         "$schema": "./node_modules/@getvitops/generator/schema.json",
         "colors": {
+          "tint": { "mix": "8%" },
           "palette": {
             "pine": {
               "seed": "#81b9a1"

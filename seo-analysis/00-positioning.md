@@ -31,19 +31,19 @@ The searches the first draft targeted mean something different from what Vitops 
 
 All volumes are monthly searches in Canada.
 
-| Keyword                                 | Volume  | KD  | CPC          | Best page                                       |
-| --------------------------------------- | ------- | --- | ------------ | ----------------------------------------------- |
-| zoho crm consultant                     | 90      | 18  | $26.63       | `/software-selection-setup` or a Zoho page      |
-| zoho consultant                         | 110     | 32  | $5.50        | same                                            |
+| Keyword                                 | Volume  | KD  | CPC          | Best page                                             |
+| --------------------------------------- | ------- | --- | ------------ | ----------------------------------------------------- |
+| zoho crm consultant                     | 90      | 18  | $26.63       | `/software-selection-setup` or a Zoho page            |
+| zoho consultant                         | 110     | 32  | $5.50        | same                                                  |
 | microsoft 365 consultant                | 90      | 17  | $16.24       | `/managed-software` or `/software-selection-setup`    |
-| crm consultant ottawa                   | 70      | 21  | n/a          | `/software-selection-setup`                     |
-| microsoft 365 migration                 | 90      | 33  | n/a          | `/software-selection-setup`                     |
-| microsoft 365 support                   | 210     | 61  | $3.29        | `/support-vendor-management` (hard)             |
-| google workspace support                | 210     | 49  | $5.47        | `/support-vendor-management`                    |
-| google workspace setup                  | 70      | 60  | $7.76        | `/software-selection-setup`                     |
-| zoho partner                            | 70      | 40  | $5.93        | same (partner status would help)                |
+| crm consultant ottawa                   | 70      | 21  | n/a          | `/software-selection-setup`                           |
+| microsoft 365 migration                 | 90      | 33  | n/a          | `/software-selection-setup`                           |
+| microsoft 365 support                   | 210     | 61  | $3.29        | `/support-vendor-management` (hard)                   |
+| google workspace support                | 210     | 49  | $5.47        | `/support-vendor-management`                          |
+| google workspace setup                  | 70      | 60  | $7.76        | `/software-selection-setup`                           |
+| zoho partner                            | 70      | 40  | $5.93        | same (partner status would help)                      |
 | microsoft 365 management                | 50      | n/a | $10.47       | `/managed-software`                                   |
-| google workspace migration              | 50      | n/a | $8.14        | `/software-selection-setup`                     |
+| google workspace migration              | 50      | n/a | $8.14        | `/software-selection-setup`                           |
 | managed saas / saas management services | 20 / 20 | 0   | $46.02 / n/a | `/managed-software` (tiny, but the exact description) |
 
 Reading the table:

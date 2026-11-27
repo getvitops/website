@@ -1,28 +1,17 @@
 # UPSTREAM.md
 
-Open gaps against `@getvitops/*` 9.0.0-alpha.14 (`@getvitops/emdash` 2.0.0-alpha.15, `emdash` 1.6.0), found building
+Open gaps against `@getvitops/*` 9.0.0-alpha.15 (`@getvitops/emdash` 2.0.0-alpha.16, `emdash` 1.6.0), found building
 vitops.ca from the Workdrive mockups. For the toolkit maintainers. One site and one author, so "universal" is a
 judgement, not a second consumer. Closed items are deleted; git history has them.
 
 Numbers are stable ids (code comments cite them), so gaps in the sequence are expected. Entry format: what we saw,
 local workaround, suggested fix. Local rules in `src/site.css` that are upstream candidates say so.
 
-Last round: the toolkit's `UPSTREAM_RESPONSE.md` closed items 5, 7, 9 (section part), 14, 15, 16, 17, 18, 36, 42 and the
-carried-over items. Entries marked **Confirmed** below were acknowledged by the toolkit as real gaps.
-
-## Disputed
-
-30. **`colors.tint` is still rejected.** The response says it is accepted as `"tint": { "mix": "8%" }` at the colours
-    root. On alpha.5, `vitops validate` still reports `designSystem.themes.default.colors: unknown key "tint"`, and
-    `packages/generator/src/schema.ts` at toolkit HEAD has no `tint` key. `vitops docs authoring` still describes it.
-    **Local fix:** `.tone { --tone-tint: color-mix(…) }` stays. **Fix:** accept the key, or drop it from the docs.
-    Please re-check against a published build, not HEAD. On alpha.14 the generator's `.d.mts` declares
-    `colors.tint: { mix }` but `vitops validate` still rejects the key: schema and validator disagree.
-
-- **Tailwind `.rhythm` drift is relevant here.** The response calls it not relevant (css format); this site builds
-  with `css: { format: 'tailwind' }`.
-- **29 was seen in Chrome**, not only Firefox and Safari. A `@supports not (appearance: base-select)` rule would not
-  cover that; recheck in Chrome after the local rule.
+Alpha.15 round (2026-11-27): the disputed items are met. `colors.tint` is accepted (item 30; `vitops.json` sets
+`tint: { mix: "8%" }` and the local `.tone` rule is gone), the tailwind `.rhythm` gap now includes `.form-block`,
+`.callout` and `.logos-block`, and items 32 and 33 (`.section__body` track, footer column gap) are fixed (their
+local rules are deleted; 390px viewport has no sideways scroll on `/`). Entries marked **Confirmed** below were
+acknowledged by the toolkit as real gaps.
 
 ## Open
 
@@ -42,22 +31,15 @@ carried-over items. Entries marked **Confirmed** below were acknowledged by the 
 
 ### Patterns and CSS
 
-32. **`.section__body` track is `auto`.** Alpha.13 added `min-inline-size: 0` and `minmax(0, 1fr)` to `.subgrid`
-    and `.pricing-grid`, but `.section__body` is still `display: grid` with no column template. **Local fix:**
-    `grid-template-columns: minmax(0, 1fr)`. **Fix:** the same in `section.css`.
-33. **`.sitefooter__inner.centered` has a 1rem column gap** (alpha.14). `.sitefooter__inner { gap: 1rem }` is not
-    reset by `.centered`'s `row-gap`-only rule, so the gap lands between the zero-width named tracks and pushes the
-    footer 80px past the page track (390px viewport scrolls to 454px). **Local fix:** `column-gap: 0`. **Fix:** set
-    `column-gap: 0` on `.sitefooter__inner.centered`.
-34. **`vitops_form` has no card look and no radio field.** **Confirmed.** **Local fix:** padding and border on
-    `.form-block.tone`; the select stays. **Fix:** a `radio` field kind rendered as `.tag` options, plus card
+34. **`vitops_form` has no card look and no radio field.** **Confirmed.** Alpha.15 gives `.form-block` a card look,
+    but only under `.tone--tint` or `.tone--solid`; our forms use `tone: neutral`, which paints neither, so the
+    computed padding is still 0. **Local fix:** padding and border on `.form-block.tone` (site.css 35); the select stays. **Fix:** a `radio` field kind rendered as `.tag` options, plus card
     padding for a themed form.
 
 ### Tooling
 
 `vitops emdash` help and completion lack `form-template`, `schema` and `db`. `skills experimental_sync` was dropped
-from `prepare`; existing skill links survived, a fresh clone is untested. `vpr typecheck` needs `@astrojs/check`, which
-is not a dependency.
+from `prepare`; existing skill links survived, a fresh clone is untested.
 
 Alpha.14 round: items 7b, 8, 29, 31, 33, 34, 37, 38, 43, 44, 45, 46 are met upstream and their local rules are
 deleted (the footer keeps design-only rules; `a.btn` weight now comes from `patterns.items.btn` in `vitops.json`).
@@ -65,11 +47,10 @@ Not yet checked here: `vitops_band` + `<VitopsContent>` as a replacement for sta
 
 ### Motion (2026-11-26)
 
-47. **Composed journey classes are not emitted by the Tailwind format.** `vitops.json` `animations.journeys.compose`
-    defines `fade-slide-journey`, and `vitops generate -f css` emits `.fade-slide-journey`, but `-f tailwind` emits
-    no such utility, so a `className` of `fade-slide-journey animate-view` does nothing. **Local workaround:** spotlights
-    use `fade-in slide-up animate-view` instead; `src/motion-classes.ts` lists the effect classes content uses so
-    Tailwind sees them (it does not scan the CMS). **Fix:** emit composed journeys as `@utility` in the Tailwind output.
+Item 47 is closed: alpha.15 emits `fade-slide-journey` in the Tailwind format. Content still uses
+`fade-in slide-up animate-view` (174 seed uses, listed in `src/motion-classes.ts`); journeys animate over the whole
+scroll range rather than the entry window, so switching is a visual change, not done here.
+
 48. **Staggered cards need item classes.** `.stagger > *` only sets `--_stagger-index`; the children still need
     `fade-in slide-up animate-view`, and `vitops_cards`, `vitops_stats` and `vitops_steps` put no class on their items.
     **Fix:** an `animation` select (`none | fade | stagger`) on those blocks that adds the classes to the items.

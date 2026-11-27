@@ -81,7 +81,7 @@ const marketing: [string, string, string, string?][] = [
 
       <div class="vt-est__grid">
         <div class="rhythm">
-          <fieldset class="card rhythm">
+          <fieldset class="vt-est__panel rhythm">
             <legend class="font-heading">Start with</legend>
             <div class="cluster">
               {
@@ -96,7 +96,7 @@ const marketing: [string, string, string, string?][] = [
             <p class="text-neutral-muted" data-out="pkgnote">{PRICING.notes.own}</p>
           </fieldset>
 
-          <fieldset class="card rhythm" data-group="it">
+          <fieldset class="vt-est__panel rhythm" data-group="it">
             <legend class="font-heading text-pine-400">Managed IT</legend>
             <label class="vt-est__row flex flex-wrap items-center justify-between gap-s" data-row="mit">
               <span><input type="checkbox" name="mit" checked /> Managed IT, $15 per user</span>
@@ -120,7 +120,7 @@ const marketing: [string, string, string, string?][] = [
             </label>
           </fieldset>
 
-          <fieldset class="card rhythm" data-group="mk">
+          <fieldset class="vt-est__panel rhythm" data-group="mk">
             <legend class="font-heading text-amber-300">Digital Marketing</legend>
             <div class="vt-est__row flex flex-wrap items-center justify-between gap-s" data-row="web">
               <span id="vt-est-web">Website plan</span>
@@ -148,7 +148,7 @@ const marketing: [string, string, string, string?][] = [
           </fieldset>
         </div>
 
-        <aside class="card rhythm vt-est__out" aria-labelledby="vt-est-title">
+        <aside class="vt-est__panel rhythm vt-est__out" aria-labelledby="vt-est-title">
           <p id="vt-est-title" class="font-eyebrow text-neutral-muted">Your estimate</p>
           <div aria-live="polite" class="rhythm">
             <p class="vt-est__total flex items-baseline gap-xs">

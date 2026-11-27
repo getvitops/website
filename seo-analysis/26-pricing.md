@@ -85,7 +85,7 @@ These need to be accurate and use your real numbers.
 
 | Where           | Now                        | Proposed                                                     |
 | --------------- | -------------------------- | ------------------------------------------------------------ |
-| Section kicker  | Managed software                 | Software management                                          |
+| Section kicker  | Managed software           | Software management                                          |
 | Section heading | One plan, priced per user. | (decide after the pricing model; see the pros and cons file) |
 | Section heading | Packages for every stage.  | (keep)                                                       |
 

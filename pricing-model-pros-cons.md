@@ -14,16 +14,16 @@ Written for the Vitops team, to help decide the plan structure. Nothing here cha
 
 ## Where the current pricing page stands
 
-| Item              | Today                                                                                |
-| ----------------- | ------------------------------------------------------------------------------------ |
-| Managed software plan   | $15 per user a month, $100 minimum. A "user" is anyone with a paid software licence. |
-| Licences included | 2 per user. Extra licences are $5 each a month.                                      |
-| Add-ons           | Managed backup $8 per user; faster response $10 per user.                            |
-| Setup             | $500, waived with a yearly commitment.                                               |
-| Packages          | Launch $79 (solo owners), Small Team $849 (5 to 15), Growing Team $1,799 (15 to 50). |
-| Resale            | "We don't resell software. You keep your own licences."                              |
-| Dashboard         | Included when the monthly plan totals over $400, otherwise an add-on.                |
-| Other             | Month to month, 30 days' notice. One-off work quoted; advice $80 an hour.            |
+| Item                  | Today                                                                                |
+| --------------------- | ------------------------------------------------------------------------------------ |
+| Managed software plan | $15 per user a month, $100 minimum. A "user" is anyone with a paid software licence. |
+| Licences included     | 2 per user. Extra licences are $5 each a month.                                      |
+| Add-ons               | Managed backup $8 per user; faster response $10 per user.                            |
+| Setup                 | $500, waived with a yearly commitment.                                               |
+| Packages              | Launch $79 (solo owners), Small Team $849 (5 to 15), Growing Team $1,799 (15 to 50). |
+| Resale                | "We don't resell software. You keep your own licences."                              |
+| Dashboard             | Included when the monthly plan totals over $400, otherwise an add-on.                |
+| Other                 | Month to month, 30 days' notice. One-off work quoted; advice $80 an hour.            |
 
 Two things stand out against your goals:
 

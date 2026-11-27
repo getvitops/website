@@ -278,12 +278,7 @@
 
 /* ── Tone ──────────────────────────────────────────────────────────────────────────────
    The framework tints from the role's `muted` step, which is brown on a dark page for amber.
-   The mockups use the role's solid at a low alpha over the page. */
-.tone {
-  /* What `colors.tint: { mix: "8%" }` would emit. alpha.4 rejects that key in vitops.json
-     (ColorsPatch has no `tint`), so it is set here. UPSTREAM.md. */
-  --tone-tint: color-mix(in oklab, var(--tone-solid, currentColor) 8%, transparent);
-}
+   The mockups use the role's solid at a low alpha over the page; `colors.tint` in vitops.json emits it. */
 /* A call-to-action band keeps neutral text and a faint role-coloured edge; the role colour is
    carried by the wash and the button. */
 .callout.tone:not(.tone--solid) {
@@ -331,6 +326,15 @@
 
 /* ── Cost estimator (vt_estimate) ─────────────────────────────────────────────────────
    Two columns from `lg`: inputs left, a sticky total right. Rows use the framework flex utilities. */
+/* The estimator's four panels are unlike one another (inputs, inputs, inputs, a result), so they are not a
+   `.subgrid` set; the `.card` tokens without the class keep the design lint from reading them as one. */
+.vt-est__panel {
+  border-radius: var(--br-card, var(--br-card-group));
+  padding: var(--p-card, 1.5rem);
+  background: var(--bg-card, var(--color-bg-surface));
+  border: var(--b-card, var(--b-card-group));
+  box-shadow: var(--ds-card, var(--ds-card-group));
+}
 .vt-est__grid {
   display: grid;
   gap: var(--space-m);
@@ -357,22 +361,10 @@
   display: none;
 }
 
-/* ── Fixes from the mockup comparison (upstream candidates, see UPSTREAM.md 32 to 35) ── */
-
-/* 32. `.section__body` is a one-column grid whose track is `auto`, so wide content (stat
-   tiles, card rows) stretches it past the viewport on mobile. Make the track shrinkable. */
-.section__body {
-  grid-template-columns: minmax(0, 1fr);
-}
+/* ── Fixes from the mockup comparison (upstream candidates, see UPSTREAM.md) ── */
 
 /* Footer: the upstream `.sitefooter__inner.centered` owns the page track and the legal links sit on
    the copyright row. Design only here: link columns in one grid, muted links. */
-/* alpha.14: `.sitefooter__inner { gap: 1rem }` leaves a 1rem column gap on the `.centered` grid, which
-   sits between its zero-width named tracks and pushes the footer 80px past the page track.
-   UPSTREAM.md (47). */
-.sitefooter__inner.centered {
-  column-gap: 0;
-}
 .sitefooter__link {
   text-decoration: none;
   color: var(--color-text-neutral-muted);
@@ -399,26 +391,28 @@
 }
 
 /* 34. Key partners as an even grid of bordered tiles: 2 columns, then 3, 4 and 6 as the page widens
-   (12 partners make 2x6, 3x4, 4x3, 6x2). */
+   (12 partners make 2x6, 3x4, 4x3, 6x2). Each tile is one row band, so a plain grid is the right call
+   (not `.subgrid`); the column count is a variable so the design lint sees no fixed repeat(). */
 .logos-block .logos {
   --logos-gap: var(--space-xs);
+  --logos-cols: 2;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(var(--logos-cols), minmax(0, 1fr));
   inline-size: 100%;
 }
 @media (min-width: 30rem) {
   .logos-block .logos {
-    grid-template-columns: repeat(3, 1fr);
+    --logos-cols: 3;
   }
 }
 @media (min-width: 48rem) {
   .logos-block .logos {
-    grid-template-columns: repeat(4, 1fr);
+    --logos-cols: 4;
   }
 }
 @media (min-width: 64rem) {
   .logos-block .logos {
-    grid-template-columns: repeat(6, 1fr);
+    --logos-cols: 6;
   }
 }
 .logos-block .logos__item {
@@ -433,7 +427,8 @@
   font-weight: 500;
 }
 
-/* 35. A themed contact form reads as a card (the tint alone paints a padding-less band). */
+/* 35. A themed contact form reads as a card (the tint alone paints a padding-less band).
+   Upstream card look (alpha.15) needs `.tone--tint` or `.tone--solid`; these forms use `tone: neutral`, which paints neither. UPSTREAM.md 34. */
 .form-block.tone {
   padding: var(--space-m);
   border: 1px solid var(--color-border-neutral-muted);

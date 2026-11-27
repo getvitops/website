@@ -10010,7 +10010,7 @@
                 {
                   "_type": "vitops_actionLink",
                   "_key": "bus49-al32",
-                  "label": "Learn more",
+                  "label": "Learn more about reviews and email campaigns",
                   "href": "/reviews-email",
                   "variant": "link"
                 }
@@ -10243,7 +10243,7 @@
                 {
                   "_type": "vitops_actionLink",
                   "_key": "rev92-al15",
-                  "label": "Learn more",
+                  "label": "Learn more about business profiles",
                   "href": "/business-profiles",
                   "variant": "link"
                 }

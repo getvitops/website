@@ -48,10 +48,10 @@ tools once you confirm which ones you implement.
 
 ## Copy rewrites (proposed, not applied)
 
-| Where           | Now                              | Proposed                       |
-| --------------- | -------------------------------- | ------------------------------ |
+| Where           | Now                              | Proposed                             |
+| --------------- | -------------------------------- | ------------------------------------ |
 | Kicker          | Software selection and setup     | Managed software: software selection |
-| Section heading | We've already done the research. | (keep)                         |
+| Section heading | We've already done the research. | (keep)                               |
 
 ## Cannibalization
 

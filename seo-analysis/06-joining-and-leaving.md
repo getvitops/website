@@ -46,10 +46,10 @@ compare against.
 
 ## Copy rewrites (proposed, not applied)
 
-| Where           | Now                       | Proposed                               |
-| --------------- | ------------------------- | -------------------------------------- |
-| Kicker          | Managed software                | Managed software: onboarding and offboarding |
-| Section heading | One setup for every role. | (keep)                                 |
+| Where           | Now                       | Proposed                                     |
+| --------------- | ------------------------- | -------------------------------------------- |
+| Kicker          | Managed software          | Managed software: onboarding and offboarding |
+| Section heading | One setup for every role. | (keep)                                       |
 
 ## Cannibalization
 
