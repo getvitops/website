@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "vitops emdash prepare-db && vitops emdash build",
+    "build": "vitops emdash build",
     "preview": "astro preview",
     "pull-content": "node scripts/pull-content.mjs",
     "prepare-local-db": "vitops emdash prepare-db",
