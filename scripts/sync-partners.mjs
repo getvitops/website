@@ -9,7 +9,11 @@ let hit = 0;
   if (Array.isArray(x)) return x.forEach(walk);
   if (!x || typeof x !== 'object') return;
   if (x._type === 'vitops_logos' && x.kicker === 'Key partners') {
-    x.logos = partners.map((alt, i) => ({ _key: `i${33 + i}`, alt }));
+    x.logos = partners.map(({ name, image }, i) => ({
+      _key: `i${33 + i}`,
+      alt: name,
+      ...(image && { image }),
+    }));
     hit++;
   }
   Object.values(x).forEach(walk);

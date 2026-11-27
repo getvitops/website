@@ -443,6 +443,7 @@
   },
   "organization": {
     "name": "Vitops",
+    "logo": "/icon-512.png",
     "email": "hi@vitops.ca",
     "phone": "613-518-7984",
     "legalName": "Monad Media Inc.",
@@ -459,6 +460,12 @@
     }
   },
   "site": {
+    "favicon": {
+      "source": "src/assets/vitops-mark.svg",
+      "name": "Vitops",
+      "themeColor": "#81b9a1",
+      "backgroundColor": "#141b26"
+    },
     "accessibility": {
       "standard": "wcag21",
       "level": "AA"

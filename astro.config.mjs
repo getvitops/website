@@ -79,12 +79,6 @@ export default defineConfig({
       migrations: { runtime: 'check', dev: 'auto' },
     }),
     vitops({
-      favicon: {
-        source: 'src/assets/logo.svg',
-        name: organizationName,
-        themeColor: '#81b9a1',
-        backgroundColor: '#141b26',
-      },
       // inject: false — Layout.astro imports the generated stylesheet, so
       // EmDash's /_emdash/admin routes don't inherit the design system while
       // your pages (and EmDash previews rendered through the layout) do.

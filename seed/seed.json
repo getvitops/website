@@ -917,43 +917,53 @@
                   "logos": [
                     {
                       "_key": "i33",
-                      "alt": "Zoho"
+                      "alt": "Zoho",
+                      "image": "/partners/zoho.svg"
                     },
                     {
                       "_key": "i34",
-                      "alt": "Google"
+                      "alt": "Google",
+                      "image": "/partners/google.svg"
                     },
                     {
                       "_key": "i35",
-                      "alt": "Microsoft"
+                      "alt": "Microsoft",
+                      "image": "/partners/microsoft.svg"
                     },
                     {
                       "_key": "i36",
-                      "alt": "QuickBooks"
+                      "alt": "QuickBooks",
+                      "image": "/partners/quickbooks.svg"
                     },
                     {
                       "_key": "i37",
-                      "alt": "HubSpot"
+                      "alt": "HubSpot",
+                      "image": "/partners/hubspot.svg"
                     },
                     {
                       "_key": "i38",
-                      "alt": "Zendesk"
+                      "alt": "Zendesk",
+                      "image": "/partners/zendesk.svg"
                     },
                     {
                       "_key": "i39",
-                      "alt": "Anthropic"
+                      "alt": "Anthropic",
+                      "image": "/partners/anthropic.svg"
                     },
                     {
                       "_key": "i40",
-                      "alt": "Rippling"
+                      "alt": "Rippling",
+                      "image": "/partners/rippling.svg"
                     },
                     {
                       "_key": "i41",
-                      "alt": "Cloudflare"
+                      "alt": "Cloudflare",
+                      "image": "/partners/cloudflare.svg"
                     },
                     {
                       "_key": "i42",
-                      "alt": "Azure"
+                      "alt": "Azure",
+                      "image": "/partners/azure.svg"
                     },
                     {
                       "_key": "i43",
@@ -961,7 +971,8 @@
                     },
                     {
                       "_key": "i44",
-                      "alt": "Namecheap"
+                      "alt": "Namecheap",
+                      "image": "/partners/namecheap.svg"
                     }
                   ],
                   "note": "Using something else?",

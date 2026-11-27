@@ -3,20 +3,25 @@
 //   node scripts/sync-partners.mjs
 // to write it into seed/seed.json. A seed only applies to an empty database, so a running
 // site also needs the same change in the admin (edit the logo block on the home page) or
-// through the site's MCP server. Names only for now; add `image` and `href` when logos land.
+// through the site's MCP server. Icons are in public/partners/ (simple-icons, plus Iconify
+// for Microsoft, Azure and Rippling), recoloured neutral grey. `vitops_logos` shows the image
+// OR the name, so an icon replaces the name visually (the name stays as alt text).
+// A name with no `image` renders as text (Jobber has no icon in any open pack).
+const icon = (name, file = name.toLowerCase()) => ({ name, image: `/partners/${file}.svg` });
+
 export const partners = [
-  'Zoho',
-  'Google',
-  'Microsoft',
-  'QuickBooks',
-  'HubSpot',
-  'Zendesk',
-  'Anthropic',
-  'Rippling',
-  'Cloudflare',
-  'Azure',
-  'Jobber',
-  // 'Slack',
-  // '1Password',
-  'Namecheap',
+  icon('Zoho'),
+  icon('Google'),
+  icon('Microsoft'),
+  icon('QuickBooks'),
+  icon('HubSpot'),
+  icon('Zendesk'),
+  icon('Anthropic'),
+  icon('Rippling'),
+  icon('Cloudflare'),
+  icon('Azure'),
+  { name: 'Jobber' },
+  // icon('Slack'),
+  // icon('1Password'),
+  icon('Namecheap'),
 ];
