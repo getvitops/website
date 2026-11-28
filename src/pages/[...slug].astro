@@ -1,26 +1,45 @@
 ---
-// EmDash-backed pages: every entry in the `pages` collection is served at
-// `/<slug>`. On-demand (`prerender = false`) so an editor's publish is live
-// immediately — the opposite trade from the hand-written, prerendered pages.
-// Astro prefers a static route over this one, so a page only moves here once its
-// own `src/pages/<slug>.astro` is deleted. Rendering lives in CmsPage.astro.
-import { getEmDashEntry } from "emdash";
-import CmsPage from "../components/page/CmsPage.astro";
+import { getEmDashCollection } from 'emdash';
+import { PortableText } from 'emdash/ui';
+import PageBlocks from '../components/PageBlocks.astro';
+import Layout from '../layouts/Layout.astro';
 
-import { CMS_PAGE_CACHE } from "../lib/cache";
+type PortableTextValue = Parameters<typeof PortableText>[0]['value'];
 
-export const prerender = false;
+// Prerendered: every published `pages` entry becomes a static file at its slug. A URL not in
+// the list has no route, so Astro serves the prerendered 404 with a real 404 status (no
+// Astro.rewrite('/404'): rewriting an on-demand route to a prerendered one is a 500).
+export const prerender = true;
 
-const slug = Astro.params.slug ?? "";
-const { entry, cacheHint } = await getEmDashEntry("pages", slug);
-Astro.cache.set(cacheHint);
+export async function getStaticPaths() {
+  const { entries, error } = await getEmDashCollection('pages');
+  // Fail the build rather than ship a site with no pages.
+  if (error) throw error;
+  return entries
+    .filter((entry) => entry.data.slug !== 'home') // served by index.astro
+    .map((entry) => ({ params: { slug: entry.data.slug as string }, props: { page: entry } }));
+}
 
-// A bodiless 404 makes Astro serve src/pages/404.astro. (Astro.rewrite("/404")
-// throws: an on-demand route cannot rewrite to the prerendered 404.)
-// no-store: a cached 404 carries no entry tag, so publishing the page later
-// would not purge it.
-if (!entry) return new Response(null, { status: 404, headers: { "cache-control": "private, no-store" } });
-Astro.cache.set(CMS_PAGE_CACHE); // after the 404 return: a missing entry must not get a lifetime
+const { page } = Astro.props;
+
+// `page.data` is typed `unknown` until `.emdash/types.ts` is generated from a
+// running site (`pnpm dev`, then `emdash types`), so a fresh scaffold would fail
+// `astro check`; the cast keeps it passing both before and after, where the
+// generated type is already `string`.
+const title = page.data.title as string | undefined;
+const layout = page.data.layout as unknown[] | undefined;
+const content = page.data.content as PortableTextValue | undefined;
 ---
 
-<CmsPage data={entry.data} path={`/${slug}`} />
+<Layout title={title} entry={page}>
+  {
+    layout && layout.length > 0 ? (
+      <PageBlocks value={layout} />
+    ) : (
+      <article class="centered rhythm region">
+        <h1>{title}</h1>
+        {content && <PortableText value={content} />}
+      </article>
+    )
+  }
+</Layout>

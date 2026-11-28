@@ -1,53 +1,56 @@
 {
   "name": "vitops-website",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "vitops emdash build",
     "preview": "astro preview",
-    "deploy": "astro build && wrangler deploy",
-    "build:dev": "astro build && node scripts/build-dev-wrangler.mjs",
-    "deploy:dev": "astro build && node scripts/build-dev-wrangler.mjs && wrangler deploy --config dist/server/wrangler.dev.json",
+    "pull-content": "node scripts/pull-content.mjs",
+    "prepare-local-db": "vitops emdash prepare-db",
+    "deploy": "vitops email check && node scripts/pull-content.mjs && vitops emdash prepare-db && vitops emdash build && emdash migrate --wrangler-config wrangler.jsonc && wrangler deploy",
+    "deploy:dev": "vitops email check && node scripts/pull-content.mjs && vitops emdash prepare-db && vitops emdash build && node scripts/build-dev-wrangler.mjs && emdash migrate --wrangler-config dist/server/wrangler.dev.json && wrangler deploy --config dist/server/wrangler.dev.json",
+    "init:github": "vitops setup repo",
+    "init:hosting": "vitops setup hosting",
+    "setup": "vitops setup all",
     "typecheck": "astro check",
-    "prepare": "vp config"
+    "build:css": "vitops generate -i vitops.json -f tailwind -o src/styles",
+    "lint:design": "vitops lint -i vitops.json -f tailwind --strict",
+    "sop": "vitops generate -i vitops.json -f css -o .vitops/sop",
+    "prepare": "vp config && playwright cli install --skills && vitops agents sync -i vitops.json"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.0.0",
-    "@astrojs/react": "^7.0.0",
-    "@emdash-cms/cloudflare": "^1.0.1",
-    "@getvitops/astro": "8.2.0-alpha.0",
-    "@getvitops/emdash": "1.0.0-alpha.0",
-    "@getvitops/utils": "8.2.0-alpha.0",
-    "@iconify-json/ph": "^1.2.2",
-    "@iconify-json/simple-icons": "^1.2.0",
-    "astro": "^7.1.6",
-    "astro-iconset": "^0.0.4",
-    "emdash": "^1.0.1",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "@astrojs/cloudflare": "^14.4.9",
+    "@astrojs/react": "^7.1.9",
+    "@emdash-cms/cloudflare": "^1.6.0",
+    "@getvitops/astro": "alpha",
+    "@getvitops/core": "alpha",
+    "@getvitops/emdash": "alpha",
+    "@getvitops/skills": "alpha",
+    "@tailwindcss/vite": "^4.3.5",
+    "astro": "^7.4.13",
+    "emdash": "^1.6.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.5"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.7",
-    "@cloudflare/workers-types": "^5.20260801.1",
-    "@getvitops/cli": "8.2.0-alpha.0",
-    "@getvitops/generator": "8.2.0-alpha.0",
-    "@tailwindcss/vite": "^4.3.3",
-    "tailwindcss": "^4.3.3",
+    "@astrojs/check": "^0.9.12",
+    "@axe-core/playwright": "^4.14.0",
+    "@cloudflare/workers-types": "^4.20260702.1",
+    "@getvitops/cli": "alpha",
+    "@iconify-json/fa7-solid": "^1.2.5",
+    "lighthouse": "^13.6.0",
+    "playwright": "^1.65.1",
+    "skills": "^1.9.0",
+    "typescript": "^6.0.3",
+    "vite": "catalog:",
     "vite-plus": "catalog:",
-    "wrangler": "^4.118.0"
+    "wrangler": "^4.167.0"
   },
-  "devEngines": {
-    "runtime": {
-      "name": "node",
-      "version": "24.18.0",
-      "onFail": "download"
-    }
-  },
-  "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b",
+  "packageManager": "pnpm@12.18.0",
   "emdash": {
-    "label": "Marketing",
     "seed": "seed/seed.json"
   }
 }

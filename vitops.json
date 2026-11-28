@@ -1,0 +1,813 @@
+{
+  "$schema": "./node_modules/@getvitops/generator/config.schema.json",
+  "designSystem": {
+    "themes": {
+      "default": {
+        "$schema": "./node_modules/@getvitops/generator/schema.json",
+        "colors": {
+          "tint": { "mix": "8%" },
+          "palette": {
+            "pine": {
+              "seed": "#81b9a1"
+            },
+            "amber": {
+              "seed": "#f5b94a"
+            },
+            "ink": {
+              "seed": "#141b26",
+              "anchors": {
+                "50": "#eef1f5",
+                "300": "#b4bcc8",
+                "800": "#2b3340",
+                "900": "#1a2230",
+                "950": "#141b26"
+              }
+            },
+            "sky": {
+              "seed": "#2f7bc0"
+            },
+            "rose": {
+              "seed": "#c74a42"
+            }
+          },
+          "roles": {
+            "neutral": {
+              "hue": "ink",
+              "kind": "surface"
+            },
+            "surface": {
+              "hue": "ink",
+              "kind": "surface"
+            },
+            "ui-primary": "pine",
+            "brand-primary": {
+              "hue": "pine",
+              "solid": 400,
+              "acknowledgeContrast": 1,
+              "foreground": "dark"
+            },
+            "brand-secondary": {
+              "hue": "amber",
+              "solid": 300,
+              "foreground": "dark"
+            },
+            "info": {
+              "hue": "sky",
+              "solid": 700
+            },
+            "success": "pine",
+            "warning": "amber",
+            "danger": {
+              "hue": "rose",
+              "solid": 700
+            },
+            "ui-accent": "pine"
+          },
+          "utilities": ["bg", "text", "icon", "border"]
+        },
+        "shadows": {
+          "sm": "0 1px 2px rgb(0 0 0 / 0.25)",
+          "md": "0 8px 16px rgb(0 0 0 / 0.35)",
+          "lg": "0 24px 48px rgb(0 0 0 / 0.55)",
+          "xl": "0 40px 80px rgb(0 0 0 / 0.45)"
+        },
+        "fonts": {
+          "display": "var(--font-geist), system-ui, sans-serif",
+          "sans": "var(--font-geist), system-ui, sans-serif",
+          "mono": "var(--font-geist-mono), ui-monospace, monospace"
+        },
+        "typeScale": {
+          "base": "1.0625rem",
+          "names": ["2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl", "5xl"],
+          "baseStep": 4,
+          "baseline": "m",
+          "ratio": 1.28,
+          "fluid": {
+            "minVw": "22.5rem",
+            "maxVw": "90rem",
+            "minRatio": 1.15
+          }
+        },
+        "spaceScale": {
+          "base": "1rem",
+          "names": ["2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl"],
+          "baseStep": 4,
+          "baseline": "m",
+          "ratio": 1.25,
+          "fluid": {
+            "minVw": "22.5rem",
+            "maxVw": "80rem",
+            "minRatio": 1.2
+          }
+        },
+        "patterns": {
+          "defaults": {
+            "ds": "none",
+            "b": "1px solid var(--color-border-neutral-muted, #ffffff26)",
+            "br": "0.5rem",
+            "p": "1rem",
+            "fs": "1rem"
+          },
+          "radii": {
+            "circle": "50%",
+            "pill": "999px",
+            "md": "0.75rem",
+            "lg": "1rem",
+            "xl": "1.125rem"
+          },
+          "groups": {
+            "control": {
+              "ds": "var(--ds-default)",
+              "b": "var(--b-default)",
+              "br": "var(--br-default)",
+              "p": "0.5em 1em",
+              "fs": "var(--fs-default)"
+            },
+            "panel": {
+              "ds": "none",
+              "b": "var(--b-default)",
+              "br": "0.875rem",
+              "p": "1rem",
+              "fs": "var(--fs-default)"
+            },
+            "label": {
+              "ds": "none",
+              "b": "1px solid var(--color-border-neutral-muted)",
+              "br": "var(--br-pill)",
+              "p": "0.7em 1.1em",
+              "fs": "var(--text-s)"
+            }
+          },
+          "z": {
+            "raised": 1,
+            "sticky": 100,
+            "overlay": 200,
+            "top": 1000
+          },
+          "items": {
+            "button": {
+              "group": "control",
+              "element": "button",
+              "default_role": "brand-primary",
+              "base": {
+                "padding": "0.6em 1.2em",
+                "border-radius": "var(--br-control, 0.5rem)",
+                "border": "none",
+                "font-weight": "600",
+                "color": "var(--color-text-on-brand-primary, #0f151e)",
+                "cursor": "pointer",
+                "box-shadow": "none"
+              },
+              "states": {
+                "hover": {
+                  "step": 1
+                },
+                "active": {
+                  "scale": 0.97
+                },
+                "focus-visible": {
+                  "ring": true
+                }
+              },
+              "roles": ["brand-primary", "brand-secondary"],
+              "class": "button"
+            },
+            "btn": {
+              "group": "control",
+              "element": "button",
+              "class": "btn",
+              "fill": false,
+              "overrides": {
+                "b": "1px solid transparent",
+                "fs": "inherit"
+              },
+              "base": {
+                "display": "inline-flex",
+                "align-items": "center",
+                "justify-content": "center",
+                "gap": "0.4em",
+                "padding": "var(--p-btn-group)",
+                "border-radius": "var(--br-btn-group)",
+                "border": "var(--b-btn-group)",
+                "box-shadow": "var(--ds-btn-group)",
+                "background": "transparent",
+                "color": "inherit",
+                "font-family": "inherit",
+                "font-size": "var(--fs-btn-group)",
+                "font-weight": "600",
+                "text-decoration": "none",
+                "cursor": "pointer"
+              },
+              "states": {
+                "hover": {
+                  "step": 1,
+                  "css": {
+                    "background-color": "var(--color-bg-surface-muted)"
+                  }
+                },
+                "focus-visible": {
+                  "ring": true
+                }
+              },
+              "roles": []
+            },
+            "card": {
+              "group": "panel",
+              "class": "card",
+              "base": {
+                "border-radius": "var(--br-card-group)",
+                "padding": "1.5rem",
+                "background": "var(--color-bg-surface)",
+                "border": "var(--b-card-group)",
+                "box-shadow": "var(--ds-card-group)"
+              },
+              "states": {},
+              "roles": []
+            },
+            "badge": {
+              "group": "label",
+              "class": "badge",
+              "fill": false,
+              "base": {
+                "display": "inline-block",
+                "border-radius": "var(--br-badge-group)",
+                "padding": "var(--p-badge-group)",
+                "border": "var(--b-badge-group)",
+                "background": "var(--color-bg-neutral)",
+                "font-size": "var(--fs-badge-group)",
+                "line-height": "1.3"
+              },
+              "states": {},
+              "roles": ["brand-primary", "brand-secondary", "success", "info", "warning", "danger"]
+            },
+            "tag": {
+              "group": "label",
+              "class": "tag",
+              "fill": false,
+              "base": {
+                "display": "inline-block",
+                "border-radius": "var(--br-tag-group)",
+                "padding": "var(--p-tag-group)",
+                "border": "var(--b-tag-group)",
+                "background": "var(--color-bg-neutral)",
+                "font-size": "var(--fs-tag-group)",
+                "line-height": "1.3",
+                "cursor": "pointer"
+              },
+              "states": {},
+              "roles": ["brand-primary", "brand-secondary", "success", "info", "warning", "danger"]
+            },
+            "cta": {
+              "group": "control",
+              "default_role": "brand-primary",
+              "base": {
+                "padding": "0.75em 1.4em",
+                "border-radius": "var(--br-control, 0.5rem)",
+                "border": "none",
+                "font-weight": "600",
+                "color": "var(--tone-on-solid, var(--color-text-on-brand-primary, #0f151e))",
+                "background": "var(--tone-solid, var(--color-bg-brand-primary-solid))",
+                "display": "inline-flex",
+                "align-items": "center",
+                "cursor": "pointer",
+                "text-decoration": "none"
+              },
+              "states": {
+                "hover": {
+                  "step": 1
+                },
+                "active": {
+                  "scale": 0.97
+                },
+                "focus-visible": {
+                  "ring": true
+                }
+              },
+              "roles": ["brand-primary", "brand-secondary"],
+              "class": "cta"
+            },
+            "link": {
+              "group": "control",
+              "element": "a",
+              "class": "link",
+              "default_role": "ui-primary",
+              "base": {
+                "color": "var(--color-text-ui-primary)",
+                "text-decoration": "underline",
+                "text-underline-offset": "0.15em"
+              },
+              "states": {
+                "hover": {
+                  "step": 1
+                },
+                "focus-visible": {
+                  "ring": true
+                }
+              },
+              "roles": []
+            },
+            "details": {
+              "group": "content"
+            },
+            "steps": {
+              "group": "content",
+              "class": "steps",
+              "overrides": {
+                "b": "1px solid var(--color-border-surface-muted)",
+                "br": "0.75rem",
+                "p": "1.5rem",
+                "ds": "none"
+              },
+              "base": {
+                "--steps-marker-size": "2.5rem",
+                "--steps-line-width": "2px"
+              }
+            }
+          }
+        },
+        "typography": {
+          "families": {
+            "display": "var(--font-display)",
+            "sans": "var(--font-sans)",
+            "code": "var(--font-mono, ui-monospace, monospace)"
+          },
+          "roles": {
+            "display": {
+              "family": "display",
+              "size": "var(--text-5xl)",
+              "weight": 600,
+              "line-height": "1.02",
+              "tracking": "-0.035em"
+            },
+            "heading": {
+              "family": "display",
+              "size": "var(--text-3xl)",
+              "weight": 600,
+              "line-height": "1.1",
+              "tracking": "-0.03em"
+            },
+            "body": {
+              "family": "sans",
+              "size": "var(--text-m)",
+              "weight": 400,
+              "line-height": "1.55"
+            },
+            "eyebrow": {
+              "family": "code",
+              "size": "var(--text-s)",
+              "weight": 400,
+              "line-height": "1.4",
+              "tracking": "0.08em",
+              "text-transform": "uppercase"
+            },
+            "subheading": {
+              "family": "display",
+              "size": "var(--text-2xl)",
+              "weight": 600,
+              "line-height": "1.15",
+              "tracking": "-0.025em"
+            },
+            "title": {
+              "family": "display",
+              "size": "var(--text-xl)",
+              "weight": 600,
+              "line-height": "1.25",
+              "tracking": "-0.02em"
+            },
+            "lead": {
+              "family": "display",
+              "size": "var(--text-l)",
+              "weight": 600,
+              "line-height": "1.3",
+              "tracking": "-0.01em"
+            },
+            "caption": {
+              "family": "sans",
+              "size": "var(--text-s)",
+              "weight": 400,
+              "line-height": "1.3",
+              "text-wrap": "pretty",
+              "color": "var(--color-text-neutral-muted)"
+            },
+            "footnote": {
+              "family": "sans",
+              "size": "var(--text-xs)",
+              "weight": 400,
+              "line-height": "1.4",
+              "text-wrap": "pretty",
+              "color": "var(--color-text-neutral-muted)"
+            }
+          },
+          "headings": {
+            "h1": "display",
+            "h2": "heading",
+            "h3": "title",
+            "h4": "lead",
+            "body": "body"
+          }
+        },
+        "animations": {
+          "effects": {
+            "fade-in": {
+              "kf": "composite",
+              "vars": {
+                "opacity-from": 0
+              }
+            },
+            "slide-up": {
+              "kf": "composite",
+              "vars": {
+                "translate-y-from": "var(--slide-distance, 2rem)"
+              }
+            }
+          },
+          "journeys": {
+            "base": {
+              "fade": {
+                "opacity-from": 0
+              },
+              "slide": {}
+            },
+            "compose": [["fade"], ["slide"], ["fade", "slide"]]
+          }
+        },
+        "layout": {
+          "regionSpace": {
+            "min": "4rem",
+            "preferred": "12vh",
+            "max": "7rem"
+          }
+        }
+      }
+    },
+    "defaultColorScheme": "dark"
+  },
+  "organization": {
+    "name": "Vitops",
+    "logo": "/icon-512.png",
+    "email": "hi@vitops.ca",
+    "phone": "613-518-7984",
+    "legalName": "Monad Media Inc.",
+    "foundingDate": "2018-10-30",
+    "address": {
+      "streetAddress": "323 Coventry Road, Suite L086",
+      "addressLocality": "Ottawa",
+      "addressRegion": "ON",
+      "postalCode": "K1K 3X6",
+      "addressCountry": "CA"
+    },
+    "contact": {
+      "email": "hi@vitops.ca"
+    }
+  },
+  "site": {
+    "favicon": {
+      "source": "src/assets/vitops-mark.svg",
+      "name": "Vitops",
+      "themeColor": "#81b9a1",
+      "backgroundColor": "#141b26"
+    },
+    "accessibility": {
+      "standard": "wcag21",
+      "level": "AA"
+    },
+    "defaultLocale": "en",
+    "locales": {
+      "en": {
+        "name": "English"
+      }
+    },
+    "environments": {
+      "production": {
+        "url": "https://vitops.ca"
+      },
+      "dev": {
+        "url": "https://vitops-ca-v2-dev.monadmedia.workers.dev",
+        "robots": "noindex,nofollow"
+      }
+    },
+    "icons": {
+      "sprite": true,
+      "semantic": [
+        "menu",
+        "close",
+        "home",
+        "settings",
+        "search",
+        "add",
+        "remove",
+        "delete",
+        "edit",
+        "save",
+        "copy",
+        "paste",
+        "attach",
+        "upload",
+        "download",
+        "share",
+        "bookmark",
+        "favorite",
+        "star",
+        "login",
+        "logout",
+        "email",
+        "phone",
+        "location",
+        "globe",
+        "link",
+        "clock",
+        "calendar",
+        "schedule",
+        "person",
+        "group",
+        "file",
+        "folder",
+        "image",
+        "export",
+        "import",
+        "backup",
+        "compress",
+        "check",
+        "error",
+        "warning",
+        "info",
+        "help",
+        "cart",
+        "tag",
+        "receipt",
+        "leaf",
+        "tree",
+        "seedling",
+        "trowel",
+        "droplet",
+        "snowflake",
+        "sun",
+        "cloud",
+        "grid",
+        "list",
+        "filter",
+        "sort",
+        "fullscreen",
+        "collapse",
+        "building",
+        "video",
+        "lock",
+        "unlock",
+        "eye",
+        "print",
+        "code",
+        "palette",
+        "lightbulb",
+        "lightning"
+      ]
+    },
+    "fonts": [
+      {
+        "name": "Geist",
+        "provider": "google",
+        "cssVariable": "--font-geist",
+        "weights": [400, 500, 600],
+        "styles": ["normal"],
+        "subsets": ["latin"],
+        "preload": true
+      },
+      {
+        "name": "Geist Mono",
+        "provider": "google",
+        "cssVariable": "--font-geist-mono",
+        "weights": [400, 500],
+        "styles": ["normal"],
+        "subsets": ["latin"]
+      }
+    ],
+    "seo": {
+      "defaultDescription": "Marketing and software management for small businesses in Ottawa and across Ontario."
+    },
+    "notifications": {
+      "email": "hi@vitops.ca"
+    },
+    "templates": {
+      "contact": {
+        "type": "form",
+        "action": "/api/track",
+        "method": "post",
+        "honeypot": true,
+        "fields": [
+          {
+            "name": "interest",
+            "type": "select",
+            "label": "I’m interested in",
+            "options": [
+              {
+                "label": "Managed software",
+                "value": "Managed software"
+              },
+              {
+                "label": "Digital Marketing",
+                "value": "Digital Marketing"
+              },
+              {
+                "label": "A package",
+                "value": "A package"
+              },
+              {
+                "label": "Not sure yet",
+                "value": "Not sure yet"
+              }
+            ]
+          },
+          {
+            "name": "name",
+            "type": "text",
+            "label": "Name",
+            "required": true
+          },
+          {
+            "name": "email",
+            "type": "email",
+            "label": "Work email",
+            "required": true
+          },
+          {
+            "name": "company",
+            "type": "text",
+            "label": "Company (optional)"
+          },
+          {
+            "name": "message",
+            "type": "textarea",
+            "label": "Are you running ads now? (Google, Facebook and Instagram, or not yet)"
+          },
+          {
+            "name": "topics",
+            "type": "checkbox",
+            "label": "Want a free review? Pick what we should look at",
+            "options": [
+              {
+                "label": "Website",
+                "value": "Website"
+              },
+              {
+                "label": "Search and AI",
+                "value": "Search and AI"
+              },
+              {
+                "label": "Ads",
+                "value": "Ads"
+              },
+              {
+                "label": "Google profile",
+                "value": "Google profile"
+              },
+              {
+                "label": "Social media",
+                "value": "Social media"
+              },
+              {
+                "label": "Reviews and email",
+                "value": "Reviews and email"
+              },
+              {
+                "label": "Software",
+                "value": "Software"
+              },
+              {
+                "label": "Software costs",
+                "value": "Software costs"
+              },
+              {
+                "label": "Security and access",
+                "value": "Security and access"
+              },
+              {
+                "label": "AI tools",
+                "value": "AI tools"
+              },
+              {
+                "label": "Not sure",
+                "value": "Not sure"
+              }
+            ]
+          },
+          {
+            "name": "website_url",
+            "type": "text",
+            "label": "Your website"
+          },
+          {
+            "name": "team_size",
+            "type": "select",
+            "label": "How many people are on your team?",
+            "options": [
+              {
+                "label": "Just me",
+                "value": "Just me"
+              },
+              {
+                "label": "2 to 15",
+                "value": "2 to 15"
+              },
+              {
+                "label": "16 to 50",
+                "value": "16 to 50"
+              },
+              {
+                "label": "50+",
+                "value": "50+"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "chrome": {
+      "masthead": {
+        "position": "sticky",
+        "surface": "glass",
+        "layout": "full",
+        "width": "content",
+        "elevation": {
+          "border": true
+        },
+        "height": "4rem"
+      },
+      "nav": {
+        "compact": "drawer",
+        "drawerSide": "end"
+      }
+    },
+    "analytics": {
+      "plausibleDomain": "vitops.ca"
+    },
+    "tracking": {
+      "enabled": true,
+      "category": "marketing",
+      "platforms": ["google"]
+    },
+    "ads": {
+      "google": {
+        "accountId": "",
+        "pixelId": "",
+        "conversionLabel": {
+          "call": "",
+          "email": "",
+          "form": ""
+        },
+        "enabled": false
+      }
+    },
+    "crm": {
+      "provider": "bigin",
+      "bigin": {
+        "dataCenter": "ca"
+      }
+    },
+    "campaigns": {
+      "provider": "zoho-campaigns",
+      "zohoCampaigns": {
+        "dataCenter": "com"
+      },
+      "lists": {
+        "updates": {
+          "label": "Email updates",
+          "zohoCampaigns": {
+            "listKey": ""
+          }
+        }
+      },
+      "enabled": false
+    },
+    "legal": {
+      "cookieConsent": {
+        "enabled": true
+      },
+      "jurisdiction": "ca",
+      "privacyPolicy": {
+        "enabled": true,
+        "url": "https://vitops.ca/privacy",
+        "lastUpdated": "2026-11-26"
+      },
+      "termsOfService": {
+        "enabled": true,
+        "url": "https://vitops.ca/terms",
+        "lastUpdated": "2026-11-26"
+      },
+      "accessibilityStatement": {
+        "enabled": true,
+        "url": "https://vitops.ca/accessibility",
+        "lastUpdated": "2026-11-26",
+        "law": "aoda"
+      }
+    },
+    "plan": {
+      "key": "internal",
+      "addons": ["server_side_tracking"]
+    },
+    "domains": {
+      "canonical": "https://vitops.ca"
+    },
+    "deployment": {
+      "platform": "cloudflare"
+    }
+  }
+}

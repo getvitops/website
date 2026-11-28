@@ -1,69 +1,14 @@
 ---
-// On-demand: the header, footer and nav come from
-// EmDash menus (src/lib/chrome.ts), so a menu edit must reach this page without
-// a rebuild. PineLayout tags the response with the menus it read; editing one
-// purges it. Deliberately NOT given a cache lifetime: every unknown URL lands
-// here, and each would otherwise become its own week-long edge entry.
-export const prerender = false;
+import Layout from '../layouts/Layout.astro';
 
-import PineLayout from "../layouts/PineLayout.astro";
+// Prerendered to /404.html; Astro serves it with a 404 status for any URL no route matches.
+export const prerender = true;
 ---
 
-<PineLayout title="Page not found">
-	<section class="not-found section centered">
-		<div class="spotlight not-found-inner">
-			<div class="not-found-code font-display" aria-hidden="true">404</div>
-			<h1 class="font-title">Page not found</h1>
-			<p class="font-lead">
-				The page you're looking for doesn't exist or has been moved.
-			</p>
-			<div class="not-found-actions cluster">
-				<a class="cta" href="/">Go home <span class="arrow"></span></a>
-				<a class="cta-ghost" href="/#contact">Talk to us</a>
-			</div>
-		</div>
-	</section>
-</PineLayout>
-
-<style>
-	.not-found-inner {
-		text-align: center;
-		padding-block: clamp(3rem, 10vw, 7rem);
-	}
-
-	.not-found-code {
-		font-size: clamp(6rem, 18vw, 10rem);
-		line-height: 1;
-		letter-spacing: -0.05em;
-		color: var(--color-slate);
-		opacity: 0.5;
-		margin-bottom: 1rem;
-	}
-
-	.not-found h1 {
-		font-size: clamp(1.75rem, 4vw, 2.5rem);
-		margin-bottom: 0.75rem;
-	}
-
-	/* Not `.centered`: this section is already inside .section.centered's page-
-	   scale grid (see markup) — this is a reading-measure cap on one paragraph,
-	   not a competing hand-rolled container. `vitops lint` pattern-matches on
-	   `max-width` + auto margins together, which this paragraph's centring
-	   happens to also trip. */
-	.not-found p {
-		color: var(--color-mist);
-		margin: 0 auto 2rem;
-		max-width: 44ch;
-	}
-
-	.not-found-actions {
-		justify-content: center;
-	}
-
-	@media (max-width: 480px) {
-		.not-found-actions {
-			flex-direction: column;
-			align-items: center;
-		}
-	}
-</style>
+<Layout title="Page not found">
+  <section class="centered rhythm region">
+    <h1>Page not found</h1>
+    <p>The page you're looking for doesn't exist (or isn't published yet).</p>
+    <p><a href="/">Back to the home page</a></p>
+  </section>
+</Layout>

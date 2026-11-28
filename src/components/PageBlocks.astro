@@ -1,0 +1,26 @@
+---
+// Maps each block type to its renderer: `vitops_section` comes from @getvitops/emdash,
+// the site-local vt_* types from ./blocks. (Seeded in the `pages.layout` blocks field.)
+// <Blocks> renders in stored order; Portable Text bodies inside a
+// block go through <PortableText>, which is where vitops.* blocks resolve.
+import { Blocks, defineBlockComponents } from 'emdash/ui';
+import { blockTypeComponents } from '@getvitops/emdash/astro';
+import Compare from './blocks/Compare.astro';
+import Dashboard from './blocks/Dashboard.astro';
+import Estimate from './blocks/Estimate.astro';
+import Hero from './blocks/Hero.astro';
+
+interface Props {
+  value: unknown[];
+}
+
+const components = defineBlockComponents<any>({
+  ...blockTypeComponents, // vitops_section
+  vt_hero: Hero,
+  vt_compare: Compare,
+  vt_dashboard: Dashboard,
+  vt_estimate: Estimate,
+});
+---
+
+<Blocks value={Astro.props.value as never} components={components} />
