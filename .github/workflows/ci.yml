@@ -1,7 +1,12 @@
-# Runs on every PR: typecheck + design-lint + build. deploy-dev.yml /
-# deploy-prod.yml call the same reusable `site-ci.yml` themselves before they
-# deploy, so this is what gives a PR the identical signal before it's even
-# merged to `dev` — a broken build never reaches the dev worker.
+# Runs on every PR: typecheck + design-lint + build.
+#
+# These are the steps of the toolchain's reusable `site-ci.yml@v1`, written out here because that
+# workflow runs `pnpm run build` on a runner with no local database, and the build then refuses
+# to continue ("prerendered pages that are not real pages"). The extra step is "Prepare local
+# database", with a retry, because `vitops emdash prepare-db` can time out waiting for
+# `astro dev` on a clean runner (getvitops/design-system#25).
+# Go back to the reusable workflow (`uses: getvitops/design-system/.github/workflows/site-ci.yml@v1`)
+# once that issue is fixed.
 name: CI
 
 on:
@@ -9,4 +14,41 @@ on:
 
 jobs:
   ci:
-    uses: getvitops/design-system/.github/workflows/site-ci.yml@v1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Design lint
+        run: pnpm run lint:design
+
+      - name: Prepare local database
+        run: |
+          for attempt in 1 2 3; do
+            if pnpm run prepare-local-db; then exit 0; fi
+            echo "::warning::prepare-local-db failed (attempt $attempt of 3)"
+            pnpm exec astro dev stop || true
+            sleep 5
+          done
+          exit 1
+
+      - name: Cache Astro assets
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.astro
+          key: astro-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'src/assets/**') }}
+          restore-keys: astro-${{ runner.os }}-
+
+      - name: Build
+        run: pnpm run build
