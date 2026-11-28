@@ -1,5 +1,23 @@
 # TODO
 
+## Cutover to dev (PR getvitops/website#15, `cutover-v2` into `dev`)
+
+CI passes. Merging triggers Deploy dev, which will probably fail before deploying anything. Nothing live changes either way.
+
+- [ ] **Set the `DEV_D1_ID` repo secret** to a fresh D1 (`wrangler d1 create vitops-ca-v2-dev`). The repo only has the old
+      `VITOPS_DEV_D1_ID`. Do not point it at the old dev D1: the migrations would run on old data and the seed would not apply.
+- [ ] **Dev deploy runs the same `prepare-db` step that timed out in CI**
+      ([design-system#25](https://github.com/getvitops/design-system/issues/25)). `ci.yml` works around it with a retry;
+      `deploy-dev.yml` and `deploy-prod.yml` still use the reusable workflows. Apply the same workaround there, or wait for the fix.
+- [ ] **The reusable deploy reads `site.json`**, which this repo does not have
+      ([design-system#26](https://github.com/getvitops/design-system/issues/26)). Expect the image-transform step to fail until fixed.
+- [ ] **`vitops report` over-redacts the toolchain name**
+      ([design-system#27](https://github.com/getvitops/design-system/issues/27)); restore the name by hand when filing.
+- [ ] Review what the cutover dropped from the old `dev`: `promote-content.yml`, `promote-schema.yml`, `refresh-dev.yml`, the old
+      `scripts/`, and `content-plan/` (still in history).
+- [ ] Before promoting to `main`: the new `wrangler.jsonc` has no `vitops.ca` custom domain route and different D1/R2 names from
+      the live site. Review that deploy separately.
+
 ## Open (no admin access needed)
 
 - [x] **`/dashboard` axe `color-contrast`: an audit artifact, not a real failure** (checked 2026-11-27).
